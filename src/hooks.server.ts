@@ -1,4 +1,3 @@
-import type { Handle, HandleServerError } from '@sveltejs/kit'
 import crypto from 'crypto'
 import * as Sentry from '@sentry/node'
 import {
@@ -16,7 +15,7 @@ if (import.meta.env.PROD) {
   })
 }
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle = async ({ event, resolve }) => {
   event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -45,7 +44,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   })
 }
 
-export const handleError: HandleServerError = ({ error, event }) => {
+export const handleError = ({ error, event }) => {
   const errorId = crypto.randomUUID()
 
   // Only emit errors in production

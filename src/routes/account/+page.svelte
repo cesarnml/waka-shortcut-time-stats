@@ -1,10 +1,10 @@
 <!-- src/routes/account/+page.svelte -->
 <script lang="ts">
   import { enhance } from '$app/forms'
-  import type { ActionData, PageData } from './$types'
+  import { goto } from '$app/navigation'
 
-  export let data: PageData
-  export let form: ActionData
+  export let data
+  export let form
 
   let { session, profile } = data
 
@@ -19,6 +19,7 @@
     loading = true
     return async () => {
       loading = false
+      goto('/', { replaceState: true })
     }
   }
 </script>

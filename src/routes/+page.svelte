@@ -2,10 +2,9 @@
 <script lang="ts">
   import { Auth } from '@supabase/auth-ui-svelte'
   import { ThemeSupa } from '@supabase/auth-ui-shared'
-  import type { PageData } from './$types'
   import { page } from '$app/stores'
 
-  export let data: PageData
+  export let data
 </script>
 
 <svelte:head>
