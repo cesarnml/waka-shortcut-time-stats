@@ -2,9 +2,8 @@
   import { browser } from '$app/environment'
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
-  import type { PageData } from './$types'
 
-  export let data: PageData
+  export let data
   $: {
     const redirectTo = $page.url.searchParams.get('redirect')
 

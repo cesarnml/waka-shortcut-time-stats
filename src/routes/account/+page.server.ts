@@ -1,7 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
-import type { Actions, PageServerLoad } from './$types'
 
-export const load = (async ({ locals: { supabase, getSession } }) => {
+export const load = async ({ locals: { supabase, getSession } }) => {
   const session = await getSession()
 
   if (!session) {
@@ -15,7 +14,7 @@ export const load = (async ({ locals: { supabase, getSession } }) => {
     .single()
 
   return { session, profile }
-}) satisfies PageServerLoad
+}
 
 export const actions = {
   update: async ({ request, locals: { supabase, getSession } }) => {
@@ -62,4 +61,4 @@ export const actions = {
       throw redirect(303, '/')
     }
   },
-} satisfies Actions
+}
