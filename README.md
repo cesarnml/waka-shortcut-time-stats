@@ -1,38 +1,10 @@
-# create-svelte
+# WakaStats
+[![wakatime](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg)](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Built with SvelteKit.
 
-## Creating a project
+## Coverage
 
-If you're seeing this, you've probably already done this step. Congrats!
+[![codecov](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats/branch/main/graph/badge.svg?token=wyQL5kG765)](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+![wakastats coverage](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats/branch/main/graphs/sunburst.svg?token=wyQL5kG765)
