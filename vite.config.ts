@@ -24,7 +24,28 @@ const config = defineConfig(({ mode }) => {
         : '',
     ],
     test: {
-      include: ['src/**/*.{test,spec}.{js,ts}'],
+      globals: true,
+      environment: 'jsdom',
+      include: ['src/**/*.spec.{js,ts}'],
+      coverage: {
+        provider: 'istanbul',
+        all: true,
+        reporter: ['json', 'html', 'text'],
+        src: ['./src'],
+        include: ['src/**/*.{ts, svelte}'],
+        exclude: [
+          'src/lib/external',
+          'src/lib/typings',
+          'src/routes/**/+page.svelte',
+          'src/routes/**/+layout.svelte',
+          'src/routes/**/+page*.ts',
+          'src/routes/**/+layout*.ts',
+          'src/routes/**/+error.svelte',
+          'src/hooks.client.ts',
+          'src/hooks.server.ts',
+          'src/**/*.spec.{js,ts}',
+        ],
+      },
     },
   }
 })
