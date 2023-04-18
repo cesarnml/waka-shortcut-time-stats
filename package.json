@@ -12,9 +12,11 @@
     "test:unit": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint .",
-    "format": "prettier --plugin-search-dir . --write ."
+    "format": "prettier --plugin-search-dir . --write .",
+    "codegen": "rm -rf src/lib/generated/openapi/shortcut; openapi-generator-cli generate -i https://developer.shortcut.com/api/rest/v3/shortcut.swagger.json -o src/lib/generated/openapi/shortcut -g typescript-fetch --additional-properties=supportsES6=true,npmVersion=6.9.0,typescriptThreePlus=true"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "2.6.0",
     "@playwright/test": "1.32.3",
     "@sentry/node": "7.48.0",
     "@sentry/svelte": "7.48.0",
