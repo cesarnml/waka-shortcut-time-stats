@@ -12,11 +12,14 @@
   const { summaries } = data
 
   const xSummaries = summaries.data.map((item) => dayjs(item.range.date).format('MMM Do'))
+
   const projectsByDate = summaries.data.map((item) => item.projects)
   const categoriesByDate = summaries.data.map((item) => item.categories)
+  const languagesByDate = summaries.data.map((item) => item.languages)
 
   const yDataByCategory: Record<string, number[]> = {}
   const yDataByProject: Record<string, number[]> = {}
+  const languageToWeeklyCodingTime: Record<string, number> = {}
 
   projectsByDate.forEach((projects, dateIndex) => {
     projects.forEach((project) => {
@@ -50,6 +53,21 @@
       }
     })
   })
+
+  languagesByDate.forEach((languages) => {
+    languages.forEach((language) => {
+      if (languageToWeeklyCodingTime[language.name] === undefined) {
+        languageToWeeklyCodingTime[language.name] = language.total_seconds
+      } else {
+        languageToWeeklyCodingTime[language.name] += language.total_seconds
+      }
+    })
+  })
+
+  const dataPie = Object.keys(languageToWeeklyCodingTime).map((language) => ({
+    value: Math.floor(languageToWeeklyCodingTime[language] / languagesByDate.length),
+    name: language,
+  }))
 
   const seriesProject = Object.keys(yDataByProject).map((key) => {
     return {
@@ -97,7 +115,6 @@
     }
 
     const categoryChart = document.getElementById('wcs-category')
-
     if (categoryChart) {
       const myChart = echarts.init(categoryChart, undefined, { renderer: 'svg' })
       window.addEventListener('resize', function () {
@@ -121,6 +138,35 @@
       // Display the chart using the configuration items and data just specified.
       myChart.setOption(option)
     }
+
+    const languagePie = document.getElementById('pie')
+
+    if (languagePie) {
+      const myChart = echarts.init(languagePie)
+      const option = {
+        tooltip: {
+          trigger: 'item',
+        },
+        legend: {},
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: '50%',
+            data: dataPie,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            },
+          },
+        ],
+      }
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option)
+    }
   })
 </script>
 
@@ -133,6 +179,8 @@
   <div id="wcs-project" class="h-96 w-screen" />
   <h2 class="mb-4 text-center text-3xl">Weekly Coding Stats by Category</h2>
   <div id="wcs-category" class="h-96 w-screen" />
+  <h2 class="mb-4 text-center text-3xl">Languages</h2>
+  <div id="pie" class="h-[600px] w-screen" />
   <h2 class="text-4xl">Grand Total</h2>
   <pre>{JSON.stringify(data.allTimeSinceToday, null, 2)}</pre>
   <hr />
