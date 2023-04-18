@@ -2,27 +2,6 @@ import { WAKA_API_KEY } from '$env/static/private'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
-export type WakaTimeRange = {
-  end: string
-  end_date: string
-  end_text: string
-  start: string
-  start_date: string
-  start_text: string
-  timezone: string
-}
-
-export type AllTimeSinceTodayData = {
-  decimal: string
-  digital: string
-  is_up_to_date: boolean
-  percent_calculated: number
-  range: WakaTimeRange
-  text: string
-  timeout: number
-  total_seconds: number
-}
-
 export type CumulativeTotal = {
   decimal: string
   digital: string
@@ -59,6 +38,14 @@ export type WakaMachine = WakaCategory & { machine_name_id: string }
 export type WakaOperatingSystem = WakaCategory
 export type WakaProject = WakaCategory & { color: string | null }
 
+export type WakaRange = {
+  date: string
+  end: string
+  start: string
+  text: string
+  timezone: string
+}
+
 export type GrandTotal = {
   decimal: string
   digital: string
@@ -77,7 +64,7 @@ export type SummariesData = {
   machines: WakaMachine[]
   operating_systems: WakaOperatingSystem[]
   projects: WakaProject[]
-  range: WakaTimeRange
+  range: WakaRange
 }
 
 export type SummariesResponse = {
