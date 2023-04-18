@@ -56,8 +56,8 @@
         darkMode: false,
         tooltip: {},
         legend: {
+          type: 'scroll',
           align: 'auto',
-          padding: 10,
         },
         xAxis: {
           data: xSummaries,
