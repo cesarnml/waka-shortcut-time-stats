@@ -14,8 +14,8 @@ devDependencies:
     specifier: 7.48.0
     version: 7.48.0(svelte@3.58.0)
   '@sentry/vite-plugin':
-    specifier: 0.6.0
-    version: 0.6.0
+    specifier: 0.7.2
+    version: 0.7.2
   '@supabase/auth-helpers-sveltekit':
     specifier: 0.9.3
     version: 0.9.3(@supabase/supabase-js@2.20.0)(@sveltejs/kit@1.15.5)
@@ -794,8 +794,8 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@sentry/bundler-plugin-core@0.6.0:
-    resolution: {integrity: sha512-gDPBkFxiOkc525U9pxnGMI5B2DAG0+UCsNuiNgl9+AieDcPSYTwdzfGHytxDZrQgPMvIHEnTAp1VlNB+6UxUGQ==}
+  /@sentry/bundler-plugin-core@0.7.2:
+    resolution: {integrity: sha512-9d1MxEgRkPCTewQ26Bs+J/GxvnNVIRuQPZrHs70qRLotMiedH4KlHauh2MhbgH5rdgm0DUeOcafhxoBSK7ji3w==}
     engines: {node: '>= 10'}
     dependencies:
       '@sentry/cli': 2.17.2
@@ -895,11 +895,11 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@sentry/vite-plugin@0.6.0:
-    resolution: {integrity: sha512-3J1ESvbI5okGJaSWm+gTAOOIa96u4ZwfI/C3n+0HSStz3e4vGiGUh59iNyb1/2m5HFgR5OLaHNfAvlyP8GM/ew==}
+  /@sentry/vite-plugin@0.7.2:
+    resolution: {integrity: sha512-gprT6wyc1JEtjZcWjv1jQSjT2QV62ZCLmXsjK4oKosb0uaaUMR4UgKxorZyNPGSY08YangjumeJZ7UX0/zakkw==}
     engines: {node: '>= 10'}
     dependencies:
-      '@sentry/bundler-plugin-core': 0.6.0
+      '@sentry/bundler-plugin-core': 0.7.2
     transitivePeerDependencies:
       - encoding
       - supports-color
