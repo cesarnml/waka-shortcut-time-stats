@@ -58,6 +58,9 @@ devDependencies:
   daisyui:
     specifier: 2.51.5
     version: 2.51.5(autoprefixer@10.4.14)(postcss@8.4.22)
+  dayjs:
+    specifier: 1.11.7
+    version: 1.11.7
   echarts:
     specifier: 5.4.2
     version: 5.4.2
@@ -73,6 +76,9 @@ devDependencies:
   jsdom:
     specifier: 21.1.1
     version: 21.1.1
+  lodash:
+    specifier: 4.17.21
+    version: 4.17.21
   nyc:
     specifier: 15.1.0
     version: 15.1.0
@@ -1894,6 +1900,10 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       time-zone: 1.0.0
+    dev: true
+
+  /dayjs@1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
     dev: true
 
   /debug@2.6.9:
