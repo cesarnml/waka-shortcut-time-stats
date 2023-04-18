@@ -77,7 +77,7 @@
 </svelte:head>
 
 <div>
-  <div id="example-chart" style="width: 100vw;height:400px;border: 1px solid red" />
+  <div id="example-chart" style="width: 100vw;height:600px" />
   <h2 class="text-4xl">Grand Total</h2>
   <pre>{JSON.stringify(data.allTimeSinceToday, null, 2)}</pre>
   <hr />
