@@ -2,7 +2,7 @@ import { WAKA_API_KEY } from '$env/static/private'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
-export type WakaTimeRange = {
+export type WakaFullRange = {
   end: string
   end_date: string
   end_text: string
@@ -17,7 +17,7 @@ export type AllTimeSinceTodayData = {
   digital: string
   is_up_to_date: boolean
   percent_calculated: number
-  range: WakaTimeRange
+  range: WakaFullRange
   text: string
   timeout: number
   total_seconds: number
