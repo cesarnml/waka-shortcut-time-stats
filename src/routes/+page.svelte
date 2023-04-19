@@ -12,7 +12,7 @@
   const { summaries } = data
   let chart: HTMLDivElement
   let gaugeChart: echarts.ECharts
-  let gaugeOption: eEChartsOption
+  let gaugeOption: EChartsOption
   $: dailyAverage = summaries.daily_average.seconds_including_other_language
   $: daysCount = summaries.data.length
   $: todayData = summaries.data.at(-1)?.grand_total.total_seconds ?? 0
@@ -78,7 +78,7 @@
     name: language,
   }))
 
-  const seriesProject = Object.keys(yDataByProject).map((key) => {
+  const seriesProject: echarts.SeriesOption[] = Object.keys(yDataByProject).map((key) => {
     return {
       data: yDataByProject[key],
       type: 'bar',
