@@ -78,9 +78,9 @@
                 if (value === 0.9) {
                   return '😄'
                 } else if (value === 0.7) {
-                  return '😄'
-                } else if (value === 0.5) {
                   return '🙂'
+                } else if (value === 0.5) {
+                  return '😐'
                 } else if (value === 0.3) {
                   return '🫤'
                 } else if (value === 0.1) {
