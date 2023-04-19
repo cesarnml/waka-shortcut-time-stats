@@ -1,6 +1,5 @@
 import { WAKA_API_KEY } from '$env/static/private'
 import { json } from '@sveltejs/kit'
-import type { RequestHandler } from './$types'
 
 export type CumulativeTotal = {
   decimal: string
@@ -36,7 +35,7 @@ export type WakaEditor = WakaCategory
 export type WakaLanguage = WakaCategory
 export type WakaMachine = WakaCategory & { machine_name_id: string }
 export type WakaOperatingSystem = WakaCategory
-export type WakaProject = WakaCategory & { color: string | null }
+export type WakaProjectSlim = WakaCategory & { color: string | null }
 
 export type WakaRange = {
   date: string
@@ -63,11 +62,11 @@ export type SummariesData = {
   languages: WakaLanguage[]
   machines: WakaMachine[]
   operating_systems: WakaOperatingSystem[]
-  projects: WakaProject[]
+  projects: WakaProjectSlim[]
   range: WakaRange
 }
 
-export type SummariesResponse = {
+export type SummariesResult = {
   cumulative_total: CumulativeTotal
   daily_average: DailyAverage
   data: SummariesData[]
@@ -75,14 +74,15 @@ export type SummariesResponse = {
   start: string
 }
 
-export const GET: RequestHandler = async ({ fetch }) => {
+export const GET = async ({ fetch }) => {
+  // TODO: Extend to match API ref: https://wakatime.com/developers#summaries
   const baseUrl = 'https://wakatime.com/api/v1'
   const resource = '/users/current/summaries'
 
   const response = await fetch(`${baseUrl}${resource}?range=Last 7 Days&api_key=${WAKA_API_KEY}`, {
     method: 'GET',
   })
-  const summaries: SummariesResponse = await response.json()
 
+  const summaries: SummariesData[] = await response.json()
   return json(summaries)
 }

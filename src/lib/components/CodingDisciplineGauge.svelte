@@ -3,11 +3,11 @@
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResponse } from '../../routes/api/wakatime/current/summaries/+server'
+  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   dayjs.extend(advanceFormat)
 
-  export let summaries: SummariesResponse
+  export let summaries: SummariesResult
 
   $: dailyAverage = summaries.daily_average.seconds_including_other_language
   $: todayData = summaries.data.at(-1)?.grand_total.total_seconds ?? 0

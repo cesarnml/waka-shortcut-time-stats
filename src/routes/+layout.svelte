@@ -20,10 +20,6 @@
   })
 </script>
 
-<svelte:head>
-  <title>User Management</title>
-</svelte:head>
-
 <div class="bg-slate-700">
   <div class="mx-auto max-w-screen-xl">
     <slot />
