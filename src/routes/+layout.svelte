@@ -24,6 +24,8 @@
   <title>User Management</title>
 </svelte:head>
 
-<div style="padding: 50px 0 100px 0">
-  <slot />
+<div class="bg-slate-700">
+  <div class="mx-auto max-w-screen-xl">
+    <slot />
+  </div>
 </div>
