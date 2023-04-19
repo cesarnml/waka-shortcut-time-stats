@@ -3,11 +3,11 @@
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResponse } from '../../routes/api/wakatime/current/summaries/+server'
+  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   dayjs.extend(advanceFormat)
 
-  export let summaries: SummariesResponse
+  export let summaries: SummariesResult
 
   const languagesByDate = summaries.data.map((item) => item.languages)
   const languageToWeeklyCodingTime: Record<string, number> = {}
