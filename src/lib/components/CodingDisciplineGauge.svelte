@@ -30,7 +30,7 @@
             startAngle: 180,
             endAngle: 0,
             center: ['50%', '75%'],
-            radius: '95%',
+            radius: '75%',
             min: 0,
             max: 1.0,
             splitNumber: 10,
@@ -48,8 +48,8 @@
             },
             pointer: {
               icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-              length: '16%',
-              width: 18,
+              length: '12%',
+              width: 16,
               offsetCenter: [0, '-60%'],
               itemStyle: {
                 color: 'inherit',
@@ -71,8 +71,8 @@
             },
             axisLabel: {
               color: '#fafafa',
-              fontSize: 32,
-              distance: -60,
+              fontSize: 28,
+              distance: -50,
               rotate: 'tangential',
               formatter: function (value: number) {
                 if (value === 0.9) {
@@ -84,22 +84,22 @@
                 } else if (value === 0.3) {
                   return '🫤'
                 } else if (value === 0.1) {
-                  return '🤨'
+                  return '🙁'
                 }
                 return ''
               },
             },
             title: {
               offsetCenter: [0, '-10%'],
-              fontSize: 20,
+              fontSize: 16,
               color: '#fafafa',
             },
             detail: {
-              fontSize: 20,
+              fontSize: 16,
               offsetCenter: [0, '-35%'],
               valueAnimation: true,
               formatter: function (value: number) {
-                return Math.round(value * 100) + '' + '%' + ' of Daily Avg'
+                return Math.round(value * 100) + '' + '%' + ' of Avg'
               },
               color: 'inherit',
             },
