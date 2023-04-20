@@ -3,6 +3,8 @@
   import CodingActivityChartByCategory from '$lib/components/CodingActivityChartByCategory.svelte'
   import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
   import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
+  import CodingActivityChartByWeekdays from '$lib/components/CodingActivityChartByWeekdays.svelte'
+
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -15,10 +17,13 @@
 </svelte:head>
 
 <div class="pt-8">
-  <CodingActivityChartByProject {summaries} />
-  <CodingActivityChartByCategory {summaries} />
-  <CodingLanguagePieChart {summaries} />
-  <CodingDisciplineGauge {summaries} />
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+    <CodingActivityChartByProject {summaries} />
+    <CodingActivityChartByCategory {summaries} />
+    <CodingLanguagePieChart {summaries} />
+    <CodingDisciplineGauge {summaries} />
+    <CodingActivityChartByWeekdays {summaries} />
+  </div>
   <h2 class="text-4xl">Grand Total</h2>
   <pre>{JSON.stringify(allTimeSinceToday, null, 2)}</pre>
   <hr />

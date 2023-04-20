@@ -52,8 +52,11 @@
       const option: echarts.EChartsOption = {
         tooltip: {},
         legend: {
+          padding: 10,
           type: 'scroll',
-          align: 'auto',
+          textStyle: {
+            color: '#fafafa',
+          },
         },
         xAxis: {
           data: xSummaries,
@@ -70,5 +73,7 @@
   })
 </script>
 
-<h2 class="mb-8 text-center text-3xl text-stone-300">Weekly Coding Stats by Project</h2>
-<div id="wcs-project" class="mb-8 h-96 w-full bg-slate-950 p-4" />
+<div class="space-y-8 bg-slate-950 pt-4">
+  <h2 class="text-center text-3xl text-stone-300">Weekly Coding Stats by Project</h2>
+  <div id="wcs-project" class="mb-8 h-96 w-full" />
+</div>

@@ -30,7 +30,7 @@
             startAngle: 180,
             endAngle: 0,
             center: ['50%', '75%'],
-            radius: '90%',
+            radius: '95%',
             min: 0,
             max: 1.0,
             splitNumber: 10,
@@ -106,7 +106,7 @@
             data: [
               {
                 value: todayDecimal,
-                name: `${dayjs().format('MMM DD, YYYY')}\nToday`,
+                name: `Today\n ${dayjs().format('MMM DD, YYYY')}`,
               },
             ],
           },
@@ -148,13 +148,15 @@
   }
 </script>
 
-<h2 class="mb-8 text-center text-3xl text-stone-300">Discipline Gauge</h2>
-<div class="mb-8 bg-slate-950 p-4">
-  <div class="flex justify-center gap-4">
-    <button class="btn-primary btn-sm btn" on:click={() => handleClick('Yesterday')}
-      >Yesterday</button
-    >
-    <button class="btn-secondary btn-sm btn" on:click={() => handleClick('Today')}>Today</button>
+<div class="space-y-8 bg-slate-950 pt-4">
+  <h2 class="text-center text-3xl text-stone-300">Discipline Gauge</h2>
+  <div>
+    <div class="flex justify-center gap-4">
+      <button class="btn-primary btn-sm btn" on:click={() => handleClick('Yesterday')}
+        >Yesterday</button
+      >
+      <button class="btn-secondary btn-sm btn" on:click={() => handleClick('Today')}>Today</button>
+    </div>
+    <div id="gauge" class="h-96 w-full" />
   </div>
-  <div id="gauge" class="h-96 w-full" />
 </div>
