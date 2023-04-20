@@ -4,12 +4,11 @@
   import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
   import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
   import CodingActivityChartByWeekdays from '$lib/components/CodingActivityChartByWeekdays.svelte'
-
-  import type { PageData } from './$types'
   import DurationsByProject from '$lib/components/DurationsByProject.svelte'
+  import type { PageData } from './$types'
 
   export let data: PageData
-  const { summaries, allTimeSinceToday, iterations, projects } = data
+  const { summaries, allTimeSinceToday, iterations, durations, projects } = data
   let wakaProjects = projects.data
 </script>
 
@@ -24,7 +23,7 @@
     <CodingLanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
     <CodingActivityChartByWeekdays {summaries} />
-    <DurationsByProject />
+    <DurationsByProject {durations} />
   </div>
   <div class="grid grid-cols-5 gap-6">
     {#each wakaProjects as project (project.id)}

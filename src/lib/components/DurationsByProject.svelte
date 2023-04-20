@@ -1,52 +1,55 @@
 <script lang="ts">
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
+  import type { DurationsResult } from '../../routes/api/wakatime/current/durations/+server'
+  import { groupBy } from 'lodash'
+  import dayjs from 'dayjs'
+
+  export let durations: DurationsResult
+
+  const projects = [...new Set(durations.data.map((duration) => duration.project))]
+  const durationsByProject = groupBy(durations.data, 'project')
 
   onMount(() => {
     var chartDom = document.getElementById('durations')
-    if (chartDom) {
-      var myChart = echarts.init(chartDom)
-      var option
 
-      var data = []
-      var dataCount = 10
-      var startTime = +new Date()
-      var categories = ['categoryA', 'categoryB', 'categoryC']
-      var types = [
-        { name: 'JS Heap', color: '#7b9ce1' },
-        { name: 'Documents', color: '#bd6d6c' },
-        { name: 'Nodes', color: '#75d874' },
-        { name: 'Listeners', color: '#e0bc78' },
-        { name: 'GPU Memory', color: '#dc77dc' },
-        { name: 'GPU', color: '#72b362' },
-      ]
-      // Generate mock data
-      categories.forEach(function (category, index) {
-        var baseTime = startTime
-        for (var i = 0; i < dataCount; i++) {
-          var typeItem = types[Math.round(Math.random() * (types.length - 1))]
-          var duration = Math.round(Math.random() * 10000)
+    if (chartDom) {
+      const myChart = echarts.init(chartDom)
+      window.addEventListener(
+        'resize',
+        function () {
+          myChart.resize()
+        },
+        { passive: true },
+      )
+      const startTime = dayjs(durations.start).unix()
+      const data: any[] = []
+
+      projects.forEach((project, index) => {
+        durationsByProject[project].forEach((duration) => {
           data.push({
-            name: typeItem.name,
-            value: [index, baseTime, (baseTime += duration), duration],
+            name: duration.project,
+            value: [
+              index,
+              Math.floor(duration.time),
+              Math.floor(duration.time) + Math.floor(duration.duration),
+              Math.floor(duration.duration),
+            ],
             itemStyle: {
               normal: {
-                color: typeItem.color,
+                color: duration.color ?? '#fff',
               },
             },
           })
-          baseTime += Math.round(Math.random() * 2000)
-        }
+        })
       })
-      option = {
+
+      const option: echarts.EChartsOption = {
         tooltip: {
           formatter: function (params) {
-            return params.marker + params.name + ': ' + params.value[3] + ' ms'
+            // @ts-expect-error no clue
+            return params.marker + params.name + ': ' + Math.floor(params.value[3] / 60) + ' min'
           },
-        },
-        title: {
-          text: 'Profile',
-          left: 'center',
         },
         dataZoom: [
           {
@@ -62,26 +65,72 @@
           },
         ],
         grid: {
-          height: 300,
+          height: 250,
+          left: 30,
+          right: 30,
         },
         xAxis: {
           min: startTime,
-          scale: true,
+          type: 'time',
           axisLabel: {
-            formatter: function (val) {
-              return Math.max(0, val - startTime) + ' ms'
+            color: '#fafafa',
+            formatter: function (val: number) {
+              return Math.floor(Math.max(0, val - startTime) / 60 / 60) + 'h'
             },
           },
         },
         yAxis: {
-          data: categories,
+          data: projects,
+          type: 'category',
+          axisLabel: {
+            color: '#fafafa',
+            inside: true,
+            fontSize: 14,
+            fontWeight: 'bold',
+            fontFamily: 'monospace',
+            textBorderColor: '#ff0000',
+            textBorderWidth: 3,
+            textBorderType: 'solid',
+          },
         },
         series: [
           {
             type: 'custom',
-            renderItem: renderItem,
+            renderItem: (params, api) => {
+              const categoryIndex = api.value(0)
+              const start = api.coord([api.value(1), categoryIndex])
+              const end = api.coord([api.value(2), categoryIndex])
+              // @ts-expect-error no clue
+              const height = api.size([0, 1])[1] * 0.6
+              const rectShape = echarts.graphic.clipRectByRect(
+                {
+                  x: start[0],
+                  y: start[1] - height / 2,
+                  width: end[0] - start[0],
+                  height: height,
+                },
+                {
+                  // @ts-expect-error no clue
+                  x: params.coordSys.x,
+                  // @ts-expect-error no clue
+                  y: params.coordSys.y,
+                  // @ts-expect-error no clue
+                  width: params.coordSys.width,
+                  // @ts-expect-error no clue
+                  height: params.coordSys.height,
+                },
+              )
+              return (
+                rectShape && {
+                  type: 'rect',
+                  transition: ['shape'],
+                  shape: rectShape,
+                  style: api.style(),
+                }
+              )
+            },
             itemStyle: {
-              opacity: 0.8,
+              opacity: 0.4,
             },
             encode: {
               x: [1, 2],
@@ -94,39 +143,10 @@
 
       option && myChart.setOption(option)
     }
-
-    function renderItem(params, api) {
-      var categoryIndex = api.value(0)
-      var start = api.coord([api.value(1), categoryIndex])
-      var end = api.coord([api.value(2), categoryIndex])
-      var height = api.size([0, 1])[1] * 0.6
-      var rectShape = echarts.graphic.clipRectByRect(
-        {
-          x: start[0],
-          y: start[1] - height / 2,
-          width: end[0] - start[0],
-          height: height,
-        },
-        {
-          x: params.coordSys.x,
-          y: params.coordSys.y,
-          width: params.coordSys.width,
-          height: params.coordSys.height,
-        },
-      )
-      return (
-        rectShape && {
-          type: 'rect',
-          transition: ['shape'],
-          shape: rectShape,
-          style: api.style(),
-        }
-      )
-    }
   })
 </script>
 
 <div class="space-y-8 bg-slate-950 pt-4">
   <h2 class="text-center text-3xl text-stone-300">Coding Timeline by Project</h2>
-  <div id="durations" class="mb-8 h-96 w-full" />
+  <div id="durations" class="mb-8 h-[450px] w-full" />
 </div>
