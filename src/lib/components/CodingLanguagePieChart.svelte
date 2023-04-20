@@ -44,12 +44,18 @@
         tooltip: {
           trigger: 'item',
         },
-        legend: {},
+        legend: {
+          padding: 10,
+          type: 'scroll',
+          textStyle: {
+            color: '#fafafa',
+          },
+        },
         series: [
           {
             name: 'Languages',
             type: 'pie',
-            radius: '50%',
+            radius: '65%',
             data: dataPie,
             label: {
               color: '#fafafa',
@@ -69,6 +75,7 @@
   })
 </script>
 
-a
-<h2 class="mb-8 text-center text-3xl text-stone-300">Languages</h2>
-<div id="pie" class="mb-8 h-[600px] w-full bg-slate-950 p-4" />
+<div class="space-y-8 bg-slate-950 pt-4">
+  <h2 class="text-center text-3xl text-stone-300">Languages</h2>
+  <div id="pie" class="h-[500px] w-full" />
+</div>
