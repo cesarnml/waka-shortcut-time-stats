@@ -2,7 +2,7 @@
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
   import type { DurationsResult } from '../../routes/api/wakatime/current/durations/+server'
-  import { groupBy } from 'lodash'
+  import groupBy from 'lodash/groupBy'
   import dayjs from 'dayjs'
 
   export let durations: DurationsResult
