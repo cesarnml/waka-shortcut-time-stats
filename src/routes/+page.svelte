@@ -25,7 +25,7 @@
     <CodingActivityChartByWeekdays {summaries} />
     <DurationsByProject {durations} />
   </div>
-  <div class="grid grid-cols-5 gap-6">
+  <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
     {#each wakaProjects as project (project.id)}
       <a class="card glass" href={`/projects/${project.name}`}>
         <div class="card-body">
