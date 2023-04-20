@@ -55,7 +55,7 @@
           {
             name: 'Languages',
             type: 'pie',
-            radius: '65%',
+            radius: '50%',
             data: dataPie,
             label: {
               color: '#fafafa',

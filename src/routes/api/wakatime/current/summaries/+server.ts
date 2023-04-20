@@ -76,8 +76,8 @@ export type SummariesResult = {
 
 export const GET = async ({ fetch }) => {
   // TODO: Extend to match API ref: https://wakatime.com/developers#summaries
-  const baseUrl = 'https://wakatime.com/api/v1'
-  const resource = '/users/current/summaries'
+  const baseUrl = 'https://wakatime.com'
+  const resource = '/api/v1/users/current/summaries'
 
   const response = await fetch(`${baseUrl}${resource}?range=Last 7 Days&api_key=${WAKA_API_KEY}`, {
     method: 'GET',

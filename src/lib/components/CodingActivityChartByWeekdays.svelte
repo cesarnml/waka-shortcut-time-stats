@@ -38,7 +38,6 @@
 
   onMount(() => {
     const categoryChart = document.getElementById('wcs-weekday')
-    console.log('yDataByWeekday:', yDataByWeekday)
 
     if (categoryChart) {
       const myChart: echarts.ECharts = echarts.init(categoryChart, undefined, { renderer: 'svg' })
