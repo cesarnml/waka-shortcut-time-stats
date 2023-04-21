@@ -3,23 +3,48 @@
   import { onMount } from 'svelte'
   import type { DurationsResult } from '../../routes/api/wakatime/current/durations/+server'
   import groupBy from 'lodash/groupBy'
+  import dayjs from 'dayjs'
   import orderBy from 'lodash/orderBy'
 
-  import dayjs from 'dayjs'
+  export let durationsByLanguage: DurationsResult
 
-  export let durations: DurationsResult
+  const languages = [...new Set(durationsByLanguage.data.map((duration) => duration.language))]
+  const durationsByLang = groupBy(durationsByLanguage.data, 'language')
 
-  const projects = [...new Set(durations.data.map((duration) => duration.project))]
-  const durationsByProject = groupBy(durations.data, 'project')
-
-  const projectsByTotalDuration = orderBy(projects, (project) =>
-    durationsByProject[project].reduce((acc, cur) => cur.duration + acc, 0),
+  const languagesByTotalDuration = orderBy(languages, (language) =>
+    durationsByLang[language].reduce((acc, cur) => cur.duration + acc, 0),
   ).filter(
-    (project) => durationsByProject[project].reduce((acc, cur) => cur.duration + acc, 0) > 20 * 60,
+    (language) => durationsByLang[language].reduce((acc, cur) => cur.duration + acc, 0) > 20 * 60,
   )
 
+  const languageToColor = {
+    Svelte: '#F83D00',
+    TypeScript: '#3075C0',
+    HTML: '#EA6328',
+    INI: '#B9B9B9',
+    Other: '#FAFAFA',
+    TSConfig: '#7D7DEB',
+    Python: '#376D9D',
+    SCSS: '#C76496',
+    Markdown: '#000000',
+    JSON: '#7D7D7D',
+    Ruby: '#AA1401',
+    CSS: '#2A65F1',
+    Bash: '#44B050',
+    YAML: '#F8CA3E',
+    LESS: '#2C4E85',
+    'Vue.js': '#3EB480',
+    'Git Config': '#E94D31',
+    Astro: '#583085',
+    Text: '#F8F8F8',
+    Docker: '#2596ED',
+    GraphQL: '#DA32A4',
+    Git: '#E94D31',
+    SQL: '#D16F30',
+  }
+
   onMount(() => {
-    var chartDom = document.getElementById('durations')
+    var chartDom = document.getElementById('durations-by-language')
 
     if (chartDom) {
       const myChart = echarts.init(chartDom)
@@ -30,13 +55,13 @@
         },
         { passive: true },
       )
-      const startTime = dayjs(durations.start).unix()
+      const startTime = dayjs(durationsByLanguage.start).unix()
       const data: any[] = []
 
-      projectsByTotalDuration.forEach((project, index) => {
-        durationsByProject[project].forEach((duration) => {
+      languagesByTotalDuration.forEach((duration, index) => {
+        durationsByLang[duration].forEach((duration) => {
           data.push({
-            name: duration.project,
+            name: duration.language,
             value: [
               index,
               Math.floor(duration.time),
@@ -45,7 +70,7 @@
             ],
             itemStyle: {
               normal: {
-                color: duration.color ?? '#fff',
+                color: languageToColor[duration.language as keyof typeof languageToColor],
               },
             },
           })
@@ -88,7 +113,7 @@
           },
         },
         yAxis: {
-          data: projectsByTotalDuration,
+          data: languagesByTotalDuration,
           type: 'category',
           axisLabel: {
             color: '#fafafa',
@@ -155,6 +180,6 @@
 </script>
 
 <div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Coding Timeline by Project</h2>
-  <div id="durations" class="mb-8 h-[450px] w-full" />
+  <h2 class="text-center text-3xl text-stone-300">Coding Timeline by Language</h2>
+  <div id="durations-by-language" class="mb-8 h-[450px] w-full" />
 </div>

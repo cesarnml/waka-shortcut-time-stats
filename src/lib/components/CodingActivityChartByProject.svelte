@@ -73,7 +73,7 @@
   })
 </script>
 
-<div class="space-y-8 bg-slate-950 pt-4">
+<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
   <h2 class="text-center text-3xl text-stone-300">Weekly Coding Stats by Project</h2>
   <div id="wcs-project" class="mb-8 h-96 w-full" />
 </div>

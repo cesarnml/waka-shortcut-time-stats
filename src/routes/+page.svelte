@@ -6,9 +6,13 @@
   import CodingActivityChartByWeekdays from '$lib/components/CodingActivityChartByWeekdays.svelte'
   import DurationsByProject from '$lib/components/DurationsByProject.svelte'
   import type { PageData } from './$types'
+  import DurationsByLanguageSlice from '$lib/components/DurationsByLanguageSlice.svelte'
 
   export let data: PageData
-  const { summaries, allTimeSinceToday, iterations, durations, projects } = data
+  const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
+    data
+  console.log('durations:', durations)
+  console.log('durationsByLanguage:', durationsByLanguage)
   let wakaProjects = projects.data
 </script>
 
@@ -24,6 +28,7 @@
     <CodingDisciplineGauge {summaries} />
     <CodingActivityChartByWeekdays {summaries} />
     <DurationsByProject {durations} />
+    <DurationsByLanguageSlice {durationsByLanguage} />
   </div>
   <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
     {#each wakaProjects as project (project.id)}
