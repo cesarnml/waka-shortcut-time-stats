@@ -10,8 +10,12 @@
   console.log('summaries:', summaries)
 </script>
 
-<div>{$page.params.projectName}</div>
-<CodingActivityChartByCategory {summaries} />
-<CodingLanguagePieChart {summaries} />
-<CodingActivityLineChart data={summaries.data} />
-<CodingTreeMap />
+<div class="space-y-8 pt-8">
+  <h1 class="text-3xl text-zinc-300">Project: {$page.params.projectName}</h1>
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+    <CodingActivityChartByCategory {summaries} />
+    <CodingLanguagePieChart {summaries} />
+    <CodingActivityLineChart data={summaries.data} />
+  </div>
+  <CodingTreeMap />
+</div>

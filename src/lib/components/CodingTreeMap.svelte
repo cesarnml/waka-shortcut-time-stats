@@ -3,8 +3,6 @@
   import { onMount } from 'svelte'
   import json from '$lib/data/treemap.json'
 
-  const ROOT_PATH = 'https://echarts.apache.org/examples'
-
   onMount(() => {
     const chartDom = document.getElementById('treemap')
     if (chartDom) {

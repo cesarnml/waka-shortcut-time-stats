@@ -27,22 +27,17 @@
         tooltip: {
           trigger: 'item',
         },
-        legend: {
-          data: [$page.params.projectName],
-          textStyle: {
-            color: '#fafafa',
-          },
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {},
-          },
-          right: 50,
-        },
+        // toolbox: {
+        //   right: 50,
+        //   feature: {
+        //     saveAsImage: {},
+        //   },
+        // },
         grid: {
-          left: '3%',
+          top: '4%',
+          left: '2%',
           right: '4%',
-          bottom: '3%',
+          bottom: '4%',
           containLabel: true,
         },
         xAxis: [
@@ -65,19 +60,17 @@
             },
           },
         ],
-        series: [
-          {
-            name: $page.params.projectName,
-            type: 'line',
-            smooth: true,
-            areaStyle: {},
-            lineStyle: {
-              width: 4,
-              color: '#5A6FC0',
-            },
-            data: values,
+        series: {
+          name: $page.params.projectName,
+          type: 'line',
+          smooth: true,
+          areaStyle: {},
+          lineStyle: {
+            width: 4,
+            color: '#5A6FC0',
           },
-        ],
+          data: values,
+        },
       }
 
       option && myChart.setOption(option)
@@ -85,7 +78,7 @@
   })
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
+<div class="space-y-8 rounded-2xl bg-slate-800 p-4">
   <h2 class="text-center text-3xl text-stone-300">Coding Activity Line Chart</h2>
   <div id="main" class="mb-8 h-96 w-full" />
 </div>

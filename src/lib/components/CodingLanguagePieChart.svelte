@@ -77,5 +77,5 @@
 
 <div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
   <h2 class="text-center text-3xl text-stone-300">Languages</h2>
-  <div id="pie" class="h-[500px] w-full" />
+  <div id="pie" class="h-[400px] w-full" />
 </div>
