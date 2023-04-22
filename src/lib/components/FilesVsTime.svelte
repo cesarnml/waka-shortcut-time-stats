@@ -24,7 +24,6 @@
         entity.total_seconds)
     })
   })
-  console.log('filesToTimeDict:', filesToTimeDict)
 </script>
 
 <div class="space-y-8 rounded-2xl bg-slate-800 p-4">
