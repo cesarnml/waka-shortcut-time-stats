@@ -85,6 +85,7 @@
         },
         series: [
           {
+            colorBy: 'data',
             realtimeSort: true,
             name: 'X',
             type: 'bar',
