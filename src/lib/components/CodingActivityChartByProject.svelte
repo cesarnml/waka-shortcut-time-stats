@@ -57,6 +57,10 @@
           textStyle: {
             color: '#fafafa',
           },
+          pageIconColor: '#fafafa',
+          pageTextStyle: {
+            color: '#fafafa',
+          },
         },
         xAxis: {
           data: xSummaries,
@@ -64,7 +68,11 @@
             color: '#fafafa',
           },
         },
-        yAxis: {},
+        yAxis: {
+          axisLabel: {
+            color: '#fafafa',
+          },
+        },
         series: seriesProject,
       }
 

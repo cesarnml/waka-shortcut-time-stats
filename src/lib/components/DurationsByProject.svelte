@@ -44,9 +44,7 @@
               Math.floor(duration.duration),
             ],
             itemStyle: {
-              normal: {
-                color: duration.color ?? '#fff',
-              },
+              color: duration.color ?? '#fff',
             },
           })
         })
@@ -80,6 +78,9 @@
         xAxis: {
           min: startTime,
           type: 'time',
+          axisLine: {
+            show: true,
+          },
           axisLabel: {
             color: '#fafafa',
             formatter: function (val: number) {

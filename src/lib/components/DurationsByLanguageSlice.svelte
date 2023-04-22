@@ -69,9 +69,7 @@
               Math.floor(duration.duration),
             ],
             itemStyle: {
-              normal: {
-                color: languageToColor[duration.language as keyof typeof languageToColor],
-              },
+              color: languageToColor[duration.language as keyof typeof languageToColor],
             },
           })
         })
@@ -110,6 +108,9 @@
             formatter: function (val: number) {
               return Math.floor(Math.max(0, val - startTime) / 60 / 60) + 'h'
             },
+          },
+          axisLine: {
+            show: true,
           },
         },
         yAxis: {

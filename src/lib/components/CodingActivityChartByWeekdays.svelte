@@ -6,7 +6,27 @@
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   dayjs.extend(localeData)
-
+  const countryColors = {
+    Australia: '#00008b',
+    Canada: '#f00',
+    China: '#ffde00',
+    Cuba: '#002a8f',
+    Finland: '#003580',
+    France: '#ed2939',
+    Germany: '#000',
+    Iceland: '#003897',
+    India: '#f93',
+    Japan: '#bc002d',
+    'North Korea': '#024fa2',
+    'South Korea': '#000',
+    'New Zealand': '#00247d',
+    Norway: '#ef2b2d',
+    Poland: '#dc143c',
+    Russia: '#d52b1e',
+    Turkey: '#e30a17',
+    'United Kingdom': '#00247d',
+    'United States': '#b22234',
+  }
   const dayIntToText = {
     0: 'Sun',
     1: 'Mon',
@@ -30,10 +50,10 @@
       yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] === undefined
     ) {
       yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] =
-        datum.grand_total.total_seconds
+        Math.round(datum.grand_total.total_seconds) / 60
     }
     yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] +=
-      datum.grand_total.total_seconds
+      Math.round(datum.grand_total.total_seconds) / 60
   })
 
   onMount(() => {
@@ -50,6 +70,7 @@
       )
       // Specify the configuration items and data for the chart
       const option: echarts.EChartsOption = {
+        grid: { left: '15%' },
         tooltip: {},
         xAxis: {
           type: 'category',
@@ -60,6 +81,10 @@
         },
         yAxis: {
           type: 'value',
+
+          axisLabel: {
+            color: '#fafafa',
+          },
         },
         series: [
           {

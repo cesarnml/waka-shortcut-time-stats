@@ -9,6 +9,7 @@
   import DurationsByLanguageSlice from '$lib/components/DurationsByLanguageSlice.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
   import orderBy from 'lodash/orderBy'
+  import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
 
   export let data: PageData
   const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
@@ -52,6 +53,7 @@
     <CodingLanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
     <CodingActivityChartByWeekdays {summaries} />
+    <TotalCodingTimeByProject {summaries} />
     <DurationsByProject {durations} />
     <DurationsByLanguageSlice {durationsByLanguage} />
   </div>

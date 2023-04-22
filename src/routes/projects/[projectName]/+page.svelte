@@ -10,7 +10,6 @@
 
   export let data
   const { summaries } = data
-  console.log('summaries:', summaries)
 </script>
 
 <div class="space-y-8 pt-8">
@@ -23,5 +22,5 @@
   </div>
   <CodingTreeMap />
   <FilesVsTime {summaries} />
-  <BranchesVsTime {summaries}/>
+  <BranchesVsTime {summaries} />
 </div>
