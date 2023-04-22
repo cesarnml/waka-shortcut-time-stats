@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
-  import advanceFormat from 'dayjs/plugin/advancedFormat.js'
+  import advanceFormat from 'dayjs/plugin/advancedFormat'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   dayjs.extend(advanceFormat)

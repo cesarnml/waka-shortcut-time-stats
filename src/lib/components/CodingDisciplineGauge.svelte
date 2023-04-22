@@ -22,7 +22,13 @@
     const gaugeElement = document.getElementById('gauge')
     if (gaugeElement) {
       gaugeChart = echarts.init(gaugeElement)
-
+      window.addEventListener(
+        'resize',
+        function () {
+          gaugeChart.resize()
+        },
+        { passive: true },
+      )
       gaugeOption = {
         series: [
           {
