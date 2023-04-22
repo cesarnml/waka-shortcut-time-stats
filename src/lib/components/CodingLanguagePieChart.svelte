@@ -50,6 +50,10 @@
           textStyle: {
             color: '#fafafa',
           },
+          pageIconColor: '#fafafa',
+          pageTextStyle: {
+            color: '#fafafa',
+          },
         },
         series: [
           {

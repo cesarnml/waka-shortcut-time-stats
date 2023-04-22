@@ -67,7 +67,11 @@
             color: '#fafafa',
           },
         },
-        yAxis: {},
+        yAxis: {
+          axisLabel: {
+            color: '#fafafa',
+          },
+        },
         series: seriesCategory,
       }
 
