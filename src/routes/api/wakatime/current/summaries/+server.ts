@@ -36,6 +36,8 @@ export type WakaLanguage = WakaCategory
 export type WakaMachine = WakaCategory & { machine_name_id: string }
 export type WakaOperatingSystem = WakaCategory
 export type WakaProjectSlim = WakaCategory & { color: string | null }
+export type WakaBranch = WakaCategory
+export type WakaEntity = WakaCategory & { project_root_count: number; type: string }
 
 export type WakaRange = {
   date: string
@@ -64,6 +66,8 @@ export type SummariesData = {
   operating_systems: WakaOperatingSystem[]
   projects: WakaProjectSlim[]
   range: WakaRange
+  branches: WakaBranch[]
+  entities: WakaEntity[]
 }
 
 export type SummariesResult = {

@@ -2,12 +2,14 @@
   import dayjs from 'dayjs'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
-  import type { SummariesData } from '../../routes/api/wakatime/current/summaries/+server'
+  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import { page } from '$app/stores'
 
-  export let data: SummariesData[]
-  const dates = data.map((summary) => dayjs(summary.range.date).format('MMM Do'))
-  const values = data.map((summary) => (summary.grand_total.total_seconds / 60 / 60).toFixed(1))
+  export let summaries: SummariesResult
+  const dates = summaries.data.map((summary) => dayjs(summary.range.date).format('MMM Do'))
+  const values = summaries.data.map((summary) =>
+    (summary.grand_total.total_seconds / 60 / 60).toFixed(1),
+  )
   type EChartsOption = echarts.EChartsOption
 
   onMount(() => {
@@ -27,12 +29,6 @@
         tooltip: {
           trigger: 'item',
         },
-        // toolbox: {
-        //   right: 50,
-        //   feature: {
-        //     saveAsImage: {},
-        //   },
-        // },
         grid: {
           top: '4%',
           left: '2%',
@@ -51,7 +47,6 @@
           },
         ],
         yAxis: [
-          // @ts-expect-error no clue
           {
             type: 'value',
             axisLabel: {
@@ -64,10 +59,12 @@
           name: $page.params.projectName,
           type: 'line',
           smooth: true,
-          areaStyle: {},
+          areaStyle: {
+            color: summaries.color ?? '#5A6FC0',
+          },
           lineStyle: {
             width: 4,
-            color: '#5A6FC0',
+            color: summaries.color ?? '#5A6FC0',
           },
           data: values,
         },

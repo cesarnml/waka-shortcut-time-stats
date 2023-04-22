@@ -4,6 +4,9 @@
   import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
   import CodingActivityLineChart from '$lib/components/CodingActivityLineChart.svelte'
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
+  import BranchCloud from '$lib/components/BranchCloud.svelte'
+  import FilesVsTime from '$lib/components/FilesVsTime.svelte'
+  import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
 
   export let data
   const { summaries } = data
@@ -15,7 +18,10 @@
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingActivityChartByCategory {summaries} />
     <CodingLanguagePieChart {summaries} />
-    <CodingActivityLineChart data={summaries.data} />
+    <CodingActivityLineChart {summaries} />
+    <!-- <BranchCloud /> -->
   </div>
   <CodingTreeMap />
+  <FilesVsTime {summaries} />
+  <BranchesVsTime {summaries}/>
 </div>
