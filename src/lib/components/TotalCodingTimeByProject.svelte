@@ -49,6 +49,7 @@
     var chartDom = document.getElementById('racing')
     if (chartDom) {
       myChart = echarts.init(chartDom)
+
       window.addEventListener(
         'resize',
         function () {
@@ -56,6 +57,7 @@
         },
         { passive: true },
       )
+
       const option: EChartsOption = {
         textStyle: {
           color: '#fafafa',
@@ -71,9 +73,7 @@
         },
         xAxis: {
           max: 'dataMax',
-          name: `${dateToDay[dayjs(dates[0]).day() as keyof typeof dateToDay]} ${dayjs(
-            dates[0],
-          ).format('Do')}`,
+          name: dayjs(dates[0]).format('MMM Do'),
           axisLabel: {
             color: '#fafafa',
           },
@@ -87,7 +87,7 @@
           axisLabel: {
             color: '#fafafa',
           },
-          max: 2, // only the largest 3 bars will be displayed
+          max: 4, // only the largest 3 bars will be displayed
         },
         series: [
           {
@@ -142,6 +142,6 @@
 </script>
 
 <div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Top 3 Projects by Total Time</h2>
+  <h2 class="text-center text-3xl text-stone-300">Top 5 Projects by Total Time</h2>
   <div id="racing" class="h-96 w-full" />
 </div>
