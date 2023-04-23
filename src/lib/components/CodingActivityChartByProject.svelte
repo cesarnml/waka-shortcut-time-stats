@@ -51,6 +51,7 @@
       // Specify the configuration items and data for the chart
       const option: echarts.EChartsOption = {
         tooltip: {},
+        grid: { left: '10%', right: '5%' },
         legend: {
           padding: 10,
           type: 'scroll',

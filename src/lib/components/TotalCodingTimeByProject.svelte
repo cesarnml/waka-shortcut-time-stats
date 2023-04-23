@@ -49,7 +49,13 @@
     var chartDom = document.getElementById('racing')
     if (chartDom) {
       myChart = echarts.init(chartDom)
-
+      window.addEventListener(
+        'resize',
+        function () {
+          myChart.resize()
+        },
+        { passive: true },
+      )
       const option: EChartsOption = {
         textStyle: {
           color: '#fafafa',
@@ -61,7 +67,7 @@
           show: true,
           containLabel: true,
           left: '8%',
-          right: '20%',
+          right: '16%',
         },
         xAxis: {
           max: 'dataMax',

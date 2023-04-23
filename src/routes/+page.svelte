@@ -12,8 +12,10 @@
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
 
   export let data: PageData
-  const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
-    data
+  // const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
+  // data
+
+  const { summaries, durations, durationsByLanguage } = data
 
   const allProjectNames = summaries.data
     .map((summary) =>
@@ -50,10 +52,10 @@
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingActivityChartByProject {summaries} />
     <CodingActivityChartByCategory {summaries} />
-    <CodingLanguagePieChart {summaries} />
-    <CodingDisciplineGauge {summaries} />
     <CodingActivityChartByWeekdays {summaries} />
     <TotalCodingTimeByProject {summaries} />
+    <CodingLanguagePieChart {summaries} />
+    <CodingDisciplineGauge {summaries} />
     <DurationsByProject {durations} />
     <DurationsByLanguageSlice {durationsByLanguage} />
   </div>
