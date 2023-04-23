@@ -44,6 +44,7 @@
         tooltip: {
           trigger: 'item',
         },
+        grid: { left: 0, right: 0, bottom: 0, top: 0 },
         legend: {
           padding: 10,
           type: 'scroll',
@@ -59,7 +60,8 @@
           {
             name: 'Languages',
             type: 'pie',
-            radius: '50%',
+            radius: '55%',
+            top: 60,
             data: dataPie,
             label: {
               color: '#fafafa',

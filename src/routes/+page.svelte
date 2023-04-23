@@ -10,10 +10,29 @@
   import ProjectList from '$lib/components/ProjectList.svelte'
   import orderBy from 'lodash/orderBy'
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
+  import type { SummariesResult } from './api/wakatime/current/summaries/+server'
 
   export let data: PageData
-  const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
-    data
+  // const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
+  // data
+
+  const { summaries, durations, durationsByLanguage } = data
+
+  let newSummaries: undefined | SummariesResult = undefined
+
+  const WakaApiRange = {
+    Today: 'Today',
+    Yesterday: 'Yesterday',
+    Last_7_Days: 'Last 7 Days',
+    Last_7_Days_From_Yesterday: 'Last 7 Days From Yesterday',
+    Last_14_Days: 'Last 14 Days',
+    Last_30_Days: 'Last 30 Days',
+    This_Week: 'This Week',
+    This_Month: 'This Month',
+    Last_Month: 'Last Month',
+  } as const
+
+  let selectedRanged = WakaApiRange.Last_7_Days_From_Yesterday
 
   const allProjectNames = summaries.data
     .map((summary) =>
@@ -40,6 +59,12 @@
     'value',
     'desc',
   )
+
+  const handleChange = async () => {
+    const response = await fetch(`/api/wakatime/current/summaries/?range=${selectedRanged}`)
+    newSummaries = await response.json()
+    console.log('newSummaries:', summaries)
+  }
 </script>
 
 <svelte:head>
@@ -47,13 +72,25 @@
 </svelte:head>
 
 <div class="space-y-8 pt-8">
+  <select class="select w-full max-w-xs" bind:value={selectedRanged} on:change={handleChange}>
+    <option disabled selected>Pick your favorite Simpson</option>
+    <option value={WakaApiRange.Last_7_Days_From_Yesterday}
+      >{WakaApiRange.Last_7_Days_From_Yesterday}</option
+    >
+    <option value={WakaApiRange.Last_7_Days}>{WakaApiRange.Last_7_Days}</option>
+    <option value={WakaApiRange.Last_14_Days}>{WakaApiRange.Last_14_Days}</option>
+    <option value={WakaApiRange.Last_30_Days}>{WakaApiRange.Last_30_Days}</option>
+    <option value={WakaApiRange.This_Week}>{WakaApiRange.This_Week}</option>
+    <option value={WakaApiRange.This_Month}>{WakaApiRange.This_Month}</option>
+    <option value={WakaApiRange.Last_Month}>{WakaApiRange.Last_Month}</option>
+  </select>
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <CodingActivityChartByProject {summaries} />
-    <CodingActivityChartByCategory {summaries} />
-    <CodingLanguagePieChart {summaries} />
-    <CodingDisciplineGauge {summaries} />
-    <CodingActivityChartByWeekdays {summaries} />
-    <TotalCodingTimeByProject {summaries} />
+    <CodingActivityChartByProject summaries={newSummaries ?? summaries} />
+    <TotalCodingTimeByProject summaries={newSummaries ?? summaries} />
+    <CodingActivityChartByCategory summaries={newSummaries ?? summaries} />
+    <CodingActivityChartByWeekdays summaries={newSummaries ?? summaries} />
+    <CodingLanguagePieChart summaries={newSummaries ?? summaries} />
+    <CodingDisciplineGauge summaries={newSummaries ?? summaries} />
     <DurationsByProject {durations} />
     <DurationsByLanguageSlice {durationsByLanguage} />
   </div>

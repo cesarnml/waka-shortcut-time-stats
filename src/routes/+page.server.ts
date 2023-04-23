@@ -1,4 +1,5 @@
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
+import type { PageServerLoad } from './$types'
 import type { AllTimeSinceTodayData } from './api/wakatime/current/all-time-since-today/+server'
 import type { DurationsResult } from './api/wakatime/current/durations/+server'
 import type { WakaProjectResult } from './api/wakatime/current/projects/+server'
@@ -14,7 +15,7 @@ const WakaSliceBy = {
   Machine: 'machine',
 } as const
 
-export const load = async ({ fetch }) => {
+export const load: PageServerLoad = async ({ fetch }) => {
   const [
     allTimeResponse,
     summariesResponse,
