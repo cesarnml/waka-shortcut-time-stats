@@ -2,8 +2,8 @@
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
-  import { zipWith } from 'lodash'
-  import { add } from 'lodash'
+  import zipWith from 'lodash/zipWith'
+  import add from 'lodash/add'
   import dayjs from 'dayjs'
 
   type EChartsOption = echarts.EChartsOption
