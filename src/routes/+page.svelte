@@ -11,6 +11,10 @@
   import orderBy from 'lodash/orderBy'
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
   import type { SummariesResult } from './api/wakatime/current/summaries/+server'
+  import dayjs from 'dayjs'
+  import duration from 'dayjs/plugin/duration'
+
+  dayjs.extend(duration)
 
   export let data: PageData
   // const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
@@ -108,19 +112,53 @@
         >
       </div>
       <div class="stat-title">Total Hours</div>
-      <div class="stat-value text-primary">{(newSummaries ?? summaries).cumulative_total.text}</div>
+      <div class="stat-value text-primary">
+        {`${dayjs
+          .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
+          .days()}d ${dayjs
+          .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
+          .hours()}h ${dayjs
+          .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
+          .minutes()}h`}
+      </div>
     </div>
     <div class="stat">
-      <div class="stat-figure text-primary">
+      <div class="stat-figure text-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
           ><path
-            fill="#661FE6"
-            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8z"
-          /><path fill="#661FE6" d="M12.5 7H11v6l5.25 3.15l.75-1.23l-4.5-2.67z" /></svg
+            fill="#D926AA"
+            d="M6 20c1.1 0 2-.9 2-2v-7c0-1.1-.9-2-2-2s-2 .9-2 2v7c0 1.1.9 2 2 2zm10-5v3c0 1.1.9 2 2 2s2-.9 2-2v-3c0-1.1-.9-2-2-2s-2 .9-2 2zm-4 5c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2s-2 .9-2 2v12c0 1.1.9 2 2 2z"
+          /></svg
         >
       </div>
-      <div class="stat-title">Total Hours</div>
-      <div class="stat-value text-primary">{(newSummaries ?? summaries).cumulative_total.text}</div>
+      <div class="stat-title">Daily Average</div>
+      <div class="stat-value text-secondary">
+        {`${dayjs
+          .duration(
+            (newSummaries ?? summaries).daily_average.seconds_including_other_language,
+            'seconds',
+          )
+          .hours()}h ${dayjs
+          .duration(
+            (newSummaries ?? summaries).daily_average.seconds_including_other_language,
+            'seconds',
+          )
+          .minutes()}h`}
+      </div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+          ><path
+            fill="#D926AA"
+            d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6l6 6l1.4-1.4zm5.2 0l4.6-4.6l-4.6-4.6L16 6l6 6l-6 6l-1.4-1.4z"
+          /></svg
+        >
+      </div>
+      <div class="stat-title">No Code Days</div>
+      <div class="stat-value text-secondary">
+        {(newSummaries ?? summaries).daily_average.holidays} days
+      </div>
     </div>
   </div>
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
