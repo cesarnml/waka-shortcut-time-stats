@@ -19,6 +19,7 @@
   const { summaries, durations, durationsByLanguage } = data
 
   let newSummaries: undefined | SummariesResult = undefined
+  let loading = false
 
   const WakaApiRange = {
     Today: 'Today',
@@ -61,8 +62,10 @@
   )
 
   const handleChange = async () => {
+    loading = true
     const response = await fetch(`/api/wakatime/current/summaries/?range=${selectedRanged}`)
     newSummaries = await response.json()
+    loading = false
     console.log('newSummaries:', summaries)
   }
 </script>
@@ -72,18 +75,29 @@
 </svelte:head>
 
 <div class="space-y-8 pt-8">
-  <select class="select w-full max-w-xs" bind:value={selectedRanged} on:change={handleChange}>
-    <option disabled selected>Pick your favorite Simpson</option>
-    <option value={WakaApiRange.Last_7_Days_From_Yesterday}
-      >{WakaApiRange.Last_7_Days_From_Yesterday}</option
+  <div class="flex gap-4">
+    <select
+      class="select-primary select w-full max-w-xs text-zinc-300"
+      bind:value={selectedRanged}
+      on:change={handleChange}
+      disabled={loading}
     >
-    <option value={WakaApiRange.Last_7_Days}>{WakaApiRange.Last_7_Days}</option>
-    <option value={WakaApiRange.Last_14_Days}>{WakaApiRange.Last_14_Days}</option>
-    <option value={WakaApiRange.Last_30_Days}>{WakaApiRange.Last_30_Days}</option>
-    <option value={WakaApiRange.This_Week}>{WakaApiRange.This_Week}</option>
-    <option value={WakaApiRange.This_Month}>{WakaApiRange.This_Month}</option>
-    <option value={WakaApiRange.Last_Month}>{WakaApiRange.Last_Month}</option>
-  </select>
+      <option disabled selected>Pick a range</option>
+      <option value={WakaApiRange.Last_7_Days_From_Yesterday}
+        >{WakaApiRange.Last_7_Days_From_Yesterday}</option
+      >
+      <option value={WakaApiRange.Last_7_Days}>{WakaApiRange.Last_7_Days}</option>
+      <option value={WakaApiRange.Last_14_Days}>{WakaApiRange.Last_14_Days}</option>
+      <option value={WakaApiRange.Last_30_Days}>{WakaApiRange.Last_30_Days}</option>
+      <option value={WakaApiRange.This_Week}>{WakaApiRange.This_Week}</option>
+      <option value={WakaApiRange.This_Month}>{WakaApiRange.This_Month}</option>
+      <option value={WakaApiRange.Last_Month}>{WakaApiRange.Last_Month}</option>
+    </select>
+    {#if loading}
+      <button class="loading btn-primary btn-link btn" />
+    {/if}
+  </div>
+
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingActivityChartByProject summaries={newSummaries ?? summaries} />
     <TotalCodingTimeByProject summaries={newSummaries ?? summaries} />
