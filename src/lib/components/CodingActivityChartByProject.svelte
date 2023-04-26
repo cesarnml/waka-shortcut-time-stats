@@ -70,7 +70,6 @@
   }
 
   $: {
-    console.log('summaries changed', summaries)
     if (myChart && option) {
       const xSummaries = summaries.data.map((item) => dayjs(item.range.date).format('MMM Do'))
       const projectsByDate = summaries.data.map((item) => item.projects)

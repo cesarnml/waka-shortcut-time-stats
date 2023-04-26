@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types'
+  import type { SummariesResult } from './api/wakatime/current/summaries/+server'
   import CodingActivityChartByProject from '$lib/components/CodingActivityChartByProject.svelte'
   import CodingActivityChartByCategory from '$lib/components/CodingActivityChartByCategory.svelte'
   import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
@@ -10,7 +11,6 @@
   import ProjectList from '$lib/components/ProjectList.svelte'
   import orderBy from 'lodash/orderBy'
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
-  import type { SummariesResult } from './api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
   import groupBy from 'lodash/groupBy'
@@ -22,7 +22,6 @@
   // data
 
   const { summaries, durations, durationsByLanguage } = data
-  console.log('durationsByLanguage:', durationsByLanguage)
 
   const languages = [...new Set(durationsByLanguage.data.map((duration) => duration.language))]
   const durationsByLang = groupBy(durationsByLanguage.data, 'language')
@@ -34,7 +33,6 @@
   ).filter(
     (language) => durationsByLang[language].reduce((acc, cur) => cur.duration + acc, 0) > 20 * 60,
   )
-  console.log('languagesByTotalDuration:', languagesByTotalDuration)
 
   let newSummaries: undefined | SummariesResult = undefined
   let loading = false
@@ -84,7 +82,6 @@
     const response = await fetch(`/api/wakatime/current/summaries/?range=${selectedRanged}`)
     newSummaries = await response.json()
     loading = false
-    console.log('newSummaries:', summaries)
   }
 </script>
 
