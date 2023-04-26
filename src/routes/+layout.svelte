@@ -1,6 +1,5 @@
 <script lang="ts">
   import '../app.postcss'
-  import '$lib/styles/supabase.postcss'
 
   import { invalidate } from '$app/navigation'
   import { onMount } from 'svelte'

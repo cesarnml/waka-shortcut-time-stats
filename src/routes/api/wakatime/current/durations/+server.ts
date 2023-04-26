@@ -34,7 +34,8 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
   const baseUrl = 'https://wakatime.com'
   const resource = '/api/v1/users/current/durations'
 
-  const date = url.searchParams.get('date') ?? dayjs().subtract(1, 'd').format('YYYY-MM-DD')
+  const date = url.searchParams.get('date') ?? dayjs().format('YYYY-MM-DD')
+
   const slice_by = url.searchParams.get('slice_by') ?? WakaSliceBy.None
 
   try {
