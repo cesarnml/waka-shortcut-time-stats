@@ -1,7 +1,65 @@
 <script lang="ts">
   import * as echarts from 'echarts'
+  import { page } from '$app/stores'
+
   import { onMount } from 'svelte'
   import json from '$lib/data/treemap.json'
+  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
+
+  export let summaries: SummariesResult
+
+  const { data } = summaries
+
+  const files = [
+    ...new Set(data.map((summary) => summary.entities.map((entity) => entity.name)).flat()),
+  ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
+
+  const filesToTimeDict: Record<string, number> = {}
+
+  summaries.data.forEach((summary) => {
+    summary.entities.forEach((entity) => {
+      if (!files.includes(entity.name)) {
+        return
+      }
+      if (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] === undefined) {
+        return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] =
+          Math.floor(entity.total_seconds) / 3600)
+      }
+      return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] +=
+        Math.floor(entity.total_seconds) / 3600)
+    })
+  })
+
+  function convertToTreeMap(obj) {
+    const result = []
+
+    for (const key in obj) {
+      const value = obj[key]
+      const path = key.split('/')
+      let current = result
+
+      // Traverse the tree map until we reach the leaf node
+      for (let i = 0; i < path.length; i++) {
+        const name = path[i]
+        let child = current.find((item) => item.name === name)
+
+        if (!child) {
+          child = {
+            name,
+            path: path.slice(0, i + 1).join('/'),
+            value: 0,
+            children: [],
+          }
+          current.push(child)
+        }
+
+        child.value += value
+        current = child.children
+      }
+    }
+
+    return result
+  }
 
   onMount(() => {
     const chartDom = document.getElementById('treemap')
@@ -16,7 +74,7 @@
       )
       myChart.showLoading()
 
-      const diskData = json
+      const diskData = convertToTreeMap(filesToTimeDict)
       const option: echarts.EChartsOption = {}
 
       myChart.hideLoading()
@@ -36,14 +94,14 @@
               '<div class="tooltip-title">' +
                 echarts.format.encodeHTML(treePath.join('/')) +
                 '</div>',
-              'Time Spent: ' + echarts.format.addCommas(value) + ' KB',
+              'Time Spent: ' + echarts.format.addCommas(value) + ' h',
             ].join('')
           },
         },
 
         series: [
           {
-            name: 'Project',
+            name: $page.params.projectName,
             type: 'treemap',
             visibleMin: 400,
             label: {
@@ -54,9 +112,9 @@
               show: true,
               height: 30,
             },
-            itemStyle: {
-              borderColor: '#fff',
-            },
+            // itemStyle: {
+            //   borderColor: '#fff',
+            // },
             levels: getLevelOption(),
             data: diskData,
           },

@@ -24,6 +24,45 @@
         entity.total_seconds)
     })
   })
+  console.log('filesToTimeDict:', filesToTimeDict)
+  function createLeaf(path) {
+    return {
+      value: filesToTimeDict[path],
+      name: path.split('/').at(-1),
+      path: path,
+    }
+  }
+
+  function convertToTreeMap(obj) {
+    const result = []
+
+    for (const key in obj) {
+      const value = obj[key]
+      const path = key.split('/')
+      let current = result
+
+      // Traverse the tree map until we reach the leaf node
+      for (let i = 0; i < path.length; i++) {
+        const name = path[i]
+        let child = current.find((item) => item.name === name)
+
+        if (!child) {
+          child = {
+            name,
+            path: path.slice(0, i + 1).join('/'),
+            value: 0,
+            children: [],
+          }
+          current.push(child)
+        }
+
+        child.value += value
+        current = child.children
+      }
+    }
+
+    return result
+  }
 </script>
 
 <div class="space-y-8 rounded-2xl bg-slate-800 p-4">

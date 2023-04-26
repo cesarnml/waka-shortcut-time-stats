@@ -29,7 +29,7 @@
   )
 
   const languageToColor = {
-    Svelte: '#F83D00',
+    Svelte: '#EB5027',
     TypeScript: '#3075C0',
     HTML: '#EA6328',
     INI: '#B9B9B9',
