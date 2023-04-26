@@ -20,7 +20,7 @@
     <CodingLanguagePieChart {summaries} />
     <!-- <BranchCloud /> -->
   </div>
-  <CodingTreeMap />
+  <CodingTreeMap {summaries} />
   <FilesVsTime {summaries} />
   <BranchesVsTime {summaries} />
 </div>
