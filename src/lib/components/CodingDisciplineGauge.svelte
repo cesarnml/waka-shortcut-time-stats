@@ -9,6 +9,7 @@
 
   export let summaries: SummariesResult
 
+  // FIXME: Fix sketchy assumption here
   $: dailyAverage = summaries.daily_average.seconds_including_other_language
   $: todayData = summaries.data.at(-1)?.grand_total.total_seconds ?? 0
   $: todayDecimal = todayData / dailyAverage

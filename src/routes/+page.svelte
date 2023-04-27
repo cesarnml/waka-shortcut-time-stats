@@ -134,11 +134,11 @@
       </div>
       <div class="stat-title text-sm">Total Hours</div>
       <div class="stat-value text-lg text-primary">
-        {`${dayjs
-          .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
-          .days()}d ${dayjs
-          .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
-          .hours()}h ${dayjs
+        {`${
+          dayjs.duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds').days() *
+            24 +
+          dayjs.duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds').hours()
+        }h ${dayjs
           .duration((newSummaries ?? summaries).cumulative_total.seconds, 'seconds')
           .minutes()}m`}
       </div>

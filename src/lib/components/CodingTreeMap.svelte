@@ -3,7 +3,6 @@
   import { page } from '$app/stores'
 
   import { onMount } from 'svelte'
-  import json from '$lib/data/treemap.json'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   export let summaries: SummariesResult
