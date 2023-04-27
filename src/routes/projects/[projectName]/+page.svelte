@@ -7,6 +7,7 @@
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
+  import FilesTable from '$lib/components/FilesTable.svelte'
 
   dayjs.extend(duration)
 
@@ -128,4 +129,5 @@
     <BranchesVsTime {summaries} />
   </div>
   <CodingTreeMap {summaries} />
+  <FilesTable {summaries} />
 </div>
