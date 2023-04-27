@@ -22,11 +22,13 @@
         return
       }
       if (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] === undefined) {
-        return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] =
-          Math.floor(entity.total_seconds) / 3600)
+        return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] = Number(
+          (Math.floor(entity.total_seconds) / 3600).toFixed(1),
+        ))
       }
-      return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] +=
-        Math.floor(entity.total_seconds) / 3600)
+      return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] += Number(
+        (Math.floor(entity.total_seconds) / 3600).toFixed(1),
+      ))
     })
   })
 
@@ -94,7 +96,7 @@
               '<div class="tooltip-title">' +
                 echarts.format.encodeHTML(treePath.join('/')) +
                 '</div>',
-              'Time Spent: ' + echarts.format.addCommas(value) + ' h',
+              'Time Spent: ' + echarts.format.addCommas(value.toFixed(1)) + ' h',
             ].join('')
           },
         },
@@ -112,9 +114,9 @@
               show: true,
               height: 30,
             },
-            // itemStyle: {
-            //   borderColor: '#fff',
-            // },
+            itemStyle: {
+              borderColor: '#fff',
+            },
             levels: getLevelOption(),
             data: diskData,
           },
