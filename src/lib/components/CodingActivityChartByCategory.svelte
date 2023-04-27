@@ -17,16 +17,16 @@
     categories.forEach((category) => {
       if (yDataByCategory[category.name] === undefined) {
         if (dateIndex === 0) {
-          yDataByCategory[category.name] = [Math.floor(category.total_seconds / 60)]
+          yDataByCategory[category.name] = [Number((category.total_seconds / 3600).toFixed(1))]
         } else {
           const initialArray = Array(dateIndex).fill(0)
           yDataByCategory[category.name] = [
             ...initialArray,
-            Math.floor(category.total_seconds / 60),
+            Number((category.total_seconds / 3600).toFixed(1)),
           ]
         }
       } else {
-        yDataByCategory[category.name].push(Math.floor(category.total_seconds / 60))
+        yDataByCategory[category.name].push(Number((category.total_seconds / 3600).toFixed(1)))
       }
     })
   })
