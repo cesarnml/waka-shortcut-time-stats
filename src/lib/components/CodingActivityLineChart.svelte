@@ -1,21 +1,75 @@
 <script lang="ts">
   import dayjs from 'dayjs'
   import * as echarts from 'echarts'
-  import { onMount } from 'svelte'
+  import { onMount, afterUpdate } from 'svelte'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import { page } from '$app/stores'
 
   export let summaries: SummariesResult
-  const dates = summaries.data.map((summary) => dayjs(summary.range.date).format('MMM DD'))
-  const values = summaries.data.map((summary) =>
+
+  $: dates = summaries.data.map((summary) => dayjs(summary.range.date).format('MMM DD'))
+  $: values = summaries.data.map((summary) =>
     (summary.grand_total.total_seconds / 60 / 60).toFixed(1),
   )
-  type EChartsOption = echarts.EChartsOption
 
+  let myChart: echarts.ECCharts
+  let option: echarts.EChartsOption
+
+  afterUpdate(() => {
+    if (option && myChart) {
+      option = {
+        tooltip: {
+          trigger: 'item',
+        },
+        grid: {
+          top: '4%',
+          left: '2%',
+          right: '4%',
+          bottom: '4%',
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            data: dates,
+            axisLabel: {
+              color: '#fafafa',
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              formatter: (value: string) => `${value}h`,
+              color: '#fafafa',
+            },
+          },
+        ],
+        series: {
+          name: $page.params.projectName,
+          type: 'line',
+          smooth: true,
+          areaStyle: {
+            color: summaries.color ?? '#5A6FC0',
+          },
+          lineStyle: {
+            width: 4,
+            color: summaries.color ?? '#5A6FC0',
+          },
+          data: values,
+        },
+      }
+
+      myChart.setOption(option)
+    }
+  })
   onMount(() => {
-    var chartDom = document.getElementById('main')
+    const chartDom = document.getElementById('main')
     if (chartDom) {
-      var myChart = echarts.init(chartDom)
+      myChart = echarts.init(chartDom)
+
       window.addEventListener(
         'resize',
         function () {
@@ -23,7 +77,6 @@
         },
         { passive: true },
       )
-      var option: EChartsOption
 
       option = {
         tooltip: {
@@ -70,7 +123,7 @@
         },
       }
 
-      option && myChart.setOption(option)
+      myChart.setOption(option)
     }
   })
 </script>

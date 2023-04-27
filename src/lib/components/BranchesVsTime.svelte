@@ -25,13 +25,6 @@
     })
   })
 
-  console.log(
-    'branchesToTimeDict:',
-    Object.keys(branchesToTimeDict).map((key) => [
-      key,
-      Number((branchesToTimeDict[key] / 3600).toFixed(1)),
-    ]),
-  )
   let myChart: echarts.ECharts
 
   let option: echarts.EChartsOption
@@ -63,7 +56,12 @@
             },
           },
         ],
-        tooltip: {},
+        tooltip: {
+          formatter: (params) =>
+            `${params.marker} ${branches.find((branch) => branch.includes(params.name))}: <strong>${
+              params.data[1]
+            }h</strong>`,
+        },
         xAxis: {
           type: 'category',
           axisLabel: {
@@ -76,6 +74,7 @@
           axisLabel: { color: '#fafafa', formatter: (value: string) => `${value}h` },
         },
         series: {
+          colorBy: 'data',
           type: 'bar',
           encode: { x: 'name', y: 'time' },
           datasetIndex: 1,
