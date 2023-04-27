@@ -13,7 +13,6 @@
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
-  import groupBy from 'lodash/groupBy'
 
   dayjs.extend(duration)
 
@@ -23,15 +22,21 @@
 
   const { summaries, durations, durationsByLanguage } = data
 
-  const languages = [...new Set(durationsByLanguage.data.map((duration) => duration.language))]
-  const durationsByLang = groupBy(durationsByLanguage.data, 'language')
+  const languagesByDate = summaries.data.map((item) => item.languages)
+  const languageToWeeklyCodingTime: Record<string, number> = {}
 
-  const languagesByTotalDuration = orderBy(
-    languages,
-    (language) => durationsByLang[language].reduce((acc, cur) => cur.duration + acc, 0),
-    'desc',
-  ).filter(
-    (language) => durationsByLang[language].reduce((acc, cur) => cur.duration + acc, 0) > 20 * 60,
+  languagesByDate.forEach((languages) => {
+    languages.forEach((language) => {
+      if (languageToWeeklyCodingTime[language.name] === undefined) {
+        languageToWeeklyCodingTime[language.name] = language.total_seconds
+      } else {
+        languageToWeeklyCodingTime[language.name] += language.total_seconds
+      }
+    })
+  })
+
+  const topLanguage = Object.keys(languageToWeeklyCodingTime).reduce((a, b) =>
+    languageToWeeklyCodingTime[a] > languageToWeeklyCodingTime[b] ? a : b,
   )
 
   let newSummaries: undefined | SummariesResult = undefined
@@ -205,7 +210,7 @@
       </div>
       <div class="stat-title text-sm">Top Language</div>
       <div class="stat-value text-lg text-secondary">
-        {languagesByTotalDuration[0]}
+        {topLanguage}
       </div>
     </div>
   </div>
