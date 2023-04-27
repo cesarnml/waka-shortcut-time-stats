@@ -17,8 +17,6 @@
   dayjs.extend(duration)
 
   export let data: PageData
-  // const { summaries, allTimeSinceToday, iterations, durations, durationsByLanguage, projects } =
-  // data
 
   const { summaries, durations, durationsByLanguage } = data
 
