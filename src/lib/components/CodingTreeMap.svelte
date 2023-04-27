@@ -22,11 +22,11 @@
       }
       if (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] === undefined) {
         return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] = Number(
-          (Math.floor(entity.total_seconds) / 3600).toFixed(1),
+          (entity.total_seconds / 3600).toFixed(1),
         ))
       }
       return (filesToTimeDict[entity.name.split(`${$page.params.projectName}/`)[1]] += Number(
-        (Math.floor(entity.total_seconds) / 3600).toFixed(1),
+        (entity.total_seconds / 3600).toFixed(1),
       ))
     })
   })
@@ -113,9 +113,9 @@
               show: true,
               height: 30,
             },
-            itemStyle: {
-              borderColor: '#fff',
-            },
+            // itemStyle: {
+            //   borderColor: '#fff',
+            // },
             levels: getLevelOption(),
             data: diskData,
           },

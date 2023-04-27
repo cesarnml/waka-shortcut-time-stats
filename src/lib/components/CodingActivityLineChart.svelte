@@ -6,7 +6,7 @@
   import { page } from '$app/stores'
 
   export let summaries: SummariesResult
-  const dates = summaries.data.map((summary) => dayjs(summary.range.date).format('MMM Do'))
+  const dates = summaries.data.map((summary) => dayjs(summary.range.date).format('MMM DD'))
   const values = summaries.data.map((summary) =>
     (summary.grand_total.total_seconds / 60 / 60).toFixed(1),
   )

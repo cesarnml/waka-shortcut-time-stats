@@ -21,13 +21,16 @@
     projects.forEach((project) => {
       if (yDataByProject[project.name] === undefined) {
         if (dateIndex === 0) {
-          yDataByProject[project.name] = [Math.floor(project.total_seconds / 60)]
+          yDataByProject[project.name] = [Number((project.total_seconds / 3600).toFixed(1))]
         } else {
           const initialArray = Array(dateIndex).fill(0)
-          yDataByProject[project.name] = [...initialArray, Math.floor(project.total_seconds / 60)]
+          yDataByProject[project.name] = [
+            ...initialArray,
+            Number((project.total_seconds / 3600).toFixed(1)),
+          ]
         }
       } else {
-        yDataByProject[project.name].push(Math.floor(project.total_seconds / 60))
+        yDataByProject[project.name].push(Number((project.total_seconds / 3600).toFixed(1)))
       }
     })
   })
@@ -79,16 +82,16 @@
         projects.forEach((project) => {
           if (yDataByProject[project.name] === undefined) {
             if (dateIndex === 0) {
-              yDataByProject[project.name] = [Math.floor(project.total_seconds / 60)]
+              yDataByProject[project.name] = [Number((project.total_seconds / 3600).toFixed(1))]
             } else {
               const initialArray = Array(dateIndex).fill(0)
               yDataByProject[project.name] = [
                 ...initialArray,
-                Math.floor(project.total_seconds / 60),
+                Number((project.total_seconds / 3600).toFixed(1)),
               ]
             }
           } else {
-            yDataByProject[project.name].push(Math.floor(project.total_seconds / 60))
+            yDataByProject[project.name].push(Number((project.total_seconds / 3600).toFixed(1)))
           }
         })
       })

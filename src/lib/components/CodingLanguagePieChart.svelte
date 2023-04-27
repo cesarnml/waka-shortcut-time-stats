@@ -23,7 +23,7 @@
   })
 
   const dataPie = Object.keys(languageToWeeklyCodingTime).map((language) => ({
-    value: Math.floor(languageToWeeklyCodingTime[language] / languagesByDate.length),
+    value: Number((languageToWeeklyCodingTime[language] / 3600).toFixed(1)),
     name: language,
   }))
 

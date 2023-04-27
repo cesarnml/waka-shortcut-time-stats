@@ -29,11 +29,13 @@
     if (
       yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] === undefined
     ) {
-      yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] =
-        Math.round(datum.grand_total.total_seconds) / 60
+      yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] = Number(
+        (datum.grand_total.total_seconds / 3600).toFixed(1),
+      )
     }
-    yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] +=
-      Math.round(datum.grand_total.total_seconds) / 60
+    yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] += Number(
+      (datum.grand_total.total_seconds / 3600).toFixed(1),
+    )
   })
 
   onMount(() => {
@@ -68,7 +70,7 @@
         },
         series: [
           {
-            data: weekdays.map((weekday) => Math.floor(yDataByWeekday[weekday])),
+            data: weekdays.map((weekday) => yDataByWeekday[weekday]),
             type: 'bar',
           },
         ],

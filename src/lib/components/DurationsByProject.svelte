@@ -88,6 +88,8 @@
         yAxis: {
           data: projectsByTotalDuration,
           type: 'category',
+          zlevel: 10,
+
           axisLabel: {
             color: '#fafafa',
             inside: true,
