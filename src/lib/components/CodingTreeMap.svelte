@@ -113,15 +113,15 @@
               show: true,
               height: 30,
             },
-            // itemStyle: {
-            //   borderColor: '#fff',
-            // },
+            itemStyle: {
+              borderColor: '#fff',
+            },
             levels: getLevelOption(),
             data: diskData,
           },
         ],
       })
-      option && myChart.setOption(option)
+      myChart.setOption(option)
     }
   })
 

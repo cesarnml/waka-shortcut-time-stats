@@ -11,11 +11,58 @@
   dayjs.extend(duration)
 
   export let data
-  const { summaries } = data
+  let { summaries } = data
+
+  let loading = false
+
+  const WakaApiRange = {
+    Today: 'Today',
+    Yesterday: 'Yesterday',
+    Last_7_Days: 'Last 7 Days',
+    Last_7_Days_From_Yesterday: 'Last 7 Days From Yesterday',
+    Last_14_Days: 'Last 14 Days',
+    Last_30_Days: 'Last 30 Days',
+    This_Week: 'This Week',
+    This_Month: 'This Month',
+    Last_Month: 'Last Month',
+  } as const
+
+  let selectedRanged = WakaApiRange.Last_7_Days_From_Yesterday
+
+  const handleChange = async () => {
+    loading = true
+    const response = await fetch(
+      `/api/wakatime/current/summaries/?range=${selectedRanged}&project=${$page.params.projectName}`,
+    )
+    summaries = await response.json()
+    loading = false
+  }
 </script>
 
 <div class="space-y-8 pt-8">
   <h1 class="text-3xl text-zinc-300">Project: {$page.params.projectName}</h1>
+  <div class="flex gap-4">
+    <select
+      class="select-primary select w-full max-w-xs text-zinc-300"
+      bind:value={selectedRanged}
+      on:change={handleChange}
+      disabled={loading}
+    >
+      <option disabled selected>Pick a range</option>
+      <option value={WakaApiRange.Last_7_Days_From_Yesterday}
+        >{WakaApiRange.Last_7_Days_From_Yesterday}</option
+      >
+      <option value={WakaApiRange.Last_7_Days}>{WakaApiRange.Last_7_Days}</option>
+      <option value={WakaApiRange.Last_14_Days}>{WakaApiRange.Last_14_Days}</option>
+      <option value={WakaApiRange.Last_30_Days}>{WakaApiRange.Last_30_Days}</option>
+      <option value={WakaApiRange.This_Week}>{WakaApiRange.This_Week}</option>
+      <option value={WakaApiRange.This_Month}>{WakaApiRange.This_Month}</option>
+      <option value={WakaApiRange.Last_Month}>{WakaApiRange.Last_Month}</option>
+    </select>
+    {#if loading}
+      <button class="loading btn-primary btn-link btn" />
+    {/if}
+  </div>
   <div class="stats flex shadow-lg">
     <div class="stat shrink">
       <div class="stat-figure">
