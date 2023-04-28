@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
+  import * as echarts from 'echarts'
   import { onMount } from 'svelte'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
-  import * as echarts from 'echarts'
 
   export let summaries: SummariesResult
 
@@ -34,7 +35,17 @@
 
     if (chartDom) {
       myChart = echarts.init(chartDom)
-
+      // @ts-expect-error tough type
+      myChart.on('click', async (params) => {
+        const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']]
+        if (branch.includes('cesar')) {
+          const storyId = branch.split('-')[1]
+          const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
+          const result = await response.json()
+          const storyLink: string = result.data[0].app_url
+          window.open(storyLink, '_blank')
+        }
+      })
       option = {
         grid: {
           top: 10,
