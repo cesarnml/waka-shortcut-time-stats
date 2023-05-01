@@ -1,8 +1,8 @@
 <script lang="ts">
   import '../app.postcss'
-
   import { invalidate } from '$app/navigation'
   import { onMount } from 'svelte'
+  import Navbar from '$lib/components/Navbar.svelte'
 
   export let data
 
@@ -19,8 +19,9 @@
   })
 </script>
 
-<div class="bg-slate-700">
-  <div class="mx-auto max-w-screen-xl">
+<div class="bg-slate-950 p-4">
+  <Navbar />
+  <div class="mx-auto min-h-screen max-w-screen-xl">
     <slot />
   </div>
 </div>
