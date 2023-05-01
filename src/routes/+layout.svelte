@@ -19,10 +19,8 @@
   })
 </script>
 
-<div class="bg-slate-950">
-  <div class="p-4">
-    <Navbar />
-  </div>
+<div class="bg-slate-950 p-4">
+  <Navbar />
   <div class="mx-auto min-h-screen max-w-screen-xl">
     <slot />
   </div>
