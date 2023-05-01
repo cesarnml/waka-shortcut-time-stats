@@ -1,8 +1,20 @@
 {
   "crons": [
     {
-      "path": "/api/cron",
-      "schedule": "10 10 * * *"
+      "path": "/api/cron/summaries",
+      "schedule": "01 17 * * *"
+    },
+    {
+      "path": "/api/cron/project-summaries",
+      "schedule": "01 17 * * *"
+    },
+    {
+      "path": "/api/cron/durations",
+      "schedule": "01 17 * * *"
+    },
+    {
+      "path": "/api/cron/durations-by-language",
+      "schedule": "01 17 * * *"
     }
   ]
 }

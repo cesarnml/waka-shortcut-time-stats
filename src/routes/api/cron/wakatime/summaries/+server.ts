@@ -24,5 +24,5 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const output = await supabase.from('summaries').insert(summariesWithDate)
   console.log('output:', output)
 
-  return json({ message: 'ok' })
+  return json(output)
 }
