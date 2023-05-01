@@ -42,7 +42,7 @@
 
 <div class="space-y-8 pt-8">
   <h1 class="text-3xl text-zinc-300">Project: {$page.params.projectName}</h1>
-  <div class="flex gap-4">
+  <div class="flex justify-end gap-4">
     <select
       class="select-primary select w-full max-w-xs text-zinc-300"
       bind:value={selectedRanged}

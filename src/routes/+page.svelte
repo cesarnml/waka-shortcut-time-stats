@@ -92,8 +92,8 @@
   <title>WakaStats</title>
 </svelte:head>
 
-<div class="space-y-8 pt-8">
-  <div class="flex gap-4">
+<div class="space-y-8 px-4 pt-8">
+  <div class="flex justify-end gap-4">
     <select
       class="select-primary select w-full max-w-xs text-zinc-300"
       bind:value={selectedRanged}
@@ -224,8 +224,3 @@
   </div>
   <ProjectList projects={projectList} />
 </div>
-<!-- <h2 class="text-4xl">Grand Total</h2>
-<pre>{JSON.stringify(allTimeSinceToday, null, 2)}</pre>
-<hr />
-<h2 class="text-4xl">Iterations</h2>
-<pre>{JSON.stringify(iterations, null, 2)}</pre> -->
