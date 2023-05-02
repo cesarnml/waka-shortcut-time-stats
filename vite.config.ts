@@ -27,12 +27,13 @@ const config = defineConfig(({ mode }) => {
       globals: true,
       environment: 'jsdom',
       include: ['src/**/*.spec.{js,ts}'],
+      setupFiles: 'setupTests.ts',
       coverage: {
         provider: 'istanbul',
         all: true,
         reporter: ['json', 'html', 'text'],
         src: ['./src'],
-        include: ['src/**/*.{ts, svelte}'],
+        include: ['src/**/*.{ts, svelte}', 'src/lib/components/**/*.svelte'],
         exclude: [
           'src/lib/external',
           'src/lib/typings',
