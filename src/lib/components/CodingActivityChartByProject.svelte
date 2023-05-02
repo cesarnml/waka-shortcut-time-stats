@@ -1,54 +1,56 @@
 <script lang="ts">
   import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
-  import advanceFormat from 'dayjs/plugin/advancedFormat'
   import * as echarts from 'echarts'
-  import { onMount } from 'svelte'
-
-  dayjs.extend(advanceFormat)
+  import { afterUpdate, onMount } from 'svelte'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
+  import { DateFormat, secPerHour } from '$lib/constants'
+  import { zipObject } from 'lodash'
 
   export let summaries: SummariesResult
 
-  let myChart: echarts.ECharts
-
+  let chartContainer: HTMLDivElement
+  let chart: echarts.ECharts
   let option: echarts.EChartsOption
 
-  const xSummaries = summaries.data.map((item) => dayjs(item.range.date).format('MMM Do'))
+  const xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
   const projectsByDate = summaries.data.map((item) => item.projects)
-  const yDataByProject: Record<string, number[]> = {}
+  const projectNames = [
+    ...new Set(summaries.data.map((item) => item.projects.map((project) => project.name)).flat()),
+  ]
+  let yDataByProject = zipObject(
+    projectNames,
+    JSON.parse(JSON.stringify(Array(projectNames.length).fill(Array(xValues.length).fill(0)))),
+  )
 
   projectsByDate.forEach((projects, dateIndex) => {
     projects.forEach((project) => {
-      if (yDataByProject[project.name] === undefined) {
-        if (dateIndex === 0) {
-          yDataByProject[project.name] = [Number((project.total_seconds / 3600).toFixed(1))]
-        } else {
-          const initialArray = Array(dateIndex).fill(0)
-          yDataByProject[project.name] = [
-            ...initialArray,
-            Number((project.total_seconds / 3600).toFixed(1)),
-          ]
-        }
-      } else {
-        yDataByProject[project.name].push(Number((project.total_seconds / 3600).toFixed(1)))
-      }
+      // @ts-expect-error tough type
+      yDataByProject[project.name][dateIndex] = Number(
+        (project.total_seconds / secPerHour).toFixed(1),
+      )
     })
   })
 
-  const seriesProject: echarts.SeriesOption[] = Object.keys(yDataByProject).map((key) => {
+  const seriesProject: echarts.SeriesOption[] = projectNames.map((key) => {
     return {
       data: yDataByProject[key],
       type: 'bar',
-      stack: 'x',
+      stack: 'total',
+      emphasis: {
+        focus: 'series',
+      },
       name: key,
     }
   })
 
   option = {
-    tooltip: {},
-    grid: { left: '10%', right: '5%' },
+    tooltip: {
+      valueFormatter: (value) => `${value}h`,
+    },
+    grid: { left: 50, right: 20, top: 50, bottom: 50 },
     legend: {
-      padding: 10,
       type: 'scroll',
       textStyle: {
         color: '#fafafa',
@@ -59,100 +61,95 @@
       },
     },
     xAxis: {
-      data: xSummaries,
-      axisLabel: {
-        color: '#fafafa',
-      },
+      type: 'category',
+      data: xValues,
     },
     yAxis: {
+      type: 'value',
       axisLabel: {
-        color: '#fafafa',
+        formatter: (value: number) => `${value}h`,
+        showMinLabel: false,
       },
     },
     series: seriesProject,
   }
 
-  $: {
-    if (myChart && option) {
-      const xSummaries = summaries.data.map((item) => dayjs(item.range.date).format('MMM Do'))
-      const projectsByDate = summaries.data.map((item) => item.projects)
-      const yDataByProject: Record<string, number[]> = {}
-
-      projectsByDate.forEach((projects, dateIndex) => {
-        projects.forEach((project) => {
-          if (yDataByProject[project.name] === undefined) {
-            if (dateIndex === 0) {
-              yDataByProject[project.name] = [Number((project.total_seconds / 3600).toFixed(1))]
-            } else {
-              const initialArray = Array(dateIndex).fill(0)
-              yDataByProject[project.name] = [
-                ...initialArray,
-                Number((project.total_seconds / 3600).toFixed(1)),
-              ]
-            }
-          } else {
-            yDataByProject[project.name].push(Number((project.total_seconds / 3600).toFixed(1)))
-          }
-        })
-      })
-
-      const seriesProject: echarts.SeriesOption[] = Object.keys(yDataByProject).map((key) => {
-        return {
-          data: yDataByProject[key],
-          type: 'bar',
-          stack: 'x',
-          name: key,
-        }
-      })
-
-      option = {
-        tooltip: {},
-        grid: { left: '10%', right: '5%' },
-        legend: {
-          padding: 10,
-          type: 'scroll',
-          textStyle: {
-            color: '#fafafa',
-          },
-          pageIconColor: '#fafafa',
-          pageTextStyle: {
-            color: '#fafafa',
-          },
-        },
-        xAxis: {
-          data: xSummaries,
-          axisLabel: {
-            color: '#fafafa',
-          },
-        },
-        yAxis: {
-          axisLabel: {
-            color: '#fafafa',
-          },
-        },
-        series: seriesProject,
-      }
-      myChart.setOption(option)
-    }
-  }
   onMount(() => {
-    const projectChart = document.getElementById('wcs-project')
-    if (projectChart) {
-      myChart = echarts.init(projectChart, undefined, { renderer: 'svg' })
-      window.addEventListener(
-        'resize',
-        function () {
-          myChart.resize()
-        },
-        { passive: true },
-      )
-
-      myChart.setOption(option)
+    const handleResize = () => chart.resize()
+    if (chartContainer) {
+      chart = echarts.init(chartContainer, 'dark', { renderer: 'svg' })
+      window.addEventListener('resize', handleResize, { passive: true })
+      chart.setOption(option)
     }
+    return () => window.removeEventListener('resize', handleResize)
+  })
+
+  afterUpdate(() => {
+    const xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
+    const projectsByDate = summaries.data.map((item) => item.projects)
+    const projectNames = [
+      ...new Set(summaries.data.map((item) => item.projects.map((project) => project.name)).flat()),
+    ]
+    let yDataByProject = zipObject(
+      projectNames,
+      JSON.parse(JSON.stringify(Array(projectNames.length).fill(Array(xValues.length).fill(0)))),
+    )
+
+    projectsByDate.forEach((projects, dateIndex) => {
+      projects.forEach((project) => {
+        // @ts-expect-error tough type
+        yDataByProject[project.name][dateIndex] = Number(
+          (project.total_seconds / secPerHour).toFixed(1),
+        )
+      })
+    })
+
+    const seriesProject: echarts.SeriesOption[] = projectNames.map((key) => {
+      return {
+        data: yDataByProject[key],
+        type: 'bar',
+        stack: 'total',
+        emphasis: {
+          focus: 'series',
+        },
+        name: key,
+      }
+    })
+
+    option = {
+      tooltip: {
+        valueFormatter: (value) => `${value}h`,
+      },
+      grid: { left: 50, right: 20, top: 50, bottom: 50 },
+      legend: {
+        type: 'scroll',
+        textStyle: {
+          color: '#fafafa',
+        },
+        pageIconColor: '#fafafa',
+        pageTextStyle: {
+          color: '#fafafa',
+        },
+      },
+      xAxis: {
+        type: 'category',
+        data: xValues,
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: (value: number) => `${value}h`,
+          showMinLabel: false,
+        },
+      },
+      series: seriesProject,
+    }
+
+    chart.setOption(option)
   })
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Weekly Coding Stats by Project</h2>
-  <div id="wcs-project" class="mb-8 h-96 w-full" />
-</div>
+<ChartContainer>
+  <ChartTitle>Stats by Project</ChartTitle>
+  <div class="h-96 w-full" bind:this={chartContainer} />
+</ChartContainer>

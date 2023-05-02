@@ -2,13 +2,10 @@
   import { DateFormat, secPerHour } from '$lib/constants'
   import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
-  import advanceFormat from 'dayjs/plugin/advancedFormat.js'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-
-  dayjs.extend(advanceFormat)
 
   export let summaries: SummariesResult
   export let title = 'Category vs Time'
@@ -53,7 +50,9 @@
   })
 
   option = {
-    tooltip: {},
+    tooltip: {
+      valueFormatter: (value) => `${value}h`,
+    },
     grid: { left: 20, right: 20, top: 50, bottom: 50 },
     legend: {
       type: 'scroll',
