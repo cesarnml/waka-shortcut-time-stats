@@ -49,6 +49,7 @@ const config = defineConfig(({ mode }) => {
           'src/hooks.server.ts',
           'src/**/*.spec.{js,ts}',
           'src/lib/generated/**/*.ts',
+          'src/lib/constants.ts',
         ],
       },
     },
