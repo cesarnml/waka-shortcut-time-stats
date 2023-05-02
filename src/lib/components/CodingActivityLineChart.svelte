@@ -2,8 +2,8 @@
   import dayjs from 'dayjs'
   import * as echarts from 'echarts'
   import { onMount, afterUpdate } from 'svelte'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import { page } from '$app/stores'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 
   export let summaries: SummariesResult
 
@@ -12,7 +12,7 @@
     (summary.grand_total.total_seconds / 60 / 60).toFixed(1),
   )
 
-  let myChart: echarts.ECCharts
+  let myChart: echarts.ECharts
   let option: echarts.EChartsOption
 
   afterUpdate(() => {

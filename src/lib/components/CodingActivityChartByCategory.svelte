@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { afterUpdate, onMount } from 'svelte'
-  import * as echarts from 'echarts'
+  import { DateFormat, secPerHour } from '$lib/constants'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
-  import { DateFormat, secPerHour } from '$lib/constants'
+  import * as echarts from 'echarts'
+  import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
 

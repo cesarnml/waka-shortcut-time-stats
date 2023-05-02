@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit'
-import type { SummariesResult } from '../wakatime/current/summaries/+server'
 import type { RequestHandler } from './$types'
+import type { SummariesResult } from '../wakatime/current/summaries/+server'
 
 const WakaApiRange = {
   Today: 'Today',

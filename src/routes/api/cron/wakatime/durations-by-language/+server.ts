@@ -1,7 +1,7 @@
+import type { DurationsResult } from '$src/routes/api/wakatime/current/durations/+server'
 import { json } from '@sveltejs/kit'
-import type { RequestHandler } from './$types'
 import dayjs from 'dayjs'
-import { DurationsResult } from '../../../wakatime/current/durations/+server'
+import type { RequestHandler } from './$types'
 
 const WakaSliceBy = {
   None: '',
