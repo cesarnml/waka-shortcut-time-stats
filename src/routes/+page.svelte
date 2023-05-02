@@ -92,7 +92,7 @@
   <title>WakaStats</title>
 </svelte:head>
 
-<div class="space-y-8 px-4 pt-8">
+<div class="space-y-8 px-1 pt-8 md:px-4">
   <div class="flex justify-end gap-4">
     <select
       class="select-primary select w-full max-w-xs text-zinc-300"

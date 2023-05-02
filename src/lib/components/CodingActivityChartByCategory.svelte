@@ -5,13 +5,17 @@
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import { DateFormat, secPerHour } from '$lib/constants'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
 
   dayjs.extend(advanceFormat)
 
   export let summaries: SummariesResult
+  export let title = 'Category vs Time'
+
   let chartContainer: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsCoreOption
+  let option: echarts.EChartsOption
 
   const xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
   const categoriesByDate = summaries.data.map((item) => item.categories)
@@ -50,23 +54,17 @@
 
   option = {
     tooltip: {},
-    grid: { left: '10%', right: '5%' },
+    grid: { left: 20, right: 20, top: 50, bottom: 50 },
     legend: {
-      padding: 10,
       type: 'scroll',
-      textStyle: {
-        color: '#fafafa',
-      },
     },
     xAxis: {
       data: xValues,
-      axisLabel: {
-        color: '#fafafa',
-      },
     },
     yAxis: {
       axisLabel: {
-        color: '#fafafa',
+        formatter: (value: number) => `${value}h`,
+        showMinLabel: false,
       },
     },
     series: seriesCategory,
@@ -123,8 +121,10 @@
     })
 
     option = {
-      tooltip: {},
-      grid: { left: '10%', right: '5%' },
+      tooltip: {
+        valueFormatter: (value) => `${value}h`,
+      },
+      grid: { top: 50, bottom: 50, left: 40, right: 20 },
       legend: {
         padding: 10,
         type: 'scroll',
@@ -149,7 +149,7 @@
   })
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Weekly Coding Stats by Category</h2>
-  <div bind:this={chartContainer} class="h-96 w-full" />
-</div>
+<ChartContainer>
+  <ChartTitle>{title}</ChartTitle>
+  <div class="h-96 w-full" bind:this={chartContainer} />
+</ChartContainer>

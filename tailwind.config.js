@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'chart-dark': '#0F0C28',
+      },
+    },
   },
   corePlugins: {
     aspectRatio: false,

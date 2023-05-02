@@ -4,21 +4,22 @@
   import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import zipWith from 'lodash/zipWith'
   import add from 'lodash/add'
-  import dayjs from 'dayjs'
-
-  type EChartsOption = echarts.EChartsOption
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
 
   export let summaries: SummariesResult
-  let myChart: echarts.ECharts
+  export let title = 'Project vs Time'
+
+  let chartContainer: HTMLDivElement
+  let chart: echarts.ECharts
+  let option: echarts.EChartsOption
 
   const projectNames = [
     ...new Set(
       summaries.data.map((summary) => summary.projects.map((project) => project.name)).flat(),
     ),
   ]
-
   let data: number[] = projectNames.map(() => 0)
-
   let dataByDateDict: Record<string, number[]> = {}
 
   summaries.data.forEach((summary) => {
@@ -35,83 +36,69 @@
 
   let dates = Object.keys(dataByDateDict)
 
-  const dateToDay = {
-    0: 'Sun',
-    1: 'Mon',
-    2: 'Tue',
-    3: 'Wed',
-    4: 'Thu',
-    5: 'Fri',
-    6: 'Sat',
+  option = {
+    textStyle: {
+      color: '#fafafa',
+    },
+    grid: {
+      show: true,
+      left: 25,
+      right: 45,
+      top: 10,
+      bottom: 50,
+    },
+    xAxis: {
+      max: 'dataMax',
+      axisLabel: {
+        formatter: (value: number) => `${value.toFixed(1)}h`,
+      },
+    },
+    yAxis: {
+      type: 'category',
+      data: projectNames,
+      inverse: true,
+      animationDuration: 300,
+      animationDurationUpdate: 300,
+      zlevel: 10,
+      axisLabel: {
+        show: true,
+        inside: true,
+        fontWeight: 'bold',
+        textShadowBlur: 2,
+        verticalAlign: 'top',
+      },
+      max: 4, // only the largest 3 bars will be displayed
+    },
+    series: [
+      {
+        colorBy: 'data',
+        realtimeSort: true,
+        name: 'X',
+        type: 'bar',
+        data: data,
+        label: {
+          show: true,
+          position: 'right',
+          verticalAlign: 'bottom',
+          fontWeight: 'bold',
+          valueAnimation: true,
+          textShadowBlur: 2,
+          color: '#fafafa',
+          formatter: (item) => `${Number(item.value).toFixed(1)}h`,
+        },
+      },
+    ],
+    animationDuration: 0,
+    animationDurationUpdate: 3000,
+    animationEasing: 'linear',
+    animationEasingUpdate: 'linear',
   }
 
   onMount(() => {
-    var chartDom = document.getElementById('racing')
-    if (chartDom) {
-      myChart = echarts.init(chartDom)
-
-      window.addEventListener(
-        'resize',
-        function () {
-          myChart.resize()
-        },
-        { passive: true },
-      )
-
-      const option: EChartsOption = {
-        textStyle: {
-          color: '#fafafa',
-          fontSize: 14,
-          fontWeight: 'bold',
-        },
-        grid: {
-          name: 'grid',
-          show: true,
-          containLabel: true,
-          left: '8%',
-          right: '16%',
-        },
-        xAxis: {
-          max: 'dataMax',
-          name: dayjs(dates[0]).format('MMM Do'),
-          axisLabel: {
-            color: '#fafafa',
-          },
-        },
-        yAxis: {
-          type: 'category',
-          data: projectNames,
-          inverse: true,
-          animationDuration: 300,
-          animationDurationUpdate: 300,
-          axisLabel: {
-            color: '#fafafa',
-          },
-          max: 4, // only the largest 3 bars will be displayed
-        },
-        series: [
-          {
-            colorBy: 'data',
-            realtimeSort: true,
-            name: 'X',
-            type: 'bar',
-            data: data,
-            label: {
-              show: true,
-              position: 'right',
-              valueAnimation: true,
-              textBorderWidth: 3,
-              formatter: (item) => `${item.value} h`,
-            },
-          },
-        ],
-        animationDuration: 0,
-        animationDurationUpdate: 3000,
-        animationEasing: 'linear',
-        animationEasingUpdate: 'linear',
-      }
-
-      option && myChart.setOption(option)
+    if (chartContainer) {
+      chart = echarts.init(chartContainer, 'dark', { renderer: 'svg' })
+      window.addEventListener('resize', () => chart.resize(), { passive: true })
+      chart.setOption(option)
     }
   })
 
@@ -121,12 +108,7 @@
     // We need to wrap the loop into an async function for this to work
     for (var i = 0; i < summaries.data.length; i++) {
       data = zipWith(data, dataByDateDict[dates[i]], add).map((number) => Number(number.toFixed(2)))
-      myChart?.setOption<echarts.EChartsOption>({
-        xAxis: {
-          name: `${dateToDay[dayjs(dates[i]).day() as keyof typeof dateToDay]} ${dayjs(
-            dates[i],
-          ).format('Do')}`,
-        },
+      chart?.setOption<echarts.EChartsOption>({
         series: [
           {
             type: 'bar',
@@ -141,7 +123,7 @@
   load()
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Top 5 Projects by Total Time</h2>
-  <div id="racing" class="h-96 w-full" />
-</div>
+<ChartContainer>
+  <ChartTitle>{title}</ChartTitle>
+  <div bind:this={chartContainer} class="h-96 w-full" />
+</ChartContainer>
