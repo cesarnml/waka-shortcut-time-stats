@@ -1,9 +1,9 @@
 <script lang="ts">
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
-  import { onMount } from 'svelte'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
-  import zipWith from 'lodash/zipWith'
   import add from 'lodash/add'
+  import zipWith from 'lodash/zipWith'
+  import { onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
 

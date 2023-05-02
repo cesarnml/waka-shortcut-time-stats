@@ -3,7 +3,9 @@
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
 
   dayjs.extend(advanceFormat)
 
@@ -37,7 +39,7 @@
             startAngle: 180,
             endAngle: 0,
             center: ['50%', '75%'],
-            radius: '75%',
+            radius: '90%',
             min: 0,
             max: 1.0,
             splitNumber: 10,
@@ -155,8 +157,8 @@
   }
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Discipline Gauge</h2>
+<ChartContainer>
+  <ChartTitle>Discipline Gauge</ChartTitle>
   <div>
     <div class="flex justify-center gap-4">
       <button class="btn-primary btn-sm btn" on:click={() => handleClick('Yesterday')}
@@ -164,6 +166,6 @@
       >
       <button class="btn-secondary btn-sm btn" on:click={() => handleClick('Today')}>Today</button>
     </div>
-    <div id="gauge" class="h-96 w-full" />
+    <div id="gauge" class="h-80 w-full" />
   </div>
-</div>
+</ChartContainer>

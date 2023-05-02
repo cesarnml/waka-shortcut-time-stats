@@ -1,14 +1,14 @@
 <script lang="ts">
-  import 'iconify-icon'
-  import * as echarts from 'echarts'
-  import { onMount } from 'svelte'
-  import type { DurationsResult } from '../../routes/api/wakatime/current/durations/+server'
-  import groupBy from 'lodash/groupBy'
-  import orderBy from 'lodash/orderBy'
-  import isToday from 'dayjs/plugin/isToday'
+  import { browser } from '$app/environment'
+  import type { DurationsResult } from '$src/routes/api/wakatime/current/durations/+server'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
-  import { browser } from '$app/environment'
+  import isToday from 'dayjs/plugin/isToday'
+  import * as echarts from 'echarts'
+  import 'iconify-icon'
+  import groupBy from 'lodash/groupBy'
+  import orderBy from 'lodash/orderBy'
+  import { onMount } from 'svelte'
 
   dayjs.extend(duration)
   dayjs.extend(isToday)

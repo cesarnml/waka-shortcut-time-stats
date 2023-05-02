@@ -1,8 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import orderBy from 'lodash/orderBy'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
   import { afterUpdate } from 'svelte'
+
   export let summaries: SummariesResult
 
   let files: string[] = []

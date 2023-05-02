@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import dayjs from 'dayjs'
-import { DurationsResult } from '../../../wakatime/current/durations/+server'
+import type { DurationsResult } from '$src/routes/api/wakatime/current/durations/+server'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD')

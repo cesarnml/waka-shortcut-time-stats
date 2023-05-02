@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import type { SummariesResult } from '../../../wakatime/current/summaries/+server'
+import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 
 const WakaApiRange = {
   Today: 'Today',
@@ -22,37 +22,40 @@ type Project = {
 }
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
-  const { data: projects }: { data: Project[] } = await supabase.from('projects').select('*')
+  const { data: projects }: { data: Project[] | null } = await supabase.from('projects').select('*')
 
-  const projectSummariesRequests = projects.map((project) => {
-    return fetch(
-      `/api/wakatime/current/summaries?range=${WakaApiRange.Yesterday}&project=${project.name}`,
+  if (projects) {
+    const projectSummariesRequests = projects.map((project) => {
+      return fetch(
+        `/api/wakatime/current/summaries?range=${WakaApiRange.Yesterday}&project=${project.name}`,
+      )
+    })
+
+    const responses = await Promise.all(projectSummariesRequests)
+    const projectSummariesResults: SummariesResult[] = await Promise.all(
+      responses.map((response) => response.json()),
     )
-  })
 
-  const responses = await Promise.all(projectSummariesRequests)
-  const projectSummariesResults: SummariesResult[] = await Promise.all(
-    responses.map((response) => response.json()),
-  )
+    const projectSummariesResultsWithDate = projectSummariesResults.map(
+      (projectSummaryResult, index) => {
+        projectSummaryResult.data = projectSummaryResult.data.map((summary) => ({
+          ...summary,
+          date: summary.range.date,
+          project_id: projects[index].id,
+        }))
+        return projectSummaryResult
+      },
+    )
 
-  const projectSummariesResultsWithDate = projectSummariesResults.map(
-    (projectSummaryResult, index) => {
-      projectSummaryResult.data = projectSummaryResult.data.map((summary) => ({
-        ...summary,
-        date: summary.range.date,
-        project_id: projects[index].id,
-      }))
-      return projectSummaryResult
-    },
-  )
+    const projectSummariesResultsPayload = projectSummariesResultsWithDate.map(
+      (projectSummaryResult) => {
+        return supabase.from('project_summaries').insert(projectSummaryResult.data)
+      },
+    )
 
-  const projectSummariesResultsPayload = projectSummariesResultsWithDate.map(
-    (projectSummaryResult) => {
-      return supabase.from('project_summaries').insert(projectSummaryResult.data)
-    },
-  )
+    const output = await Promise.all(projectSummariesResultsPayload)
 
-  const output = await Promise.all(projectSummariesResultsPayload)
-
-  return json(output)
+    return json(output)
+  }
+  return json({ message: 'No projects found' })
 }

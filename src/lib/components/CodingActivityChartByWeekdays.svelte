@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import * as echarts from 'echarts'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
   import localeData from 'dayjs/plugin/localeData'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
+  import * as echarts from 'echarts'
+  import { onMount } from 'svelte'
 
   dayjs.extend(localeData)
 

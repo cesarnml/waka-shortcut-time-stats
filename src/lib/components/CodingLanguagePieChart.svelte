@@ -1,87 +1,84 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
   import * as echarts from 'echarts'
-  import dayjs from 'dayjs'
-  import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
-
-  dayjs.extend(advanceFormat)
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
+  import { secPerHour } from '$lib/constants'
 
   export let summaries: SummariesResult
 
-  const languagesByDate = summaries.data.map((item) => item.languages)
-  const languageToWeeklyCodingTime: Record<string, number> = {}
+  let chartContainer: HTMLDivElement
+  let chart: echarts.ECharts
+  let option: echarts.EChartsOption
 
-  languagesByDate.forEach((languages) => {
-    languages.forEach((language) => {
-      if (languageToWeeklyCodingTime[language.name] === undefined) {
-        languageToWeeklyCodingTime[language.name] = language.total_seconds
-      } else {
-        languageToWeeklyCodingTime[language.name] += language.total_seconds
-      }
+  const createData = (summaries: SummariesResult) => {
+    const languagesByDate = summaries.data.map((item) => item.languages)
+    const languageToWeeklyCodingTime: Record<string, number> = {}
+
+    languagesByDate.forEach((languages) => {
+      languages.forEach((language) => {
+        if (languageToWeeklyCodingTime[language.name] === undefined) {
+          languageToWeeklyCodingTime[language.name] = language.total_seconds
+        } else {
+          languageToWeeklyCodingTime[language.name] += language.total_seconds
+        }
+      })
     })
-  })
 
-  const dataPie = Object.keys(languageToWeeklyCodingTime).map((language) => ({
-    value: Number((languageToWeeklyCodingTime[language] / 3600).toFixed(1)),
-    name: language,
-  }))
+    return Object.keys(languageToWeeklyCodingTime).map((language) => ({
+      value: Number((languageToWeeklyCodingTime[language] / secPerHour).toFixed(1)),
+      name: language,
+    }))
+  }
+
+  $: data = createData(summaries)
+
+  option = {
+    // @ts-expect-error fix type
+    tooltip: {
+      trigger: 'item',
+      valueFormatter: (value: number) => `${value.toFixed(1)}h`,
+    },
+    grid: { left: 0, right: 0, bottom: 0, top: 0 },
+    legend: {
+      type: 'scroll',
+      textStyle: {
+        color: '#fafafa',
+      },
+      pageIconColor: '#fafafa',
+      pageTextStyle: {
+        color: '#fafafa',
+      },
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: '55%',
+        data,
+        label: {
+          color: '#fafafa',
+        },
+      },
+    ],
+  }
 
   onMount(() => {
-    const languagePie = document.getElementById('pie')
-
-    if (languagePie) {
-      const myChart = echarts.init(languagePie)
-      window.addEventListener(
-        'resize',
-        function () {
-          myChart.resize()
-        },
-        { passive: true },
-      )
-
-      const option: echarts.EChartsOption = {
-        tooltip: {
-          trigger: 'item',
-        },
-        grid: { left: 0, right: 0, bottom: 0, top: 0 },
-        legend: {
-          padding: 10,
-          type: 'scroll',
-          textStyle: {
-            color: '#fafafa',
-          },
-          pageIconColor: '#fafafa',
-          pageTextStyle: {
-            color: '#fafafa',
-          },
-        },
-        series: [
-          {
-            name: 'Languages',
-            type: 'pie',
-            radius: '55%',
-            top: 60,
-            data: dataPie,
-            label: {
-              color: '#fafafa',
-            },
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              },
-            },
-          },
-        ],
-      }
-      myChart.setOption(option)
+    const handleResize = () => chart.resize()
+    if (chartContainer) {
+      chart = echarts.init(chartContainer, 'dark', { renderer: 'svg' })
+      window.addEventListener('resize', handleResize, { passive: true })
+      chart.setOption(option)
     }
+    return () => window.removeEventListener('resize', handleResize)
+  })
+
+  afterUpdate(() => {
+    chart.setOption({ series: [{ data }] })
   })
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Languages</h2>
-  <div id="pie" class="h-[400px] w-full" />
-</div>
+<ChartContainer>
+  <ChartTitle>Languages</ChartTitle>
+  <div class="h-96 w-full" bind:this={chartContainer} />
+</ChartContainer>

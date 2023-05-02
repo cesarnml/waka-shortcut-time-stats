@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
-  import type { SummariesResult } from '../../routes/api/wakatime/current/summaries/+server'
 
   export let summaries: SummariesResult
 
