@@ -3,6 +3,11 @@
   import { invalidate } from '$app/navigation'
   import { onMount } from 'svelte'
   import Navbar from '$lib/components/Navbar.svelte'
+  import { dev } from '$app/environment'
+  import { inject } from '@vercel/analytics'
+
+  // Initiate Vercel analytics
+  inject({ mode: dev ? 'development' : 'production' })
 
   export let data
 
