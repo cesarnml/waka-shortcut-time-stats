@@ -28,6 +28,9 @@ const config = defineConfig(({ mode }) => {
       environment: 'jsdom',
       include: ['src/**/*.spec.{js,ts}'],
       setupFiles: 'setupTests.ts',
+      deps: {
+        inline: ['echarts'],
+      },
       coverage: {
         provider: 'istanbul',
         all: true,

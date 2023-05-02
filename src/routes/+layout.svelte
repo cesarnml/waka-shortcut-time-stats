@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '$src/app.postcss'
+  import '../app.postcss'
   import { invalidate } from '$app/navigation'
   import { onMount } from 'svelte'
   import Navbar from '$lib/components/Navbar.svelte'
