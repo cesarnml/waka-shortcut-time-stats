@@ -1,18 +1,7 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
-
-const WakaApiRange = {
-  Today: 'Today',
-  Yesterday: 'Yesterday',
-  Last_7_Days: 'Last 7 Days',
-  Last_7_Days_From_Yesterday: 'Last 7 Days From Yesterday',
-  Last_14_Days: 'Last 14 Days',
-  Last_30_Days: 'Last 30 Days',
-  This_Week: 'This Week',
-  This_Month: 'This Month',
-  Last_Month: 'Last Month',
-} as const
+import { WakaApiRange } from '$lib/constants'
 
 type Project = {
   id: string
