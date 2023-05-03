@@ -1,4 +1,5 @@
 import { WAKA_API_KEY } from '$env/static/private'
+import { WakaApiRange } from '$lib/constants'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export type CumulativeTotal = {
@@ -80,18 +81,6 @@ export type SummariesResult = {
   available_branches: string[]
   color: string
 }
-
-const WakaApiRange = {
-  Today: 'Today',
-  Yesterday: 'Yesterday',
-  Last_7_Days: 'Last 7 Days',
-  Last_7_Days_From_Yesterday: 'Last 7 Days From Yesterday',
-  Last_14_Days: 'Last 14 Days',
-  Last_30_Days: 'Last 30 Days',
-  This_Week: 'This Week',
-  This_Month: 'This Month',
-  Last_Month: 'Last Month',
-} as const
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
   // TODO: Extend to match API ref: https://wakatime.com/developers#summaries
