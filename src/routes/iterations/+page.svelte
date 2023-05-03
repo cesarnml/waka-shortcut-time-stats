@@ -2,6 +2,8 @@
   import type { PageData } from './$types'
 
   export let data: PageData
+
+  $: ({ iterations } = data)
 </script>
 
-<div>Iterations</div>
+<pre>{JSON.stringify(iterations, null, 2)}</pre>

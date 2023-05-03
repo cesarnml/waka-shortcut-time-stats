@@ -121,11 +121,9 @@
             color: '#fafafa',
             inside: true,
             fontSize: 14,
-            fontWeight: 'bold',
             fontFamily: 'monospace',
-            textBorderColor: '#ff0000',
-            textBorderWidth: 3,
-            textBorderType: 'solid',
+            textShadowColor: '#ffffff',
+            textShadowBlur: 1,
           },
         },
         series: [
@@ -155,12 +153,18 @@
                   height: params.coordSys.height,
                 },
               )
+
               return (
                 rectShape && {
                   type: 'rect',
                   transition: ['shape'],
                   shape: rectShape,
-                  style: api.style(),
+                  style: {
+                    fill: '#EB5027',
+                    stroke: '#EB5027',
+                    lineWidth: 2,
+                    opacity: 0.7,
+                  },
                 }
               )
             },
@@ -258,11 +262,9 @@
             color: '#fafafa',
             inside: true,
             fontSize: 14,
-            fontWeight: 'bold',
             fontFamily: 'monospace',
-            textBorderColor: '#ff0000',
-            textBorderWidth: 3,
-            textBorderType: 'solid',
+            textShadowColor: '#ffffff',
+            textShadowBlur: 1,
           },
         },
         series: [
@@ -297,7 +299,12 @@
                   type: 'rect',
                   transition: ['shape'],
                   shape: rectShape,
-                  style: api.style(),
+                  style: {
+                    fill: '#EB5027',
+                    stroke: '#EB5027',
+                    lineWidth: 2,
+                    opacity: 0.7,
+                  },
                 }
               )
             },
