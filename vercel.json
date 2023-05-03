@@ -1,12 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/cron/summaries",
-      "schedule": "01 17 * * *"
+      "path": "/api/cron/wakatime/summaries",
+      "schedule": "01 01 * * *"
     },
     {
-      "path": "/api/cron/project-summaries",
-      "schedule": "01 17 * * *"
+      "path": "/api/cron/wakatime/project-summaries",
+      "schedule": "01 01 * * *"
     }
   ]
 }
