@@ -11,30 +11,29 @@
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
 
-  const { data } = summaries
-
-  const branches = [
-    ...new Set(data.map((summary) => summary.branches.map((entity) => entity.name)).flat()),
+  $: branches = [
+    ...new Set(
+      summaries.data.map((summary) => summary.branches.map((entity) => entity.name)).flat(),
+    ),
   ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
 
-  const branchesToTimeDict: Record<string, number> = {}
-
-  summaries.data.forEach((summary) => {
+  $: branchesToTimeDict = summaries.data.reduce((result, summary) => {
     summary.branches.forEach((entity) => {
       if (!branches.includes(entity.name)) {
         return
       }
-      if (branchesToTimeDict[entity.name] === undefined) {
-        return (branchesToTimeDict[entity.name] = entity.total_seconds)
+      if (result[entity.name] === undefined) {
+        result[entity.name] = entity.total_seconds
+      } else {
+        result[entity.name] += entity.total_seconds
       }
-      return (branchesToTimeDict[entity.name] += entity.total_seconds)
     })
-  })
+    return result
+  }, {})
 
-  option = {
-    grid: { top: 10, left: 70, bottom: 60 },
+  $: option = {
+    grid: { left: 50, right: 20, top: 50, bottom: 50 },
     dataset: [
       {
         dimensions: ['name', 'time'],
@@ -50,6 +49,7 @@
         },
       },
     ],
+
     tooltip: {
       formatter: (params) =>
         `${params.marker} ${branches.find((branch) => branch.includes(params.name))}: <strong>${
@@ -89,73 +89,16 @@
           window.open(storyLink, '_blank')
         }
       })
-
-      chart.setOption(option)
     }
   })
 
   afterUpdate(() => {
-    const branches = [
-      ...new Set(data.map((summary) => summary.branches.map((entity) => entity.name)).flat()),
-    ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
-
-    const branchesToTimeDict: Record<string, number> = {}
-
-    summaries.data.forEach((summary) => {
-      summary.branches.forEach((entity) => {
-        if (!branches.includes(entity.name)) {
-          return
-        }
-        if (branchesToTimeDict[entity.name] === undefined) {
-          return (branchesToTimeDict[entity.name] = entity.total_seconds)
-        }
-        return (branchesToTimeDict[entity.name] += entity.total_seconds)
-      })
-    })
-
-    option = {
-      grid: { top: 10, left: 70, bottom: 60 },
-      dataset: [
-        {
-          dimensions: ['name', 'time'],
-          source: Object.keys(branchesToTimeDict).map((key) => [
-            key.split('_')[0],
-            Number((branchesToTimeDict[key] / secPerHour).toFixed(1)),
-          ]),
-        },
-        {
-          transform: {
-            type: 'sort',
-            config: { dimension: 'time', order: 'desc' },
-          },
-        },
-      ],
-      tooltip: {
-        formatter: (params) =>
-          `${params.marker} ${branches.find((branch) => branch.includes(params.name))}: <strong>${
-            params.data[1]
-          }h</strong>`,
-      },
-      xAxis: {
-        type: 'category',
-        axisLabel: {
-          interval: 0,
-          rotate: 30,
-          color: '#fafafa',
-        },
-      },
-      yAxis: {
-        axisLabel: { color: '#fafafa', formatter: (value: string) => `${value}h` },
-      },
-      series: {
-        colorBy: 'data',
-        type: 'bar',
-        encode: { x: 'name', y: 'time' },
-        datasetIndex: 1,
-      },
-    }
     chart.setOption(option)
   })
+
+  $: {
+    console.log(branchesToTimeDict)
+  }
 </script>
 
 <ChartContainer>
