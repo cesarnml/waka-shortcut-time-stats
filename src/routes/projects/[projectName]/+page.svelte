@@ -2,7 +2,7 @@
   import { page } from '$app/stores'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
   import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
-  import CodingActivityLineChart from '$lib/components/CodingActivityLineChart.svelte'
+  import CodingLineChart from '$lib/components/LineChart/CodingLineChart.svelte'
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
   import dayjs from 'dayjs'
@@ -36,7 +36,7 @@
   </div>
   <CodeStatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <CodingActivityLineChart {summaries} />
+    <CodingLineChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
     <LanguagePieChart {summaries} />
     <BranchesVsTime {summaries} />
