@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
-import { WAKA_API_KEY } from '$env/static/private'
 
 const WakaApiRange = {
   Today: 'Today',
@@ -16,6 +15,7 @@ const WakaApiRange = {
 } as const
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
+  console.log('made it')
   const response = await fetch(`/api/wakatime/current/summaries?&range=${WakaApiRange.Yesterday}`)
   const summariesResult: SummariesResult = await response.json()
   const summaries = summariesResult.data
