@@ -124,7 +124,7 @@
   </div>
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingActivityLineChart {summaries} />
-    <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />
+    <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
     <LanguagePieChart {summaries} />
     <BranchesVsTime {summaries} />
   </div>
