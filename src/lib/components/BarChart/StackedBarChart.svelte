@@ -1,31 +1,21 @@
 <script lang="ts">
-  import { DateFormat } from '$lib/constants'
-  import type {
-    SummariesResult,
-    WakaCategory,
-  } from '$src/routes/api/wakatime/current/summaries/+server'
-  import dayjs from 'dayjs'
+  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import ChartContainer from '../ChartContainer.svelte'
-  import { createBarChartOption, createBarChartSeries } from './ barChartHelpers'
+  import { createBarChartOption, createBarChartSeries, createXAxisValues } from './ barChartHelpers'
 
   export let summaries: SummariesResult
-  export let title = 'Category vs Time'
+  export let title: string
+  export let itemsType: 'categories' | 'projects'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
   let option: echarts.EChartsOption
 
-  $: xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
-  $: categoriesByDate = summaries.data.map((item) => item.categories)
-  $: categoryNames = [
-    ...new Set(
-      summaries.data.map((item) => item.categories.map((category) => category.name)).flat(),
-    ),
-  ]
-  $: series = createBarChartSeries<WakaCategory>(xValues, categoriesByDate, categoryNames)
+  $: xValues = createXAxisValues(summaries)
+  $: series = createBarChartSeries({ summaries, itemsType })
   $: option = createBarChartOption(xValues, series)
 
   onMount(() => {

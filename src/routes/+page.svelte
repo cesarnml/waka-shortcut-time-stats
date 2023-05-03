@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import type { SummariesResult } from './api/wakatime/current/summaries/+server'
-  import CodingActivityChartByProject from '$lib/components/CodingActivityChartByProject.svelte'
-  import CategoryBarChart from '$lib/components/BarChart/CategoryBarChart.svelte'
+  import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
   import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
   import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
-  import CodingActivityChartByWeekdays from '$lib/components/CodingActivityChartByWeekdays.svelte'
+  import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import DurationsByProject from '$lib/components/DurationsByProject.svelte'
   import DurationsByLanguageSlice from '$lib/components/DurationsByLanguageSlice.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
@@ -213,10 +212,18 @@
     </div>
   </div>
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <CodingActivityChartByProject summaries={newSummaries ?? summaries} />
+    <StackedBarChart
+      summaries={newSummaries ?? summaries}
+      itemsType="projects"
+      title="Coding Activity by Project"
+    />
     <TotalCodingTimeByProject summaries={newSummaries ?? summaries} />
-    <CategoryBarChart summaries={newSummaries ?? summaries} />
-    <CodingActivityChartByWeekdays summaries={newSummaries ?? summaries} />
+    <StackedBarChart
+      summaries={newSummaries ?? summaries}
+      itemsType="categories"
+      title="Coding Activity by Category"
+    />
+    <WeekdaysBarChart summaries={newSummaries ?? summaries} />
     <LanguagePieChart summaries={newSummaries ?? summaries} />
     <CodingDisciplineGauge summaries={newSummaries ?? summaries} />
     <DurationsByProject {durations} />
