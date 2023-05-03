@@ -21,7 +21,6 @@ export const ChartColor = {
  * ['Mon',  'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun]
  */
 export const weekdays = [...dayjs.weekdaysShort().slice(1), 'Sun']
-console.log('weekdays:', weekdays)
 
 export const integerDateMap = {
   0: 'Sun',

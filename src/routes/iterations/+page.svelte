@@ -6,8 +6,6 @@
   export let data: PageData
 
   const { iterations, lazy } = data
-  console.log('lazy:', lazy)
-  console.log('iterations:', iterations)
 </script>
 
 <div class="grid grid-cols-3 gap-4 py-4">

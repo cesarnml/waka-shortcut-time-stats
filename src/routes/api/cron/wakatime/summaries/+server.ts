@@ -15,7 +15,6 @@ const WakaApiRange = {
 } as const
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
-  console.log('made it')
   const response = await fetch(`/api/wakatime/current/summaries?&range=${WakaApiRange.Yesterday}`)
   const summariesResult: SummariesResult = await response.json()
   const summaries = summariesResult.data
