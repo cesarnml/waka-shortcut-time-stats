@@ -1,13 +1,17 @@
 <script lang="ts">
+  import { secPerHour } from '$lib/constants'
   import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
   import localeData from 'dayjs/plugin/localeData'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
+  import { afterUpdate } from 'svelte'
 
   dayjs.extend(localeData)
 
-  const dayIntToText = {
+  const dateMap = {
     0: 'Sun',
     1: 'Mon',
     2: 'Tue',
@@ -17,71 +21,141 @@
     6: 'Sat',
   }
 
-  type KeyOfDayIntToText = keyof typeof dayIntToText
+  type KeyOfDateMap = keyof typeof dateMap
 
   export let summaries: SummariesResult
+  export let title = 'Coding Stats by Weekday'
+
+  let chartRef: HTMLDivElement
+  let chart: echarts.ECharts
+  let option: echarts.EChartsOption
 
   const weekdays = [...dayjs.weekdaysShort().slice(1), 'Sun']
+
+  const dateCount = {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+  }
 
   const yDataByWeekday: Record<string, number> = {}
 
   summaries.data.forEach((datum) => {
-    if (
-      yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] === undefined
-    ) {
-      yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] = Number(
-        (datum.grand_total.total_seconds / 3600).toFixed(1),
-      )
+    const dateInteger = dayjs(datum.range.date).day() as KeyOfDateMap
+    dateCount[dateInteger] += 1
+    if (yDataByWeekday[dateMap[dateInteger]] === undefined) {
+      yDataByWeekday[dateMap[dateInteger]] = Number(datum.grand_total.total_seconds / secPerHour)
+    } else {
+      yDataByWeekday[dateMap[dateInteger]] += Number(datum.grand_total.total_seconds / secPerHour)
     }
-    yDataByWeekday[dayIntToText[dayjs(datum.range.date).day() as KeyOfDayIntToText]] += Number(
-      (datum.grand_total.total_seconds / 3600).toFixed(1),
-    )
   })
 
+  option = {
+    grid: { left: 50, right: 20, top: 50, bottom: 50 },
+    // @ts-expect-error tough type
+    tooltip: {
+      valueFormatter: (value: number) => `${value}h`,
+    },
+    xAxis: {
+      type: 'category',
+      data: weekdays,
+      axisLabel: {
+        color: '#fafafa',
+      },
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        color: '#fafafa',
+        formatter: (value: number) => `${value}h`,
+        showMinLabel: false,
+      },
+    },
+    series: [
+      {
+        data: weekdays.map((weekday, index) =>
+          Number((yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount]).toFixed(1)),
+        ),
+        type: 'bar',
+      },
+    ],
+  }
+
   onMount(() => {
-    const categoryChart = document.getElementById('wcs-weekday')
-
-    if (categoryChart) {
-      const myChart: echarts.ECharts = echarts.init(categoryChart, undefined, { renderer: 'svg' })
-      window.addEventListener(
-        'resize',
-        function () {
-          myChart.resize()
-        },
-        { passive: true },
-      )
-      // Specify the configuration items and data for the chart
-      const option: echarts.EChartsOption = {
-        grid: { left: '10%', right: '5%' },
-        tooltip: {},
-        xAxis: {
-          type: 'category',
-          data: weekdays,
-          axisLabel: {
-            color: '#fafafa',
-          },
-        },
-        yAxis: {
-          type: 'value',
-
-          axisLabel: {
-            color: '#fafafa',
-          },
-        },
-        series: [
-          {
-            data: weekdays.map((weekday) => yDataByWeekday[weekday]),
-            type: 'bar',
-          },
-        ],
-      }
-
-      myChart.setOption(option)
+    const handleResize = () => chart.resize()
+    if (chartRef) {
+      chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+      window.addEventListener('resize', handleResize, { passive: true })
+      chart.setOption(option)
     }
+    return () => window.removeEventListener('resize', handleResize)
+  })
+
+  afterUpdate(() => {
+    const dateCount = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+    }
+
+    const yDataByWeekday: Record<string, number> = {}
+
+    summaries.data.forEach((datum) => {
+      const dateInteger = dayjs(datum.range.date).day() as KeyOfDateMap
+      dateCount[dateInteger] += 1
+      if (yDataByWeekday[dateMap[dateInteger]] === undefined) {
+        yDataByWeekday[dateMap[dateInteger]] = Number(datum.grand_total.total_seconds / secPerHour)
+      } else {
+        yDataByWeekday[dateMap[dateInteger]] += Number(datum.grand_total.total_seconds / secPerHour)
+      }
+    })
+
+    option = {
+      grid: { left: 50, right: 20, top: 50, bottom: 50 },
+      // @ts-expect-error tough type
+      tooltip: {
+        valueFormatter: (value: number) => `${value}h`,
+      },
+      xAxis: {
+        type: 'category',
+        data: weekdays,
+        axisLabel: {
+          color: '#fafafa',
+        },
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          color: '#fafafa',
+          formatter: (value: number) => `${value}h`,
+          showMinLabel: false,
+        },
+      },
+      series: [
+        {
+          data: weekdays.map((weekday, index) =>
+            Number(
+              (yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount]).toFixed(1),
+            ),
+          ),
+          type: 'bar',
+        },
+      ],
+    }
+
+    chart.setOption(option)
   })
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Weekly Coding Stats by Weekday</h2>
-  <div id="wcs-weekday" class="h-96 w-full" />
-</div>
+<ChartContainer>
+  <ChartTitle>{title}</ChartTitle>
+  <div class="h-96 w-full" bind:this={chartRef} />
+</ChartContainer>
