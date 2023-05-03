@@ -95,10 +95,6 @@
   afterUpdate(() => {
     chart.setOption(option)
   })
-
-  $: {
-    console.log(branchesToTimeDict)
-  }
 </script>
 
 <ChartContainer>

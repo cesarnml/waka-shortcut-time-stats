@@ -7,7 +7,7 @@
   import { inject } from '@vercel/analytics'
 
   // Initiate Vercel analytics
-  inject({ mode: dev ? 'development' : 'production' })
+  inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
