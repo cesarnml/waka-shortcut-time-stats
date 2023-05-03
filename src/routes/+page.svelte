@@ -3,7 +3,7 @@
   import type { SummariesResult } from './api/wakatime/current/summaries/+server'
   import CodingActivityChartByProject from '$lib/components/CodingActivityChartByProject.svelte'
   import CodingActivityChartByCategory from '$lib/components/CodingActivityChartByCategory.svelte'
-  import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
+  import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
   import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
   import CodingActivityChartByWeekdays from '$lib/components/CodingActivityChartByWeekdays.svelte'
   import DurationsByProject from '$lib/components/DurationsByProject.svelte'
@@ -217,7 +217,7 @@
     <TotalCodingTimeByProject summaries={newSummaries ?? summaries} />
     <CodingActivityChartByCategory summaries={newSummaries ?? summaries} />
     <CodingActivityChartByWeekdays summaries={newSummaries ?? summaries} />
-    <CodingLanguagePieChart summaries={newSummaries ?? summaries} />
+    <LanguagePieChart summaries={newSummaries ?? summaries} />
     <CodingDisciplineGauge summaries={newSummaries ?? summaries} />
     <DurationsByProject {durations} />
     <DurationsByLanguageSlice {durationsByLanguage} />

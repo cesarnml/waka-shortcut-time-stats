@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import CodingActivityChartByCategory from '$lib/components/CodingActivityChartByCategory.svelte'
-  import CodingLanguagePieChart from '$lib/components/CodingLanguagePieChart.svelte'
+  import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
   import CodingActivityLineChart from '$lib/components/CodingActivityLineChart.svelte'
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
@@ -125,7 +125,7 @@
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingActivityLineChart {summaries} />
     <CodingActivityChartByCategory {summaries} />
-    <CodingLanguagePieChart {summaries} />
+    <LanguagePieChart {summaries} />
     <BranchesVsTime {summaries} />
   </div>
   <CodingTreeMap {summaries} />

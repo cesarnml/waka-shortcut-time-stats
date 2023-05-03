@@ -10,7 +10,7 @@
 
   export let summaries: SummariesResult
   export let title = 'Coding Activity'
-  export let chartRef: HTMLDivElement
+  let chartRef: HTMLDivElement
 
   let chart: echarts.ECharts
   $: dates = summaries.data.map((summary) => dayjs(summary.range.date).format(DateFormat.Short))
