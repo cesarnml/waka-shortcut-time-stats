@@ -6,3 +6,8 @@ export const DateFormat = {
 
 export const secPerMin = 60
 export const secPerHour = 3600
+
+export const ChartColor = {
+  Text: '#fafafa',
+  Icon: '#fafafa',
+} as const

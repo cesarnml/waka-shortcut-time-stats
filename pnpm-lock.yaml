@@ -70,6 +70,9 @@ devDependencies:
   '@vitest/coverage-istanbul':
     specifier: 0.30.1
     version: 0.30.1(vitest@0.30.1)
+  '@vitest/ui':
+    specifier: 0.30.1
+    version: 0.30.1
   autoprefixer:
     specifier: 10.4.14
     version: 10.4.14(postcss@8.4.23)
@@ -138,7 +141,7 @@ devDependencies:
     version: 4.3.3(@types/node@18.15.11)
   vitest:
     specifier: 0.30.1
-    version: 0.30.1(jsdom@21.1.1)
+    version: 0.30.1(@vitest/ui@0.30.1)(jsdom@21.1.1)
 
 packages:
 
@@ -1737,7 +1740,7 @@ packages:
       istanbul-lib-source-maps: 4.0.1
       istanbul-reports: 3.1.5
       test-exclude: 6.0.0
-      vitest: 0.30.1(jsdom@21.1.1)
+      vitest: 0.30.1(@vitest/ui@0.30.1)(jsdom@21.1.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1771,6 +1774,18 @@ packages:
     resolution: {integrity: sha512-YfJeIf37GvTZe04ZKxzJfnNNuNSmTEGnla2OdL60C8od16f3zOfv9q9K0nNii0NfjDJRt/CVN/POuY5/zTS+BA==}
     dependencies:
       tinyspy: 2.1.0
+    dev: true
+
+  /@vitest/ui@0.30.1:
+    resolution: {integrity: sha512-Izz4ElDmdvX02KImSC2nCJI6CsGo9aETbKqxli55M0rbbPPAMtF0zDcJIqgEP5V6Y+4Ysf6wvsjLbLCTnaBvKw==}
+    dependencies:
+      '@vitest/utils': 0.30.1
+      fast-glob: 3.2.12
+      fflate: 0.7.4
+      flatted: 3.2.7
+      pathe: 1.1.0
+      picocolors: 1.0.0
+      sirv: 2.0.2
     dev: true
 
   /@vitest/utils@0.30.1:
@@ -3027,6 +3042,10 @@ packages:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
     dependencies:
       reusify: 1.0.4
+    dev: true
+
+  /fflate@0.7.4:
+    resolution: {integrity: sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw==}
     dev: true
 
   /figures@3.2.0:
@@ -5884,7 +5903,7 @@ packages:
       vite: 4.3.3(@types/node@18.15.11)
     dev: true
 
-  /vitest@0.30.1(jsdom@21.1.1):
+  /vitest@0.30.1(@vitest/ui@0.30.1)(jsdom@21.1.1):
     resolution: {integrity: sha512-y35WTrSTlTxfMLttgQk4rHcaDkbHQwDP++SNwPb+7H8yb13Q3cu2EixrtHzF27iZ8v0XCciSsLg00RkPAzB/aA==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -5922,6 +5941,7 @@ packages:
       '@vitest/runner': 0.30.1
       '@vitest/snapshot': 0.30.1
       '@vitest/spy': 0.30.1
+      '@vitest/ui': 0.30.1
       '@vitest/utils': 0.30.1
       acorn: 8.8.2
       acorn-walk: 8.2.0
