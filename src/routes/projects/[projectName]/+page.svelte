@@ -64,7 +64,7 @@
       <button class="loading btn-primary btn-link btn" />
     {/if}
   </div>
-  <div class="stats flex shadow-lg">
+  <div class="stats flex bg-chart-dark shadow-lg">
     <div class="stat shrink">
       <div class="stat-figure">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
