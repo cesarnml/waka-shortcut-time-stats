@@ -1,14 +1,15 @@
 <script lang="ts">
+  import { DateFormat, secPerHour } from '$lib/constants'
   import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import dayjs from 'dayjs'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { DateFormat, secPerHour } from '$lib/constants'
-  import { zipObject } from 'lodash'
+  import zipObject from 'lodash/zipObject'
 
   export let summaries: SummariesResult
+  let title = 'Coding Activity'
 
   let chartContainer: HTMLDivElement
   let chart: echarts.ECharts
@@ -19,6 +20,7 @@
   const projectNames = [
     ...new Set(summaries.data.map((item) => item.projects.map((project) => project.name)).flat()),
   ]
+
   let yDataByProject = zipObject(
     projectNames,
     JSON.parse(JSON.stringify(Array(projectNames.length).fill(Array(xValues.length).fill(0)))),
@@ -33,6 +35,7 @@
     })
   })
 
+  // @ts-expect-error tough type
   const seriesProject: echarts.SeriesOption[] = projectNames.map((key) => {
     return {
       data: yDataByProject[key],
@@ -150,6 +153,6 @@
 </script>
 
 <ChartContainer>
-  <ChartTitle>Stats by Project</ChartTitle>
+  <ChartTitle>{title}</ChartTitle>
   <div class="h-96 w-full" bind:this={chartContainer} />
 </ChartContainer>
