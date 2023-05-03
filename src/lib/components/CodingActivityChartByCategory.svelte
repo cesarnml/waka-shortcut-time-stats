@@ -36,8 +36,6 @@
       )
     })
   })
-  console.log('categoriesByDate:', categoriesByDate)
-  console.log('yDataByCategory:', yDataByCategory)
 
   // @ts-expect-error tough type
   const seriesCategory: echarts.SeriesOption[] = categoryNames.map((key) => {
@@ -116,8 +114,6 @@
         )
       })
     })
-    console.log('categoriesByDate:', categoriesByDate)
-    console.log('yDataByCategory:', yDataByCategory)
 
     // @ts-expect-error tough type
     const seriesCategory: echarts.SeriesOption[] = categoryNames.map((key) => {
@@ -131,6 +127,7 @@
         name: key,
       }
     })
+
     option = {
       tooltip: {
         valueFormatter: (value) => `${value}h`,

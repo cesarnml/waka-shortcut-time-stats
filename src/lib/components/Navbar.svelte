@@ -1,4 +1,4 @@
-<nav class="navbar rounded-lg bg-base-100 px-6 py-3">
+<nav class="navbar rounded-lg bg-chart-dark px-6 py-3">
   <div class="navbar-start">
     <a class="btn-accent btn text-xl normal-case" href="/">CodingStats</a>
   </div>
