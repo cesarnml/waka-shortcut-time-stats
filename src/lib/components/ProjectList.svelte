@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { hoursPerDay } from '$lib/constants'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
 
@@ -17,9 +18,9 @@
         <div>
           <span
             >{dayjs.duration(project.value, 'seconds').hours() +
-            dayjs.duration(project.value, 'seconds').days() * 24
+            dayjs.duration(project.value, 'seconds').days() * hoursPerDay
               ? `${
-                  dayjs.duration(project.value, 'seconds').days() * 24 +
+                  dayjs.duration(project.value, 'seconds').days() * hoursPerDay +
                   dayjs.duration(project.value, 'seconds').hours()
                 }h`
               : ''}
