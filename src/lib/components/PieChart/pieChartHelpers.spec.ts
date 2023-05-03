@@ -71,4 +71,12 @@ describe('createPieChartOption', () => {
 
     expect(config).toEqual(expectedConfig)
   })
+  it('should format the tooltip value correctly', () => {
+    const data = [{ name: 'JavaScript', value: 12 }]
+    const config = createPieChartOption(data)
+    //  @ts-expect-error tough type
+    const formatter = config.tooltip?.valueFormatter
+
+    expect(formatter(10)).toBe('10h')
+  })
 })
