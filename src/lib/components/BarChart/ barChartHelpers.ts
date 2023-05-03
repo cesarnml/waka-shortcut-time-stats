@@ -97,7 +97,6 @@ export const createSimpleBarChartOption = (summaries: SummariesResult) => {
     5: 0,
     6: 0,
   }
-  console.log('weekdays:', weekdays)
 
   const yDataByWeekday: Record<string, number> = {}
 
@@ -109,9 +108,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult) => {
       (yDataByWeekday[integerDateMap[dateInteger]] ?? 0) +
       datum.grand_total.total_seconds / secPerHour
   })
-  console.log('yDataByWeekday:', yDataByWeekday)
 
-  console.log('dateCount:', dateCount)
   return {
     grid: { left: 50, right: 20, top: 50, bottom: 50 },
     tooltip: {
