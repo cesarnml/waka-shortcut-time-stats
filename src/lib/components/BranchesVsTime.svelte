@@ -80,7 +80,7 @@
       chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
       // @ts-expect-error tough type
       chart.on('click', async (params) => {
-        const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']]
+        const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''
         if (branch.includes('cesar')) {
           const storyId = branch.split('-')[1]
           const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
