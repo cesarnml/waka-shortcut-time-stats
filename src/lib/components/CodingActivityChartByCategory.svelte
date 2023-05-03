@@ -6,6 +6,7 @@
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
+  import zipObject from 'lodash/zipObject'
 
   export let summaries: SummariesResult
   export let title = 'Category vs Time'
@@ -16,51 +17,61 @@
 
   const xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
   const categoriesByDate = summaries.data.map((item) => item.categories)
-  const yDataByCategory: Record<string, number[]> = {}
+  const categoryNames = [
+    ...new Set(
+      summaries.data.map((item) => item.categories.map((category) => category.name)).flat(),
+    ),
+  ]
+
+  const yDataByCategory = zipObject(
+    categoryNames,
+    JSON.parse(JSON.stringify(Array(categoryNames.length).fill(Array(xValues.length).fill(0)))),
+  )
 
   categoriesByDate.forEach((categories, dateIndex) => {
     categories.forEach((category) => {
-      if (yDataByCategory[category.name] === undefined) {
-        if (dateIndex === 0) {
-          yDataByCategory[category.name] = [
-            Number((category.total_seconds / secPerHour).toFixed(1)),
-          ]
-        } else {
-          const initialArray = Array(dateIndex).fill(0)
-          yDataByCategory[category.name] = [
-            ...initialArray,
-            Number((category.total_seconds / secPerHour).toFixed(1)),
-          ]
-        }
-      } else {
-        yDataByCategory[category.name].push(
-          Number((category.total_seconds / secPerHour).toFixed(1)),
-        )
-      }
+      // @ts-expect-error tough type
+      yDataByCategory[category.name][dateIndex] = Number(
+        (category.total_seconds / secPerHour).toFixed(1),
+      )
     })
   })
+  console.log('categoriesByDate:', categoriesByDate)
+  console.log('yDataByCategory:', yDataByCategory)
 
-  const seriesCategory: echarts.SeriesOption[] = Object.keys(yDataByCategory).map((key) => {
+  // @ts-expect-error tough type
+  const seriesCategory: echarts.SeriesOption[] = categoryNames.map((key) => {
     return {
       data: yDataByCategory[key],
       type: 'bar',
-      stack: 'x',
+      stack: 'total',
+      emphasis: {
+        focus: 'series',
+      },
       name: key,
     }
   })
-
   option = {
     tooltip: {
       valueFormatter: (value) => `${value}h`,
     },
-    grid: { left: 20, right: 20, top: 50, bottom: 50 },
+    grid: { left: 50, right: 20, top: 50, bottom: 50 },
     legend: {
       type: 'scroll',
+      textStyle: {
+        color: '#fafafa',
+      },
+      pageIconColor: '#fafafa',
+      pageTextStyle: {
+        color: '#fafafa',
+      },
     },
     xAxis: {
+      type: 'category',
       data: xValues,
     },
     yAxis: {
+      type: 'value',
       axisLabel: {
         formatter: (value: number) => `${value}h`,
         showMinLabel: false,
@@ -86,64 +97,69 @@
   afterUpdate(() => {
     const xValues = summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
     const categoriesByDate = summaries.data.map((item) => item.categories)
-    const yDataByCategory: Record<string, number[]> = {}
+    const categoryNames = [
+      ...new Set(
+        summaries.data.map((item) => item.categories.map((category) => category.name)).flat(),
+      ),
+    ]
+
+    const yDataByCategory = zipObject(
+      categoryNames,
+      JSON.parse(JSON.stringify(Array(categoryNames.length).fill(Array(xValues.length).fill(0)))),
+    )
 
     categoriesByDate.forEach((categories, dateIndex) => {
       categories.forEach((category) => {
-        if (yDataByCategory[category.name] === undefined) {
-          if (dateIndex === 0) {
-            yDataByCategory[category.name] = [
-              Number((category.total_seconds / secPerHour).toFixed(1)),
-            ]
-          } else {
-            const initialArray = Array(dateIndex).fill(0)
-            yDataByCategory[category.name] = [
-              ...initialArray,
-              Number((category.total_seconds / secPerHour).toFixed(1)),
-            ]
-          }
-        } else {
-          yDataByCategory[category.name].push(
-            Number((category.total_seconds / secPerHour).toFixed(1)),
-          )
-        }
+        // @ts-expect-error tough type
+        yDataByCategory[category.name][dateIndex] = Number(
+          (category.total_seconds / secPerHour).toFixed(1),
+        )
       })
     })
+    console.log('categoriesByDate:', categoriesByDate)
+    console.log('yDataByCategory:', yDataByCategory)
 
-    const seriesCategory: echarts.SeriesOption[] = Object.keys(yDataByCategory).map((key) => {
+    // @ts-expect-error tough type
+    const seriesCategory: echarts.SeriesOption[] = categoryNames.map((key) => {
       return {
         data: yDataByCategory[key],
         type: 'bar',
-        stack: 'x',
+        stack: 'total',
+        emphasis: {
+          focus: 'series',
+        },
         name: key,
       }
     })
-
     option = {
       tooltip: {
         valueFormatter: (value) => `${value}h`,
       },
-      grid: { top: 50, bottom: 50, left: 40, right: 20 },
+      grid: { left: 50, right: 20, top: 50, bottom: 50 },
       legend: {
-        padding: 10,
         type: 'scroll',
         textStyle: {
           color: '#fafafa',
         },
-      },
-      xAxis: {
-        data: xValues,
-        axisLabel: {
+        pageIconColor: '#fafafa',
+        pageTextStyle: {
           color: '#fafafa',
         },
       },
+      xAxis: {
+        type: 'category',
+        data: xValues,
+      },
       yAxis: {
+        type: 'value',
         axisLabel: {
-          color: '#fafafa',
+          formatter: (value: number) => `${value}h`,
+          showMinLabel: false,
         },
       },
       series: seriesCategory,
     }
+
     chart.setOption(option)
   })
 </script>
