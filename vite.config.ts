@@ -28,7 +28,6 @@ const config = defineConfig(({ mode }) => {
       environment: 'jsdom',
       include: ['src/**/*.spec.{js,ts}'],
       setupFiles: 'setupTests.ts',
-      reporters: ['default', 'html'],
       deps: {
         inline: ['echarts'],
       },
