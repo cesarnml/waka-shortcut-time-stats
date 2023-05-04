@@ -28,11 +28,13 @@ const config = defineConfig(({ mode }) => {
       environment: 'jsdom',
       include: ['src/**/*.spec.{js,ts}'],
       setupFiles: 'setupTests.ts',
+      reporters: ['default', 'html'],
       deps: {
         inline: ['echarts'],
       },
       coverage: {
-        provider: 'istanbul',
+        enabled: true,
+        provider: 'c8',
         all: true,
         reporter: ['json', 'html', 'text'],
         src: ['./src'],
