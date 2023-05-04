@@ -32,7 +32,8 @@ const config = defineConfig(({ mode }) => {
         inline: ['echarts'],
       },
       coverage: {
-        provider: 'istanbul',
+        enabled: true,
+        provider: 'c8',
         all: true,
         reporter: ['json', 'html', 'text'],
         src: ['./src'],
