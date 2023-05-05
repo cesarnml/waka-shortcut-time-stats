@@ -36,6 +36,7 @@
       </div>
       <div>
         {#await lazy.iterationStoriesDict[iteration.id] then stories}
+          {console.log('stories:', stories)}
           {#each stories as story}
             <div>{story.name}</div>
           {/each}
