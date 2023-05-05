@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/svelte'
 import ProjectList from './ProjectList.svelte'
-import { formatHours, formatMinimalWork, formatMinutes } from '$lib/timeHelpers'
+import { formatHours, formatMinimalWork, formatMinutes } from '$lib/helpers/timeHelpers'
 
 it('renders a ProjectList', async () => {
   const projects = [

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { hoursPerDay } from '$lib/constants'
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
+  import { hoursPerDay } from '$lib/helpers/timeHelpers'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
 

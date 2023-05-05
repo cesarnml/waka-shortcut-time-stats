@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import { WakaApiRange } from '$lib/constants'
+  import { createEventDispatcher } from 'svelte'
 
   export let loading: boolean
   let selectedRange = WakaApiRange.Last_7_Days_From_Yesterday

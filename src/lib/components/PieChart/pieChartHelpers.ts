@@ -1,6 +1,6 @@
+import { ChartColor } from '$lib/helpers/chartHelpers'
+import { secPerHour } from '$lib/helpers/timeHelpers'
 import type * as echarts from 'echarts'
-import { ChartColor, secPerHour } from '$lib/constants'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 
 /**
  * Given a SummariesResult object, calculates the total weekly coding time for each programming language

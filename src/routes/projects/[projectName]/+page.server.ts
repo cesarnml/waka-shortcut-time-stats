@@ -1,4 +1,3 @@
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = (async ({ fetch, params }) => {

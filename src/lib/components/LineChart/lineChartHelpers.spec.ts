@@ -1,6 +1,5 @@
+import { ChartColor } from '$lib/helpers/chartHelpers'
 import { createLineChartOption } from './lineChartHelpers'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
-import { ChartColor } from '$lib/constants'
 
 const summaries = {
   color: ChartColor.Default,

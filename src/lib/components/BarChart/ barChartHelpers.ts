@@ -1,10 +1,15 @@
-import { ChartColor, DateFormat, integerDateMap, weekdays, type KeyOfDateMap } from '$lib/constants'
 import type * as echarts from 'echarts'
 import zipObject from 'lodash/zipObject'
-import { secPerHour } from '$lib/constants'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
+import { ChartColor } from '$lib/helpers/chartHelpers'
+import {
+  DateFormat,
+  type KeyOfDateMap,
+  integerDateMap,
+  secPerHour,
+  weekdays,
+} from '$lib/helpers/timeHelpers'
 
 dayjs.extend(localeData)
 

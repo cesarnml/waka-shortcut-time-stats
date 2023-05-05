@@ -3,7 +3,6 @@
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
 

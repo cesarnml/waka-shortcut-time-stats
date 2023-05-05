@@ -1,6 +1,5 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import { WakaApiRange } from '$lib/constants'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {

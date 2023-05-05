@@ -2,32 +2,7 @@ import dayjs from 'dayjs'
 import type { RequestHandler } from './$types'
 import { WAKA_API_KEY } from '$env/static/private'
 import { json, error } from '@sveltejs/kit'
-
-const WakaSliceBy = {
-  None: '',
-  Entity: 'entity',
-  Language: 'language',
-  Dependencies: 'dependencies',
-  OS: 'os',
-  Editor: 'editor',
-  Machine: 'machine',
-} as const
-
-export type WakaDuration = {
-  color: string | null
-  duration: number
-  project: string
-  language: string
-  time: number
-}
-
-export type DurationsResult = {
-  branches: string[]
-  data: WakaDuration[]
-  end: string
-  start: string
-  timezone: string
-}
+import { WakaSliceBy } from '$lib/constants'
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
   // TODO: WakaDuration interface changes when slicing. Handle it.

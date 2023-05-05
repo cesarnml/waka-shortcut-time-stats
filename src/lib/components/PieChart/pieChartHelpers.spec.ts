@@ -1,5 +1,4 @@
 import { ChartColor } from '$lib/constants'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import { createPieChartOption, createPieChartData } from './pieChartHelpers'
 
 describe('createPieChartData', () => {

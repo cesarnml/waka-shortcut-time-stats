@@ -1,10 +1,9 @@
 <script lang="ts">
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { secPerHour } from '$lib/constants'
+  import { secPerHour } from '$lib/helpers/timeHelpers'
 
   export let summaries: SummariesResult
   export let title = 'Branches vs Time'

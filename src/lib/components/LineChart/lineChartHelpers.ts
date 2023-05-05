@@ -1,7 +1,7 @@
-import { ChartColor, DateFormat, secPerHour } from '$lib/constants'
 import type * as echarts from 'echarts'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import dayjs from 'dayjs'
+import { ChartColor } from '$lib/helpers/chartHelpers'
+import { DateFormat, secPerHour } from '$lib/helpers/timeHelpers'
 
 export const createLineChartOption = (summaries: SummariesResult): echarts.EChartsOption => {
   const dates = summaries.data.map((summary) => dayjs(summary.range.date).format(DateFormat.Short))
