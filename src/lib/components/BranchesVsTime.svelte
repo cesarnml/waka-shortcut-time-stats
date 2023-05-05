@@ -54,7 +54,7 @@
     ],
 
     tooltip: {
-      formatter: (params) =>
+      formatter: (params: any) =>
         `${params.marker} ${branches.find((branch) => branch.includes(params.name))}: <strong>${
           params.data[1]
         }h</strong>`,

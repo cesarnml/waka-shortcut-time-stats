@@ -14,3 +14,6 @@ export const formatHours = (value: number) => (hasHours(value) ? `${getTotalHour
 
 export const hasMinutes = (value: number) => Boolean(getMinutes(value))
 export const formatMinutes = (value: number) => (hasMinutes(value) ? `${getMinutes(value)}m` : '')
+export const isMinimalWork = (value: number) => !hasHours(value) && !hasMinutes(value)
+export const formatMinimalWork = (value: number) =>
+  isMinimalWork(value) ? 'Less than 1 minute' : ''
