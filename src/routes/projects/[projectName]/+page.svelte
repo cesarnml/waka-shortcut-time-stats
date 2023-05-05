@@ -10,6 +10,7 @@
   import FilesTable from '$lib/components/FilesTable.svelte'
   import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
   import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
+  import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
 
   dayjs.extend(duration)
 
@@ -36,8 +37,9 @@
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingLineChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
-    <LanguagePieChart {summaries} />
+    <WeekdaysBarChart {summaries} />
     <BranchesVsTime {summaries} />
+    <LanguagePieChart {summaries} />
   </div>
   <FilesTable {summaries} />
   <CodingTreeMap {summaries} />
