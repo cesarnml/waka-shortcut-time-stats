@@ -16,7 +16,8 @@
 
   export let data
 
-  let { summaries } = data
+  let { summaries, aliases } = data
+  console.log('aliases:', aliases)
 
   let loading = false
 
@@ -43,4 +44,17 @@
   </div>
   <FilesTable {summaries} />
   <CodingTreeMap {summaries} />
+  {#each aliases.aliases as alias}
+    {#if summaries.available_branches.find((branch) => branch.includes(alias.alias
+          .split('cesar-sc')[1]
+          .slice(0, 4)))}
+      <div>
+        <a class="link-hover link-primary link" href={`https://${alias.alias}`}
+          >{summaries.available_branches.find((branch) =>
+            branch.includes(alias.alias.split('cesar-sc')[1].slice(0, 4)),
+          )}</a
+        >
+      </div>
+    {/if}
+  {/each}
 </div>
