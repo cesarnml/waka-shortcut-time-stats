@@ -21,7 +21,7 @@
     projectName,
     lazy: { aliases },
   } = data
-  debugger
+
   let loading = false
 
   const handleChange = async (e: CustomEvent) => {
@@ -51,9 +51,13 @@
     <div>loading</div>
   {:then result}
     {#each result.aliases as alias}
-      {#if alias.alias.includes(projectName)}
+      {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && summaries.available_branches.find( (branch) => branch.includes(alias.alias.match(/sc-(\d+)/g)[0]), )}
         <div>
-          <a href={`https://${alias.alias}`}>{alias.alias}</a>
+          <a class="link-hover link-primary link" href={`https://${alias.alias}`}
+            >{summaries.available_branches.find((branch) =>
+              branch.includes(alias.alias.match(/sc-(\d+)/g)[0]),
+            )}</a
+          >
         </div>
       {/if}
     {/each}
