@@ -1,4 +1,4 @@
-import { ChartColor } from '$lib/constants'
+import { ChartColor } from '$lib/helpers/chartHelpers'
 import { createPieChartOption, createPieChartData } from './pieChartHelpers'
 
 describe('createPieChartData', () => {

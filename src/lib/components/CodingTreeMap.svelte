@@ -29,8 +29,8 @@
     })
   })
 
-  function convertToTreeMap(obj) {
-    const result = []
+  function convertToTreeMap(obj: any) {
+    const result: any[] = []
 
     for (const key in obj) {
       const value = obj[key]

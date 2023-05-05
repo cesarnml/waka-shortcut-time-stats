@@ -3,7 +3,7 @@
   import { afterUpdate, onMount } from 'svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import ChartContainer from '../ChartContainer.svelte'
-  import { createBarChartOption, createBarChartSeries, createXAxisValues } from './ barChartHelpers'
+  import { createBarChartOption, createBarChartSeries, createXAxisValues } from './barChartHelpers'
 
   export let summaries: SummariesResult
   export let title: string
