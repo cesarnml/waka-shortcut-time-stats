@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { formatHours, formatMinimalWork, formatMinutes } from '$lib/timeHelpers'
+  import { formatHours, formatMinimalWork, formatMinutes } from '$lib/helpers/timeHelpers'
+
   export let projects: { name: string; value: number }[]
 </script>
 
