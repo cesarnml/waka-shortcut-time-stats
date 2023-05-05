@@ -5,7 +5,6 @@
   <div class="navbar-center" />
   <ul class="navbar-end flex gap-6">
     <li class="btn-ghost btn text-xl normal-case"><a href="/projects">Projects</a></li>
-    <li class="btn-ghost btn text-xl normal-case"><a href="/leaderboard">Leaderboard</a></li>
     <li class="btn-ghost btn text-xl normal-case"><a href="/iterations">Iterations</a></li>
     <li class="btn-primary btn text-xl normal-case"><a href="/login">Login</a></li>
   </ul>

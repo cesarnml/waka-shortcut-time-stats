@@ -53,7 +53,7 @@
       <thead>
         <tr>
           <th>Filename</th>
-          <th>Time Spent (hours)</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>

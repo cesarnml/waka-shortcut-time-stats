@@ -39,6 +39,6 @@
     <LanguagePieChart {summaries} />
     <BranchesVsTime {summaries} />
   </div>
-  <CodingTreeMap {summaries} />
   <FilesTable {summaries} />
+  <CodingTreeMap {summaries} />
 </div>
