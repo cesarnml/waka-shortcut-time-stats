@@ -1,4 +1,5 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
+import type { SummariesResult } from '$src/types/wakatime'
 import { createLineChartOption } from './lineChartHelpers'
 
 const summaries = {

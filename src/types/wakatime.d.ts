@@ -57,7 +57,7 @@ type WakaProject = {
   repository: WakaRepository
 }
 
-type WakaProjectResult = {
+export type WakaProjectResult = {
   data: WakaProject[]
   next_page: number
   page: number
@@ -135,7 +135,7 @@ type SummariesData = {
   entities: WakaEntity[]
 }
 
-type SummariesResult = {
+export type SummariesResult = {
   cumulative_total: CumulativeTotal
   daily_average: DailyAverage
   data: SummariesData[]
@@ -154,10 +154,12 @@ type WakaDuration = {
   time: number
 }
 
-type DurationsResult = {
+export type DurationsResult = {
   branches: string[]
   data: WakaDuration[]
   end: string
   start: string
   timezone: string
 }
+
+export {}

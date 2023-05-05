@@ -1,5 +1,6 @@
 import { WakaSliceBy } from '$lib/constants'
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
+import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ fetch }) => {

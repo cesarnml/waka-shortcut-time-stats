@@ -5,6 +5,7 @@
   import ChartTitle from '../ChartTitle.svelte'
   import { afterUpdate } from 'svelte'
   import { createSimpleBarChartOption } from './barChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title = 'Coding Stats by Weekday'

@@ -1,5 +1,6 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import { secPerHour } from '$lib/helpers/timeHelpers'
+import type { SummariesResult } from '$src/types/wakatime'
 import type * as echarts from 'echarts'
 
 /**

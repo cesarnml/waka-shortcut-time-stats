@@ -4,6 +4,7 @@
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createPieChartOption, createPieChartData } from './pieChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
 

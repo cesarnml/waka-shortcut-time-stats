@@ -1,6 +1,7 @@
 import { WAKA_API_KEY } from '$env/static/private'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
+import type { WakaProjectResult } from '$src/types/wakatime'
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
   const q = url.searchParams.get('q') ?? ''

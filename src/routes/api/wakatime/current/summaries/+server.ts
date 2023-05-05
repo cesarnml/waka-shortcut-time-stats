@@ -1,5 +1,6 @@
 import { WAKA_API_KEY } from '$env/static/private'
 import { WakaApiRange } from '$lib/constants'
+import type { SummariesResult } from '$src/types/wakatime'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ fetch, url }) => {

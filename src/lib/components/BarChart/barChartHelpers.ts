@@ -10,6 +10,7 @@ import {
   secPerHour,
   weekdays,
 } from '$lib/helpers/timeHelpers'
+import type { SummariesResult } from '$src/types/wakatime'
 
 dayjs.extend(localeData)
 
@@ -85,7 +86,7 @@ export const createBarChartOption = (
   yAxis: {
     type: 'value',
     axisLabel: {
-      formatter: (value) => `${value}h`,
+      formatter: (value: unknown) => `${value}h`,
       showMinLabel: false,
     },
   },

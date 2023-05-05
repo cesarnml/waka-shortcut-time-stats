@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { WakaApiRange } from '$lib/constants'
+import type { SummariesResult } from '$src/types/wakatime'
 
 type Project = {
   id: string

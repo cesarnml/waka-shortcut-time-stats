@@ -1,4 +1,5 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
+import type { SummariesResult } from '$src/types/wakatime'
 import { createPieChartOption, createPieChartData } from './pieChartHelpers'
 
 describe('createPieChartData', () => {

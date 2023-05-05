@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types'
 import { WAKA_API_KEY } from '$env/static/private'
 import { json, error } from '@sveltejs/kit'
 import { WakaSliceBy } from '$lib/constants'
+import type { DurationsResult } from '$src/types/wakatime'
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
   // TODO: WakaDuration interface changes when slicing. Handle it.

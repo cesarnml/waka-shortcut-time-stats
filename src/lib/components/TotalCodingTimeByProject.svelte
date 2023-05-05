@@ -5,6 +5,7 @@
   import { onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title = 'Project vs Time'

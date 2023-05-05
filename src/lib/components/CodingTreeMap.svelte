@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
 

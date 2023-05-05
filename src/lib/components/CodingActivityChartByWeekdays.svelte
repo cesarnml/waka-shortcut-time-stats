@@ -3,6 +3,7 @@
   import * as echarts from 'echarts'
   import dayjs from 'dayjs'
   import localeData from 'dayjs/plugin/localeData'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   dayjs.extend(localeData)
 

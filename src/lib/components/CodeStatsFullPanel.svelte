@@ -1,5 +1,6 @@
 <script lang="ts">
   import { hoursPerDay } from '$lib/helpers/timeHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
   import first from 'lodash/first'

@@ -4,6 +4,7 @@
   import ChartTitle from '../ChartTitle.svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import { createBarChartOption, createBarChartSeries, createXAxisValues } from './barChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title: string

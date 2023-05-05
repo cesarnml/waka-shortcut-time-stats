@@ -5,6 +5,7 @@
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   dayjs.extend(advanceFormat)
 

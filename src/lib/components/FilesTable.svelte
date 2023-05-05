@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import type { SummariesResult } from '$src/types/wakatime'
   import orderBy from 'lodash/orderBy'
   import { afterUpdate } from 'svelte'
 
