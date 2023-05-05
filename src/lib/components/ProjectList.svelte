@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatHours, formatMinutes } from '$lib/timeHelpers'
+  import { formatHours, formatMinimalWork, formatMinutes } from '$lib/helpers/timeHelpers'
 
   export let projects: { name: string; value: number }[]
 </script>
@@ -11,9 +11,10 @@
         <h2 class="card-title flex-grow">
           {name}
         </h2>
-        <div class="flex gap-2">
-          <span>{formatHours(value)}</span>
-          <span>{formatMinutes(value)}</span>
+        <div>
+          {formatHours(value)}
+          {formatMinutes(value)}
+          {formatMinimalWork(value)}
         </div>
       </div>
     </a>

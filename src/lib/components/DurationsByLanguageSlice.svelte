@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment'
-  import type { DurationsResult } from '$src/routes/api/wakatime/current/durations/+server'
+  import type { DurationsResult } from '$src/types/wakatime'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
   import isToday from 'dayjs/plugin/isToday'

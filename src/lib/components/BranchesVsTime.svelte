@@ -1,16 +1,18 @@
 <script lang="ts">
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { secPerHour } from '$lib/constants'
+  import { secPerHour } from '$lib/helpers/timeHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
+  import { ChartColor } from '$lib/helpers/chartHelpers'
 
   export let summaries: SummariesResult
   export let title = 'Branches vs Time'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
+  let option: echarts.EChartsOption
 
   $: branches = [
     ...new Set(
@@ -54,21 +56,22 @@
     ],
 
     tooltip: {
-      formatter: (params) =>
-        `${params.marker} ${branches.find((branch) => branch.includes(params.name))}: <strong>${
-          params.data[1]
-        }h</strong>`,
+      formatter: (params: any) => {
+        return `${params.marker} ${branches.find((branch) =>
+          branch.includes(params.name),
+        )}: <strong>${params.data[1]}h</strong>`
+      },
     },
     xAxis: {
       type: 'category',
       axisLabel: {
         interval: 0,
         rotate: 30,
-        color: '#fafafa',
+        color: ChartColor.Text,
       },
     },
     yAxis: {
-      axisLabel: { color: '#fafafa', formatter: (value: string) => `${value}h` },
+      axisLabel: { color: ChartColor.Text, formatter: (value: string) => `${value}h` },
     },
     series: {
       colorBy: 'data',

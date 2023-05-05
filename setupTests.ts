@@ -1,6 +1,6 @@
 // setupTests.ts
 import '@testing-library/jest-dom'
-import { expect, vi, it } from 'vitest'
+import { vi } from 'vitest'
 import type { Navigation, Page } from '@sveltejs/kit'
 import { readable } from 'svelte/store'
 import * as environment from '$app/environment'

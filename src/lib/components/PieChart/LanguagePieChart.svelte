@@ -1,10 +1,10 @@
 <script lang="ts">
   import { afterUpdate, onMount } from 'svelte'
   import * as echarts from 'echarts'
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createPieChartOption, createPieChartData } from './pieChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
 

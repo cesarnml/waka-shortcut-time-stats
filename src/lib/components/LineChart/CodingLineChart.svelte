@@ -1,10 +1,10 @@
 <script lang="ts">
   import * as echarts from 'echarts'
   import { onMount, afterUpdate } from 'svelte'
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createLineChartOption } from './lineChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title = 'Coding Activity'

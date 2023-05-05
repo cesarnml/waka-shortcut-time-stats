@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { afterUpdate } from 'svelte'
-  import { createSimpleBarChartOption } from './ barChartHelpers'
+  import { createSimpleBarChartOption } from './barChartHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title = 'Coding Stats by Weekday'

@@ -1,10 +1,16 @@
-import { ChartColor, DateFormat, integerDateMap, weekdays, type KeyOfDateMap } from '$lib/constants'
 import type * as echarts from 'echarts'
 import zipObject from 'lodash/zipObject'
-import { secPerHour } from '$lib/constants'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
+import { ChartColor } from '$lib/helpers/chartHelpers'
+import {
+  DateFormat,
+  type KeyOfDateMap,
+  integerDateMap,
+  secPerHour,
+  weekdays,
+} from '$lib/helpers/timeHelpers'
+import type { SummariesResult } from '$src/types/wakatime'
 
 dayjs.extend(localeData)
 
@@ -80,7 +86,7 @@ export const createBarChartOption = (
   yAxis: {
     type: 'value',
     axisLabel: {
-      formatter: (value) => `${value}h`,
+      formatter: (value: unknown) => `${value}h`,
       showMinLabel: false,
     },
   },

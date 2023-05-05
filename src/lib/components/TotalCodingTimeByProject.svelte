@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
   import * as echarts from 'echarts'
   import add from 'lodash/add'
   import zipWith from 'lodash/zipWith'
   import { onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
+  import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
   export let title = 'Project vs Time'

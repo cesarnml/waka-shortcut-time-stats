@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
+  import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
 
@@ -30,8 +30,8 @@
     })
   })
 
-  function convertToTreeMap(obj) {
-    const result = []
+  function convertToTreeMap(obj: any) {
+    const result: any[] = []
 
     for (const key in obj) {
       const value = obj[key]

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/svelte'
 import LanguagePieChart from './LanguagePieChart.svelte'
-import type { SummariesResult } from '$src/routes/api/wakatime/current/summaries/+server'
+import type { SummariesResult } from '$src/types/wakatime'
 
 it('renders a LanguagePieChart', async () => {
   const summaries = {

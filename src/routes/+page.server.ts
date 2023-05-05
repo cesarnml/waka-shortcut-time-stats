@@ -1,17 +1,7 @@
+import { WakaSliceBy } from '$lib/constants'
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
+import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
 import type { PageServerLoad } from './$types'
-import type { DurationsResult } from './api/wakatime/current/durations/+server'
-import type { SummariesResult } from './api/wakatime/current/summaries/+server'
-
-const WakaSliceBy = {
-  None: '',
-  Entity: 'entity',
-  Language: 'language',
-  Dependencies: 'dependencies',
-  OS: 'os',
-  Editor: 'editor',
-  Machine: 'machine',
-} as const
 
 export const load: PageServerLoad = async ({ fetch }) => {
   const [summariesResponse, durationsResponse, durationsByLanguageResponse, iterationsResponse] =
