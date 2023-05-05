@@ -1,10 +1,10 @@
 import { VERCEL_API_TOKEN } from '$env/static/private'
 import { json } from '@sveltejs/kit'
-import type { RequestHandler } from '../$types'
+import type { RequestHandler } from './$types'
 import type { AliasesResult } from '$src/types/vercel'
 
-export const GET: RequestHandler = async ({ params }) => {
-  const projectId = params.projectId
+export const GET: RequestHandler = async ({ url }) => {
+  const projectId = url.searchParams.get('projectId')
 
   const baseUrl = 'https://api.vercel.com'
   const resource = '/v4/aliases'

@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
   const projectId = projects.projects.find((project) => project.link.repo === params.projectName)
     ?.id as string
 
-  const response = await fetch(`/api/vercel/aliases/${projectId}`)
+  const response = await fetch(`/api/vercel/aliases?projectId=${projectId}`)
 
   const aliases = (await response.json()) as AliasesResult
 
