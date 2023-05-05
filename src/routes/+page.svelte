@@ -11,6 +11,7 @@
   import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
   import orderBy from 'lodash/orderBy'
   import CodeStatsFullPanel from '$lib/components/CodeStatsFullPanel.svelte'
+  import axios from 'axios'
 
   export let data: PageData
 
@@ -18,39 +19,33 @@
 
   let loading = false
 
-  const handleChange = async (e: CustomEvent) => {
-    console.log('handleChange:', e.detail.selectedRange)
-    loading = true
-    const response = await fetch(`/api/wakatime/current/summaries/?range=${e.detail.selectedRange}`)
-    summaries = await response.json()
-    loading = false
-  }
-
-  const allProjectNames = summaries.data
+  $: allProjects = summaries.data
     .map((summary) =>
       summary.projects.map((project) => ({ name: project.name, time: project.total_seconds })),
     )
     .flat()
 
-  const projectDict = allProjectNames.reduce((acc, cur) => {
-    if (acc[cur.name] === undefined) {
-      acc[cur.name] = cur.time
-      return acc
-    }
-    acc[cur.name] += cur.time
-    return acc
+  $: projectDict = allProjects.reduce((acc, cur) => {
+    const { name, time } = cur
+    return { ...acc, [name]: (acc[name] ?? 0) + time }
   }, {} as Record<string, number>)
 
-  const projectList = orderBy(
-    Object.keys(projectDict)
-      .map((key) => ({
-        name: key,
-        value: projectDict[key],
-      }))
+  $: projectList = orderBy(
+    Object.entries(projectDict)
+      .map(([name, value]) => ({ name, value }))
       .filter((item) => item.value),
     'value',
     'desc',
   )
+
+  const handleChange = async (e: CustomEvent) => {
+    loading = true
+    const { data } = await axios.get(
+      `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}`,
+    )
+    summaries = data
+    loading = false
+  }
 </script>
 
 <svelte:head>
@@ -58,9 +53,7 @@
 </svelte:head>
 
 <div class="space-y-8 px-1 pt-8 md:px-4">
-  <div class="flex justify-end gap-4">
-    <DataRangeSelect on:duration={handleChange} {loading} />
-  </div>
+  <DataRangeSelect on:duration={handleChange} {loading} />
   <CodeStatsFullPanel {summaries} {projectList} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />
