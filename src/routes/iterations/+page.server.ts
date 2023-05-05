@@ -1,6 +1,6 @@
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
-import orderBy from 'lodash/orderBy'
 import type { PageServerLoad } from './$types'
+import orderBy from 'lodash/orderBy'
 import zipObject from 'lodash/zipObject'
 
 type IterationSlimSnakeCase = Omit<IterationSlim, 'startDate' | 'endDate' | 'stats'> & {

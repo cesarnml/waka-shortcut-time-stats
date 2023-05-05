@@ -1,11 +1,11 @@
 import { SHORTCUT_API_TOKEN } from '$env/static/private'
 import type { StorySlim } from '$lib/generated/openapi/shortcut'
-import { json } from '@sveltejs/kit'
+import { json, type RequestHandler } from '@sveltejs/kit'
 
 const BASE_URL = 'https://api.app.shortcut.com/api'
 const VERSION = '/v3'
 
-export const GET = async ({ fetch, params }) => {
+export const GET: RequestHandler = async ({ fetch, params }) => {
   const RESOURCE = `/iterations/${params.iterationId}/stories`
 
   const response = await fetch(`${BASE_URL}${VERSION}${RESOURCE}`, {
