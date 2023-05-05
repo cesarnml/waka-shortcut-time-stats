@@ -14,14 +14,10 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
   ]
   const projectId = projects.projects.find((project) => project.link.repo === params.projectName)
     ?.id as string
-  console.log('projectIeeed:', projectId)
 
-  debugger
   const response = await fetch(`/api/vercel/aliases/${projectId}`)
-  debugger
+
   const aliases = (await response.json()) as AliasesResult
-  console.log('nang:', projectId)
-  debugger
 
   return { summaries, aliases }
 }
