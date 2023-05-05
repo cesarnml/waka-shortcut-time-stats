@@ -12,12 +12,16 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
     SummariesResult,
     ProjectsResult,
   ]
-  const projectId = projects.projects.find((project) => project.link.repo === params.projectName)
-    ?.id as string
+  const currentProject = projects.projects.find(
+    (project) => project.link.repo === params.projectName,
+  )
+
+  const projectId = currentProject?.id ?? ''
+  const projectName = currentProject?.name ?? ''
 
   const response = await fetch(`/api/vercel/aliases?projectId=${projectId}`)
 
   const aliases = (await response.json()) as AliasesResult
 
-  return { summaries, aliases }
+  return { summaries, projectName, lazy: { aliases } }
 }

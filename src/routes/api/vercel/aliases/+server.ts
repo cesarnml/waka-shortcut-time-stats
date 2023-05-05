@@ -12,9 +12,10 @@ export const GET: RequestHandler = async ({ url }) => {
     Authorization: `Bearer ${VERCEL_API_TOKEN}`,
     'Content-Type': 'application/json',
   }
-  const response = await fetch(`${baseUrl}${resource}?projectId${projectId}`, { headers })
-
+  debugger
+  const response = await fetch(`${baseUrl}${resource}?projectId${projectId}&limit=100`, { headers })
+  debugger
   const aliasesResult: AliasesResult = await response.json()
-
+  debugger
   return json(aliasesResult)
 }
