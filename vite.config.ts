@@ -23,26 +23,28 @@ const config = defineConfig(({ mode }) => {
           })
         : '',
     ],
+    define: {
+      // Eliminate in-source test code
+      'import.meta.vitest': 'undefined',
+    },
     test: {
       globals: true,
       environment: 'jsdom',
       include: ['src/**/*.spec.{js,ts}'],
-      setupFiles: 'setupTests.ts',
+      setupFiles: ['setupTests.ts', 'src/mocks/setup.ts'],
       deps: {
-        inline: ['echarts'],
+        inline: ['echarts', /msw/],
       },
       coverage: {
-        enabled: true,
-        provider: 'c8',
         all: true,
-        reporter: ['json', 'html', 'text'],
+        provider: 'c8',
+        reporter: ['json', 'html', 'text', 'lcov'],
         src: ['./src'],
+        skipFull: true,
         include: ['src/**/*.{ts, svelte}', 'src/lib/components/**/*.svelte'],
         exclude: [
           'src/lib/external',
           'src/lib/typings',
-          'src/routes/**/+page.svelte',
-          'src/routes/**/+layout.svelte',
           'src/routes/**/+page*.ts',
           'src/routes/**/+layout*.ts',
           'src/routes/**/+error.svelte',
@@ -51,6 +53,8 @@ const config = defineConfig(({ mode }) => {
           'src/**/*.spec.{js,ts}',
           'src/lib/generated/**/*.ts',
           'src/lib/constants.ts',
+          'src/mocks',
+          'src/**/*.d.ts',
         ],
       },
     },
