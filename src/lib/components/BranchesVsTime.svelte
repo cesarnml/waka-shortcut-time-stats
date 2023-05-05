@@ -16,7 +16,10 @@
     ...new Set(
       summaries.data.map((summary) => summary.branches.map((entity) => entity.name)).flat(),
     ),
-  ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
+  ].filter(
+    (file) =>
+      !file.includes('node_modules') && !file.includes('generated') && !file.includes('main'),
+  )
 
   $: branchesToTimeDict = summaries.data.reduce((result, summary) => {
     summary.branches.forEach((entity) => {
@@ -30,7 +33,7 @@
       }
     })
     return result
-  }, {})
+  }, {} as Record<string, number>)
 
   $: option = {
     grid: { left: 50, right: 20, top: 50, bottom: 50 },
