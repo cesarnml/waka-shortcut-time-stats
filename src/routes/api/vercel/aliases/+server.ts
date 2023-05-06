@@ -12,8 +12,8 @@ export const GET: RequestHandler = async ({ url }) => {
     Authorization: `Bearer ${VERCEL_API_TOKEN}`,
     'Content-Type': 'application/json',
   }
-  const response = await fetch(`${baseUrl}${resource}?projectId${projectId}`, { headers })
 
+  const response = await fetch(`${baseUrl}${resource}?projectId${projectId}&limit=100`, { headers })
   const aliasesResult: AliasesResult = await response.json()
 
   return json(aliasesResult)

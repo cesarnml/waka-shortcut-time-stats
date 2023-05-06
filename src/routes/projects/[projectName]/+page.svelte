@@ -11,13 +11,18 @@
   import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
   import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
+  import ScatterPlot from '$lib/components/ScatterPlot.svelte'
 
   dayjs.extend(duration)
 
   export let data
 
-  let { summaries, aliases } = data
-  console.log('aliases:', aliases)
+  let {
+    summaries,
+    projectName,
+    stories,
+    lazy: { aliases },
+  } = data
 
   let loading = false
 
@@ -39,22 +44,25 @@
     <CodingLineChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
     <WeekdaysBarChart {summaries} />
-    <BranchesVsTime {summaries} />
     <LanguagePieChart {summaries} />
   </div>
+  <BranchesVsTime {summaries} />
+  <ScatterPlot {summaries} {stories} />
   <FilesTable {summaries} />
   <CodingTreeMap {summaries} />
-  {#each aliases.aliases as alias}
-    {#if summaries.available_branches.find((branch) => branch.includes(alias.alias
-          .split('cesar-sc')[1]
-          .slice(0, 4)))}
-      <div>
-        <a class="link-hover link-primary link" href={`https://${alias.alias}`}
-          >{summaries.available_branches.find((branch) =>
-            branch.includes(alias.alias.split('cesar-sc')[1].slice(0, 4)),
-          )}</a
-        >
-      </div>
-    {/if}
-  {/each}
+  {#await aliases}
+    <div>Loading ...</div>
+  {:then result}
+    {#each result.aliases as alias}
+      {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && summaries.available_branches.find( (branch) => branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]), )}
+        <div>
+          <a class="link-hover link-primary link" href={`https://${alias.alias}`}
+            >{summaries.available_branches.find((branch) =>
+              branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]),
+            )}</a
+          >
+        </div>
+      {/if}
+    {/each}
+  {/await}
 </div>

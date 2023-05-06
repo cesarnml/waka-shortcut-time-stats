@@ -20,6 +20,18 @@ export const WakaApiRange = {
   Last_Month: 'Last Month',
 } as const
 
+export const WakaToShortcutApiRange = {
+  [WakaApiRange.Today]: 0,
+  [WakaApiRange.Yesterday]: 1,
+  [WakaApiRange.Last_7_Days]: 7,
+  [WakaApiRange.Last_7_Days_From_Yesterday]: 8,
+  [WakaApiRange.Last_14_Days]: 14,
+  [WakaApiRange.Last_30_Days]: 30,
+  [WakaApiRange.This_Week]: 7,
+  [WakaApiRange.This_Month]: 31,
+  [WakaApiRange.Last_Month]: 62,
+} as const
+
 export const BRANCH_NAME_DELIMITER = '_'
 export const BRANCH_ID_DELIMITER = '-'
 export const MAIN_BRANCH = 'main'

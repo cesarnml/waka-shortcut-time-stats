@@ -94,7 +94,7 @@
           const storyId = getStoryId(branch)
           const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
           const result = await response.json()
-          const storyLink: string = result.data[0]?.app_url
+          const storyLink: string = (result.data ?? [''])[0]?.app_url
           window.open(storyLink, '_blank')
         }
       })
