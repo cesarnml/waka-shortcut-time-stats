@@ -11,6 +11,7 @@
   import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
   import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
+  import ScatterPlot from '$lib/components/ScatterPlot.svelte'
 
   dayjs.extend(duration)
 
@@ -19,6 +20,7 @@
   let {
     summaries,
     projectName,
+    stories,
     lazy: { aliases },
   } = data
 
@@ -45,17 +47,18 @@
     <LanguagePieChart {summaries} />
   </div>
   <BranchesVsTime {summaries} />
+  <ScatterPlot {summaries} {stories} />
   <FilesTable {summaries} />
   <CodingTreeMap {summaries} />
   {#await aliases}
-    <div>loading</div>
+    <div>Loading ...</div>
   {:then result}
     {#each result.aliases as alias}
-      {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && summaries.available_branches.find( (branch) => branch.includes(alias.alias.match(/sc-(\d+)/g)[0]), )}
+      {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && summaries.available_branches.find( (branch) => branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]), )}
         <div>
           <a class="link-hover link-primary link" href={`https://${alias.alias}`}
             >{summaries.available_branches.find((branch) =>
-              branch.includes(alias.alias.match(/sc-(\d+)/g)[0]),
+              branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]),
             )}</a
           >
         </div>

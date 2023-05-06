@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
   const query = url.searchParams.get('query')
 
   const response = await fetch(
-    `${BASE_URL}${RESOURCE}?page_size=${PAGE_SIZE}detail=${Detail.Full}&query=${query}`,
+    `${BASE_URL}${RESOURCE}?page_size=${PAGE_SIZE}&detail=${Detail.Full}&query=${query}`,
     {
       method: 'GET',
       headers: {
