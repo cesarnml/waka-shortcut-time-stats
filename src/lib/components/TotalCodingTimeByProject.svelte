@@ -1,129 +1,95 @@
 <script lang="ts">
   import * as echarts from 'echarts'
-  import add from 'lodash/add'
-  import zipWith from 'lodash/zipWith'
-  import { onMount } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
   import type { SummariesResult } from '$src/types/wakatime'
+  import { secPerHour } from '$lib/helpers/timeHelpers'
+  import { ChartColor } from '$lib/helpers/chartHelpers'
+  import { NUMBER_OF_DECIMALS } from '$lib/constants'
 
   export let summaries: SummariesResult
   export let title = 'Project vs Time'
 
-  let chartContainer: HTMLDivElement
+  let chartRef: HTMLDivElement
   let chart: echarts.ECharts
   let option: echarts.EChartsOption
 
-  const projectNames = [
-    ...new Set(
-      summaries.data.map((summary) => summary.projects.map((project) => project.name)).flat(),
-    ),
-  ]
-  let data: number[] = projectNames.map(() => 0)
-  let dataByDateDict: Record<string, number[]> = {}
+  const createBarChartData = (summaries: SummariesResult) => {
+    const result = {} as Record<string, number>
+    summaries.data.forEach((summary) =>
+      summary.projects.forEach((project) => {
+        result[project.name] = (result[project.name] ?? 0) + project.total_seconds
+      }),
+    )
+    return result
+  }
 
-  summaries.data.forEach((summary) => {
-    return (dataByDateDict[summary.range.date] = projectNames.map((name) =>
-      Number(
-        (
-          (summary.projects.find((project) => project.name === name)?.total_seconds ?? 0) /
-          60 /
-          60
-        ).toFixed(2),
-      ),
-    ))
-  })
+  $: projectNameToTotalSeconds = createBarChartData(summaries)
 
-  let dates = Object.keys(dataByDateDict)
+  $: filtered = Object.entries(projectNameToTotalSeconds).reduce((acc, [name, value]) => {
+    if (value > secPerHour / 10) {
+      return { ...acc, [name]: value }
+    }
+    return acc
+  }, {} as Record<string, number>)
 
-  option = {
+  $: option = {
     textStyle: {
-      color: '#fafafa',
+      color: ChartColor.Text,
     },
     grid: {
-      show: true,
       left: 25,
       right: 45,
       top: 10,
       bottom: 50,
     },
+    tooltip: {
+      valueFormatter: (value) => `${value}h`,
+    },
     xAxis: {
-      max: 'dataMax',
+      type: 'value',
       axisLabel: {
-        formatter: (value: number) => `${value.toFixed(1)}h`,
+        color: ChartColor.Text,
+        formatter: (value: number) => `${value}h`,
+        showMinLabel: false,
       },
     },
     yAxis: {
       type: 'category',
-      data: projectNames,
-      inverse: true,
-      animationDuration: 300,
-      animationDurationUpdate: 300,
-      zlevel: 10,
+      data: Object.keys(filtered),
+      zlevel: 2,
       axisLabel: {
         show: true,
         inside: true,
         fontWeight: 'bold',
         textShadowBlur: 2,
-        verticalAlign: 'top',
       },
-      max: 4, // only the largest 3 bars will be displayed
     },
     series: [
       {
         colorBy: 'data',
-        realtimeSort: true,
-        name: 'X',
         type: 'bar',
-        data: data,
-        label: {
-          show: true,
-          position: 'right',
-          verticalAlign: 'bottom',
-          fontWeight: 'bold',
-          valueAnimation: true,
-          textShadowBlur: 2,
-          color: '#fafafa',
-          formatter: (item) => `${Number(item.value).toFixed(1)}h`,
-        },
+        data: Object.values(filtered).map((value) =>
+          Number((value / secPerHour).toFixed(NUMBER_OF_DECIMALS)),
+        ),
       },
     ],
-    animationDuration: 0,
-    animationDurationUpdate: 3000,
-    animationEasing: 'linear',
-    animationEasingUpdate: 'linear',
   }
 
   onMount(() => {
-    if (chartContainer) {
-      chart = echarts.init(chartContainer, 'dark', { renderer: 'svg' })
-      window.addEventListener('resize', () => chart.resize(), { passive: true })
-      chart.setOption(option)
-    }
+    const handleResize = () => chart.resize()
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => window.removeEventListener('resize', handleResize)
   })
 
-  const timer = (ms: number) => new Promise((res) => setTimeout(res, ms))
-
-  async function load() {
-    // We need to wrap the loop into an async function for this to work
-    for (var i = 0; i < summaries.data.length; i++) {
-      data = zipWith(data, dataByDateDict[dates[i]], add).map((number) => Number(number.toFixed(2)))
-      chart?.setOption<echarts.EChartsOption>({
-        series: [
-          {
-            type: 'bar',
-            data: data,
-          },
-        ],
-      })
-      await timer(3000) // then the created Promise can be awaited
-    }
-  }
-
-  load()
+  afterUpdate(() => {
+    chart.setOption(option)
+  })
 </script>
 
 <ChartContainer>
   <ChartTitle>{title}</ChartTitle>
-  <div bind:this={chartContainer} class="h-96 w-full" />
+  <div bind:this={chartRef} class="h-96 w-full" />
 </ChartContainer>
