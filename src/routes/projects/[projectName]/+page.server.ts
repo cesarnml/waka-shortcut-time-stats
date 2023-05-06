@@ -1,8 +1,10 @@
+import { WakaApiRange } from '$lib/constants'
 import type { AliasesResult, ProjectsResult } from '$src/types/vercel'
 import type { SummariesResult } from '$src/types/wakatime'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = async ({ fetch, params }) => {
+export const load: PageServerLoad = async ({ fetch, params, url }) => {
+  const range = url.searchParams.get('range') ?? WakaApiRange.LAST_7_DAYS
   const responses = await Promise.all([
     fetch(`/api/wakatime/current/summaries?project=${params.projectName}`),
     fetch(`/api/vercel/projects`),

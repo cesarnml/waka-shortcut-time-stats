@@ -42,9 +42,9 @@
     <CodingLineChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
     <WeekdaysBarChart {summaries} />
-    <BranchesVsTime {summaries} />
     <LanguagePieChart {summaries} />
   </div>
+  <BranchesVsTime {summaries} />
   <FilesTable {summaries} />
   <CodingTreeMap {summaries} />
   {#await aliases}
