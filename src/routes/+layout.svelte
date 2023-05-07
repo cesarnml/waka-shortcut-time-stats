@@ -5,6 +5,7 @@
   import Navbar from '$lib/components/Navbar.svelte'
   import { dev } from '$app/environment'
   import { inject } from '@vercel/analytics'
+  import Footer from '$lib/components/Footer.svelte'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
@@ -25,8 +26,9 @@
 </script>
 
 <Navbar />
-<div class="bg-base-100 md:p-4">
-  <div class="mx-auto min-h-screen max-w-screen-xl">
-    <slot />
-  </div>
+<div class="mx-auto min-h-screen max-w-screen-xl">
+  <slot />
+</div>
+<div class="py-8">
+  <Footer />
 </div>
