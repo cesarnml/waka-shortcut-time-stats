@@ -2,20 +2,27 @@
   import Moon from '$lib/assets/svg/Moon.svelte'
   import Sun from '$lib/assets/svg/Sun.svelte'
   import System from '$lib/assets/svg/System.svelte'
-  import { afterUpdate } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
 
-  let active = 'dark'
+  let active: string
+
+  onMount(() => {
+    active = localStorage.getItem('colorMode') ?? 'system'
+  })
 
   afterUpdate(() => {
     const html = document.getElementsByTagName('html')[0]
     if (active === 'dark') {
       html?.setAttribute('data-theme', 'night')
+      localStorage.setItem('colorMode', 'dark')
     }
     if (active === 'light') {
       html?.setAttribute('data-theme', 'synthwave')
+      localStorage.setItem('colorMode', 'light')
     }
     if (active === 'system') {
       html?.removeAttribute('data-theme')
+      localStorage.setItem('colorMode', 'system')
     }
   })
 </script>
