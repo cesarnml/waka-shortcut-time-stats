@@ -22,7 +22,10 @@
     window.addEventListener('resize', handleResize, { passive: true })
     chart.setOption(option)
 
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
+    }
   })
 
   afterUpdate(() => {
