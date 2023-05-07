@@ -17,4 +17,14 @@ export default {
     require('@tailwindcss/aspect-ratio'),
     require('daisyui'),
   ],
+  daisyui: {
+    styled: true,
+    themes: ['synthwave', 'night'],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: '',
+    darkTheme: 'night',
+  },
 }

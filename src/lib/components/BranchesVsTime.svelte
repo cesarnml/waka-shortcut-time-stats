@@ -86,7 +86,7 @@
 
   onMount(() => {
     if (chartRef) {
-      chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+      chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
       // @ts-expect-error tough type
       chart.on('click', async (params) => {
         const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''

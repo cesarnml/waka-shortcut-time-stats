@@ -7,6 +7,7 @@
   import { secPerHour } from '$lib/helpers/timeHelpers'
   import { ChartColor } from '$lib/helpers/chartHelpers'
   import { NUMBER_OF_DECIMALS } from '$lib/constants'
+  import max from 'lodash/max'
 
   export let summaries: SummariesResult
   export let title = 'Project vs Time'
@@ -27,8 +28,9 @@
 
   $: projectNameToTotalSeconds = createBarChartData(summaries)
 
+  // FIXME: Enable turning off filtering small values
   $: filtered = Object.entries(projectNameToTotalSeconds).reduce((acc, [name, value]) => {
-    if (value > secPerHour / 10) {
+    if (value > (max(Object.values(projectNameToTotalSeconds)) ?? 1) * 0.1) {
       return { ...acc, [name]: value }
     }
     return acc
@@ -44,6 +46,7 @@
       top: 10,
       bottom: 50,
     },
+    // bang
     tooltip: {
       valueFormatter: (value) => `${value}h`,
     },
@@ -79,7 +82,7 @@
 
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
     return () => window.removeEventListener('resize', handleResize)
   })
