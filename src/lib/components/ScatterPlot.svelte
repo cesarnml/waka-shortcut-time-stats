@@ -88,7 +88,7 @@
   }
   onMount(() => {
     if (chartRef) {
-      chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+      chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     }
   })
 

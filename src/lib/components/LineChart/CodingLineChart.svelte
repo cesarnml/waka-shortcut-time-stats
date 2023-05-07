@@ -16,7 +16,7 @@
   $: option = createLineChartOption(summaries)
 
   onMount(() => {
-    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
     return () => window.removeEventListener('resize', handleResize)

@@ -12,7 +12,7 @@
 </script>
 
 <select
-  class="select-primary select w-full max-w-sm text-zinc-300"
+  class="select-accent select w-full max-w-sm bg-neutral-focus text-accent"
   bind:value={selectedRange}
   on:change={handleSelect}
   disabled={loading}

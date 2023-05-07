@@ -18,7 +18,7 @@
 
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
     chart.setOption(option)
 
