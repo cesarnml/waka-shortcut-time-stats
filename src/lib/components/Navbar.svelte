@@ -1,19 +1,22 @@
-<div
-  class="sticky top-0 z-10 border-b border-slate-900/10 backdrop-blur-md dark:border-slate-300/10"
->
+<script>
+  import DarkModeToggle from '$lib/components/DarkModeToggle.svelte'
+</script>
+
+<div class="sticky top-0 z-10 border-b-2 border-slate-300/10 backdrop-blur-md">
   <nav class="navbar mx-auto max-w-screen-2xl">
     <div class="navbar-start">
-      <a class="btn-secondary btn font-bold normal-case" href="/">CodingStats</a>
+      <a class="btn-accent btn normal-case" href="/">CodingStats</a>
     </div>
     <div class="navbar-center" />
-    <ul class="navbar-end flex gap-6">
+    <ul class="navbar-end flex gap-4">
       <li class="normal-case">
-        <a class="link-hover link-secondary link" href="/projects">Projects</a>
+        <a class="link-hover link-primary link" href="/projects">Projects</a>
       </li>
       <li class="normal-case">
-        <a class="link-hover link-secondary link" href="/iterations">Iterations</a>
+        <a class="link-hover link-primary link" href="/iterations">Iterations</a>
       </li>
-      <li class="normal-case"><a class="link-hover link-secondary link" href="/login">Login</a></li>
+      <li class="normal-case"><a class="link-hover link-primary link" href="/login">Login</a></li>
+      <DarkModeToggle />
     </ul>
   </nav>
 </div>
