@@ -24,8 +24,8 @@
   })
 </script>
 
+<Navbar />
 <div class="bg-base-100 md:p-4">
-  <Navbar />
   <div class="mx-auto min-h-screen max-w-screen-xl">
     <slot />
   </div>
