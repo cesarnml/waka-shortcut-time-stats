@@ -17,8 +17,6 @@
 
   let { summaries, durations, durationsByLanguage } = data
 
-  let loading = false
-
   $: allProjects = summaries.data
     .map((summary) =>
       summary.projects.map((project) => ({ name: project.name, time: project.total_seconds })),
@@ -39,12 +37,10 @@
   )
 
   const handleChange = async (e: CustomEvent) => {
-    loading = true
     const { data } = await axios.get(
       `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}`,
     )
     summaries = data
-    loading = false
   }
 </script>
 
@@ -53,7 +49,7 @@
 </svelte:head>
 
 <div class="space-y-8 px-1 pt-8 md:px-4">
-  <DataRangeSelect on:duration={handleChange} {loading} />
+  <DataRangeSelect on:duration={handleChange} />
   <CodeStatsFullPanel {summaries} {projectList} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />

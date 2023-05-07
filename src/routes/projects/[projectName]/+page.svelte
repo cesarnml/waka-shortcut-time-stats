@@ -24,21 +24,17 @@
     lazy: { aliases },
   } = data
 
-  let loading = false
-
   const handleChange = async (e: CustomEvent) => {
-    loading = true
     const response = await fetch(
       `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}&project=${$page.params.projectName}`,
     )
     summaries = await response.json()
-    loading = false
   }
 </script>
 
 <div class="space-y-8 pt-8">
   <h1 class="text-3xl text-zinc-300">Project: {$page.params.projectName}</h1>
-  <DataRangeSelect on:duration={handleChange} {loading} />
+  <DataRangeSelect on:duration={handleChange} />
   <CodeStatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingLineChart {summaries} />
