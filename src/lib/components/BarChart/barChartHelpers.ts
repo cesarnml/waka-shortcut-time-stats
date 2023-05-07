@@ -1,5 +1,6 @@
 import zipObject from 'lodash/zipObject'
 import dayjs from 'dayjs'
+import { onMount, afterUpdate } from 'svelte'
 import localeData from 'dayjs/plugin/localeData'
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import {
@@ -10,7 +11,7 @@ import {
   weekdays,
 } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import type * as echarts from 'echarts'
+import * as echarts from 'echarts'
 import type {
   TooltipComponentOption,
   GridComponentOption,
@@ -18,8 +19,12 @@ import type {
 } from 'echarts/components'
 import type { BarSeriesOption } from 'echarts/charts'
 
-type EChartsOption = echarts.ComposeOption<
+export type StackedBarChartOption = echarts.ComposeOption<
   TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
+>
+
+export type SimpleBarChartOption = echarts.ComposeOption<
+  TooltipComponentOption | GridComponentOption | BarSeriesOption
 >
 
 dayjs.extend(localeData)
@@ -71,10 +76,10 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
   }) as BarSeriesOption[]
 }
 
-export const createBarChartOption = (
+export const createStackedBarChartOption = (
   xValues: string[],
   series: BarSeriesOption[],
-): EChartsOption => ({
+): StackedBarChartOption => ({
   tooltip: {
     valueFormatter: (value) => `${value}h`,
   },
@@ -103,7 +108,7 @@ export const createBarChartOption = (
   series,
 })
 
-export const createSimpleBarChartOption = (summaries: SummariesResult) => {
+export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBarChartOption => {
   const dateCount = {
     0: 0,
     1: 0,
@@ -128,7 +133,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult) => {
   return {
     grid: { left: 50, right: 20, top: 50, bottom: 50 },
     tooltip: {
-      valueFormatter: (value: number) => `${value}h`,
+      valueFormatter: (value) => `${value}h`,
     },
     xAxis: {
       type: 'category',
@@ -153,5 +158,25 @@ export const createSimpleBarChartOption = (summaries: SummariesResult) => {
         ),
       },
     ],
-  } as EChartsOption
+  }
+}
+
+export const initializeAndUpdateChart = (
+  chartRef: HTMLDivElement,
+  chart: echarts.ECharts,
+  option: StackedBarChartOption | SimpleBarChartOption,
+) => {
+  onMount(() => {
+    const handleResize = () => chart.resize()
+    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
+    }
+  })
+
+  afterUpdate(() => {
+    chart.setOption(option)
+  })
 }

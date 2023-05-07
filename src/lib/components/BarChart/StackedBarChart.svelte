@@ -1,20 +1,14 @@
 <script lang="ts">
   import * as echarts from 'echarts'
-  import type {
-    TooltipComponentOption,
-    GridComponentOption,
-    LegendComponentOption,
-  } from 'echarts/components'
-  import type { BarSeriesOption } from 'echarts/charts'
-
-  type EChartsOption = echarts.ComposeOption<
-    TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
-  >
-
   import { afterUpdate, onMount } from 'svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import ChartContainer from '../ChartContainer.svelte'
-  import { createBarChartOption, createBarChartSeries, createXAxisValues } from './barChartHelpers'
+  import {
+    createBarChartSeries,
+    createStackedBarChartOption,
+    createXAxisValues,
+    type StackedBarChartOption,
+  } from './barChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
@@ -23,15 +17,15 @@
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: EChartsOption
+  let option: StackedBarChartOption
 
   $: xValues = createXAxisValues(summaries)
   $: series = createBarChartSeries({ summaries, itemsType })
-  $: option = createBarChartOption(xValues, series)
+  $: option = createStackedBarChartOption(xValues, series)
 
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'canvas' })
     window.addEventListener('resize', handleResize, { passive: true })
     return () => {
       chart.dispose()

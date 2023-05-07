@@ -1,28 +1,18 @@
 <script lang="ts">
   import * as echarts from 'echarts'
-  import { onMount } from 'svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
-  import { afterUpdate } from 'svelte'
-  import { createSimpleBarChartOption } from './barChartHelpers'
+  import { createSimpleBarChartOption, type SimpleBarChartOption } from './barChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
-  import type {
-    TooltipComponentOption,
-    GridComponentOption,
-    LegendComponentOption,
-  } from 'echarts/components'
-  import type { BarSeriesOption } from 'echarts/charts'
-
-  type EChartsOption = echarts.ComposeOption<
-    TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
-  >
+  import { onMount } from 'svelte'
+  import { afterUpdate } from 'svelte'
 
   export let summaries: SummariesResult
   export let title = 'Coding Stats by Weekday'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: EChartsOption
+  let option: SimpleBarChartOption
 
   $: option = createSimpleBarChartOption(summaries)
 
