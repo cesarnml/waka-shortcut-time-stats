@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { hoursPerDay } from '$lib/helpers/timeHelpers'
+  import { formatHours, formatMinutes, formatTime } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
@@ -10,23 +10,20 @@
   export let summaries: SummariesResult
   export let projectList: { name: string; value: number }[]
 
-  const averageSeconds = summaries.daily_average.seconds_including_other_language
-  const totalSeconds = summaries.cumulative_total.seconds
+  $: averageSeconds = summaries.daily_average.seconds_including_other_language
+  $: totalSeconds = summaries.cumulative_total.seconds
 
-  const languagesByDate = summaries.data.map((item) => item.languages)
-  const languageToWeeklyCodingTime: Record<string, number> = {}
+  $: languagesByDate = summaries.data.map((item) => item.languages)
+  let languageToWeeklyCodingTime: Record<string, number> = {}
 
-  languagesByDate.forEach((languages) => {
+  $: languageToWeeklyCodingTime = languagesByDate.reduce((acc, languages) => {
     languages.forEach((language) => {
-      if (languageToWeeklyCodingTime[language.name] === undefined) {
-        languageToWeeklyCodingTime[language.name] = language.total_seconds
-      } else {
-        languageToWeeklyCodingTime[language.name] += language.total_seconds
-      }
+      acc[language.name] = (acc[language.name] || 0) + language.total_seconds
     })
-  })
+    return acc
+  }, {} as Record<string, number>)
 
-  const topLanguage = Object.keys(languageToWeeklyCodingTime).reduce((a, b) =>
+  $: topLanguage = Object.keys(languageToWeeklyCodingTime).reduce((a, b) =>
     languageToWeeklyCodingTime[a] > languageToWeeklyCodingTime[b] ? a : b,
   )
 </script>
@@ -48,10 +45,7 @@
     </div>
     <div class="stat-title text-sm">Total Hours</div>
     <div class="stat-value text-lg text-primary">
-      {`${
-        dayjs.duration(totalSeconds, 's').days() * hoursPerDay +
-        dayjs.duration(totalSeconds, 's').hours()
-      }h ${dayjs.duration(totalSeconds, 's').minutes()}m`}
+      {formatTime(totalSeconds)}
     </div>
   </div>
   <div class="stat">
@@ -66,9 +60,7 @@
     </div>
     <div class="stat-title text-sm">Daily Average</div>
     <div class="stat-value text-lg text-secondary">
-      {`${dayjs.duration(averageSeconds, 's').hours()}h ${dayjs
-        .duration(averageSeconds, 's')
-        .minutes()}m`}
+      {formatTime(averageSeconds)}
     </div>
   </div>
   <div class="stat">
@@ -98,7 +90,7 @@
     </div>
     <div class="stat-title text-sm">Top Project</div>
     <div class="stat-value text-lg text-secondary">
-      {first(projectList)?.name}
+      {first(projectList)?.name ?? 'N/A'}
     </div>
   </div>
   <div class="stat">

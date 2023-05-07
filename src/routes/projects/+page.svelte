@@ -22,7 +22,7 @@
 
 <div class="space-y-8">
   <form class="flex gap-4 py-5" on:submit={handleSearch}>
-    <input class="input" bind:value placeholder="Search project by name" />
+    <input class="input-primary input" bind:value placeholder="Search project by name" />
     <button class="btn-primary btn">Submit</button>
     <button class="btn-warning btn" type="button" on:click={handleClear}>Clear</button>
   </form>

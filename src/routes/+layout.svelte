@@ -2,17 +2,18 @@
   import '../app.postcss'
   import { invalidate } from '$app/navigation'
   import { onMount } from 'svelte'
-  import Navbar from '$lib/components/Navbar.svelte'
+  import Navbar from '$lib/components/Navbar/Navbar.svelte'
   import { dev } from '$app/environment'
   import { inject } from '@vercel/analytics'
   import Footer from '$lib/components/Footer.svelte'
+  import PageTransition from '$lib/components/PageTransition.svelte'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
-  $: ({ supabase, session } = data)
+  $: ({ supabase, session, pathname } = data)
 
   onMount(() => {
     const { data } = supabase.auth.onAuthStateChange((event, _session) => {
@@ -27,7 +28,9 @@
 
 <Navbar />
 <div class="mx-auto min-h-screen max-w-screen-xl">
-  <slot />
+  <PageTransition {pathname}>
+    <slot />
+  </PageTransition>
 </div>
 <div class="py-8">
   <Footer />
