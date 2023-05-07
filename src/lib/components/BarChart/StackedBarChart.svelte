@@ -1,5 +1,16 @@
 <script lang="ts">
   import * as echarts from 'echarts'
+  import type {
+    TooltipComponentOption,
+    GridComponentOption,
+    LegendComponentOption,
+  } from 'echarts/components'
+  import type { BarSeriesOption } from 'echarts/charts'
+
+  type EChartsOption = echarts.ComposeOption<
+    TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
+  >
+
   import { afterUpdate, onMount } from 'svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import ChartContainer from '../ChartContainer.svelte'
@@ -12,7 +23,7 @@
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
+  let option: EChartsOption
 
   $: xValues = createXAxisValues(summaries)
   $: series = createBarChartSeries({ summaries, itemsType })
@@ -22,7 +33,10 @@
     const handleResize = () => chart.resize()
     chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
+    }
   })
 
   afterUpdate(() => {

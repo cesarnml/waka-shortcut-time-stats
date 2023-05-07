@@ -20,7 +20,10 @@
     const handleResize = () => chart.resize()
     chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
+    }
   })
 
   afterUpdate(() => {

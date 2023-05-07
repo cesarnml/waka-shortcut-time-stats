@@ -1,4 +1,3 @@
-import type * as echarts from 'echarts'
 import zipObject from 'lodash/zipObject'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
@@ -11,6 +10,17 @@ import {
   weekdays,
 } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
+import type * as echarts from 'echarts'
+import type {
+  TooltipComponentOption,
+  GridComponentOption,
+  LegendComponentOption,
+} from 'echarts/components'
+import type { BarSeriesOption } from 'echarts/charts'
+
+type EChartsOption = echarts.ComposeOption<
+  TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
+>
 
 dayjs.extend(localeData)
 
@@ -58,13 +68,13 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
       },
       name: key,
     }
-  }) as echarts.SeriesOption[]
+  }) as BarSeriesOption[]
 }
 
 export const createBarChartOption = (
   xValues: string[],
-  series: echarts.SeriesOption[],
-): echarts.EChartsOption => ({
+  series: BarSeriesOption[],
+): EChartsOption => ({
   tooltip: {
     valueFormatter: (value) => `${value}h`,
   },
@@ -143,5 +153,5 @@ export const createSimpleBarChartOption = (summaries: SummariesResult) => {
         ),
       },
     ],
-  } as echarts.EChartsOption
+  } as EChartsOption
 }
