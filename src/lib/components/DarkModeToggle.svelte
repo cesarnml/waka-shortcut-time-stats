@@ -1,68 +1,87 @@
 <script lang="ts">
+  import { afterUpdate, onMount } from 'svelte'
   import Moon from '$lib/assets/svg/Moon.svelte'
   import Sun from '$lib/assets/svg/Sun.svelte'
   import System from '$lib/assets/svg/System.svelte'
-  import { afterUpdate } from 'svelte'
 
-  let active = 'dark'
+  const ATTRIBUTE = 'data-theme'
+
+  const iconMap = {
+    dark: Moon,
+    light: Sun,
+    system: System,
+  }
+
+  const Selection = {
+    dark: 'dark',
+    light: 'light',
+    system: 'system',
+  } as const
+
+  let selection: keyof typeof Selection
+
+  onMount(() => {
+    selection = localStorage.colorTheme ?? Selection.system
+  })
 
   afterUpdate(() => {
-    const html = document.getElementsByTagName('html')[0]
-    if (active === 'dark') {
-      html?.setAttribute('data-theme', 'night')
+    localStorage.colorTheme = selection
+    if (selection === Selection.dark) {
+      document.documentElement.setAttribute(ATTRIBUTE, 'night')
     }
-    if (active === 'light') {
-      html?.setAttribute('data-theme', 'synthwave')
+    if (selection === Selection.light) {
+      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
     }
-    if (active === 'system') {
-      html?.removeAttribute('data-theme')
+    if (selection === Selection.system) {
+      document.documentElement.removeAttribute(ATTRIBUTE)
     }
   })
 </script>
 
+<svelte:head>
+  <script>
+    if (localStorage.colorTheme === undefined) {
+      localStorage.colorTheme = 'system'
+    }
+    if (localStorage.colorTheme === 'dark') {
+      document.documentElement.setAttribute(ATTRIBUTE, 'night')
+    }
+    if (localStorage.colorTheme === 'light') {
+      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
+    }
+    if (localStorage.colorTheme === 'system') {
+      document.documentElement.removeAttribute(ATTRIBUTE)
+    }
+  </script>
+</svelte:head>
+
 <div class="switch">
-  <button class:active={active === 'dark'} on:click={() => (active = 'dark')}>
-    <span><Moon /></span>
-  </button>
-  <button class:active={active === 'light'} on:click={() => (active = 'light')}>
-    <span><Sun /></span>
-  </button>
-  <button class:active={active === 'system'} on:click={() => (active = 'system')}>
-    <span><System /></span>
-  </button>
+  {#each Object.values(Selection) as color}
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <label class:active={selection === color} tabindex={0}>
+      <input type="radio" name="colorSelection" bind:group={selection} value={color} />
+      <span><svelte:component this={iconMap[color]} /></span>
+    </label>
+  {/each}
 </div>
 
-<style>
+<style lang="postcss">
   .switch {
-    width: max-content;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 3px;
-    border: 1px solid #333;
-    border-radius: 100px;
-    max-width: 100%;
-    height: 40px;
-    font-size: 0.875rem;
-    -webkit-user-select: none;
-    user-select: none;
+    @apply flex h-10 select-none rounded-3xl border border-slate-400 p-1 text-sm;
   }
-
-  button {
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
+  input[type='radio'] {
+    @apply hidden;
   }
-  button:hover {
-    color: #fff;
+  label {
+    @apply h-full w-8 rounded-full text-neutral-300 transition-colors;
   }
-
-  button.active {
-    background-color: #333;
+  label:hover {
+    @apply text-neutral-100;
+  }
+  label.active {
+    @apply bg-zinc-700;
   }
   span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @apply grid h-full place-items-center;
   }
 </style>

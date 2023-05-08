@@ -37,3 +37,22 @@ export const BRANCH_ID_DELIMITER = '-'
 export const MAIN_BRANCH = 'main'
 export const NUMBER_OF_DECIMALS = 1
 export const SHORTCUT_STORY_IDENTIFIER = 'cesar/sc-'
+
+export const Url = {
+  Home: '/',
+  Projects: '/projects',
+  ProjectDetail: (id: string) => `/projects/${id}`,
+  Iterations: '/iterations',
+  IterationDetail: (id: number) => `/iterations/${id}`,
+  Login: '/login',
+} as const
+
+type Url = typeof Url
+
+export const getTopLevelUrl = (url: Url) =>
+  Object.entries(url).reduce((acc, [route, url]) => {
+    if (typeof url === 'string' && route !== 'Home') {
+      return { ...acc, [route]: url }
+    }
+    return acc
+  }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
