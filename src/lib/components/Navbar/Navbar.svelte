@@ -3,6 +3,7 @@
   import { page } from '$app/stores'
   import { Url, getTopLevelUrl } from '$lib/constants'
   import { media } from '$lib/stores/media'
+  import DarkModeToggle from '../DarkModeToggle.svelte'
   let showDropdownMenu = false
 
   $: if ($media.sm) {
@@ -59,6 +60,7 @@
           }}>{route}</button
         >
       {/each}
+      <DarkModeToggle />
     </div>
   {/if}
 </div>
