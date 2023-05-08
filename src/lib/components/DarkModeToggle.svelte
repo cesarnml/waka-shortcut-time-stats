@@ -1,49 +1,74 @@
 <script lang="ts">
+  import { afterUpdate, onMount } from 'svelte'
   import Moon from '$lib/assets/svg/Moon.svelte'
   import Sun from '$lib/assets/svg/Sun.svelte'
   import System from '$lib/assets/svg/System.svelte'
-  import { afterUpdate, onMount } from 'svelte'
 
-  let active: string
+  const iconMap = {
+    dark: Moon,
+    light: Sun,
+    system: System,
+  }
+
+  const Selection = {
+    dark: 'dark',
+    light: 'light',
+    system: 'system',
+  } as const
+
+  let selection: keyof typeof Selection
 
   onMount(() => {
-    active = localStorage.getItem('colorMode') ?? 'system'
+    selection = localStorage.colorTheme ?? Selection.system
   })
 
   afterUpdate(() => {
-    const html = document.getElementsByTagName('html')[0]
-    if (active === 'dark') {
-      html?.setAttribute('data-theme', 'night')
-      localStorage.setItem('colorMode', 'dark')
+    localStorage.colorTheme = selection
+    if (selection === Selection.dark) {
+      document.documentElement.setAttribute('data-theme', 'night')
     }
-    if (active === 'light') {
-      html?.setAttribute('data-theme', 'synthwave')
-      localStorage.setItem('colorMode', 'light')
+    if (selection === Selection.light) {
+      document.documentElement.setAttribute('data-theme', 'synthwave')
     }
-    if (active === 'system') {
-      html?.removeAttribute('data-theme')
-      localStorage.setItem('colorMode', 'system')
+    if (selection === Selection.system) {
+      document.documentElement.removeAttribute('data-theme')
     }
   })
 </script>
 
+<svelte:head>
+  <script>
+    if (localStorage.colorTheme === undefined) {
+      localStorage.colorTheme = 'system'
+    }
+    if (localStorage.colorTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'night')
+    }
+    if (localStorage.colorTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'synthwave')
+    }
+    if (localStorage.colorTheme === 'system') {
+      document.documentElement.removeAttribute('data-theme')
+    }
+  </script>
+</svelte:head>
+
 <div class="switch">
-  <button class:active={active === 'dark'} on:click={() => (active = 'dark')}>
-    <span><Moon /></span>
-  </button>
-  <button class:active={active === 'light'} on:click={() => (active = 'light')}>
-    <span><Sun /></span>
-  </button>
-  <button class:active={active === 'system'} on:click={() => (active = 'system')}>
-    <span><System /></span>
-  </button>
+  {#each Object.values(Selection) as color}
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <label class:active={selection === color} tabindex={0}>
+      <input type="radio" name="colorSelection" bind:group={selection} value={color} />
+      <span><svelte:component this={iconMap[color]} /></span>
+    </label>
+  {/each}
 </div>
 
 <style>
   .switch {
-    width: max-content;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: max-content;
     position: relative;
     padding: 3px;
     border: 1px solid #333;
@@ -54,22 +79,23 @@
     -webkit-user-select: none;
     user-select: none;
   }
-
-  button {
-    height: 32px;
+  input[type='radio'] {
+    display: none;
+  }
+  label {
+    height: 100%;
     width: 32px;
     border-radius: 50%;
   }
-  button:hover {
+  label:hover {
     color: #fff;
   }
-
-  button.active {
+  label.active {
     background-color: #333;
   }
   span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    height: 100%;
+    place-items: center;
   }
 </style>
