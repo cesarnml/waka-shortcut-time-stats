@@ -4,6 +4,8 @@
   import Sun from '$lib/assets/svg/Sun.svelte'
   import System from '$lib/assets/svg/System.svelte'
 
+  const ATTRIBUTE = 'data-theme'
+
   const iconMap = {
     dark: Moon,
     light: Sun,
@@ -25,13 +27,13 @@
   afterUpdate(() => {
     localStorage.colorTheme = selection
     if (selection === Selection.dark) {
-      document.documentElement.setAttribute('data-theme', 'night')
+      document.documentElement.setAttribute(ATTRIBUTE, 'night')
     }
     if (selection === Selection.light) {
-      document.documentElement.setAttribute('data-theme', 'synthwave')
+      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
     }
     if (selection === Selection.system) {
-      document.documentElement.removeAttribute('data-theme')
+      document.documentElement.removeAttribute(ATTRIBUTE)
     }
   })
 </script>
@@ -42,13 +44,13 @@
       localStorage.colorTheme = 'system'
     }
     if (localStorage.colorTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'night')
+      document.documentElement.setAttribute(ATTRIBUTE, 'night')
     }
     if (localStorage.colorTheme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'synthwave')
+      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
     }
     if (localStorage.colorTheme === 'system') {
-      document.documentElement.removeAttribute('data-theme')
+      document.documentElement.removeAttribute(ATTRIBUTE)
     }
   </script>
 </svelte:head>
@@ -63,39 +65,23 @@
   {/each}
 </div>
 
-<style>
+<style lang="postcss">
   .switch {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: max-content;
-    position: relative;
-    padding: 3px;
-    border: 1px solid #333;
-    border-radius: 100px;
-    max-width: 100%;
-    height: 40px;
-    font-size: 0.875rem;
-    -webkit-user-select: none;
-    user-select: none;
+    @apply flex h-10 select-none rounded-3xl border border-slate-400 p-1 text-sm;
   }
   input[type='radio'] {
-    display: none;
+    @apply hidden;
   }
   label {
-    height: 100%;
-    width: 32px;
-    border-radius: 50%;
+    @apply h-full w-8 rounded-full text-neutral-300 transition-colors;
   }
   label:hover {
-    color: #fff;
+    @apply text-neutral-100;
   }
   label.active {
-    background-color: #333;
+    @apply bg-zinc-700;
   }
   span {
-    display: grid;
-    height: 100%;
-    place-items: center;
+    @apply grid h-full place-items-center;
   }
 </style>
