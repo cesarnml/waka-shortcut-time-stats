@@ -4,8 +4,6 @@
   import Sun from '$lib/assets/svg/Sun.svelte'
   import System from '$lib/assets/svg/System.svelte'
 
-  const ATTRIBUTE = 'data-theme'
-
   const iconMap = {
     dark: Moon,
     light: Sun,
@@ -27,13 +25,13 @@
   afterUpdate(() => {
     localStorage.colorTheme = selection
     if (selection === Selection.dark) {
-      document.documentElement.setAttribute(ATTRIBUTE, 'night')
+      document.documentElement.setAttribute('data-theme', 'night')
     }
     if (selection === Selection.light) {
-      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
+      document.documentElement.setAttribute('data-theme', 'synthwave')
     }
     if (selection === Selection.system) {
-      document.documentElement.removeAttribute(ATTRIBUTE)
+      document.documentElement.removeAttribute('data-theme')
     }
   })
 </script>
@@ -44,13 +42,13 @@
       localStorage.colorTheme = 'system'
     }
     if (localStorage.colorTheme === 'dark') {
-      document.documentElement.setAttribute(ATTRIBUTE, 'night')
+      document.documentElement.setAttribute('data-theme', 'night')
     }
     if (localStorage.colorTheme === 'light') {
-      document.documentElement.setAttribute(ATTRIBUTE, 'synthwave')
+      document.documentElement.setAttribute('data-theme', 'synthwave')
     }
     if (localStorage.colorTheme === 'system') {
-      document.documentElement.removeAttribute(ATTRIBUTE)
+      document.documentElement.removeAttribute('data-theme')
     }
   </script>
 </svelte:head>
