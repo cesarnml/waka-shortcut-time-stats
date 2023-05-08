@@ -27,7 +27,7 @@
 </script>
 
 <Navbar />
-<div class="mx-auto min-h-screen max-w-screen-xl">
+<div class="mx-auto min-h-screen max-w-screen-xl pt-20">
   <PageTransition {pathname}>
     <slot />
   </PageTransition>

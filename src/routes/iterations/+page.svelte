@@ -8,7 +8,7 @@
   const { iterations, lazy } = data
 </script>
 
-<div class="grid grid-cols-3 gap-4 py-4">
+<div class="grid grid-cols-3 gap-4">
   {#each iterations as iteration (iteration.id)}
     <div class="card w-96 bg-base-100 p-4 shadow-xl">
       <div><a href={`/iterations/${iteration.id}`}>{iteration.name}</a></div>
