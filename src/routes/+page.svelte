@@ -59,7 +59,7 @@
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
     <DurationsByProject {durations} />
-    <DurationsByLanguageSlice {durationsByLanguage} />
+    <DurationsByLanguageSlice durations={durationsByLanguage} />
   </div>
   <ProjectList projects={projectList} />
 </div>

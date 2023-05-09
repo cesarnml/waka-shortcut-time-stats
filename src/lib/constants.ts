@@ -49,10 +49,22 @@ export const Url = {
 
 type Url = typeof Url
 
-export const getTopLevelUrl = (url: Url) =>
-  Object.entries(url).reduce((acc, [route, url]) => {
+export const getTopLevelUrl = (url: Url) => {
+  return Object.entries(url).reduce((acc, [route, url]) => {
     if (typeof url === 'string' && route !== 'Home') {
       return { ...acc, [route]: url }
     }
     return acc
   }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
+}
+
+export const Api = {
+  WakaDurations: (date: string) => `/api/wakatime/current/durations?date=${date}`,
+}
+
+export const Step = {
+  Next: 1,
+  Prev: -1,
+} as const
+
+export type Step = (typeof Step)[keyof typeof Step]
