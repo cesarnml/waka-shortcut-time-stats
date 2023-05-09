@@ -58,7 +58,7 @@
     <WeekdaysBarChart {summaries} />
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
-    <DurationsByProject {durations} />
+    <DurationsByProject {durations} itemType="project" />
     <DurationsByLanguageSlice durations={durationsByLanguage} />
   </div>
   <ProjectList projects={projectList} />

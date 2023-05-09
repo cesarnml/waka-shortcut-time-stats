@@ -3,8 +3,6 @@
   import { DateFormat, secPerMin } from '$lib/helpers/timeHelpers'
   import type { DurationsResult } from '$src/types/wakatime'
   import dayjs from 'dayjs'
-  import duration from 'dayjs/plugin/duration'
-  import isToday from 'dayjs/plugin/isToday'
   import * as echarts from 'echarts'
   import 'iconify-icon'
   import groupBy from 'lodash/groupBy'
@@ -14,9 +12,6 @@
   import DailyTitleContent from './BarChart/DailyTitleContent.svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-
-  dayjs.extend(duration)
-  dayjs.extend(isToday)
 
   const MIN_DURATION = 20 * secPerMin
   export let durations: DurationsResult
