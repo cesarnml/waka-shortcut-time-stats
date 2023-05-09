@@ -5,27 +5,34 @@
   import dayjs from 'dayjs'
   import isToday from 'dayjs/plugin/isToday'
   import { Api, Step } from '$lib/constants'
+  import 'iconify-icon'
 
   dayjs.extend(isToday)
 
   export let durations: DurationsResult
+  export let itemType: string
+
   let loading = false
 
-  const PREV_DAYS_LIMIT = 14
+  const PREV_DAYS_LIMIT = 13
   const INCREMENT_UNIT = 'days'
+
+  const LAST_DAY = dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT)
 
   const dispatch = createEventDispatcher()
 
-  $: totalDuration = durations.data.reduce((acc, cur) => cur.duration + acc, 0)
+  $: totalDuration = durations.data.reduce((acc, cur) => acc + cur.duration, 0)
   $: totalTime = formatTime(totalDuration)
   $: isNextDisabled = dayjs(durations.start).isToday() || loading
-  $: isPrevDisabled =
-    dayjs(durations.start).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT)) || loading
+  $: isPrevDisabled = dayjs(durations.start).isSame(LAST_DAY, 'day') || loading
 
   const onClick = async (step: Step) => {
     loading = true
     const response = await fetch(
-      Api.WakaDurations(dayjs(durations.start).add(step, INCREMENT_UNIT).format(DateFormat.Query)),
+      Api.WakaDurations(
+        dayjs(durations.start).add(step, INCREMENT_UNIT).format(DateFormat.Query),
+        itemType,
+      ),
     )
     durations = await response.json()
     dispatch('update', durations)
