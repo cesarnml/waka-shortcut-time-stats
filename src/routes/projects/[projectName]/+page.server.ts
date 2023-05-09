@@ -4,7 +4,7 @@ import type { SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import type { PageServerLoad } from './$types'
 import { DateFormat } from '$lib/helpers/timeHelpers'
-import type { SearchStories, StorySearchResults } from '$lib/generated/openapi/shortcut'
+import type { StorySearchResults } from '$lib/generated/openapi/shortcut'
 
 export const load: PageServerLoad = async ({ fetch, params, url }) => {
   const wakaRange = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days

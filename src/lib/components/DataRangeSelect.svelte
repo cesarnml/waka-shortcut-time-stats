@@ -7,7 +7,6 @@
 
   const dispatch = createEventDispatcher()
   const handleSelect = () => {
-    $page.url.searchParams.append('range', selectedRange)
     dispatch('duration', { selectedRange })
   }
   onMount(() => {
