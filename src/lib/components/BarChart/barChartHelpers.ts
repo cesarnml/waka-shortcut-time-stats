@@ -68,9 +68,6 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
       data: yDataByItem[key],
       type: 'bar',
       stack: 'total',
-      emphasis: {
-        focus: 'series',
-      },
       name: key,
     }
   }) as BarSeriesOption[]
