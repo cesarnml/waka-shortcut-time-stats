@@ -36,9 +36,7 @@
   }, {} as Record<string, number>)
 
   $: option = {
-    textStyle: {
-      color: ChartColor.Text,
-    },
+    textStyle: { color: ChartColor.Text },
     grid: {
       left: 25,
       right: 45,
@@ -46,13 +44,10 @@
       bottom: 50,
     },
     // bang
-    tooltip: {
-      valueFormatter: (value) => formatTime(value as number),
-    },
+    tooltip: { valueFormatter: (value) => formatTime(value as number) },
     xAxis: {
       type: 'value',
       axisLabel: {
-        color: ChartColor.Text,
         formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
       },

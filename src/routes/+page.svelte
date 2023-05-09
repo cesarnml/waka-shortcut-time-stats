@@ -11,6 +11,7 @@
   import orderBy from 'lodash/orderBy'
   import CodeStatsFullPanel from '$lib/components/CodeStatsFullPanel.svelte'
   import axios from 'axios'
+  import ActiveHours from '$lib/components/BarChart/ActiveHours.svelte'
 
   export let data: PageData
 
@@ -64,5 +65,6 @@
       title="Language Context Switch"
     />
   </div>
+  <ActiveHours {durations} itemType="project" />
   <ProjectList projects={projectList} />
 </div>

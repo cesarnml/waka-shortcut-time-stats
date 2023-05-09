@@ -99,7 +99,8 @@ export const createStackedBarChartOption = (
     type: 'category',
     data: xValues,
     axisTick: {
-      show: false,
+      alignWithLabel: true,
+      show: true,
     },
   },
   yAxis: {
