@@ -8,7 +8,7 @@
   import DurationsByLanguageSlice from '$lib/components/DurationsByLanguageSlice.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
-  import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
+  import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import orderBy from 'lodash/orderBy'
   import CodeStatsFullPanel from '$lib/components/CodeStatsFullPanel.svelte'
   import axios from 'axios'
@@ -36,7 +36,7 @@
     'desc',
   )
 
-  const handleChange = async (e: CustomEvent) => {
+  const onWakaRange = async (e: CustomEvent) => {
     const { data } = await axios.get(
       `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}`,
     )
@@ -49,7 +49,7 @@
 </svelte:head>
 
 <div class="space-y-8 px-2 md:px-4">
-  <DataRangeSelect on:duration={handleChange} />
+  <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsFullPanel {summaries} {projectList} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />

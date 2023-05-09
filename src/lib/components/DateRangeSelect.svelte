@@ -1,17 +1,13 @@
 <script lang="ts">
-  import { page } from '$app/stores'
   import { WakaApiRange } from '$lib/constants'
-  import { createEventDispatcher, onMount } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
 
   let selectedRange = WakaApiRange.Last_7_Days_From_Yesterday
 
   const dispatch = createEventDispatcher()
   const handleSelect = () => {
-    dispatch('duration', { selectedRange })
+    dispatch('wakarange', { selectedRange })
   }
-  onMount(() => {
-    $page.url.searchParams.set('ted', 'ken')
-  })
 </script>
 
 <select
@@ -25,8 +21,10 @@
   </option>
   <option value={WakaApiRange.Last_7_Days}>{WakaApiRange.Last_7_Days}</option>
   <option value={WakaApiRange.Last_14_Days}>{WakaApiRange.Last_14_Days}</option>
-  <option value={WakaApiRange.Last_30_Days}>{WakaApiRange.Last_30_Days}</option>
-  <option value={WakaApiRange.This_Week}>{WakaApiRange.This_Week}</option>
-  <option value={WakaApiRange.This_Month}>{WakaApiRange.This_Month}</option>
-  <option value={WakaApiRange.Last_Month}>{WakaApiRange.Last_Month}</option>
+  <option value={WakaApiRange.Last_30_Days} disabled
+    >{WakaApiRange.Last_30_Days} (feature WIP)</option
+  >
+  <option value={WakaApiRange.This_Week} disabled>{WakaApiRange.This_Week} (feature WIP)</option>
+  <option value={WakaApiRange.This_Month} disabled>{WakaApiRange.This_Month} (feature WIP)</option>
+  <option value={WakaApiRange.Last_Month} disabled>{WakaApiRange.Last_Month} (feature WIP)</option>
 </select>
