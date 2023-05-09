@@ -4,7 +4,7 @@
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
   import type { SummariesResult } from '$src/types/wakatime'
-  import { secPerHour } from '$lib/helpers/timeHelpers'
+  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import { ChartColor } from '$lib/helpers/chartHelpers'
   import { NUMBER_OF_DECIMALS } from '$lib/constants'
   import max from 'lodash/max'
@@ -30,7 +30,7 @@
 
   // FIXME: Enable turning off filtering small values
   $: filtered = Object.entries(projectNameToTotalSeconds).reduce((acc, [name, value]) => {
-    if (value > (max(Object.values(projectNameToTotalSeconds)) ?? 1) * 0.1) {
+    if (value > (max(Object.values(projectNameToTotalSeconds)) ?? 1) * 0.01) {
       return { ...acc, [name]: value }
     }
     return acc
@@ -48,13 +48,13 @@
     },
     // bang
     tooltip: {
-      valueFormatter: (value) => `${value}h`,
+      valueFormatter: (value) => formatTime(value as number),
     },
     xAxis: {
       type: 'value',
       axisLabel: {
         color: ChartColor.Text,
-        formatter: (value: number) => `${value}h`,
+        formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
       },
     },
@@ -73,9 +73,7 @@
       {
         colorBy: 'data',
         type: 'bar',
-        data: Object.values(filtered).map((value) =>
-          Number((value / secPerHour).toFixed(NUMBER_OF_DECIMALS)),
-        ),
+        data: Object.values(filtered),
       },
     ],
   }
