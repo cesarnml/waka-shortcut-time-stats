@@ -1,5 +1,5 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
-import { secPerHour } from '$lib/helpers/timeHelpers'
+import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import type * as echarts from 'echarts'
 
@@ -24,7 +24,7 @@ export const createPieChartData = (summaries: SummariesResult) => {
   // and map them to an array of objects with name and value properties.
   return Object.entries(languageToWeeklyCodingTime).map(([name, totalSeconds]) => ({
     name,
-    value: Number((totalSeconds / secPerHour).toFixed(1)),
+    value: totalSeconds,
   }))
 }
 
@@ -38,7 +38,7 @@ type Data = Datum[]
 export const createPieChartOption = (data: Data): echarts.EChartsOption => ({
   tooltip: {
     trigger: 'item',
-    valueFormatter: (value) => `${value}h`,
+    valueFormatter: (value) => formatTime(value as number),
   },
   grid: { left: 0, right: 0, bottom: 0, top: 0 },
   legend: {

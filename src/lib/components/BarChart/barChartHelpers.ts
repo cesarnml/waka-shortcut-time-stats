@@ -10,6 +10,7 @@ import {
   secPerHour,
   weekdays,
   secPerMin,
+  formatTime,
 } from '$lib/helpers/timeHelpers'
 import type { DurationsResult, SummariesResult, WakaDuration } from '$src/types/wakatime'
 import * as echarts from 'echarts'
@@ -62,7 +63,7 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
   itemsByXValues.forEach((items, index) => {
     items.forEach((item) => {
       // @ts-expect-error tough type
-      yDataByItem[item.name][index] = Number((item.total_seconds / secPerHour).toFixed(1))
+      yDataByItem[item.name][index] = item.total_seconds
     })
   })
 
@@ -81,7 +82,7 @@ export const createStackedBarChartOption = (
   series: BarSeriesOption[],
 ): StackedBarChartOption => ({
   tooltip: {
-    valueFormatter: (value) => `${value}h`,
+    valueFormatter: (value) => formatTime(value as number),
   },
   grid: { left: 50, right: 20, top: 50, bottom: 50 },
   legend: {
@@ -97,11 +98,14 @@ export const createStackedBarChartOption = (
   xAxis: {
     type: 'category',
     data: xValues,
+    axisTick: {
+      show: false,
+    },
   },
   yAxis: {
     type: 'value',
     axisLabel: {
-      formatter: (value: unknown) => `${value}h`,
+      formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
       showMinLabel: false,
     },
   },
@@ -126,14 +130,13 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     dateCount[dateInteger] += 1
 
     yDataByWeekday[integerDateMap[dateInteger]] =
-      (yDataByWeekday[integerDateMap[dateInteger]] ?? 0) +
-      datum.grand_total.total_seconds / secPerHour
+      (yDataByWeekday[integerDateMap[dateInteger]] ?? 0) + datum.grand_total.total_seconds
   })
 
   return {
     grid: { left: 50, right: 20, top: 50, bottom: 50 },
     tooltip: {
-      valueFormatter: (value) => `${value}h`,
+      valueFormatter: (value) => formatTime(value as number),
     },
     xAxis: {
       type: 'category',
@@ -146,7 +149,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
       type: 'value',
       axisLabel: {
         color: ChartColor.Text,
-        formatter: (value: number) => `${value}h`,
+        formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
       },
     },
@@ -238,10 +241,10 @@ export const createDurationsChartOption = (
   )
   return {
     tooltip: {
-      formatter: function (params) {
-        console.log('params:', params)
-        // @ts-expect-error tough type
-        return params.marker + params.name + ': ' + formatTime(params.value[3])
+      formatter: function (params: any) {
+        return (
+          params.marker + params.name + ': ' + `<strong>${formatTime(params.value[3])}</strong>`
+        )
       },
     },
     grid: {
