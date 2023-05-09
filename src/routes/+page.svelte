@@ -4,8 +4,7 @@
   import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
   import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
-  import DurationsByProject from '$lib/components/DurationsByProject.svelte'
-  import DurationsByLanguageSlice from '$lib/components/DurationsByLanguageSlice.svelte'
+  import DurationsChart from '$lib/components/DurationsChart.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
   import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
@@ -58,8 +57,8 @@
     <WeekdaysBarChart {summaries} />
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
-    <DurationsByProject {durations} itemType="project" />
-    <DurationsByLanguageSlice durations={durationsByLanguage} />
+    <DurationsChart {durations} itemType="project" />
+    <DurationsChart durations={durationsByLanguage} itemType="language"  />
   </div>
   <ProjectList projects={projectList} />
 </div>

@@ -59,7 +59,8 @@ export const getTopLevelUrl = (url: Url) => {
 }
 
 export const Api = {
-  WakaDurations: (date: string) => `/api/wakatime/current/durations?date=${date}`,
+  WakaDurations: (date: string, itemType: string) =>
+    `/api/wakatime/current/durations?date=${date}&slice_by=${itemType}`,
 }
 
 export const Step = {

@@ -7,12 +7,37 @@
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { DateFormat, secPerHour, secPerMin } from '$lib/helpers/timeHelpers'
+  import { DateFormat, formatTime, secPerHour, secPerMin } from '$lib/helpers/timeHelpers'
   import DailyTitleContent from './BarChart/DailyTitleContent.svelte'
   import DailyChartControls from './BarChart/DailyChartControls.svelte'
   import { ChartColor } from '$lib/helpers/chartHelpers'
 
-  const MIN_DURATION = 20 * secPerMin
+  const languageToColor = {
+    Svelte: '#EB5027',
+    TypeScript: '#3075C0',
+    HTML: '#EA6328',
+    INI: '#B9B9B9',
+    Other: '#FAFAFA',
+    TSConfig: '#7D7DEB',
+    Python: '#376D9D',
+    SCSS: '#C76496',
+    Markdown: '#000000',
+    JSON: '#7D7D7D',
+    Ruby: '#AA1401',
+    CSS: '#2A65F1',
+    Bash: '#44B050',
+    YAML: '#F8CA3E',
+    LESS: '#2C4E85',
+    'Vue.js': '#3EB480',
+    'Git Config': '#E94D31',
+    Astro: '#583085',
+    Text: '#F8F8F8',
+    Docker: '#2596ED',
+    GraphQL: '#DA32A4',
+    Git: '#E94D31',
+    SQL: '#D16F30',
+  }
+
   export let durations: DurationsResult
   export let title = 'Context Switch'
   export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
@@ -25,32 +50,33 @@
   $: date = dayjs(durations.start).format(DateFormat.Shortish)
   $: itemNames = [...new Set(durations.data.map((duration) => duration[itemType]))]
   $: durationsByItemNameDict = groupBy(durations.data, itemType)
-  $: filteredAndSortedItemNames = orderBy(itemNames, (item) =>
-    durationsByItemNameDict[item].reduce((acc, cur) => cur.duration + acc, 0),
+  $: itemNamesSorted = orderBy(itemNames, (name) =>
+    durationsByItemNameDict[name].reduce((acc, cur) => cur.duration + acc, 0),
   ).filter(
-    (item) =>
-      durationsByItemNameDict[item].reduce((acc, cur) => cur.duration + acc, 0) > MIN_DURATION,
+    (name) =>
+      durationsByItemNameDict[name].reduce((acc, cur) => cur.duration + acc, 0) >= secPerMin,
   )
-  $: data = filteredAndSortedItemNames.flatMap((name, index) =>
-    durationsByItemNameDict[name].map(({ time, duration, color }) => ({
-      name,
-      value: [
-        index,
-        Math.floor(time),
-        Math.floor(time + duration),
-        Math.floor(time + duration) - Math.floor(time),
-      ],
-      itemStyle: {
-        color: color ?? ChartColor.Text,
-      },
-    })),
+  $: data = itemNamesSorted.flatMap((name, index) =>
+    durationsByItemNameDict[name]
+      .filter((duration) => duration.duration >= secPerMin)
+      .map(({ time, duration, color }) => ({
+        name,
+        value: [
+          index,
+          Math.floor(time),
+          Math.floor(time + duration),
+          Math.floor(time + duration) - Math.floor(time),
+          itemType === 'project' ? color : languageToColor[name as keyof typeof languageToColor],
+        ],
+      })),
   )
 
+  // @ts-expect-error tough type
   $: option = {
     tooltip: {
       formatter: function (params) {
         // @ts-expect-error tough type
-        return params.marker + params.name + ': ' + Math.floor(params.value[3] / 60) + ' min'
+        return params.marker + params.name + ': ' + formatTime(params.value[3])
       },
     },
     grid: {
@@ -64,22 +90,22 @@
         show: true,
       },
       axisLabel: {
-        color: '#fafafa',
+        color: ChartColor.Text,
         formatter: function (val: number) {
           return Math.floor(Math.max(0, val - startTime) / secPerHour) + 'h'
         },
       },
     },
     yAxis: {
-      data: filteredAndSortedItemNames,
+      data: itemNamesSorted,
       type: 'category',
       zlevel: 10,
       axisLabel: {
-        color: '#fafafa',
+        color: ChartColor.Text,
         inside: true,
         fontSize: 14,
         fontFamily: 'monospace',
-        textShadowColor: '#ffffff',
+        textShadowColor: ChartColor.Text,
         textShadowBlur: 1,
       },
     },
@@ -116,8 +142,8 @@
               transition: ['shape'],
               shape: rectShape,
               style: {
-                fill: '#EB5027',
-                stroke: '#EB5027',
+                fill: api.value(4),
+                stroke: api.value(4),
                 lineWidth: 2,
                 opacity: 0.7,
               },
@@ -156,6 +182,6 @@
   <ChartTitle>
     <DailyTitleContent {title} {date} />
   </ChartTitle>
-  <DailyChartControls {durations} on:update={onUpdate} />
+  <DailyChartControls {durations} {itemType} on:update={onUpdate} />
   <div bind:this={chartRef} class="h-96 w-full" />
 </ChartContainer>

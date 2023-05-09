@@ -1,17 +1,19 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import { DateFormat, formatTime } from '$lib/helpers/timeHelpers'
-  import type { DurationsResult } from '$src/types/wakatime'
+  import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
   import dayjs from 'dayjs'
   import isToday from 'dayjs/plugin/isToday'
   import { Api, Step } from '$lib/constants'
+  import 'iconify-icon'
 
   dayjs.extend(isToday)
 
   export let durations: DurationsResult
+  export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
   let loading = false
 
-  const PREV_DAYS_LIMIT = 14
+  const PREV_DAYS_LIMIT = 13
   const INCREMENT_UNIT = 'days'
 
   const dispatch = createEventDispatcher()
@@ -24,9 +26,8 @@
 
   const onClick = async (step: Step) => {
     loading = true
-    const response = await fetch(
-      Api.WakaDurations(dayjs(durations.start).add(step, INCREMENT_UNIT).format(DateFormat.Query)),
-    )
+    const date = dayjs(durations.start).add(step, INCREMENT_UNIT).format(DateFormat.Query)
+    const response = await fetch(Api.WakaDurations(date, itemType))
     durations = await response.json()
     dispatch('update', durations)
     loading = false
