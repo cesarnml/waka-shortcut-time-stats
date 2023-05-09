@@ -8,7 +8,7 @@
   import dayjs from 'dayjs'
   import duration from 'dayjs/plugin/duration'
   import FilesTable from '$lib/components/FilesTable.svelte'
-  import DataRangeSelect from '$lib/components/DataRangeSelect.svelte'
+  import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import ScatterPlot from '$lib/components/ScatterPlot.svelte'
@@ -24,7 +24,7 @@
     lazy: { aliases },
   } = data
 
-  const handleChange = async (e: CustomEvent) => {
+  const onWakaRange = async (e: CustomEvent) => {
     const response = await fetch(
       `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}&project=${$page.params.projectName}`,
     )
@@ -34,7 +34,7 @@
 
 <div class="space-y-8 pt-8">
   <h1 class="text-3xl text-zinc-300">Project: {$page.params.projectName}</h1>
-  <DataRangeSelect on:duration={handleChange} />
+  <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingLineChart {summaries} />

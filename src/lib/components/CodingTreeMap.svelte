@@ -142,11 +142,6 @@
           borderWidth: 5,
           gapWidth: 1,
         },
-        emphasis: {
-          itemStyle: {
-            borderColor: '#ddd',
-          },
-        },
       },
       {
         colorSaturation: [0.35, 0.5],

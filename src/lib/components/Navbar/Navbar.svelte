@@ -67,9 +67,12 @@
 
 <style lang="postcss">
   .active {
-    @apply text-secondary-focus;
+    @apply underline underline-offset-8;
   }
 
+  .btn:hover {
+    @apply text-secondary no-underline;
+  }
   a:hover {
     @apply text-secondary no-underline;
   }

@@ -146,7 +146,7 @@ export type SummariesResult = {
   color: string
 }
 
-type WakaDuration = {
+export type WakaDuration = {
   color: string | null
   duration: number
   project: string
