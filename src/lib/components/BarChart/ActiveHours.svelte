@@ -7,6 +7,8 @@
   import { onMount } from 'svelte'
   import { afterUpdate } from 'svelte'
   import dayjs from 'dayjs'
+  import DailyTitleContent from './DailyTitleContent.svelte'
+  import { DateFormat } from '$lib/helpers/timeHelpers'
 
   export let durations: DurationsResult
   export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
@@ -15,9 +17,14 @@
   let chart: echarts.ECharts
   let option: echarts.EChartsOption
 
+  $: date = dayjs(durations.start).format(DateFormat.Shortish)
+
   $: option = {
     xAxis: {
       type: 'category',
+      axisTick: {
+        alignWithLabel: true,
+      },
       data: [
         '12 am',
         '1 am',
@@ -47,6 +54,13 @@
     },
     yAxis: {
       type: 'value',
+      axisLabel: {
+        formatter: (value: number) => `${value}m`,
+        showMinLabel: false,
+      },
+    },
+    tooltip: {
+      valueFormatter: (value) => `${value}m`,
     },
     series: [
       {
@@ -100,7 +114,7 @@
 </script>
 
 <ChartContainer>
-  <ChartTitle>Active Hours</ChartTitle>
+  <ChartTitle><DailyTitleContent title="Active Hours" {date} /></ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
   <div bind:this={chartRef} class="h-96 w-full" />
 </ChartContainer>

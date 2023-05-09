@@ -142,14 +142,13 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     xAxis: {
       type: 'category',
       data: weekdays,
-      axisLabel: {
-        color: ChartColor.Text,
+      axisTick: {
+        alignWithLabel: true,
       },
     },
     yAxis: {
       type: 'value',
       axisLabel: {
-        color: ChartColor.Text,
         formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
       },
@@ -260,7 +259,6 @@ export const createDurationsChartOption = (
         show: true,
       },
       axisLabel: {
-        color: ChartColor.Text,
         formatter: (val) => `${Math.floor(Math.max(0, val - startTime) / secPerHour)}h`,
       },
     },
