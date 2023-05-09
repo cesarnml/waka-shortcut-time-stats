@@ -156,6 +156,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     series: [
       {
         type: 'bar',
+        colorBy: 'data',
         data: weekdays.map((weekday, index) =>
           Number((yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount]).toFixed(1)),
         ),
