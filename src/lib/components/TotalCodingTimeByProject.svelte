@@ -6,7 +6,6 @@
   import type { SummariesResult } from '$src/types/wakatime'
   import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import { ChartColor } from '$lib/helpers/chartHelpers'
-  import { NUMBER_OF_DECIMALS } from '$lib/constants'
   import max from 'lodash/max'
 
   export let summaries: SummariesResult
