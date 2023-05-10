@@ -54,7 +54,8 @@ export const createPieChartOption = (data: Data): echarts.EChartsOption => ({
   series: [
     {
       type: 'pie',
-      radius: '55%',
+      radius: '60%',
+      center: ['50%', '60%'],
       label: {
         color: ChartColor.Text,
       },

@@ -1,18 +1,17 @@
 import type * as echarts from 'echarts'
 import dayjs from 'dayjs'
 import { ChartColor } from '$lib/helpers/chartHelpers'
-import { DateFormat, secPerHour } from '$lib/helpers/timeHelpers'
+import { DateFormat, formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 
 export const createLineChartOption = (summaries: SummariesResult): echarts.EChartsOption => {
   const dates = summaries.data.map((summary) => dayjs(summary.range.date).format(DateFormat.Short))
-  const values = summaries.data.map((summary) =>
-    (summary.grand_total.total_seconds / secPerHour).toFixed(1),
-  )
+  const values = summaries.data.map((summary) => summary.grand_total.total_seconds / secPerHour)
+
   return {
     tooltip: {
       trigger: 'item',
-      valueFormatter: (value) => `${value}h`,
+      valueFormatter: (value: any) => `${formatTime(value * secPerHour)}`,
     },
     grid: { left: 50, right: 20, top: 50, bottom: 50, containLabel: true },
 
@@ -21,9 +20,6 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
         type: 'category',
         boundaryGap: false,
         data: dates,
-        axisLabel: {
-          color: ChartColor.Text,
-        },
       },
     ],
     yAxis: [
@@ -31,8 +27,7 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
         type: 'value',
         axisLabel: {
           showMinLabel: false,
-          formatter: (value: unknown) => `${value}h`,
-          color: ChartColor.Text,
+          formatter: (value: number) => `${value}h`,
         },
       },
     ],
@@ -40,17 +35,17 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
       type: 'line',
       smooth: true,
       areaStyle: {
-        color: summaries.color ?? '#5A6FC0',
+        color: summaries.color ?? ChartColor.Default,
       },
       lineStyle: {
-        width: 4,
-        color: summaries.color ?? '#5A6FC0',
+        width: 2,
+        color: summaries.color ?? ChartColor.Default,
       },
       itemStyle: {
         borderCap: 'round',
-        color: '#ff0000',
+        color: summaries.color ?? ChartColor.Default,
         borderWidth: 2,
-        borderColor: '#ff0000',
+        borderColor: summaries.color ?? ChartColor.Default,
       },
       data: values,
     },

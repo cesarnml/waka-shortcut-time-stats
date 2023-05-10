@@ -21,14 +21,14 @@
 </script>
 
 <div class="space-y-8">
-  <form class="flex gap-4" on:submit={handleSearch}>
-    <input class="input-primary input" bind:value placeholder="Search project by name" />
+  <form class="flex gap-4 px-4" on:submit={handleSearch}>
+    <input class="input-primary input flex-grow" bind:value placeholder="Search project by name" />
     <button class="btn-primary btn">Submit</button>
     <button class="btn-warning btn" type="button" on:click={handleClear}>Clear</button>
   </form>
-  <ul class="space-y-4">
+  <ul class="w-full space-y-4 px-4">
     {#each projectsResult.data as project (project.name)}
-      <li class="flex items-center gap-4">
+      <li class="flex items-center justify-between gap-4">
         <a class="link-hover link" href={`/projects/${project.name}`}>{project.name}</a>
         {#if project?.badge?.url}
           <img src={project.badge.url} alt="badge" />

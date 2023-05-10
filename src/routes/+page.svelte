@@ -15,7 +15,7 @@
 
   export let data: PageData
 
-  let { summaries, durations, durationsByLanguage } = data
+  $: ({ summaries, durations, durationsByLanguage } = data)
 
   $: allProjects = summaries.data
     .map((summary) =>
@@ -48,10 +48,10 @@
   <title>WakaStats</title>
 </svelte:head>
 
-<div class="space-y-8 px-2 md:px-4">
+<div class="space-y-4 px-2 md:px-4">
   <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsFullPanel {summaries} {projectList} />
-  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />
     <TotalCodingTimeByProject {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />

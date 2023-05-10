@@ -1,21 +1,14 @@
 <script lang="ts">
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import { secPerHour } from '$lib/helpers/timeHelpers'
-  import { ChartColor } from '$lib/helpers/chartHelpers'
+  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import last from 'lodash/last'
   import first from 'lodash/first'
   import type { StorySearchResults } from '$lib/generated/openapi/shortcut'
   import type { SummariesResult } from '$src/types/wakatime'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import {
-    BRANCH_ID_DELIMITER,
-    BRANCH_NAME_DELIMITER,
-    MAIN_BRANCH,
-    NUMBER_OF_DECIMALS,
-    SHORTCUT_STORY_IDENTIFIER,
-  } from '$lib/constants'
+  import { BRANCH_ID_DELIMITER, BRANCH_NAME_DELIMITER, MAIN_BRANCH } from '$lib/constants'
   import zipObject from 'lodash/zipObject'
 
   export let summaries: SummariesResult
@@ -25,9 +18,6 @@
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
   let option: echarts.EChartsOption
-
-  const getBranchShortName = (name: string) => first(name.split(BRANCH_NAME_DELIMITER))
-  const getStoryId = (branch: string) => last(branch.split(BRANCH_ID_DELIMITER))
 
   $: ({ available_branches } = summaries)
 
@@ -55,7 +45,9 @@
   $: option = {
     tooltip: {
       formatter: (params: any) =>
-        `${params.marker} ${params.data[2]} - ${params.data[1]}<strong>h<strong>`,
+        `${params.marker} ${params.data[2]}: <strong>${formatTime(
+          params.data[1] * secPerHour,
+        )}<strong>`,
     },
     xAxis: {
       type: 'category',
@@ -69,20 +61,22 @@
       },
     },
     yAxis: {
+      type: 'value',
       axisLabel: {
         showMinLabel: false,
+        formatter: (value: number) => `${value}h`,
       },
     },
     series: [
       {
+        type: 'scatter',
         colorBy: 'data',
-        symbolSize: 20,
+        symbolSize: 15,
         data: branches.map((branch) => [
           branchesToEstimateDict[branch],
-          Number((branchesToTimeDict[branch] / secPerHour).toFixed(1)),
+          branchesToTimeDict[branch] / secPerHour,
           branch,
         ]),
-        type: 'scatter',
       },
     ],
   }

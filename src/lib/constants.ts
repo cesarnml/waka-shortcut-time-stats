@@ -58,6 +58,15 @@ export const getTopLevelUrl = (url: Url) => {
   }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
 }
 
+export const getNavDropdownUrls = (url: Url) => {
+  return Object.entries(url).reduce((acc, [route, url]) => {
+    if (typeof url === 'string') {
+      return { ...acc, [route]: url }
+    }
+    return acc
+  }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
+}
+
 export const Api = {
   WakaDurations: (date: string, itemType: string) =>
     `/api/wakatime/current/durations?date=${date}&slice_by=${itemType}`,

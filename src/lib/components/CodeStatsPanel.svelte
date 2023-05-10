@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { hoursPerDay } from '$lib/helpers/timeHelpers'
+  import { formatTime } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
-  import dayjs from 'dayjs'
-  import duration from 'dayjs/plugin/duration'
-
-  dayjs.extend(duration)
 
   export let summaries: SummariesResult
-  const dailyAverageSeconds = summaries.daily_average.seconds_including_other_language
-  const cumulativeTotalSeconds = summaries.cumulative_total.seconds
+  $: dailyAverageSeconds = summaries.daily_average.seconds_including_other_language
+  $: cumulativeTotalSeconds = summaries.cumulative_total.seconds
 </script>
 
 <div class="stats flex bg-chart-dark shadow-lg">
@@ -28,10 +24,7 @@
     </div>
     <div class="stat-title text-sm">Total Hours</div>
     <div class="stat-value text-lg text-primary">
-      {`${
-        dayjs.duration(cumulativeTotalSeconds, 's').days() * hoursPerDay +
-        dayjs.duration(cumulativeTotalSeconds, 's').hours()
-      }h ${dayjs.duration(cumulativeTotalSeconds, 's').minutes()}m`}
+      {formatTime(cumulativeTotalSeconds)}
     </div>
   </div>
   <div class="stat">
@@ -46,9 +39,7 @@
     </div>
     <div class="stat-title text-sm">Daily Average</div>
     <div class="stat-value text-lg text-secondary">
-      {`${dayjs.duration(dailyAverageSeconds, 's').hours()}h ${dayjs
-        .duration(dailyAverageSeconds, 's')
-        .minutes()}m`}
+      {formatTime(dailyAverageSeconds)}
     </div>
   </div>
   <div class="stat">

@@ -3,7 +3,7 @@
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { secPerHour } from '$lib/helpers/timeHelpers'
+  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import { ChartColor } from '$lib/helpers/chartHelpers'
   import last from 'lodash/last'
@@ -47,7 +47,7 @@
         dimensions: ['name', 'time'],
         source: Object.entries(branchesToTimeDict).map(([branchFullName, totalSeconds]) => [
           getBranchShortName(branchFullName),
-          Number((totalSeconds / secPerHour).toFixed(NUMBER_OF_DECIMALS)),
+          totalSeconds / secPerHour,
         ]),
       },
       {
@@ -62,7 +62,7 @@
       formatter: (params: any) => {
         return `${params.marker} ${branches.find((branch) =>
           branch.includes(params.name),
-        )}: <strong>${params.data[1]}h</strong>`
+        )}: <strong>${formatTime(params.data[1] * secPerHour)}</strong>`
       },
     },
     xAxis: {
