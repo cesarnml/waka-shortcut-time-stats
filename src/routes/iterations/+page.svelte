@@ -70,6 +70,6 @@
     height: calc(100vh - 90px);
   }
   .iterations-inner {
-    height: fill-available;
+    height: stretch;
   }
 </style>
