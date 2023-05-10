@@ -8,6 +8,7 @@
 
 {#key pathname}
   <div
+    class="page-transition"
     in:blur={{ duration, delay: duration, easing: cubicInOut }}
     out:blur={{ duration, easing: cubicInOut }}
   >
