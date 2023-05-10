@@ -18,7 +18,7 @@
   <nav class="navbar mx-auto max-w-screen-2xl">
     <div class="navbar-start">
       <button
-        class="btn-link btn p-0 text-lg font-bold normal-case no-underline"
+        class="btn-link btn p-0 text-lg font-bold normal-case no-underline focus:text-primary"
         on:click={() => {
           showDropdownMenu = false
           goto(Url.Home)
