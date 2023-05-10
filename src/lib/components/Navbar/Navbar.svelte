@@ -18,7 +18,7 @@
   <nav class="navbar mx-auto max-w-screen-2xl">
     <div class="navbar-start">
       <button
-        class="btn-link btn p-0 text-lg font-bold normal-case no-underline focus:text-primary"
+        class="btn-link btn p-0 text-lg font-bold normal-case no-underline"
         on:click={() => {
           showDropdownMenu = false
           goto(Url.Home)
@@ -72,7 +72,7 @@
   }
 
   .btn:hover {
-    @apply text-secondary no-underline;
+    @apply text-primary no-underline;
   }
   a:hover {
     @apply text-secondary no-underline;
