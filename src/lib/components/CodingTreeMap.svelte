@@ -3,6 +3,9 @@
   import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { onMount } from 'svelte'
+  import ChartContainer from './ChartContainer.svelte'
+  import ChartTitle from './ChartTitle.svelte'
+  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 
   export let summaries: SummariesResult
 
@@ -94,7 +97,7 @@
               '<div class="tooltip-title">' +
                 echarts.format.encodeHTML(treePath.join('/')) +
                 '</div>',
-              'Time Spent: ' + echarts.format.addCommas(value.toFixed(1)) + ' h',
+              'Time Spent: ' + `<strong>` + formatTime(value * secPerHour) + '</strong>',
             ].join('')
           },
         },
@@ -155,7 +158,7 @@
   }
 </script>
 
-<div class="space-y-8 rounded-2xl bg-slate-800 pt-4">
-  <h2 class="text-center text-3xl text-stone-300">Coding Treemap</h2>
+<ChartContainer>
+  <ChartTitle>Coding Treemap</ChartTitle>
   <div id="treemap" class="mb-8 h-[600px] w-full" />
-</div>
+</ChartContainer>
