@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import { formatTime } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import orderBy from 'lodash/orderBy'
   import { afterUpdate } from 'svelte'
@@ -36,9 +37,9 @@
     })
 
     rows = orderBy(
-      Object.keys(filesToTimeDict).map((file) => ({
+      Object.entries(filesToTimeDict).map(([file, time]) => ({
         name: file,
-        time: Number((filesToTimeDict[file] / 3600).toFixed(2)),
+        time: formatTime(time),
       })),
       'time',
       'desc',
@@ -67,7 +68,7 @@
                 rel="noopener noreferrer">{row.name}</a
               ></td
             >
-            <td>{row.time}h</td>
+            <td>{row.time}</td>
           </tr>
         {/each}
       </tbody>

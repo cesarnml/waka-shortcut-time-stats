@@ -15,7 +15,7 @@
 
   export let data: PageData
 
-  let { summaries, durations, durationsByLanguage } = data
+  $: ({ summaries, durations, durationsByLanguage } = data)
 
   $: allProjects = summaries.data
     .map((summary) =>

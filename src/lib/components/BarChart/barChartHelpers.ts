@@ -63,16 +63,16 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
   itemsByXValues.forEach((items, index) => {
     items.forEach((item) => {
       // @ts-expect-error tough type
-      yDataByItem[item.name][index] = item.total_seconds
+      yDataByItem[item.name][index] = item.total_seconds / secPerHour
     })
   })
 
-  return itemNames.map((key) => {
+  return itemNames.map((itemName) => {
     return {
-      data: yDataByItem[key],
+      data: yDataByItem[itemName],
       type: 'bar',
       stack: 'total',
-      name: key,
+      name: itemName,
     }
   }) as BarSeriesOption[]
 }
@@ -82,14 +82,11 @@ export const createStackedBarChartOption = (
   series: BarSeriesOption[],
 ): StackedBarChartOption => ({
   tooltip: {
-    valueFormatter: (value) => formatTime(value as number),
+    valueFormatter: (value: any) => formatTime(value * secPerHour),
   },
   grid: { left: 50, right: 20, top: 50, bottom: 50 },
   legend: {
     type: 'scroll',
-    textStyle: {
-      color: ChartColor.Text,
-    },
     pageIconColor: ChartColor.Icon,
     pageTextStyle: {
       color: ChartColor.Text,
@@ -106,7 +103,7 @@ export const createStackedBarChartOption = (
   yAxis: {
     type: 'value',
     axisLabel: {
-      formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
+      formatter: (value: number) => `${value}h`,
       showMinLabel: false,
     },
   },
@@ -137,7 +134,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
   return {
     grid: { left: 50, right: 20, top: 50, bottom: 50 },
     tooltip: {
-      valueFormatter: (value) => formatTime(value as number),
+      valueFormatter: (value: any) => formatTime(value * secPerHour),
     },
     xAxis: {
       type: 'category',
@@ -149,7 +146,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     yAxis: {
       type: 'value',
       axisLabel: {
-        formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
+        formatter: (value: number) => `${value}h`,
         showMinLabel: false,
       },
     },
@@ -157,8 +154,9 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
       {
         type: 'bar',
         colorBy: 'data',
-        data: weekdays.map((weekday, index) =>
-          Number((yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount]).toFixed(1)),
+        data: weekdays.map(
+          (weekday, index) =>
+            yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount] / secPerHour,
         ),
       },
     ],
