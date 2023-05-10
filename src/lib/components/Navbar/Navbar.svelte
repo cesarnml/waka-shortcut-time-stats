@@ -18,7 +18,7 @@
   <nav class="navbar mx-auto max-w-screen-2xl">
     <div class="navbar-start">
       <button
-        class="btn-link btn font-bold normal-case no-underline"
+        class="btn-link btn p-0 text-lg font-bold normal-case no-underline"
         class:active={$page.url.pathname === Url.Home}
         on:click={() => {
           showDropdownMenu = false
@@ -38,11 +38,11 @@
         {/each}
       {:else if showDropdownMenu}
         <button on:click={() => (showDropdownMenu = false)} class="flex items-center">
-          <iconify-icon class="text-2xl text-primary" icon="material-symbols:close-rounded" />
+          <iconify-icon class="text-3xl text-primary" icon="material-symbols:close-rounded" />
         </button>
       {:else}
         <button on:click={() => (showDropdownMenu = true)} class="flex items-center">
-          <iconify-icon class="text-2xl text-primary" icon="ci:hamburger-md" />
+          <iconify-icon class="text-3xl text-primary" icon="ci:hamburger-md" />
         </button>
       {/if}
     </div>
@@ -60,7 +60,9 @@
           }}>{route}</button
         >
       {/each}
-      <DarkModeToggle />
+      <div class="mb-8 mt-auto">
+        <DarkModeToggle />
+      </div>
     </div>
   {/if}
 </div>
