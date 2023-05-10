@@ -3,25 +3,27 @@
   import { formatTime } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import orderBy from 'lodash/orderBy'
-  import { afterUpdate } from 'svelte'
 
   export let summaries: SummariesResult
 
-  let files: string[] = []
-  let filesToTimeDict: Record<string, number> = {}
-  let rows: { name: string; time: number }[] = []
+  let files: string[]
+  let filesToTimeDict: Record<string, number>
+  let rows: { name: string; time: string }[]
 
-  afterUpdate(() => {
-    files = []
-    filesToTimeDict = {}
-    rows = []
+  const computeFiles = (summaries: SummariesResult) => {
+    const unwantedRegex = /(node_modules|generated)/
 
-    files = [
+    return [
       ...new Set(
-        summaries.data.map((summary) => summary.entities.map((entity) => entity.name)).flat(),
+        summaries.data.flatMap((summary) => summary.entities.map((entity) => entity.name)),
       ),
-    ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
+    ].filter((file) => !unwantedRegex.test(file))
+  }
 
+  $: files = computeFiles(summaries)
+
+  const computeFilesToDict = (summaries: SummariesResult) => {
+    const filesToTimeDict: Record<string, number> = {}
     summaries.data.forEach((summary) => {
       summary.entities.forEach((entity) => {
         if (!files.includes(entity.name)) {
@@ -35,16 +37,19 @@
           entity.total_seconds)
       })
     })
+    return filesToTimeDict
+  }
 
-    rows = orderBy(
-      Object.entries(filesToTimeDict).map(([file, time]) => ({
-        name: file,
-        time: formatTime(time),
-      })),
-      'time',
-      'desc',
-    )
-  })
+  $: filesToTimeDict = computeFilesToDict(summaries)
+
+  $: rows = orderBy(
+    Object.entries(filesToTimeDict).map(([file, time]) => ({
+      name: file,
+      time: formatTime(time),
+    })),
+    'time',
+    'desc',
+  )
 </script>
 
 <div class="space-y-8 rounded-2xl bg-slate-800 p-4">
