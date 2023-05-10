@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
-  import { Url, getTopLevelUrl } from '$lib/constants'
+  import { Url, getNavDropdownUrls, getTopLevelUrl } from '$lib/constants'
   import { media } from '$lib/stores/media'
   import DarkModeToggle from '../DarkModeToggle.svelte'
   let showDropdownMenu = false
@@ -19,7 +19,6 @@
     <div class="navbar-start">
       <button
         class="btn-link btn p-0 text-lg font-bold normal-case no-underline"
-        class:active={$page.url.pathname === Url.Home}
         on:click={() => {
           showDropdownMenu = false
           goto(Url.Home)
@@ -50,7 +49,7 @@
 
   {#if showDropdownMenu}
     <div class="flex h-full flex-col items-center gap-8 py-16">
-      {#each Object.entries(getTopLevelUrl(Url)) as [route, url] (route)}
+      {#each Object.entries(getNavDropdownUrls(Url)) as [route, url] (route)}
         <button
           class="btn-link btn text-lg normal-case no-underline"
           class:active={$page.url.pathname === url}
