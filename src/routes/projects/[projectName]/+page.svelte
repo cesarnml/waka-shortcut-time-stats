@@ -32,8 +32,8 @@
   }
 </script>
 
-<div class="space-y-8 pt-8">
-  <h1 class="font-bold uppercase text-accent-focus">{$page.params.projectName}</h1>
+<div class="space-y-4">
+  <h1 class="font-mono uppercase text-primary-focus">{$page.params.projectName}</h1>
   <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">

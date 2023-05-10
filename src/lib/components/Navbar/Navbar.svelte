@@ -30,7 +30,7 @@
       {#if $media.sm}
         {#each Object.entries(getTopLevelUrl(Url)) as [route, url] (route)}
           <a
-            class="btn-link btn normal-case no-underline"
+            class="btn-link btn text-base normal-case no-underline"
             class:active={$page.url.pathname === url}
             href={url}>{route}</a
           >
@@ -59,7 +59,7 @@
           }}>{route}</button
         >
       {/each}
-      <div class="mb-8 mt-auto">
+      <div class="mb-12 mt-auto">
         <DarkModeToggle />
       </div>
     </div>

@@ -3,7 +3,7 @@
   import { cubicInOut } from 'svelte/easing'
 
   export let pathname: string
-  const duration = 200 // in ms
+  const duration = 150 // in ms
 </script>
 
 {#key pathname}
