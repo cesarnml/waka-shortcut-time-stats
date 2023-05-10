@@ -32,7 +32,7 @@
   }
 </script>
 
-<div class="space-y-4">
+<div class="space-y-4 px-2 md:px-4">
   <h1 class="font-mono uppercase text-primary-focus">{$page.params.projectName}</h1>
   <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsPanel {summaries} />
