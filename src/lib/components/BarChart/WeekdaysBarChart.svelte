@@ -8,7 +8,7 @@
   import { afterUpdate } from 'svelte'
 
   export let summaries: SummariesResult
-  export let title = 'Coding Stats by Weekday'
+  export let title = 'Weekly Breakdown'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts

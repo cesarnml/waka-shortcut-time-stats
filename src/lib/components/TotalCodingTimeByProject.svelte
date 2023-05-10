@@ -9,7 +9,7 @@
   import max from 'lodash/max'
 
   export let summaries: SummariesResult
-  export let title = 'Project vs Time'
+  export let title = 'Project Breakdown'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
