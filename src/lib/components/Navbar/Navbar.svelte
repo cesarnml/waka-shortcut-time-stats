@@ -48,7 +48,7 @@
   </nav>
 
   {#if showDropdownMenu}
-    <div class="flex h-full flex-col items-center gap-8 py-16">
+    <div class="z-50 flex h-full flex-col items-center gap-8 py-16">
       {#each Object.entries(getNavDropdownUrls(Url)) as [route, url] (route)}
         <button
           class="btn-link btn text-lg normal-case no-underline"
