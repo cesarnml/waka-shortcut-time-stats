@@ -303,7 +303,7 @@ export const createDurationsChartOption = (
               style: {
                 fill: api.value(4) ?? ChartColor.Default,
                 stroke: api.value(4) ?? ChartColor.Default,
-                lineWidth: 2,
+                lineWidth: 0,
                 opacity: 0.7,
               },
             }
