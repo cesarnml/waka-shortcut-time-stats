@@ -20,6 +20,10 @@
   $: date = dayjs(durations.start).format(DateFormat.Shortish)
 
   $: option = {
+    grid: {
+      left: '15%',
+      right: '5%',
+    },
     xAxis: {
       type: 'category',
       axisTick: {
@@ -54,8 +58,11 @@
     },
     yAxis: {
       type: 'value',
+      name: 'Minutes',
+      nameLocation: 'middle',
+      nameGap: 30,
       axisLabel: {
-        formatter: (value: number) => `${value}m`,
+        formatter: (value: number) => `${value}`,
         showMinLabel: false,
       },
     },
@@ -64,33 +71,45 @@
     },
     series: [
       {
-        data: durations.data.reduce((acc, duration) => {
-          const start = duration.time
-          const end = duration.time + duration.duration
+        data: durations.data
+          .reduce((acc, duration) => {
+            const start = duration.time
+            const end = duration.time + duration.duration
 
-          const startTime = dayjs.unix(start)
-          const endTime = dayjs.unix(end)
-          const startHour = startTime.hour()
-          const endHour = endTime.hour()
+            const startTime = dayjs.unix(start)
+            const endTime = dayjs.unix(end)
+            const startHour = startTime.hour()
+            const endHour = endTime.hour()
 
-          if (startHour === endHour) {
-            acc[startHour] += endTime.diff(startTime, 'minutes')
+            if (startHour === endHour) {
+              acc[startHour] += endTime.diff(startTime, 'minutes')
+              return acc
+            }
+
+            for (let hour = startHour; hour <= endHour; hour++) {
+              const startInterval = startTime.hour(hour).minute(0).millisecond(0)
+              const endInterval = startTime
+                .hour(hour + 1)
+                .minute(0)
+                .millisecond(0)
+              const lowerMinute = startInterval.isBefore(startTime) ? startTime.minute() : 0
+              const upperMinute = endInterval.isBefore(endTime) ? 60 : endTime.minute()
+              const deltaMinutes = upperMinute - lowerMinute
+              acc[hour] += deltaMinutes
+            }
             return acc
-          }
-
-          for (let hour = startHour; hour <= endHour; hour++) {
-            const startInterval = startTime.hour(hour).minute(0).millisecond(0)
-            const endInterval = startTime
-              .hour(hour + 1)
-              .minute(0)
-              .millisecond(0)
-            const lowerMinute = startInterval.isBefore(startTime) ? startTime.minute() : 0
-            const upperMinute = endInterval.isBefore(endTime) ? 60 : endTime.minute()
-            const deltaMinutes = upperMinute - lowerMinute
-            acc[hour] += deltaMinutes
-          }
-          return acc
-        }, Array(24).fill(0)),
+          }, Array(24).fill(0))
+          .map((value) => ({
+            value: value,
+            itemStyle:
+              value > 45
+                ? { color: '#62BAF3' }
+                : value > 30
+                ? { color: '#00ff00' }
+                : value > 15
+                ? { color: '#ffff00' }
+                : { color: '#ff0000' },
+          })),
         type: 'bar',
         showBackground: true,
       },

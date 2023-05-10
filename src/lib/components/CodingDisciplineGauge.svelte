@@ -33,7 +33,7 @@
         type: 'gauge',
         startAngle: 180,
         endAngle: 0,
-        center: ['50%', '75%'],
+        center: ['50%', '70%'],
         radius: '80%',
         min: 0,
         max: 1.0,
@@ -148,7 +148,7 @@
 
 <ChartContainer>
   <ChartTitle>Discipline Gauge</ChartTitle>
-  <div class="carousel-center carousel mx-4 space-x-4">
+  <div class="carousel mx-4 space-x-4">
     {#each dates as date (date)}
       <div class="carousel-item">
         <button

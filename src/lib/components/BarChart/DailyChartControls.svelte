@@ -22,7 +22,8 @@
   $: totalTime = formatTime(totalDuration)
   $: isNextDisabled = dayjs(durations.start).isToday() || loading
   $: isPrevDisabled =
-    dayjs(durations.start).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT)) || loading
+    dayjs(durations.start).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT), 'day') ||
+    loading
 
   const onClick = async (step: Step) => {
     loading = true

@@ -51,6 +51,7 @@
 <div class="space-y-4 px-2 md:px-4">
   <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsFullPanel {summaries} {projectList} />
+  <ActiveHours {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />
     <TotalCodingTimeByProject {summaries} />
@@ -59,12 +60,7 @@
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
     <DurationsChart {durations} itemType="project" />
-    <DurationsChart
-      durations={durationsByLanguage}
-      itemType="language"
-    
-    />
+    <DurationsChart durations={durationsByLanguage} itemType="language" />
   </div>
-  <ActiveHours {durations} itemType="project" />
   <ProjectList projects={projectList} />
 </div>
