@@ -9,6 +9,9 @@
   import dayjs from 'dayjs'
   import DailyTitleContent from './DailyTitleContent.svelte'
   import { DateFormat } from '$lib/helpers/timeHelpers'
+  import advancedFormat from 'dayjs/plugin/advancedFormat'
+
+  dayjs.extend(advancedFormat)
 
   export let durations: DurationsResult
   export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
@@ -21,14 +24,13 @@
 
   $: option = {
     grid: {
-      left: '15%',
-      right: '5%',
+      left: 60,
+      right: 25,
+      top: 20,
+      bottom: 50,
     },
     xAxis: {
       type: 'category',
-      axisTick: {
-        alignWithLabel: true,
-      },
       data: [
         '12 am',
         '1 am',
@@ -112,6 +114,27 @@
           })),
         type: 'bar',
         showBackground: true,
+        markArea: {
+          emphasis: false,
+          itemStyle: {
+            color: 'rgba(15,117,224,0.2)',
+          },
+          tooltip: {
+            show: true,
+            formatter: () => '<strong>Work Hours: 6 am - 5 pm</strong>',
+          },
+
+          data: [
+            [
+              {
+                xAxis: '6 am',
+              },
+              {
+                xAxis: '5 pm',
+              },
+            ],
+          ],
+        },
       },
     ],
   }
