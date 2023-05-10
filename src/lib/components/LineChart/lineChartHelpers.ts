@@ -13,7 +13,7 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
       trigger: 'item',
       valueFormatter: (value: any) => `${formatTime(value * secPerHour)}`,
     },
-    grid: { left: 50, right: 20, top: 50, bottom: 50, containLabel: true },
+    grid: { left: 40, right: 30, top: 40, bottom: 50 },
 
     xAxis: [
       {

@@ -34,7 +34,7 @@
         startAngle: 180,
         endAngle: 0,
         center: ['50%', '75%'],
-        radius: '90%',
+        radius: '80%',
         min: 0,
         max: 1.0,
         splitNumber: 10,
@@ -164,4 +164,3 @@
   </div>
   <div bind:this={chartRef} class="h-96 w-full" />
 </ChartContainer>
-
