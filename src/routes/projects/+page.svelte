@@ -21,10 +21,9 @@
 </script>
 
 <div class="space-y-8">
-  <form class="flex gap-4 px-4" on:submit={handleSearch}>
-    <input class="input-primary input flex-grow" bind:value placeholder="Search project by name" />
-    <button class="btn-primary btn">Submit</button>
-    <button class="btn-warning btn" type="button" on:click={handleClear}>Clear</button>
+  <form class="flex items-center gap-4 px-4" on:submit={handleSearch}>
+    <input class="input-primary input flex-shrink text-base" bind:value placeholder="Search" />
+    <button class="btn-primary btn flex-shrink">Submit</button>
   </form>
   <ul class="w-full space-y-4 px-4">
     {#each projectsResult.data as project (project.name)}
