@@ -53,9 +53,9 @@
   <CodeStatsFullPanel {summaries} {projectList} />
   <ActiveHours {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-    <StackedBarChart {summaries} itemsType="projects" title="Coding Activity by Project" />
+    <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
     <TotalCodingTimeByProject {summaries} />
-    <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
+    <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
     <WeekdaysBarChart {summaries} />
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
