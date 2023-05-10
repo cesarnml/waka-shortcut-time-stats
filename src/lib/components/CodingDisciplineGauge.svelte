@@ -166,6 +166,6 @@
 
 <style lang="postcss">
   .active {
-    @apply btn-outline btn-accent;
+    @apply !btn-outline !btn-accent;
   }
 </style>
