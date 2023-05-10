@@ -48,7 +48,7 @@
   <title>WakaStats</title>
 </svelte:head>
 
-<div class="space-y-8 px-2 md:px-4">
+<div class="space-y-4 px-2 md:px-4">
   <DateRangeSelect on:wakarange={onWakaRange} />
   <CodeStatsFullPanel {summaries} {projectList} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
