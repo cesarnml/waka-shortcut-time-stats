@@ -183,38 +183,39 @@ export const initializeAndUpdateChart = (
   })
 }
 
-const languageToColor = {
-  Svelte: '#EB5027',
-  TypeScript: '#3075C0',
-  HTML: '#EA6328',
-  INI: '#B9B9B9',
-  Other: '#FAFAFA',
-  TSConfig: '#7D7DEB',
-  Python: '#376D9D',
-  SCSS: '#C76496',
-  Markdown: '#000000',
-  JSON: '#7D7D7D',
-  Ruby: '#AA1401',
-  CSS: '#2A65F1',
-  Bash: '#44B050',
-  YAML: '#F8CA3E',
-  LESS: '#2C4E85',
-  'Vue.js': '#3EB480',
-  'Git Config': '#E94D31',
-  Astro: '#583085',
-  Text: '#F8F8F8',
-  Docker: '#2596ED',
-  GraphQL: '#DA32A4',
-  Git: '#E94D31',
-  SQL: '#D16F30',
-}
-
 export const createDurationsChartOption = (
   durations: DurationsResult,
   itemType: Extract<keyof WakaDuration, 'project' | 'language'>,
 ): echarts.ComposeOption<
   TooltipComponentOption | GridComponentOption | echarts.CustomSeriesOption
 > => {
+  const languageToColor = {
+    Svelte: '#EB5027',
+    JavaScript: '#FFCB6B',
+    TypeScript: '#3075C0',
+    HTML: '#EA6328',
+    INI: '#B9B9B9',
+    Other: '#FAFAFA',
+    TSConfig: '#7D7DEB',
+    Python: '#376D9D',
+    SCSS: '#C76496',
+    Markdown: '#000000',
+    JSON: '#7D7D7D',
+    Ruby: '#AA1401',
+    CSS: '#2A65F1',
+    Bash: '#44B050',
+    YAML: '#F8CA3E',
+    LESS: '#2C4E85',
+    'Vue.js': '#3EB480',
+    'Git Config': '#E94D31',
+    Astro: '#583085',
+    Text: '#F8F8F8',
+    Docker: '#2596ED',
+    GraphQL: '#DA32A4',
+    Git: '#E94D31',
+    SQL: '#D16F30',
+  }
+
   const startTime = dayjs(durations.start).unix()
   const itemNames = [...new Set(durations.data.map((duration) => duration[itemType]))]
   const durationsByItemNameDict = groupBy(durations.data, itemType)
@@ -224,6 +225,7 @@ export const createDurationsChartOption = (
     (name) =>
       durationsByItemNameDict[name].reduce((acc, cur) => cur.duration + acc, 0) >= secPerMin,
   )
+
   const data = itemNamesSorted.flatMap((name, index) =>
     durationsByItemNameDict[name]
       .filter((duration) => duration.duration >= secPerMin)
@@ -301,8 +303,8 @@ export const createDurationsChartOption = (
               transition: ['shape'],
               shape: rectShape,
               style: {
-                fill: api.value(4) ?? ChartColor.Default,
-                stroke: api.value(4) ?? ChartColor.Default,
+                fill: api.value(4),
+                stroke: api.value(4),
                 lineWidth: 0,
                 opacity: 0.7,
               },

@@ -58,11 +58,11 @@
     <WeekdaysBarChart {summaries} />
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
-    <DurationsChart {durations} itemType="project" title="Project Context Switch" />
+    <DurationsChart {durations} itemType="project" />
     <DurationsChart
       durations={durationsByLanguage}
       itemType="language"
-      title="Language Context Switch"
+    
     />
   </div>
   <ActiveHours {durations} itemType="project" />

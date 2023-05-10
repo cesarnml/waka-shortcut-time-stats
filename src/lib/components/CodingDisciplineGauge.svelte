@@ -152,7 +152,8 @@
     {#each dates as date (date)}
       <div class="carousel-item">
         <button
-          class:active={date === selectedDate}
+          class:!btn-outline={date === selectedDate}
+          class:btn-accent={date === selectedDate}
           class="btn-outline btn-primary btn-sm btn normal-case"
           on:click={() => handleClick(date)}
         >
@@ -164,8 +165,3 @@
   <div bind:this={chartRef} class="h-96 w-full" />
 </ChartContainer>
 
-<style lang="postcss">
-  .active {
-    @apply !btn-outline !btn-accent;
-  }
-</style>

@@ -26,7 +26,7 @@
     chart = echarts.init(chartRef)
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
-
+    chart.setOption(option)
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)
