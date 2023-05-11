@@ -1,6 +1,15 @@
 <script lang="ts">
+  import { DateFormat } from '$lib/helpers/timeHelpers'
+  import type { DurationsResult } from '$src/types/wakatime'
+  import dayjs from 'dayjs'
+  import advancedFormat from 'dayjs/plugin/advancedFormat'
+
+  dayjs.extend(advancedFormat)
+
   export let title: string
-  export let date: string
+  export let durations: DurationsResult
+
+  $: date = dayjs(durations.start).format(DateFormat.Shortish)
 </script>
 
 <div class="flex px-4">

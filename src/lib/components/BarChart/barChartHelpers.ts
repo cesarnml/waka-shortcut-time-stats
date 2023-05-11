@@ -22,6 +22,8 @@ import type {
 import type { BarSeriesOption } from 'echarts/charts'
 import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
+import { getPercent, hours } from '$lib/constants'
+import sum from 'lodash/sum'
 
 export type StackedBarChartOption = echarts.ComposeOption<
   TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
@@ -319,6 +321,136 @@ export const createDurationsChartOption = (
           y: 0,
         },
         data,
+      },
+    ],
+  }
+}
+
+export const createActiveHoursData = (durations: DurationsResult) =>
+  durations.data
+    .reduce((acc, duration) => {
+      const start = duration.time
+      const end = duration.time + duration.duration
+
+      const startTime = dayjs.unix(start)
+      const endTime = dayjs.unix(end)
+      const startHour = startTime.hour()
+      const endHour = endTime.hour()
+
+      if (startHour === endHour) {
+        acc[startHour] += endTime.diff(startTime, 'minutes')
+        return acc
+      }
+
+      for (let hour = startHour; hour <= endHour; hour++) {
+        const startInterval = startTime.hour(hour).minute(0).millisecond(0)
+        const endInterval = startTime
+          .hour(hour + 1)
+          .minute(0)
+          .millisecond(0)
+        const lowerMinute = startInterval.isBefore(startTime) ? startTime.minute() : 0
+        const upperMinute = endInterval.isBefore(endTime) ? 60 : endTime.minute()
+        const deltaMinutes = upperMinute - lowerMinute
+        acc[hour] += deltaMinutes
+      }
+      return acc
+    }, Array(24).fill(0))
+    .map((value: number) => ({
+      value,
+      itemStyle:
+        value > 45
+          ? { color: '#00ff00' }
+          : value > 30
+          ? { color: '#62BAF3' }
+          : value > 15
+          ? { color: '#ffff00' }
+          : { color: '#ff0000' },
+    }))
+
+export const createActiveHoursOption = (
+  data: ReturnType<typeof createActiveHoursData>,
+): echarts.ComposeOption<
+  echarts.GridComponentOption | echarts.ToolboxComponentOption | echarts.BarSeriesOption
+> => {
+  const startHour = '8 am'
+  const endHour = '5 pm'
+  const goalMinutes = 300
+
+  const startIndex = hours.findIndex((hour) => hour === startHour)
+  const endIndex = hours.findIndex((hour) => hour === endHour)
+
+  const innerMinutes = sum(data.map((datum) => datum.value).slice(startIndex, endIndex + 1))
+  const totalMinutes = sum(data.map((datum) => datum.value))
+  const outerMinutes = totalMinutes - innerMinutes
+
+  return {
+    grid: {
+      left: 60,
+      right: 25,
+      top: 20,
+      bottom: 60,
+    },
+    xAxis: {
+      type: 'category',
+      name: 'Time',
+      nameLocation: 'middle',
+      nameGap: 30,
+      data: hours,
+
+      axisLabel: {
+        showMaxLabel: true,
+      },
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Minutes',
+      nameLocation: 'middle',
+      nameGap: 30,
+      axisLabel: {
+        showMinLabel: false,
+      },
+    },
+    tooltip: {
+      valueFormatter: (value: number) => `${value}m`,
+    },
+    series: [
+      {
+        type: 'bar',
+        data,
+        showBackground: true,
+        markArea: {
+          itemStyle: {
+            color: 'rgba(15,117,224,0.2)',
+          },
+          tooltip: {
+            show: true,
+            formatter: () => {
+              return [
+                `<div style="display: flex; gap: 12px; font-family: monospace">Work Hours: <span style="color:blue; font-weight: bold">${startHour} - ${endHour}</span></div>`,
+                `<div style="display: flex; gap: 12px; font-family: monospace">Goal Hours: <span style="color:purple; font-weight: bold"> ${formatTime(
+                  goalMinutes * secPerMin,
+                )} <small>(${getPercent(totalMinutes / goalMinutes)})</small></span></div>`,
+                '<hr style="margin: 4px 0 4px 0"/>',
+                `<div style="display: flex; gap: 36px; font-family: monospace">In-Time: <span style="color:green; font-weight: bold"> ${formatTime(
+                  innerMinutes * secPerMin,
+                )} <small>(${getPercent(innerMinutes / goalMinutes)})</small></span></div>`,
+                `<div style="display: flex; gap: 28px; font-family: monospace">Out-Time: <span style="color:red; font-weight: bold"> ${formatTime(
+                  outerMinutes * secPerMin,
+                )} <small>(${getPercent(outerMinutes / goalMinutes)})</small></span></div>`,
+              ].join(' ')
+            },
+          },
+          data: [
+            [
+              {
+                xAxis: startHour,
+              },
+              {
+                xAxis: endHour,
+              },
+            ],
+          ],
+        },
       },
     ],
   }
