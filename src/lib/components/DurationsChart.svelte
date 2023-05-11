@@ -1,11 +1,9 @@
 <script lang="ts">
   import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
-  import dayjs from 'dayjs'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { DateFormat } from '$lib/helpers/timeHelpers'
   import DailyTitleContent from './BarChart/DailyTitleContent.svelte'
   import DailyChartControls from './BarChart/DailyChartControls.svelte'
   import { createDurationsChartOption } from './BarChart/barChartHelpers'
@@ -18,12 +16,10 @@
   let chart: echarts.ECharts
   let option: echarts.EChartsOption
 
-  $: date = dayjs(durations.start).format(DateFormat.Shortish)
-
   $: option = createDurationsChartOption(durations, itemType) as echarts.EChartsOption
 
   onMount(() => {
-    chart = echarts.init(chartRef)
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
     chart.setOption(option)
@@ -40,7 +36,7 @@
 
 <ChartContainer>
   <ChartTitle>
-    <DailyTitleContent {title} {date} />
+    <DailyTitleContent {title} {durations} />
   </ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
   <div bind:this={chartRef} class="h-96 w-full" />
