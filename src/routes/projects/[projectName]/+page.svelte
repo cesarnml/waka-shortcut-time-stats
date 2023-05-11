@@ -7,14 +7,13 @@
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
   import dayjs from 'dayjs'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
-  import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import ScatterPlot from '$lib/components/ScatterPlot.svelte'
   import { WakaToShortcutApiRange } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
-
+  import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
 
   export let data
 
@@ -46,8 +45,10 @@
 
 <div class="space-y-4 px-2 md:px-4">
   <h1 class="font-mono uppercase text-primary-focus">{$page.params.projectName}</h1>
-  <DateRangeSelect on:wakarange={onWakaRange} />
-  <CodeStatsPanel {summaries} />
+  <div class="flex justify-end">
+    <DateRangeSelect on:wakarange={onWakaRange} />
+  </div>
+  <StatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingLineChart {summaries} />
     <LanguagePieChart {summaries} />

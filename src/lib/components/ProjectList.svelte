@@ -1,7 +1,11 @@
 <script lang="ts">
   import { formatHours, formatMinimalWork, formatMinutes } from '$lib/helpers/timeHelpers'
+  import type { SummariesResult } from '$src/types/wakatime'
+  import { createProjectList } from './Stats/statHelpers'
 
-  export let projects: { name: string; value: number }[]
+  export let summaries: SummariesResult
+
+  $: projects = createProjectList(summaries)
 </script>
 
 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

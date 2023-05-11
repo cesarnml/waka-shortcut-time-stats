@@ -83,7 +83,7 @@ type DailyAverage = {
   text_including_other_language: string
 }
 
-type WakaCategory = {
+export type WakaCategory = {
   decimal: string
   digital: string
   hours: number
