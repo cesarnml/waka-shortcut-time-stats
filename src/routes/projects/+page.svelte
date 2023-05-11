@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation'
   import type { WakaProjectResult } from '$src/types/wakatime.js'
 
   export let data
@@ -8,13 +7,6 @@
   let value: string
   const handleSearch = async () => {
     const response = await fetch(`/api/wakatime/current/projects?q=${value}`)
-    const result: WakaProjectResult = await response.json()
-    projectsResult = result
-  }
-
-  const handleClear = async () => {
-    value = ''
-    const response = await fetch(`/api/wakatime/current/projects`)
     const result: WakaProjectResult = await response.json()
     projectsResult = result
   }

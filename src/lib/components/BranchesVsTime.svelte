@@ -5,7 +5,6 @@
   import ChartTitle from './ChartTitle.svelte'
   import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
-  import { ChartColor } from '$lib/helpers/chartHelpers'
   import last from 'lodash/last'
   import first from 'lodash/first'
   import {

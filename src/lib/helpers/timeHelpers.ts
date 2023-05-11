@@ -29,7 +29,7 @@ export const integerDateMap = {
   4: 'Thu',
   5: 'Fri',
   6: 'Sat',
-}
+} as const
 
 export type KeyOfDateMap = keyof typeof integerDateMap
 

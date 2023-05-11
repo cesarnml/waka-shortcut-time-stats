@@ -6,8 +6,6 @@
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
   import dayjs from 'dayjs'
-  import duration from 'dayjs/plugin/duration'
-  import FilesTable from '$lib/components/FilesTable.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import CodeStatsPanel from '$lib/components/CodeStatsPanel.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
@@ -17,7 +15,6 @@
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
 
-  dayjs.extend(duration)
 
   export let data
 

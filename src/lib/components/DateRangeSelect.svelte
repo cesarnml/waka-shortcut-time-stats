@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte'
 
   const WORKING_OPTIONS_COUNT = 4
-  const DISABLED_NOTE = ' (feature WIP)'
+  const DISABLED_NOTE = ' (WIP)'
 
   let selectedRange = WakaApiRange.Last_7_Days_From_Yesterday
 
