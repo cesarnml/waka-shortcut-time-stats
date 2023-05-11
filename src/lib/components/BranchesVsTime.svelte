@@ -107,6 +107,13 @@
           window.open(storyLink, '_blank')
         }
       })
+      const handleResize = () => chart.resize()
+      window.addEventListener('resize', handleResize, { passive: true })
+
+      return () => {
+        chart.dispose()
+        window.removeEventListener('resize', handleResize)
+      }
     }
   })
 

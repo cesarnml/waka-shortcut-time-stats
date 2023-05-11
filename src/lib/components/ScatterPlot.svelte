@@ -131,8 +131,13 @@
   } as echarts.ComposeOption<echarts.ScatterSeriesOption | echarts.GridComponentOption>
 
   onMount(() => {
-    if (chartRef) {
-      chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    const handleResize = () => chart.resize()
+    window.addEventListener('resize', handleResize, { passive: true })
+
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
     }
   })
 
