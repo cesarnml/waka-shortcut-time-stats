@@ -6,7 +6,6 @@ const config = {
   vitePlugin: {
     experimental: {
       inspector: true,
-      toggleButtonPos: 'bottom-right',
     },
   },
   // Consult https://kit.svelte.dev/docs/integrations#preprocessors
