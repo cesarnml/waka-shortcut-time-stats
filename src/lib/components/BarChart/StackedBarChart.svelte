@@ -25,7 +25,8 @@
 
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'dark', { renderer: 'canvas' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+
     window.addEventListener('resize', handleResize, { passive: true })
     return () => {
       chart.dispose()

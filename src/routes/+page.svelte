@@ -6,7 +6,7 @@
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import DurationsChart from '$lib/components/DurationsChart.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
-  import TotalCodingTimeByProject from '$lib/components/TotalCodingTimeByProject.svelte'
+  import ProjectBreakdownChart from '$lib/components/BarChart/ProjectBreakdownChart.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import orderBy from 'lodash/orderBy'
   import CodeStatsFullPanel from '$lib/components/CodeStatsFullPanel.svelte'
@@ -53,10 +53,10 @@
   <CodeStatsFullPanel {summaries} {projectList} />
   <ActiveHours {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-    <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
-    <TotalCodingTimeByProject {summaries} />
-    <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
+    <ProjectBreakdownChart {summaries} />
     <WeekdaysBarChart {summaries} />
+    <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
+    <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
     <LanguagePieChart {summaries} />
     <CodingDisciplineGauge {summaries} />
     <DurationsChart {durations} itemType="project" />
