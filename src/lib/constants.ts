@@ -107,3 +107,5 @@ export const hours = [
 ]
 
 export const getPercent = (value: number) => `${(value * 100).toFixed(NUMBER_OF_DECIMALS)}%`
+
+export const HOUR_GOAL = 5

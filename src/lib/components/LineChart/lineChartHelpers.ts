@@ -11,13 +11,15 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
   return {
     tooltip: {
       trigger: 'item',
-      valueFormatter: (value: any) => `${formatTime(value * secPerHour)}`,
+      valueFormatter: (value) => `${formatTime(Number(value) * secPerHour)}`,
     },
-    grid: { left: 40, right: 30, top: 40, bottom: 50 },
-
+    grid: { left: 55, right: 30, top: 40, bottom: 60 },
     xAxis: [
       {
         type: 'category',
+        name: 'Date',
+        nameLocation: 'middle',
+        nameGap: 30,
         boundaryGap: false,
         data: dates,
       },
@@ -25,9 +27,11 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
     yAxis: [
       {
         type: 'value',
+        name: 'Hours',
+        nameLocation: 'middle',
+        nameGap: 30,
         axisLabel: {
           showMinLabel: false,
-          formatter: (value: number) => `${value}h`,
         },
       },
     ],
@@ -41,11 +45,11 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
         width: 2,
         color: summaries.color ?? ChartColor.Default,
       },
+      symbol: 'circle',
+      symbolSize: 8,
       itemStyle: {
-        borderCap: 'round',
-        color: summaries.color ?? ChartColor.Default,
-        borderWidth: 2,
         borderColor: summaries.color ?? ChartColor.Default,
+        color: summaries.color ?? ChartColor.Default,
       },
       data: values,
     },

@@ -12,7 +12,6 @@
     BRANCH_ID_DELIMITER,
     BRANCH_NAME_DELIMITER,
     MAIN_BRANCH,
-    NUMBER_OF_DECIMALS,
     SHORTCUT_STORY_IDENTIFIER,
   } from '$lib/constants'
 
@@ -21,9 +20,14 @@
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsCoreOption
+  let option: echarts.ComposeOption<
+    echarts.GridComponentOption | echarts.TooltipComponentOption | echarts.BarSeriesOption
+  >
 
-  const getBranchShortName = (name: string) => first(name.split(BRANCH_NAME_DELIMITER))
+  const getBranchShortName = (name: string) =>
+    // eslint-disable-next-line
+    last(first(name.split(BRANCH_NAME_DELIMITER))!.split('/'))
+
   const getStoryId = (branch: string) => last(branch.split(BRANCH_ID_DELIMITER))
 
   $: ({ available_branches } = summaries)
@@ -41,7 +45,7 @@
   }, {} as Record<string, number>)
 
   $: option = {
-    grid: { left: 55, right: 20, top: 50, bottom: 60 },
+    grid: { left: 60, right: 30, top: 30, bottom: 75 },
     dataset: [
       {
         dimensions: ['name', 'time'],
@@ -67,14 +71,19 @@
     },
     xAxis: {
       type: 'category',
+      name: 'Branches',
+      nameLocation: 'middle',
+      nameGap: 45,
       axisLabel: {
         interval: 0,
         rotate: 30,
-        color: ChartColor.Text,
       },
     },
     yAxis: {
-      axisLabel: { color: ChartColor.Text, formatter: (value: string) => `${value}h` },
+      type: 'value',
+      name: 'Hours',
+      nameLocation: 'middle',
+      nameGap: 30,
     },
     series: {
       colorBy: 'data',

@@ -1,12 +1,13 @@
 <script lang="ts">
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from './ChartContainer.svelte'
-  import ChartTitle from './ChartTitle.svelte'
   import type { SummariesResult } from '$src/types/wakatime'
   import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import { ChartColor } from '$lib/helpers/chartHelpers'
   import max from 'lodash/max'
+  import ChartContainer from '../ChartContainer.svelte'
+  import ChartTitle from '../ChartTitle.svelte'
+  import { goto } from '$app/navigation'
 
   export let summaries: SummariesResult
   export let title = 'Project Breakdown'
@@ -27,7 +28,7 @@
 
   $: projectNameToTotalSeconds = createBarChartData(summaries)
 
-  // FIXME: Enable turning off filtering small values
+  // TODO: Enable turning off filtering small values
   $: filtered = Object.entries(projectNameToTotalSeconds).reduce((acc, [name, value]) => {
     if (value > (max(Object.values(projectNameToTotalSeconds)) ?? 1) * 0.01) {
       return { ...acc, [name]: value }
@@ -36,17 +37,19 @@
   }, {} as Record<string, number>)
 
   $: option = {
-    textStyle: { color: ChartColor.Text },
     grid: {
-      left: 25,
+      left: 45,
       right: 45,
       top: 10,
-      bottom: 50,
+      bottom: 65,
     },
     // bang
     tooltip: { valueFormatter: (value) => formatTime(value as number) },
     xAxis: {
       type: 'value',
+      name: 'Total Hours',
+      nameLocation: 'middle',
+      nameGap: 35,
       axisLabel: {
         formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
@@ -56,11 +59,20 @@
       type: 'category',
       data: Object.keys(filtered),
       zlevel: 2,
+      name: 'Projects',
+      nameLocation: 'middle',
+      axisTick: {
+        alignWithLabel: true,
+      },
+      axisLine: {
+        show: false,
+      },
       axisLabel: {
         show: true,
         inside: true,
         fontWeight: 'bold',
-        textShadowBlur: 2,
+        textShadowBlur: 5,
+        color: ChartColor.Text,
       },
     },
     series: [
@@ -74,8 +86,12 @@
 
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    chart.on('click', (params) => {
+      goto(`/projects/${params.name}`)
+    })
     window.addEventListener('resize', handleResize, { passive: true })
+
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)

@@ -1,23 +1,28 @@
 <script lang="ts">
-  import * as echarts from 'echarts'
-  import { afterUpdate, onMount } from 'svelte'
-  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
-  import last from 'lodash/last'
-  import first from 'lodash/first'
+  import { MAIN_BRANCH } from '$lib/constants'
   import type { StorySearchResults } from '$lib/generated/openapi/shortcut'
+  import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
+  import * as echarts from 'echarts'
+  import zipObject from 'lodash/zipObject'
+  import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from './ChartContainer.svelte'
   import ChartTitle from './ChartTitle.svelte'
-  import { BRANCH_ID_DELIMITER, BRANCH_NAME_DELIMITER, MAIN_BRANCH } from '$lib/constants'
-  import zipObject from 'lodash/zipObject'
+
+  import { ChartColor } from '$lib/helpers/chartHelpers'
 
   export let summaries: SummariesResult
   export let stories: StorySearchResults
-  export let title = 'Scatter Plot'
+  export let title = 'Estimation Accuracy'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
+  let option: echarts.ComposeOption<
+    | echarts.ScatterSeriesOption
+    | echarts.TooltipComponentOption
+    | echarts.GridComponentOption
+    | echarts.LineSeriesOption
+  >
 
   $: ({ available_branches } = summaries)
 
@@ -36,35 +41,63 @@
   $: branchesToEstimateDict = zipObject(
     stories.data
       .map(
-        (story) => story.branches?.find((branch) => branch.name.includes(String(story.id)))?.name,
+        (story) =>
+          story.branches?.find((branch) => branch.name.includes(String(story.id)))?.name as string,
       )
       .filter(Boolean) as string[],
-    stories.data.map((story) => story.estimate),
+    stories.data.map((story) => story.estimate as number),
+  )
+
+  $: branchesByEstimateDict = Object.entries(branchesToEstimateDict).reduce(
+    (acc, [branchName, estimate]) => {
+      const defaultBranches: string[] = []
+      if (branchesToTimeDict[branchName]) {
+        acc[estimate] = acc[estimate] ?? defaultBranches
+        acc[estimate].push(branchName)
+      }
+      return acc
+    },
+    {} as Record<string, string[]>,
   )
 
   $: option = {
+    grid: {
+      left: 60,
+      right: 30,
+      top: 20,
+      bottom: 60,
+    },
     tooltip: {
-      formatter: (params: any) =>
-        `${params.marker} ${params.data[2]}: <strong>${formatTime(
+      formatter: (params: any) => {
+        return `${params.marker} ${params.data[2]}: <strong>${formatTime(
           params.data[1] * secPerHour,
-        )}<strong>`,
+        )}<strong>`
+      },
     },
     xAxis: {
       type: 'category',
-      data: [0, 1, 2, 3, 5, 8],
+      data: [0, 1, 2, 3, 4, 5, 6],
+      name: 'Story Estimate',
+      nameLocation: 'middle',
       boundaryGap: false,
+      nameGap: 30,
       splitLine: {
         show: true,
       },
       axisLine: {
         show: false,
       },
+      axisLabel: {
+        showMinLabel: false,
+      },
     },
     yAxis: {
       type: 'value',
+      name: 'Hours',
+      nameLocation: 'middle',
+      nameGap: 30,
       axisLabel: {
         showMinLabel: false,
-        formatter: (value: number) => `${value}h`,
       },
     },
     series: [
@@ -72,17 +105,34 @@
         type: 'scatter',
         colorBy: 'data',
         symbolSize: 15,
-        data: branches.map((branch) => [
-          branchesToEstimateDict[branch],
-          branchesToTimeDict[branch] / secPerHour,
-          branch,
+        data: branches
+          .map((branch) => [
+            branchesToEstimateDict[branch],
+            branchesToTimeDict[branch] / secPerHour,
+            branch,
+          ])
+          .filter(([estimate]) => Boolean(estimate)),
+      },
+      {
+        type: 'scatter',
+        name: 'Average',
+        symbol: 'diamond',
+        symbolSize: 12,
+        color: ChartColor.Poor,
+        data: Object.entries(branchesByEstimateDict).map(([estimate, branchNames]) => [
+          estimate,
+          branchNames.reduce((acc, branchName) => acc + branchesToTimeDict[branchName], 0) /
+            secPerHour /
+            branchNames.length,
+          'Average',
         ]),
       },
     ],
-  }
+  } as echarts.ComposeOption<echarts.ScatterSeriesOption | echarts.GridComponentOption>
+
   onMount(() => {
     if (chartRef) {
-      chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+      chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     }
   })
 

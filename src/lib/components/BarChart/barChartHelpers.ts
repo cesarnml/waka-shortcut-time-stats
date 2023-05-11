@@ -19,10 +19,10 @@ import type {
   GridComponentOption,
   LegendComponentOption,
 } from 'echarts/components'
-import type { BarSeriesOption } from 'echarts/charts'
+import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
-import { getPercent, hours } from '$lib/constants'
+import { HOUR_GOAL, getPercent, hours } from '$lib/constants'
 import sum from 'lodash/sum'
 
 export type StackedBarChartOption = echarts.ComposeOption<
@@ -30,7 +30,7 @@ export type StackedBarChartOption = echarts.ComposeOption<
 >
 
 export type SimpleBarChartOption = echarts.ComposeOption<
-  TooltipComponentOption | GridComponentOption | BarSeriesOption
+  TooltipComponentOption | GridComponentOption | BarSeriesOption | LineSeriesOption
 >
 
 dayjs.extend(localeData)
@@ -84,9 +84,9 @@ export const createStackedBarChartOption = (
   series: BarSeriesOption[],
 ): StackedBarChartOption => ({
   tooltip: {
-    valueFormatter: (value: any) => formatTime(value * secPerHour),
+    valueFormatter: (value) => formatTime(Number(value) * secPerHour),
   },
-  grid: { left: 50, right: 20, top: 50, bottom: 50 },
+  grid: { left: 55, right: 20, top: 50, bottom: 60 },
   legend: {
     type: 'scroll',
     pageIconColor: ChartColor.Icon,
@@ -96,6 +96,9 @@ export const createStackedBarChartOption = (
   },
   xAxis: {
     type: 'category',
+    name: 'Date',
+    nameLocation: 'middle',
+    nameGap: 30,
     data: xValues,
     axisTick: {
       alignWithLabel: true,
@@ -104,8 +107,10 @@ export const createStackedBarChartOption = (
   },
   yAxis: {
     type: 'value',
+    name: 'Hours',
+    nameLocation: 'middle',
+    nameGap: 30,
     axisLabel: {
-      formatter: (value: number) => `${value}h`,
       showMinLabel: false,
     },
   },
@@ -123,6 +128,8 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     6: 0,
   }
 
+  type KeyOfDateCount = keyof typeof dateCount
+
   const yDataByWeekday: Record<string, number> = {}
 
   summaries.data.forEach((datum) => {
@@ -134,12 +141,15 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
   })
 
   return {
-    grid: { left: 50, right: 20, top: 50, bottom: 50 },
+    grid: { left: 60, right: 20, top: 50, bottom: 60 },
     tooltip: {
-      valueFormatter: (value: any) => formatTime(value * secPerHour),
+      valueFormatter: (value) => formatTime(Number(value) * secPerHour),
     },
     xAxis: {
       type: 'category',
+      name: 'Weekday',
+      nameLocation: 'middle',
+      nameGap: 30,
       data: weekdays,
       axisTick: {
         alignWithLabel: true,
@@ -147,19 +157,43 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
     },
     yAxis: {
       type: 'value',
+      name: 'Hours',
+      nameLocation: 'middle',
+      nameGap: 30,
       axisLabel: {
-        formatter: (value: number) => `${value}h`,
         showMinLabel: false,
       },
     },
     series: [
       {
         type: 'bar',
-        colorBy: 'data',
-        data: weekdays.map(
-          (weekday, index) =>
-            yDataByWeekday[weekday] / dateCount[index as keyof typeof dateCount] / secPerHour,
-        ),
+        data: weekdays
+          .map(
+            (weekday, index) =>
+              yDataByWeekday[weekday] / dateCount[index as KeyOfDateCount] / secPerHour,
+          )
+          .map((value, index) => ({
+            value,
+            itemStyle: {
+              color:
+                index > 4 ? ChartColor.Fair : value > HOUR_GOAL ? ChartColor.Good : ChartColor.Poor,
+            },
+          })),
+      },
+      {
+        type: 'line',
+        lineStyle: {
+          width: 2,
+        },
+        itemStyle: {
+          borderColor: ChartColor.Great,
+          borderCap: 'round',
+          borderWidth: 5,
+        },
+        color: ChartColor.Great,
+        data: Array(5).fill(HOUR_GOAL),
+        name: 'Daily Coding Goal',
+        zlevel: 20,
       },
     ],
   }
@@ -172,7 +206,7 @@ export const initializeAndUpdateChart = (
 ) => {
   onMount(() => {
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
     return () => {
       chart.dispose()
@@ -251,12 +285,17 @@ export const createDurationsChartOption = (
       },
     },
     grid: {
-      left: 30,
+      left: 50,
       right: 30,
+      top: 20,
+      bottom: 60,
     },
     xAxis: {
-      min: startTime,
       type: 'time',
+      min: startTime,
+      name: 'Time',
+      nameLocation: 'middle',
+      nameGap: 30,
       axisLine: {
         show: true,
       },
@@ -266,7 +305,13 @@ export const createDurationsChartOption = (
     },
     yAxis: {
       data: itemNamesSorted,
+      name: 'Projects',
+      nameLocation: 'middle',
+      nameGap: 20,
       type: 'category',
+      axisTick: {
+        alignWithLabel: true,
+      },
       zlevel: 10,
       axisLabel: {
         color: ChartColor.Text,
@@ -359,12 +404,12 @@ export const createActiveHoursData = (durations: DurationsResult) =>
       value,
       itemStyle:
         value > 45
-          ? { color: '#00ff00' }
+          ? { color: ChartColor.Great }
           : value > 30
-          ? { color: '#62BAF3' }
+          ? { color: ChartColor.Good }
           : value > 15
-          ? { color: '#ffff00' }
-          : { color: '#ff0000' },
+          ? { color: ChartColor.Fair }
+          : { color: ChartColor.Poor },
     }))
 
 export const createActiveHoursOption = (
