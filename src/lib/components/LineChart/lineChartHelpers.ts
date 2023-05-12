@@ -1,19 +1,26 @@
-import type * as echarts from 'echarts'
 import dayjs from 'dayjs'
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import { DateFormat, formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
+import type { ComposeOption, LineSeriesOption } from 'echarts/types/dist/shared'
+import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
 
-export const createLineChartOption = (summaries: SummariesResult): echarts.EChartsOption => {
-  const dates = summaries.data.map((summary) => dayjs(summary.range.date).format(DateFormat.Short))
-  const values = summaries.data.map((summary) => summary.grand_total.total_seconds / secPerHour)
-
+export const createLineChartData = (summaries: SummariesResult) => {
+  return summaries.data.map((summary) => ({
+    name: dayjs(summary.range.date).format(DateFormat.Short),
+    value: summary.grand_total.total_seconds / secPerHour,
+  }))
+}
+export const createLineChartOption = (
+  data: ReturnType<typeof createLineChartData>,
+  color: string | null,
+): ComposeOption<GridComponentOption | TooltipComponentOption | LineSeriesOption> => {
   return {
+    grid: { left: 55, right: 30, top: 40, bottom: 60 },
     tooltip: {
-      trigger: 'item',
+      trigger: 'axis',
       valueFormatter: (value) => `${formatTime(Number(value) * secPerHour)}`,
     },
-    grid: { left: 55, right: 30, top: 40, bottom: 60 },
     xAxis: [
       {
         type: 'category',
@@ -21,7 +28,7 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
         nameLocation: 'middle',
         nameGap: 30,
         boundaryGap: false,
-        data: dates,
+        data: data.map((summary) => summary.name),
       },
     ],
     yAxis: [
@@ -38,20 +45,20 @@ export const createLineChartOption = (summaries: SummariesResult): echarts.EChar
     series: {
       type: 'line',
       smooth: true,
+      symbol: 'circle',
+      symbolSize: 8,
       areaStyle: {
-        color: summaries.color ?? ChartColor.Default,
+        color: color ?? ChartColor.Default,
+      },
+      itemStyle: {
+        borderColor: color ?? ChartColor.Default,
+        color: color ?? ChartColor.Default,
       },
       lineStyle: {
         width: 2,
-        color: summaries.color ?? ChartColor.Default,
+        color: color ?? ChartColor.Default,
       },
-      symbol: 'circle',
-      symbolSize: 8,
-      itemStyle: {
-        borderColor: summaries.color ?? ChartColor.Default,
-        color: summaries.color ?? ChartColor.Default,
-      },
-      data: values,
+      data: data.map((summary) => summary.value),
     },
   }
 }

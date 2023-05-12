@@ -38,5 +38,5 @@
 <ChartContainer>
   <ChartTitle><DailyTitleContent title="Activity" {durations} /></ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
-  <div bind:this={chartRef} class="h-96 w-full" />
+  <div class="h-96 w-full" bind:this={chartRef} />
 </ChartContainer>

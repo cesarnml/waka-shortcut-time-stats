@@ -83,12 +83,13 @@
   }
 
   onMount(() => {
-    const handleResize = () => chart.resize()
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
+    const handleResize = () => chart.resize()
+    window.addEventListener('resize', handleResize, { passive: true })
+
     chart.on('click', (params) => {
       goto(`/projects/${params.name}`)
     })
-    window.addEventListener('resize', handleResize, { passive: true })
 
     return () => {
       chart.dispose()

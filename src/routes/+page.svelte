@@ -37,8 +37,8 @@
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <BreakdownChart {summaries} title="Project Breakdown" />
     <WeekdaysBarChart {summaries} />
-    <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
-    <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
+    <StackedBarChart {summaries} itemsType="projects" title="Coding Time By Project" />
+    <StackedBarChart {summaries} itemsType="categories" title="Coding Time By Category" />
     <PieChart {summaries} title="Languages" />
     <DailyGauge {summaries} title="Discipline Gauge" />
     <DurationsChart {durations} itemType="project" />

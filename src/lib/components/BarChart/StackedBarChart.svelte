@@ -24,10 +24,10 @@
   $: option = createStackedBarChartOption(xValues, series)
 
   onMount(() => {
-    const handleResize = () => chart.resize()
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
-
+    const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)

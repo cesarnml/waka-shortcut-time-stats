@@ -94,6 +94,9 @@
 
   onMount(() => {
     chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    const handleResize = () => chart.resize()
+    window.addEventListener('resize', handleResize, { passive: true })
+
     // @ts-expect-error tough type
     chart.on('click', async (params) => {
       const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''
@@ -105,8 +108,6 @@
         window.open(storyLink, '_blank')
       }
     })
-    const handleResize = () => chart.resize()
-    window.addEventListener('resize', handleResize, { passive: true })
 
     return () => {
       chart.dispose()

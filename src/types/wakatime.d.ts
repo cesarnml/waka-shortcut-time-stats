@@ -143,7 +143,7 @@ export type SummariesResult = {
   start: string
   branches: string[]
   available_branches: string[]
-  color: string
+  color: string | null
 }
 
 export type WakaDuration = {

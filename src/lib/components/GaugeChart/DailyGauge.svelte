@@ -26,6 +26,7 @@
     chart = echarts.init(chartRef, 'dark', { renderer: 'canvas' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)

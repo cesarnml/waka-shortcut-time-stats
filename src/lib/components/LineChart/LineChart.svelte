@@ -3,22 +3,23 @@
   import { onMount, afterUpdate } from 'svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
-  import { createLineChartOption } from './lineChartHelpers'
+  import { createLineChartData, createLineChartOption } from './lineChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
-  export let title = 'Coding Activity'
+  export let title: string
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
 
-  $: option = createLineChartOption(summaries)
+  $: data = createLineChartData(summaries)
+  $: option = createLineChartOption(data, summaries.color)
 
   onMount(() => {
-    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)
