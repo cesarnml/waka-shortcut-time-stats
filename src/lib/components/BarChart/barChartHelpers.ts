@@ -470,7 +470,7 @@ export const createActiveHoursOption = (
                 xAxis: startHour,
               },
               {
-                xAxis: endHour,
+                xAxis: hours[endIndex - 1],
               },
             ],
           ],

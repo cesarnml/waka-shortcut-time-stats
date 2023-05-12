@@ -19,6 +19,7 @@ it('renders a PieChart', async () => {
       },
     ],
   } as SummariesResult
+
   render(PieChart, { props: { summaries } })
   expect(screen.getByTestId('chart')).toBeInTheDocument()
 })
