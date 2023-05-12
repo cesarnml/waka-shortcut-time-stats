@@ -1,26 +1,24 @@
 <script lang="ts">
-  import { afterUpdate, onMount } from 'svelte'
   import * as echarts from 'echarts'
+  import { onMount, afterUpdate } from 'svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
-  import { createPieChartOption, createPieChartData } from './pieChartHelpers'
+  import { createLineChartData, createLineChartOption } from './lineChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
 
   export let summaries: SummariesResult
+  export let title: string
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
 
-  $: data = createPieChartData(summaries)
-
-  $: option = createPieChartOption(data)
+  $: data = createLineChartData(summaries)
+  $: option = createLineChartOption(data, summaries.color)
 
   onMount(() => {
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
     window.addEventListener('resize', handleResize, { passive: true })
-    chart.setOption(option)
 
     return () => {
       chart.dispose()
@@ -29,11 +27,11 @@
   })
 
   afterUpdate(() => {
-    chart.setOption({ series: [{ data }] })
+    chart.setOption(option)
   })
 </script>
 
 <ChartContainer>
-  <ChartTitle>Languages</ChartTitle>
-  <div class="h-96 w-full" bind:this={chartRef} data-testid="chart" />
+  <ChartTitle>{title}</ChartTitle>
+  <div class="h-96 w-full" bind:this={chartRef} />
 </ChartContainer>

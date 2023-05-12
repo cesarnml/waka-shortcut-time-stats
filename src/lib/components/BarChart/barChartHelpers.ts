@@ -1,29 +1,30 @@
-import zipObject from 'lodash/zipObject'
-import dayjs from 'dayjs'
-import { onMount, afterUpdate } from 'svelte'
-import localeData from 'dayjs/plugin/localeData'
+import { HOUR_GOAL, getPercent, hours } from '$lib/constants'
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import {
   DateFormat,
-  type KeyOfDateMap,
+  formatTime,
   integerDateMap,
   secPerHour,
-  weekdays,
   secPerMin,
-  formatTime,
+  weekdays,
+  type KeyOfDateMap,
 } from '$lib/helpers/timeHelpers'
 import type { DurationsResult, SummariesResult, WakaDuration } from '$src/types/wakatime'
+import dayjs from 'dayjs'
+import localeData from 'dayjs/plugin/localeData'
 import * as echarts from 'echarts'
+import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import type {
-  TooltipComponentOption,
   GridComponentOption,
   LegendComponentOption,
+  TooltipComponentOption,
 } from 'echarts/components'
-import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
-import { HOUR_GOAL, getPercent, hours } from '$lib/constants'
 import sum from 'lodash/sum'
+import zipObject from 'lodash/zipObject'
+
+dayjs.extend(localeData)
 
 export type StackedBarChartOption = echarts.ComposeOption<
   TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
@@ -32,8 +33,6 @@ export type StackedBarChartOption = echarts.ComposeOption<
 export type SimpleBarChartOption = echarts.ComposeOption<
   TooltipComponentOption | GridComponentOption | BarSeriesOption | LineSeriesOption
 >
-
-dayjs.extend(localeData)
 
 export const createXAxisValues = (summaries: SummariesResult) =>
   summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
@@ -197,26 +196,6 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
       },
     ],
   }
-}
-
-export const initializeAndUpdateChart = (
-  chartRef: HTMLDivElement,
-  chart: echarts.ECharts,
-  option: StackedBarChartOption | SimpleBarChartOption,
-) => {
-  onMount(() => {
-    const handleResize = () => chart.resize()
-    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
-    window.addEventListener('resize', handleResize, { passive: true })
-    return () => {
-      chart.dispose()
-      window.removeEventListener('resize', handleResize)
-    }
-  })
-
-  afterUpdate(() => {
-    chart.setOption(option)
-  })
 }
 
 export const createDurationsChartOption = (
@@ -491,7 +470,7 @@ export const createActiveHoursOption = (
                 xAxis: startHour,
               },
               {
-                xAxis: endHour,
+                xAxis: hours[endIndex - 1],
               },
             ],
           ],

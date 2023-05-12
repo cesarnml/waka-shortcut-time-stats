@@ -3,7 +3,7 @@
   import DailyChartControls from '$lib/components/BarChart/DailyChartControls.svelte'
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
-  import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
+  import type { DurationsResult } from '$src/types/wakatime'
   import { onMount } from 'svelte'
   import { afterUpdate } from 'svelte'
   import DailyTitleContent from './DailyTitleContent.svelte'
@@ -11,7 +11,7 @@
   import { createActiveHoursData, createActiveHoursOption } from './barChartHelpers'
 
   export let durations: DurationsResult
-  export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
+  export let itemType: 'project' | 'language'
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
@@ -32,11 +32,11 @@
 
   afterUpdate(() => chart.setOption(option))
 
-  const onUpdate = (e: CustomEvent) => (durations = e.detail)
+  const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
 </script>
 
 <ChartContainer>
-  <ChartTitle><DailyTitleContent title="Active Hours" {durations} /></ChartTitle>
+  <ChartTitle><DailyTitleContent title="Activity" {durations} /></ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
-  <div bind:this={chartRef} class="h-96 w-full" />
+  <div class="h-96 w-full" bind:this={chartRef} />
 </ChartContainer>

@@ -26,12 +26,11 @@ const summaries = {
 
 it('should return expected EChartsOption object', () => {
   const expectedOption = {
+    grid: { left: 50, right: 20, top: 50, bottom: 50, containLabel: true },
     tooltip: {
       trigger: 'item',
       valueFormatter: expect.any(Function),
     },
-    grid: { left: 50, right: 20, top: 50, bottom: 50, containLabel: true },
-
     xAxis: [
       {
         type: 'category',

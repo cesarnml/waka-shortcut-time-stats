@@ -83,7 +83,7 @@ type DailyAverage = {
   text_including_other_language: string
 }
 
-type WakaCategory = {
+export type WakaCategory = {
   decimal: string
   digital: string
   hours: number
@@ -143,7 +143,7 @@ export type SummariesResult = {
   start: string
   branches: string[]
   available_branches: string[]
-  color: string
+  color: string | null
 }
 
 export type WakaDuration = {

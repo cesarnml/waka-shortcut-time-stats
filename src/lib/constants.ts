@@ -49,7 +49,7 @@ export const Url = {
 
 type Url = typeof Url
 
-export const getTopLevelUrl = (url: Url) => {
+export const getTopLevelLinks = (url: Url) => {
   return Object.entries(url).reduce((acc, [route, url]) => {
     if (typeof url === 'string' && route !== 'Home') {
       return { ...acc, [route]: url }
@@ -58,7 +58,7 @@ export const getTopLevelUrl = (url: Url) => {
   }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
 }
 
-export const getNavDropdownUrls = (url: Url) => {
+export const getNavDropdownLinks = (url: Url) => {
   return Object.entries(url).reduce((acc, [route, url]) => {
     if (typeof url === 'string') {
       return { ...acc, [route]: url }

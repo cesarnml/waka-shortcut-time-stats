@@ -22,7 +22,9 @@
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+
     chart.setOption(option)
+
     return () => {
       chart.dispose()
       window.removeEventListener('resize', handleResize)
@@ -31,7 +33,7 @@
 
   afterUpdate(() => chart.setOption(option))
 
-  const onUpdate = (e: CustomEvent) => (durations = e.detail)
+  const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
 </script>
 
 <ChartContainer>

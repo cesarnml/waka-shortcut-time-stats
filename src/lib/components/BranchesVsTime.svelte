@@ -93,26 +93,25 @@
   }
 
   onMount(() => {
-    if (chartRef) {
-      chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
-      // @ts-expect-error tough type
-      chart.on('click', async (params) => {
-        const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''
-        if (branch.includes(SHORTCUT_STORY_IDENTIFIER)) {
-          const storyId = getStoryId(branch)
-          const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
-          const result = await response.json()
-          const storyLink: string = (result.data ?? [''])[0]?.app_url
-          window.open(storyLink, '_blank')
-        }
-      })
-      const handleResize = () => chart.resize()
-      window.addEventListener('resize', handleResize, { passive: true })
+    chart = echarts.init(chartRef, 'auto', { renderer: 'svg' })
+    const handleResize = () => chart.resize()
+    window.addEventListener('resize', handleResize, { passive: true })
 
-      return () => {
-        chart.dispose()
-        window.removeEventListener('resize', handleResize)
+    // @ts-expect-error tough type
+    chart.on('click', async (params) => {
+      const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''
+      if (branch.includes(SHORTCUT_STORY_IDENTIFIER)) {
+        const storyId = getStoryId(branch)
+        const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
+        const result = await response.json()
+        const storyLink: string = (result.data ?? [''])[0]?.app_url
+        window.open(storyLink, '_blank')
       }
+    })
+
+    return () => {
+      chart.dispose()
+      window.removeEventListener('resize', handleResize)
     }
   })
 

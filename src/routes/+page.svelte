@@ -1,40 +1,20 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
-  import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
-  import CodingDisciplineGauge from '$lib/components/CodingDisciplineGauge.svelte'
+  import PieChart from '$lib/components/PieChart/PieChart.svelte'
+  import DailyGauge from '$lib/components/GaugeChart/DailyGauge.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import DurationsChart from '$lib/components/DurationsChart.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
-  import ProjectBreakdownChart from '$lib/components/BarChart/ProjectBreakdownChart.svelte'
+  import BreakdownChart from '$lib/components/BarChart/BreakdownChart.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
-  import orderBy from 'lodash/orderBy'
-  import CodeStatsFullPanel from '$lib/components/CodeStatsFullPanel.svelte'
+  import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import axios from 'axios'
-  import ActiveHours from '$lib/components/BarChart/ActiveHours.svelte'
+  import ActivityChart from '$lib/components/BarChart/ActivityChart.svelte'
 
   export let data: PageData
 
   $: ({ summaries, durations, durationsByLanguage } = data)
-
-  $: allProjects = summaries.data
-    .map((summary) =>
-      summary.projects.map((project) => ({ name: project.name, time: project.total_seconds })),
-    )
-    .flat()
-
-  $: projectDict = allProjects.reduce((acc, cur) => {
-    const { name, time } = cur
-    return { ...acc, [name]: (acc[name] ?? 0) + time }
-  }, {} as Record<string, number>)
-
-  $: projectList = orderBy(
-    Object.entries(projectDict)
-      .map(([name, value]) => ({ name, value }))
-      .filter((item) => item.value),
-    'value',
-    'desc',
-  )
 
   const onWakaRange = async (e: CustomEvent) => {
     const { data } = await axios.get(
@@ -49,18 +29,20 @@
 </svelte:head>
 
 <div class="space-y-4 px-2 md:px-4">
-  <DateRangeSelect on:wakarange={onWakaRange} />
-  <CodeStatsFullPanel {summaries} {projectList} />
-  <ActiveHours {durations} itemType="project" />
+  <div class="flex justify-end">
+    <DateRangeSelect on:wakarange={onWakaRange} />
+  </div>
+  <StatsPanel {summaries} showFullPanel />
+  <ActivityChart {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-    <ProjectBreakdownChart {summaries} />
+    <BreakdownChart {summaries} title="Project Breakdown" />
     <WeekdaysBarChart {summaries} />
-    <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
-    <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
-    <LanguagePieChart {summaries} />
-    <CodingDisciplineGauge {summaries} />
+    <StackedBarChart {summaries} itemsType="projects" title="Coding Time By Project" />
+    <StackedBarChart {summaries} itemsType="categories" title="Coding Time By Category" />
+    <PieChart {summaries} title="Languages" />
+    <DailyGauge {summaries} title="Discipline Gauge" />
     <DurationsChart {durations} itemType="project" />
     <DurationsChart durations={durationsByLanguage} itemType="language" />
   </div>
-  <ProjectList projects={projectList} />
+  <ProjectList {summaries} />
 </div>
