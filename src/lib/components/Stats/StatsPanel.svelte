@@ -6,20 +6,19 @@
   import { createProjectList, getTopLanguage } from './statHelpers'
 
   export let summaries: SummariesResult
-  export let renderFullPanel = false
+  export let showFullPanel = false
 
+  let topProject: string
   let topLanguage: string
-  let projectList: {
-    name: string
-    value: number
-  }[]
+  let projectList: ReturnType<typeof createProjectList>
 
   $: averageSeconds = summaries.daily_average.seconds_including_other_language
   $: totalSeconds = summaries.cumulative_total.seconds
 
-  $: if (renderFullPanel) {
+  $: if (showFullPanel) {
     topLanguage = getTopLanguage(summaries)
     projectList = createProjectList(summaries)
+    topProject = first(projectList)?.name ?? 'N/A'
   }
 </script>
 
@@ -33,9 +32,9 @@
   <StatPanelItem title="No Code Days" icon="material-symbols:code-blocks-outline-rounded">
     {summaries.daily_average.holidays} days
   </StatPanelItem>
-  {#if renderFullPanel}
+  {#if showFullPanel}
     <StatPanelItem title="Top Project" icon="material-symbols:folder-outline-rounded">
-      {first(projectList)?.name ?? 'N/A'}
+      <a class="link-hover link" href="/projects/{topProject}">{topProject}</a>
     </StatPanelItem>
     <StatPanelItem title="Top Language" icon="tabler:world">
       {topLanguage}

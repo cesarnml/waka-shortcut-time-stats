@@ -31,7 +31,7 @@
 
   afterUpdate(() => chart.setOption(option))
 
-  const onUpdate = (e: CustomEvent) => (durations = e.detail)
+  const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
 </script>
 
 <ChartContainer>

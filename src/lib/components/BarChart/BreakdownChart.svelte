@@ -10,7 +10,7 @@
   import { goto } from '$app/navigation'
 
   export let summaries: SummariesResult
-  export let title = 'Project Breakdown'
+  export let title: string
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
@@ -31,7 +31,7 @@
   // TODO: Enable turning off filtering small values
   $: filtered = Object.entries(projectNameToTotalSeconds).reduce((acc, [name, value]) => {
     if (value > (max(Object.values(projectNameToTotalSeconds)) ?? 1) * 0.01) {
-      return { ...acc, [name]: value }
+      return { ...acc, [name]: value / secPerHour }
     }
     return acc
   }, {} as Record<string, number>)
@@ -43,7 +43,6 @@
       top: 10,
       bottom: 65,
     },
-    // bang
     tooltip: { valueFormatter: (value) => formatTime(value as number) },
     xAxis: {
       type: 'value',
@@ -51,7 +50,6 @@
       nameLocation: 'middle',
       nameGap: 35,
       axisLabel: {
-        formatter: (value: number) => `${Math.floor(value / secPerHour)}h`,
         showMinLabel: false,
       },
     },
