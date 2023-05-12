@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
-  import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
+  import PieChart from '$lib/components/PieChart/PieChart.svelte'
   import CodingLineChart from '$lib/components/LineChart/CodingLineChart.svelte'
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
   import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
@@ -51,7 +51,7 @@
   <StatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
     <CodingLineChart {summaries} />
-    <LanguagePieChart {summaries} />
+    <PieChart {summaries} title="Languages" />
     <WeekdaysBarChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
   </div>

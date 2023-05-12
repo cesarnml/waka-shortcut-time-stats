@@ -1,46 +1,36 @@
-import { ChartColor } from '$lib/helpers/chartHelpers'
-import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
+import { ChartColor, createItemNameToTimeDict, getSummaryItems } from '$lib/helpers/chartHelpers'
+import { formatTime } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import type * as echarts from 'echarts'
+import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
+import type {
+  ComposeOption,
+  LegendComponentOption,
+  PieSeriesOption,
+} from 'echarts/types/dist/shared'
 
-/**
- * Given a SummariesResult object, calculates the total weekly coding time for each programming language
- * and returns an array of objects with name and value properties for each language.
- */
 export const createPieChartData = (summaries: SummariesResult) => {
-  const languagesByDate = summaries.data.map((item) => item.languages)
-  const languageToWeeklyCodingTime: Record<string, number> = {}
+  const languages = getSummaryItems(summaries, 'languages')
 
-  // Use nested forEach loops to iterate over the array of languages
-  // and add up the total weekly coding time for each language.
-  languagesByDate.forEach((languages) => {
-    languages.forEach((language) => {
-      languageToWeeklyCodingTime[language.name] =
-        (languageToWeeklyCodingTime[language.name] ?? 0) + language.total_seconds
-    })
-  })
+  const languageToTimeDict = createItemNameToTimeDict(languages)
 
-  // Use Object.entries() to iterate over the properties of the languageToWeeklyCodingTime object
-  // and map them to an array of objects with name and value properties.
-  return Object.entries(languageToWeeklyCodingTime).map(([name, totalSeconds]) => ({
+  return Object.entries(languageToTimeDict).map(([name, totalSeconds]) => ({
     name,
     value: totalSeconds,
   }))
 }
 
-type Datum = { name: string; value: number }
-type Data = Datum[]
+type ChartDatum = { name: string; value: number }
+type ChartData = ChartDatum[]
 
-/**
- * Given an array of data objects with name and value properties, returns an echarts pie chart configuration object
- * with the data included.
- */
-export const createPieChartOption = (data: Data): echarts.EChartsOption => ({
-  tooltip: {
-    trigger: 'item',
-    valueFormatter: (value) => formatTime(value as number),
-  },
+export const createPieChartOption = (
+  data: ChartData,
+): ComposeOption<
+  TooltipComponentOption | GridComponentOption | LegendComponentOption | PieSeriesOption
+> => ({
   grid: { left: 0, right: 0, bottom: 0, top: 0 },
+  tooltip: {
+    valueFormatter: (value) => formatTime(Number(value)),
+  },
   legend: {
     type: 'scroll',
     textStyle: {

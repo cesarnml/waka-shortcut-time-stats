@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
-  import LanguagePieChart from '$lib/components/PieChart/LanguagePieChart.svelte'
+  import PieChart from '$lib/components/PieChart/PieChart.svelte'
   import DailyGauge from '$lib/components/GaugeChart/DailyGauge.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
   import DurationsChart from '$lib/components/DurationsChart.svelte'
@@ -10,7 +10,7 @@
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import axios from 'axios'
-  import ActiveHours from '$lib/components/BarChart/ActiveHours.svelte'
+  import ActivityChart from '$lib/components/BarChart/ActivityChart.svelte'
 
   export let data: PageData
 
@@ -33,13 +33,13 @@
     <DateRangeSelect on:wakarange={onWakaRange} />
   </div>
   <StatsPanel {summaries} showFullPanel />
-  <ActiveHours {durations} itemType="project" />
+  <ActivityChart {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <BreakdownChart {summaries} title="Project Breakdown" />
     <WeekdaysBarChart {summaries} />
     <StackedBarChart {summaries} itemsType="projects" title="Daily Activity by Project" />
     <StackedBarChart {summaries} itemsType="categories" title="Daily Activity by Category" />
-    <LanguagePieChart {summaries} />
+    <PieChart {summaries} title="Languages" />
     <DailyGauge {summaries} title="Discipline Gauge" />
     <DurationsChart {durations} itemType="project" />
     <DurationsChart durations={durationsByLanguage} itemType="language" />

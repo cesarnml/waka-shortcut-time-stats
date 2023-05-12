@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/svelte'
-import LanguagePieChart from './LanguagePieChart.svelte'
+import PieChart from './PieChart.svelte'
 import type { SummariesResult } from '$src/types/wakatime'
 
-it('renders a LanguagePieChart', async () => {
+it('renders a PieChart', async () => {
   const summaries = {
     data: [
       {
@@ -19,6 +19,6 @@ it('renders a LanguagePieChart', async () => {
       },
     ],
   } as SummariesResult
-  render(LanguagePieChart, { props: { summaries } })
+  render(PieChart, { props: { summaries } })
   expect(screen.getByTestId('chart')).toBeInTheDocument()
 })

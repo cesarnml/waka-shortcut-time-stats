@@ -1,20 +1,14 @@
+import { createItemNameToTimeDict, getSummaryItems } from '$lib/helpers/chartHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import orderBy from 'lodash/orderBy'
 
 export const createProjectList = (summaries: SummariesResult) => {
-  const allProjects = summaries.data.flatMap((summary) =>
-    summary.projects.map((project) => ({
-      name: project.name,
-      time: project.total_seconds,
-    })),
-  )
+  const projects = getSummaryItems(summaries, 'projects')
 
-  const projectNameToTimeDict = allProjects.reduce((acc, { name, time }) => {
-    return { ...acc, [name]: (acc[name] ?? 0) + time }
-  }, {} as Record<string, number>)
+  const projectToTimeDict = createItemNameToTimeDict(projects)
 
   return orderBy(
-    Object.entries(projectNameToTimeDict)
+    Object.entries(projectToTimeDict)
       .filter(([, value]) => value)
       .map(([name, value]) => ({ name, value })),
     'value',
