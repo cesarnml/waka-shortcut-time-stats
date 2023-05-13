@@ -1,4 +1,12 @@
+import {
+  BRANCH_NAME_DELIMITER,
+  BRANCH_FULL_ID_DELIMITER,
+  BRANCH_ONLY_ID_DELIMITER,
+  MAIN_BRANCH,
+} from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
+import first from 'lodash/first'
+import last from 'lodash/last'
 
 export const LanguageColor = {
   Svelte: '#EB5027',
@@ -71,3 +79,12 @@ export const createItemNameToTimeDict = (items: Item[]) =>
     acc[name] = (acc[name] ?? 0) + total_seconds
     return acc
   }, {} as Record<string, number>)
+
+export const getBranchShortName = (name: string) =>
+  // eslint-disable-next-line
+  last(first(name.split(BRANCH_NAME_DELIMITER))!.split(BRANCH_FULL_ID_DELIMITER)) ?? ''
+
+export const getStoryId = (branch: string) => last(branch.split(BRANCH_ONLY_ID_DELIMITER))
+
+export const getStoryBranches = (branches: string[]) =>
+  branches.filter((branch) => branch !== MAIN_BRANCH)

@@ -4,7 +4,6 @@
   import PieChart from '$lib/components/PieChart/PieChart.svelte'
   import LineChart from '$lib/components/LineChart/LineChart.svelte'
   import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
-  import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
   import dayjs from 'dayjs'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
@@ -14,6 +13,7 @@
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
+  import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
 
   export let data
 
@@ -55,7 +55,7 @@
     <WeekdaysBarChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
   </div>
-  <BranchesVsTime {summaries} />
+  <VerticalBarChart {summaries} title="Branch Completion" />
   <ScatterPlot {summaries} {stories} />
   <CodingTreeMap {summaries} />
   <ChartContainer>

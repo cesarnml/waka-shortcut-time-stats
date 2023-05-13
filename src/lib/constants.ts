@@ -33,7 +33,8 @@ export const WakaToShortcutApiRange = {
 } as const
 
 export const BRANCH_NAME_DELIMITER = '_'
-export const BRANCH_ID_DELIMITER = '-'
+export const BRANCH_FULL_ID_DELIMITER = '/'
+export const BRANCH_ONLY_ID_DELIMITER = '-'
 export const MAIN_BRANCH = 'main'
 export const NUMBER_OF_DECIMALS = 1
 export const SHORTCUT_STORY_IDENTIFIER = 'cesar/sc-'
