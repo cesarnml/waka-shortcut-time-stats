@@ -4,7 +4,7 @@
   import PieChart from '$lib/components/PieChart/PieChart.svelte'
   import DailyGauge from '$lib/components/GaugeChart/DailyGauge.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
-  import DurationsChart from '$lib/components/DurationsChart.svelte'
+  import TimelineChart from '$lib/components/TimelineChart/TimelineChart.svelte'
   import ProjectList from '$lib/components/ProjectList.svelte'
   import BreakdownChart from '$lib/components/BarChart/BreakdownChart.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
@@ -41,8 +41,8 @@
     <StackedBarChart {summaries} itemsType="categories" title="Coding Time By Category" />
     <PieChart {summaries} title="Languages" />
     <DailyGauge {summaries} title="Discipline Gauge" />
-    <DurationsChart {durations} itemType="project" />
-    <DurationsChart durations={durationsByLanguage} itemType="language" />
+    <TimelineChart {durations} itemType="project" />
+    <TimelineChart durations={durationsByLanguage} itemType="language" />
   </div>
   <ProjectList {summaries} />
 </div>

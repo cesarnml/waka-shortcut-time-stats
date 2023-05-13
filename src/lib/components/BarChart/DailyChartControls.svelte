@@ -10,7 +10,7 @@
   dayjs.extend(isToday)
 
   export let durations: DurationsResult
-  export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
+  export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
   let loading = false
 
   const PREV_DAYS_LIMIT = 13
