@@ -3,7 +3,7 @@ import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
 import type { BarSeriesOption, ComposeOption } from 'echarts/types/dist/shared'
-import { max } from 'lodash'
+import max from 'lodash/max'
 
 const MINIMUM_PERCENTAGE_OF_MAX_TIME = 0.01
 

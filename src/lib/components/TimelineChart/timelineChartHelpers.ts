@@ -10,7 +10,9 @@ import dayjs from 'dayjs'
 import type { CustomSeriesOption, GridComponentOption, TooltipComponentOption } from 'echarts'
 import * as echarts from 'echarts'
 import type { ComposeOption } from 'echarts/types/dist/shared'
-import { capitalize, groupBy, orderBy } from 'lodash'
+import capitalize from 'lodash/capitalize'
+import groupBy from 'lodash/groupBy'
+import orderBy from 'lodash/orderBy'
 
 export const createTimelineChartOption = (
   durations: DurationsResult,
