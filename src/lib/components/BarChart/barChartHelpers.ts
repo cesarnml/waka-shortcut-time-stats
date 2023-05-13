@@ -1,5 +1,5 @@
 import { HOUR_GOAL, getPercent, hours } from '$lib/constants'
-import { ChartColor, LanguageColor, type KeyOfLanguageColor } from '$lib/helpers/chartHelpers'
+import { ChartColor, type ValueOfSummaryItemType } from '$lib/helpers/chartHelpers'
 import {
   DateFormat,
   formatTime,
@@ -9,18 +9,16 @@ import {
   weekdays,
   type KeyOfDateMap,
 } from '$lib/helpers/timeHelpers'
-import type { DurationsResult, SummariesResult, WakaDuration } from '$src/types/wakatime'
+import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
-import * as echarts from 'echarts'
+import type * as echarts from 'echarts'
 import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import type {
   GridComponentOption,
   LegendComponentOption,
   TooltipComponentOption,
 } from 'echarts/components'
-import groupBy from 'lodash/groupBy'
-import orderBy from 'lodash/orderBy'
 import sum from 'lodash/sum'
 import zipObject from 'lodash/zipObject'
 
@@ -39,7 +37,7 @@ export const createXAxisValues = (summaries: SummariesResult) =>
 
 type Params = {
   summaries: SummariesResult
-  itemsType: 'projects' | 'categories'
+  itemsType: ValueOfSummaryItemType
 }
 
 const _createItemsByXValues = ({ summaries, itemsType }: Params) =>
