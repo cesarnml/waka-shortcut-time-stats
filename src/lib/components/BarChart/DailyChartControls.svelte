@@ -10,16 +10,16 @@
   dayjs.extend(isToday)
 
   export let durations: DurationsResult
-  export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
+  export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
   let loading = false
 
   const PREV_DAYS_LIMIT = 13
   const INCREMENT_UNIT = 'days'
-
+  const EMPTY_COPY = 'No Data'
   const dispatch = createEventDispatcher()
 
   $: totalDuration = durations.data.reduce((acc, cur) => cur.duration + acc, 0)
-  $: totalTime = formatTime(totalDuration)
+  $: totalTime = formatTime(totalDuration).trim() || EMPTY_COPY
   $: isNextDisabled = dayjs(durations.start).isToday() || loading
   $: isPrevDisabled =
     dayjs(durations.start).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT), 'day') ||

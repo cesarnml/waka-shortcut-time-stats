@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
+  import { page } from '$app/stores'
   import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import {
-    createBreakdownChartData,
-    createBreakdownChartOption,
-    filterBreakdownChartData,
-  } from './horizontalBarChartHelpers'
+    createProjectFileToTimeDict,
+    createTreemapData,
+    createTreemapOption,
+  } from './treemapHelpers'
 
   export let summaries: SummariesResult
   export let title: string
@@ -17,18 +17,15 @@
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
 
-  $: data = createBreakdownChartData(summaries)
-  $: filteredData = filterBreakdownChartData(data)
-  $: option = createBreakdownChartOption(filteredData)
+  $: filesToTimeDict = createProjectFileToTimeDict(summaries, $page.params.projectName)
+  $: data = createTreemapData(filesToTimeDict)
+
+  $: option = createTreemapOption(data, $page.params.projectName)
 
   onMount(() => {
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
-
-    chart.on('click', (params) => {
-      goto(`/projects/${params.name}`)
-    })
 
     return () => {
       chart.dispose()
@@ -43,5 +40,7 @@
 
 <ChartContainer>
   <ChartTitle>{title}</ChartTitle>
-  <div bind:this={chartRef} class="h-96 w-full" />
+  <div class="p-6">
+    <div class="h-[600px] w-full" bind:this={chartRef} />
+  </div>
 </ChartContainer>

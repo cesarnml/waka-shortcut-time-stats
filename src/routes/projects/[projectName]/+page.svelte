@@ -3,17 +3,17 @@
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
   import PieChart from '$lib/components/PieChart/PieChart.svelte'
   import LineChart from '$lib/components/LineChart/LineChart.svelte'
-  import CodingTreeMap from '$lib/components/CodingTreeMap.svelte'
-  import BranchesVsTime from '$lib/components/BranchesVsTime.svelte'
+  import Treemap from '$lib/components/Treemap/Treemap.svelte'
   import dayjs from 'dayjs'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
-  import ScatterPlot from '$lib/components/ScatterPlot.svelte'
+  import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
   import { WakaToShortcutApiRange } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
+  import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
 
   export let data
 
@@ -55,9 +55,9 @@
     <WeekdaysBarChart {summaries} />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
   </div>
-  <BranchesVsTime {summaries} />
+  <VerticalBarChart {summaries} title="Branch Completion" />
   <ScatterPlot {summaries} {stories} />
-  <CodingTreeMap {summaries} />
+  <Treemap {summaries} title="Files In Focus" />
   <ChartContainer>
     <ChartTitle>Preview Branch Deploy</ChartTitle>
     <div class="grid grid-cols-1 gap-2 px-6 pb-6 lg:grid-cols-2">

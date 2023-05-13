@@ -2,28 +2,24 @@
   import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from './ChartContainer.svelte'
-  import ChartTitle from './ChartTitle.svelte'
-  import DailyTitleContent from './BarChart/DailyTitleContent.svelte'
-  import DailyChartControls from './BarChart/DailyChartControls.svelte'
-  import { createDurationsChartOption } from './BarChart/barChartHelpers'
-
+  import ChartContainer from '../ChartContainer.svelte'
+  import ChartTitle from '../ChartTitle.svelte'
+  import DailyTitleContent from '../BarChart/DailyTitleContent.svelte'
+  import DailyChartControls from '../BarChart/DailyChartControls.svelte'
+  import { createTimelineChartOption } from './timelineChartHelpers'
   export let durations: DurationsResult
   export let title = 'Context Switch'
-  export let itemType: Extract<keyof WakaDuration, 'project' | 'language'>
+  export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let option: echarts.EChartsOption
 
-  $: option = createDurationsChartOption(durations, itemType) as echarts.EChartsOption
+  $: option = createTimelineChartOption(durations, itemType)
 
   onMount(() => {
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
-
-    chart.setOption(option)
 
     return () => {
       chart.dispose()

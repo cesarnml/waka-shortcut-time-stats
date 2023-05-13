@@ -151,6 +151,8 @@ export type WakaDuration = {
   duration: number
   project: string
   language: string
+  entity: string
+  branch: string
   time: number
 }
 
