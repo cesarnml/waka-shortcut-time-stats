@@ -2,6 +2,8 @@ import * as echarts from 'echarts'
 import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import { ChartColor } from '$lib/helpers/chartHelpers'
+import type { ComposeOption, TreemapSeriesOption } from 'echarts/types/dist/shared'
+import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
 export const getProjectFiles = (summaries: SummariesResult) =>
   [
     ...new Set(summaries.data.flatMap((summary) => summary.entities.map((entity) => entity.name))),
@@ -57,7 +59,10 @@ export const createTreemapData = (obj: any) => {
   return result
 }
 
-export const createTreemapOption = (data: any[], projectName: string) => ({
+export const createTreemapOption = (
+  data: any[],
+  projectName: string,
+): ComposeOption<GridComponentOption | TooltipComponentOption | TreemapSeriesOption> => ({
   grid: { left: 0, right: 0, top: 0, bottom: 0 },
   tooltip: {
     formatter: function (info: any) {
