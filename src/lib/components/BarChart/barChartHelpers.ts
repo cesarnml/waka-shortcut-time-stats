@@ -396,8 +396,8 @@ export const createActiveHoursOption = (
 ): echarts.ComposeOption<
   echarts.GridComponentOption | echarts.ToolboxComponentOption | echarts.BarSeriesOption
 > => {
-  const startHour = '8 am'
-  const endHour = '5 pm'
+  const startHour = '8a'
+  const endHour = '5p'
   const goalMinutes = 300
 
   const startIndex = hours.findIndex((hour) => hour === startHour)
@@ -430,6 +430,7 @@ export const createActiveHoursOption = (
       name: 'Minutes',
       nameLocation: 'middle',
       nameGap: 30,
+      max: 60,
       axisLabel: {
         showMinLabel: false,
       },
