@@ -7,6 +7,7 @@
   import { inject } from '@vercel/analytics'
   import Footer from '$lib/components/Footer.svelte'
   import PageTransition from '$lib/components/PageTransition.svelte'
+  import NinjaSpinner from '$lib/components/common/NinjaSpinner.svelte'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
@@ -26,12 +27,25 @@
   })
 </script>
 
-<Navbar />
-<div class="mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
-  <PageTransition {pathname}>
-    <slot />
-  </PageTransition>
-</div>
-<div class="py-8">
-  <Footer />
-</div>
+<main>
+  <Navbar />
+  <div class="relative mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
+    <PageTransition {pathname}>
+      <slot />
+      <div class="spinner-wrapper">
+        <NinjaSpinner />
+      </div>
+    </PageTransition>
+  </div>
+  <div class="py-8">
+    <Footer />
+  </div>
+</main>
+
+<style lang="postcss">
+  .spinner-wrapper {
+    position: fixed;
+    top: 90dvh;
+    right: 16vw;
+  }
+</style>

@@ -1,13 +1,18 @@
-<span class="loader" />
+<div class="loader" />
 
 <style lang="postcss">
+  :root {
+    --spinner-primary-color: #54d6db;
+    --spinner-secondary-color: #fff;
+    --spinner-size: 6rem;
+  }
   .loader {
     transform: rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    color: #fff;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    color: --spinner-secondary-color;
   }
   .loader:before,
   .loader:after {
@@ -20,10 +25,10 @@
     height: inherit;
     border-radius: 50%;
     transform: rotateX(70deg);
-    animation: 1s spin linear infinite;
+    animation: 1s spin cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
   }
   .loader:after {
-    color: #ff3d00;
+    color: var(--spinner-primary-color);
     transform: rotateY(70deg);
     animation-delay: 0.4s;
   }
