@@ -9,7 +9,7 @@
 </script>
 
 <button
-  class="btn-link btn text-lg normal-case no-underline"
+  class="btn-link btn px-0 text-lg normal-case no-underline"
   class:active={$page.url.pathname === url}
   class:text-lg={isLarge}
   class:text-base={!isLarge}

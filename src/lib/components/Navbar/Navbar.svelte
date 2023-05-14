@@ -4,6 +4,9 @@
   import NavLogo from './NavLogo.svelte'
   import NavEnd from './NavEnd.svelte'
   import NavDropdown from './NavDropdown.svelte'
+  import NinjaSpinner from '../common/NinjaSpinner.svelte'
+  import { navigating } from '$app/stores'
+  import { fade } from 'svelte/transition'
 
   $: if ($media.sm) {
     dropdown.close()
@@ -11,15 +14,27 @@
 </script>
 
 <div
-  class="fixed top-0 z-10 flex w-full flex-col border-b-2 border-slate-300/10 backdrop-blur-md"
+  class="fixed top-0 z-10 flex w-full flex-col border-b-2 border-slate-300/10 px-2 backdrop-blur-md"
   class:dropdownVisible={$dropdown}
 >
-  <nav class="navbar mx-auto max-w-screen-2xl">
+  <nav class="navbar relative mx-auto max-w-screen-2xl px-4">
     <div class="navbar-start">
-      <NavLogo>Coding Stats</NavLogo>
+      <NavLogo>
+        <img
+          class="relative h-full scale-[1.5] transition hover:scale-[1.7]"
+          src="src/lib/assets/images/codestatslogo.png"
+          alt="cute logo"
+        />
+      </NavLogo>
     </div>
-    <div class="navbar-center" />
-    <div class="navbar-end flex gap-4">
+    <div class="navbar-center relative bottom-2">
+      {#if $navigating}
+        <div transition:fade>
+          <NinjaSpinner />
+        </div>
+      {/if}
+    </div>
+    <div class="navbar-end relative flex gap-4">
       <NavEnd />
     </div>
   </nav>
@@ -30,4 +45,19 @@
   .dropdownVisible {
     @apply h-screen backdrop-blur-lg;
   }
+  .spinner-wrapper {
+    position: absolute;
+    display: grid;
+    place-items: center;
+  }
+  /* @media (min-width: 640px) {
+    .spinner-wrapper {
+      top: 94vh;
+    }
+  }
+  @media (min-width: 1280px) {
+    .spinner-wrapper {
+      right: 10%;
+    }
+  } */
 </style>

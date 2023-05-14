@@ -1,18 +1,21 @@
-<div class="loader" />
+<div class="loader" aria-label="loading-spinner" />
 
 <style lang="postcss">
   :root {
     --spinner-primary-color: #54d6db;
     --spinner-secondary-color: #fff;
-    --spinner-size: 6rem;
+    --spinner-dynamic-size: 32px;
+    --spinner-max-size: 1vw;
   }
   .loader {
     transform: rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;
-    width: var(--spinner-size);
-    height: var(--spinner-size);
-    color: --spinner-secondary-color;
+    max-width: var(--spinner-max-size);
+    width: var(--spinner-dynamic-size);
+    max-height: var(--spinner-max-size);
+    height: var(--spinner-dynamic-size);
+    color: var(--spinner-secondary-color);
   }
   .loader:before,
   .loader:after {
