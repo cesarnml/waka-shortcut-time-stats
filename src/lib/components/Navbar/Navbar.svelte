@@ -45,19 +45,4 @@
   .dropdownVisible {
     @apply h-screen backdrop-blur-lg;
   }
-  .spinner-wrapper {
-    position: absolute;
-    display: grid;
-    place-items: center;
-  }
-  /* @media (min-width: 640px) {
-    .spinner-wrapper {
-      top: 94vh;
-    }
-  }
-  @media (min-width: 1280px) {
-    .spinner-wrapper {
-      right: 10%;
-    }
-  } */
 </style>
