@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>WakaStats</title>
+  <title>Coding Stats</title>
 </svelte:head>
 
 <div class="space-y-4 px-2 md:px-4">

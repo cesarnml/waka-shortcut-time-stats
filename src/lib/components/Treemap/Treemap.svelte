@@ -41,6 +41,6 @@
 <ChartContainer>
   <ChartTitle>{title}</ChartTitle>
   <div class="p-6">
-    <div class="h-[600px] w-full" bind:this={chartRef} />
+    <div class="h-[600px]" bind:this={chartRef} />
   </div>
 </ChartContainer>

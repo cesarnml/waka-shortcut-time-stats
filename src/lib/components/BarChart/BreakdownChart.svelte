@@ -43,5 +43,5 @@
 
 <ChartContainer>
   <ChartTitle>{title}</ChartTitle>
-  <div bind:this={chartRef} class="h-96 w-full" />
+  <div bind:this={chartRef} class="h-96" />
 </ChartContainer>
