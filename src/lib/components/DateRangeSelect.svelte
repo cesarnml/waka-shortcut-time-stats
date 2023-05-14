@@ -14,7 +14,7 @@
 </script>
 
 <select
-  class="select-accent select w-80 bg-neutral-focus text-accent"
+  class="select-accent select w-full text-accent sm:bg-neutral-focus md:w-fit"
   bind:value={selectedRange}
   on:change={handleSelect}
 >

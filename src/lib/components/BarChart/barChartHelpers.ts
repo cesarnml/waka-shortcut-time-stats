@@ -79,40 +79,43 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
 export const createStackedBarChartOption = (
   xValues: string[],
   series: BarSeriesOption[],
-): StackedBarChartOption => ({
-  tooltip: {
-    valueFormatter: (value) => formatTime(Number(value) * secPerHour),
-  },
-  grid: { left: 55, right: 20, top: 50, bottom: 60 },
-  legend: {
-    type: 'scroll',
-    pageIconColor: ChartColor.Icon,
-    pageTextStyle: {
-      color: ChartColor.Text,
+): StackedBarChartOption => {
+  /** @type EChartsOption */
+  return {
+    tooltip: {
+      valueFormatter: (value) => formatTime(Number(value) * secPerHour),
     },
-  },
-  xAxis: {
-    type: 'category',
-    name: 'Date',
-    nameLocation: 'middle',
-    nameGap: 30,
-    data: xValues,
-    axisTick: {
-      alignWithLabel: true,
-      show: true,
+    grid: { left: 55, right: 20, top: 50, bottom: 60 },
+    legend: {
+      type: 'scroll',
+      pageIconColor: ChartColor.Icon,
+      pageTextStyle: {
+        color: ChartColor.Text,
+      },
     },
-  },
-  yAxis: {
-    type: 'value',
-    name: 'Hours',
-    nameLocation: 'middle',
-    nameGap: 30,
-    axisLabel: {
-      showMinLabel: false,
+    xAxis: {
+      type: 'category',
+      name: 'Date',
+      nameLocation: 'middle',
+      nameGap: 30,
+      data: xValues,
+      axisTick: {
+        alignWithLabel: true,
+        show: true,
+      },
     },
-  },
-  series,
-})
+    yAxis: {
+      type: 'value',
+      name: 'Hours',
+      nameLocation: 'middle',
+      nameGap: 30,
+      axisLabel: {
+        showMinLabel: false,
+      },
+    },
+    series,
+  }
+}
 
 export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBarChartOption => {
   const dateCount = {

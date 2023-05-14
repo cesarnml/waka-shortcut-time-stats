@@ -3,6 +3,8 @@
   import NavLink from './NavLink.svelte'
 </script>
 
-{#each Object.entries(getTopLevelLinks(Url)) as [route, url] (route)}
-  <NavLink {url} {route} />
-{/each}
+<div class="flex gap-8">
+  {#each Object.entries(getTopLevelLinks(Url)) as [route, url] (route)}
+    <NavLink {url} {route} />
+  {/each}
+</div>
