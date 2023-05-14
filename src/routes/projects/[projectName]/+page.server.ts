@@ -6,7 +6,9 @@ import type { PageServerLoad } from './$types'
 import { DateFormat } from '$lib/helpers/timeHelpers'
 import type { StorySearchResults } from '$lib/generated/openapi/shortcut'
 
-export const load: PageServerLoad = async ({ fetch, params, url }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) => {
+  setHeaders({ 'Cache-Control': 'public, s-maxage=60, max-age=60' })
+
   const wakaRange = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days
   const shortcutRange = WakaToShortcutApiRange[wakaRange as keyof typeof WakaToShortcutApiRange]
 
