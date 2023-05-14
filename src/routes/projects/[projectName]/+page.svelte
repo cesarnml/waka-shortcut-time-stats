@@ -44,8 +44,12 @@
 </script>
 
 <div class="space-y-4 px-2 md:px-4">
-  <div class="flex items-center justify-between">
-    <h1 class="font-mono font-semibold uppercase text-primary-focus">{$page.params.projectName}</h1>
+  <div class="flex flex-col items-center justify-between sm:flex-row sm:items-center">
+    <h1
+      class="my-auto flex h-full items-center self-start pb-6 pt-2 font-mono font-semibold uppercase text-primary-focus sm:items-center sm:pb-0"
+    >
+      {$page.params.projectName}
+    </h1>
     <DateRangeSelect on:wakarange={onWakaRange} />
   </div>
   <StatsPanel {summaries} />
