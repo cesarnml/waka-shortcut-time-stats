@@ -3,7 +3,7 @@
   import 'iconify-icon'
 </script>
 
-<div class="relative left-[12.5px]">
+<div class="relative">
   {#if $dropdown}
     <button on:click={dropdown.close}>
       <iconify-icon icon="material-symbols:close-rounded" />

@@ -14,10 +14,10 @@
 </script>
 
 <div
-  class="fixed top-0 z-10 flex w-full flex-col border-b-2 border-slate-300/10 px-2 backdrop-blur-md"
+  class="fixed top-0 z-10 flex w-full flex-col border-b-2 border-slate-300/10 backdrop-blur-md"
   class:dropdownVisible={$dropdown}
 >
-  <nav class="navbar relative mx-auto max-w-screen-2xl px-4">
+  <nav class="navbar relative mx-auto max-w-screen-2xl px-2">
     <div class="navbar-start">
       <NavLogo>
         <img
@@ -27,11 +27,9 @@
         />
       </NavLogo>
     </div>
-    <div class="navbar-center relative bottom-2">
-      {#if $navigating}
-        <div transition:fade>
-          <NinjaSpinner />
-        </div>
+    <div class="navbar-center relative h-12" transition:fade>
+      {#if true}
+        <NinjaSpinner />
       {/if}
     </div>
     <div class="navbar-end relative flex gap-4">
@@ -45,19 +43,4 @@
   .dropdownVisible {
     @apply h-screen backdrop-blur-lg;
   }
-  .spinner-wrapper {
-    position: absolute;
-    display: grid;
-    place-items: center;
-  }
-  /* @media (min-width: 640px) {
-    .spinner-wrapper {
-      top: 94vh;
-    }
-  }
-  @media (min-width: 1280px) {
-    .spinner-wrapper {
-      right: 10%;
-    }
-  } */
 </style>

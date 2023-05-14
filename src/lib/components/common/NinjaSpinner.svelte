@@ -8,6 +8,8 @@
     --spinner-max-size: 1vw;
   }
   .loader {
+    position: relative;
+    bottom: 16px;
     transform: rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;

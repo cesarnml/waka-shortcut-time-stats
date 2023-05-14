@@ -3,7 +3,7 @@ import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
-  setHeaders({ 'Cache-Control': 'public, s-maxage=60' })
+  setHeaders({ 'Cache-Control': 'public, s-maxage=60,  max-age=60' })
   const [summariesResponse, durationsResponse, durationsByLanguageResponse] = await Promise.all([
     fetch('/api/wakatime/current/summaries'),
     fetch('/api/wakatime/current/durations'),
