@@ -37,3 +37,14 @@
     <Footer />
   </div>
 </main>
+
+<style lang="postcss">
+  main {
+    background-image: url('bg.svg');
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    height: 100%;
+    width: 100vw;
+  }
+</style>
