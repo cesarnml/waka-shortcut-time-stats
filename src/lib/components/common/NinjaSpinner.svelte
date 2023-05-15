@@ -3,7 +3,7 @@
 <style lang="postcss">
   :root {
     --spinner-primary-color: #fff;
-    --spinner-secondary-color: #9b98cf;
+    --spinner-secondary-color: #cb4aa1;
     --spinner-dynamic-size: 32px;
     --spinner-max-size: 1vw;
   }

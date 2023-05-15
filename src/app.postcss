@@ -3,5 +3,17 @@
 @tailwind utilities;
 
 [data-theme='night'] .loader {
-  color: #62baf3 !important;
+  color: #4aa3e5 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .loader {
+    color: #4aa3e5 !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .loader {
+    color: #cb4aa1 !important;
+  }
 }
