@@ -52,9 +52,6 @@
     'time',
     'desc',
   ).filter((item) => Boolean(item.time.trim()))
-  $: {
-    console.log('rows:', rows)
-  }
 </script>
 
 <ChartContainer>
