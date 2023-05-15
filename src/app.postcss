@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-[data-theme='night'] .loader {
-  color: #4aa3e5 !important;
-}
-
 @media (prefers-color-scheme: dark) {
   .loader {
     color: #4aa3e5 !important;
@@ -16,4 +12,12 @@
   .loader {
     color: #cb4aa1 !important;
   }
+}
+
+[data-theme='night'] .loader {
+  color: #4aa3e5 !important;
+}
+
+[data-theme='synthwave'] .loader {
+  color: #cb4aa1 !important;
 }

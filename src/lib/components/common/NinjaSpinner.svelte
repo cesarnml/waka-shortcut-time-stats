@@ -36,7 +36,7 @@
   .loader:after {
     color: var(--spinner-primary-color);
     transform: rotateY(70deg);
-    animation-delay: 0.4s;
+    animation-delay: 0.3s;
   }
 
   @keyframes rotate {
