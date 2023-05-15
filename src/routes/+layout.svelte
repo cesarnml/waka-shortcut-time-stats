@@ -43,7 +43,5 @@
     background-size: cover;
     background-position: center;
     object-fit: cover;
-    height: 100%;
-    width: 100vw;
   }
 </style>
