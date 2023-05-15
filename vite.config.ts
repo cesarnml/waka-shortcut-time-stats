@@ -1,6 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { defineConfig, loadEnv } from 'vite'
+import Inspect from 'vite-plugin-inspect'
 
 const config = defineConfig(({ mode }) => {
   // Only setup Sentry in production
@@ -13,6 +14,10 @@ const config = defineConfig(({ mode }) => {
     },
     plugins: [
       sveltekit(), // Add the sentry-vite-plugin last
+      Inspect({
+        build: true,
+        outputDir: '.vite-inspect',
+      }),
       isProduction
         ? sentryVitePlugin({
             telemetry: false, // Privacy :-)

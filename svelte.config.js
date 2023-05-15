@@ -5,7 +5,10 @@ import { vitePreprocess } from '@sveltejs/kit/vite'
 const config = {
   vitePlugin: {
     experimental: {
-      inspector: true,
+      inspector: {
+        toggleKeyCombo: 'alt-shift',
+        toggleButtonPos: 'bottom-right',
+      },
     },
   },
   // Consult https://kit.svelte.dev/docs/integrations#preprocessors

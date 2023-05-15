@@ -6,6 +6,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "analyze": "pnpx vite-bundle-visualizer --open --",
     "debug": "NODE_OPTIONS=--inspect ./node_modules/.bin/vite dev",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -27,7 +28,7 @@
     "@supabase/auth-helpers-sveltekit": "0.9.4",
     "@supabase/auth-ui-shared": "0.1.6",
     "@supabase/auth-ui-svelte": "0.2.2",
-    "@supabase/supabase-js": "2.21.0",
+    "@supabase/supabase-js": "2.22.0",
     "@sveltejs/adapter-vercel": "2.4.3",
     "@sveltejs/kit": "1.16.3",
     "@tailwindcss/aspect-ratio": "0.4.2",
@@ -72,6 +73,7 @@
     "tslib": "2.5.0",
     "typescript": "5.0.4",
     "vite": "4.3.5",
+    "vite-plugin-inspect": "0.7.26",
     "vitest": "0.31.0"
   },
   "engines": {
