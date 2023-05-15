@@ -26,7 +26,7 @@
   })
 </script>
 
-<main class="bg-[url('/bg.svg')]">
+<main class="bg-[url('/bg4.svg')]">
   <Navbar />
   <div class="relative mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
     <PageTransition {pathname}>
