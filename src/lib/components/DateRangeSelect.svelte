@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { browser } from '$app/environment'
   import { WakaApiRange, type KeyOf } from '$lib/constants'
   import { selectedRange } from '$lib/stores/selectedRange'
-  import { createEventDispatcher, onMount } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
 
   const WORKING_OPTIONS_COUNT = 4
   const DISABLED_NOTE = ' (WIP)'
@@ -11,12 +12,17 @@
     localStorage.setItem('range', $selectedRange)
     dispatch('wakarange')
   }
-  onMount(() => {
-    const range = localStorage.getItem('range') as WakaApiRange[KeyOf<WakaApiRange>]
-    if (range) {
-      selectedRange.set(range)
+
+  $: if (browser) {
+    const range = localStorage.getItem('range')
+    if (range !== null && range !== 'null') {
+      selectedRange.set(range as WakaApiRange[KeyOf<WakaApiRange>])
     }
-  })
+
+    if (range === null) {
+      selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
+    }
+  }
 </script>
 
 <select
