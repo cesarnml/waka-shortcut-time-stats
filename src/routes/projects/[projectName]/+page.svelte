@@ -12,7 +12,7 @@
   import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import Treemap from '$lib/components/Treemap/Treemap.svelte'
-  import { WakaToShortcutApiRange } from '$lib/constants.js'
+  import { WakaApiRange, WakaToShortcutApiRange } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import { loading } from '$lib/stores/loading.js'
   import { selectedRange } from '$lib/stores/selectedRange.js'
@@ -64,14 +64,16 @@
   </div>
   <StatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <LineChart {summaries} title="Coding Activity" />
+    {#if $selectedRange !== WakaApiRange.Today && $selectedRange !== WakaApiRange.Yesterday}
+      <LineChart {summaries} title="Coding Activity" />
+    {/if}
     <PieChart {summaries} title="Languages" />
-    <WeekdaysBarChart {summaries} />
+    {#if $selectedRange !== WakaApiRange.Today && $selectedRange !== WakaApiRange.Yesterday}
+      <WeekdaysBarChart {summaries} />
+    {/if}
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
   </div>
   <VerticalBarChart {summaries} title="Branch Completion" />
-  <ScatterPlot {summaries} {stories} />
-  <Treemap {summaries} title="Files In Focus" />
   <ChartContainer>
     <ChartTitle>Preview Branch Deploy</ChartTitle>
     <div class="grid grid-cols-1 gap-2 px-6 pb-6 lg:grid-cols-2">
@@ -92,4 +94,6 @@
       {/await}
     </div>
   </ChartContainer>
+  <ScatterPlot {summaries} {stories} />
+  <Treemap {summaries} title="Files In Focus" />
 </div>
