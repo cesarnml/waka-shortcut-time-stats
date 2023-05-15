@@ -2,7 +2,7 @@
   import { formatHours, formatMinimalWork, formatMinutes } from '$lib/helpers/timeHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import { createProjectList } from './Stats/statHelpers'
-
+  import {} from 'svelte/animate'
   export let summaries: SummariesResult
 
   $: projects = createProjectList(summaries)
