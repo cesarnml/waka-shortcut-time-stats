@@ -2,8 +2,8 @@
 
 <style lang="postcss">
   :root {
-    --spinner-primary-color: #54d6db;
-    --spinner-secondary-color: #fff;
+    --spinner-primary-color: #fff;
+    --spinner-secondary-color: #9b98cf;
     --spinner-dynamic-size: 32px;
     --spinner-max-size: 1vw;
   }
@@ -19,6 +19,7 @@
     height: var(--spinner-dynamic-size);
     color: var(--spinner-secondary-color);
   }
+
   .loader:before,
   .loader:after {
     content: '';
