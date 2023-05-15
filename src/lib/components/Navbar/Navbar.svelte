@@ -7,6 +7,7 @@
   import NinjaSpinner from '../common/NinjaSpinner.svelte'
   import { navigating } from '$app/stores'
   import { fade } from 'svelte/transition'
+  import { loading } from '$lib/stores/loading'
 
   $: if ($media.sm) {
     dropdown.close()
@@ -28,7 +29,7 @@
       </NavLogo>
     </div>
     <div class="navbar-center relative h-12" transition:fade>
-      {#if $navigating}
+      {#if $navigating || $loading}
         <NinjaSpinner />
       {/if}
     </div>

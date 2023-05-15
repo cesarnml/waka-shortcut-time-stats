@@ -14,6 +14,7 @@
   import Treemap from '$lib/components/Treemap/Treemap.svelte'
   import { WakaToShortcutApiRange } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
+  import { loading } from '$lib/stores/loading.js'
   import { selectedRange } from '$lib/stores/selectedRange.js'
   import dayjs from 'dayjs'
   import { beforeUpdate } from 'svelte'
@@ -35,7 +36,7 @@
 
     const shortcutRange =
       WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
-
+    loading.on()
     const responses = await Promise.all([
       fetch(
         `/api/wakatime/current/summaries?range=${$selectedRange}&project=${$page.params.projectName}`,
@@ -48,6 +49,7 @@
     ])
     summaries = await responses[0].json()
     stories = await responses[1].json()
+    loading.off()
   }
 </script>
 
