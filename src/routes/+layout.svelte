@@ -7,6 +7,8 @@
   import { inject } from '@vercel/analytics'
   import Footer from '$lib/components/Footer.svelte'
   import PageTransition from '$lib/components/PageTransition.svelte'
+  import { selectedRange } from '$lib/stores/selectedRange'
+  import { WakaApiRange, type KeyOf } from '$lib/constants'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
@@ -20,6 +22,14 @@
       if (_session?.expires_at !== session?.expires_at) {
         invalidate('supabase:auth')
       }
+      const range = localStorage.getItem('range') as WakaApiRange[KeyOf<WakaApiRange>]
+      if (!range) {
+        localStorage.setItem('range', $selectedRange ?? WakaApiRange.Last_7_Days_From_Yesterday)
+        selectedRange.set(range)
+      }
+
+      return () =>
+        localStorage.setItem('range', $selectedRange ?? WakaApiRange.Last_7_Days_From_Yesterday)
     })
 
     return () => data.subscription.unsubscribe()

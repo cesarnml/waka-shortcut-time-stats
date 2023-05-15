@@ -12,7 +12,7 @@
   $: date = dayjs(durations.start).format(DateFormat.Shortish)
 </script>
 
-<div class="flex px-4">
+<div class="flex px-2">
   <div class="flex-1" />
   <div>
     {title}

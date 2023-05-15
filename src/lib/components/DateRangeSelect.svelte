@@ -1,15 +1,22 @@
 <script lang="ts">
-  import { WakaApiRange } from '$lib/constants'
+  import { WakaApiRange, type KeyOf } from '$lib/constants'
   import { selectedRange } from '$lib/stores/selectedRange'
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, onMount } from 'svelte'
 
   const WORKING_OPTIONS_COUNT = 4
   const DISABLED_NOTE = ' (WIP)'
 
   const dispatch = createEventDispatcher()
   const handleChange = () => {
+    localStorage.setItem('range', $selectedRange)
     dispatch('wakarange')
   }
+  onMount(() => {
+    const range = localStorage.getItem('range') as WakaApiRange[KeyOf<WakaApiRange>]
+    if (range) {
+      selectedRange.set(range)
+    }
+  })
 </script>
 
 <select
