@@ -43,7 +43,7 @@ export const createTimelineChartOption = (
       })),
   )
   return {
-    grid: { left: 50, right: 30, top: 20, bottom: 60 },
+    grid: { left: 32, right: 10, top: 20, bottom: 50 },
     tooltip: {
       formatter: (params: any) =>
         `${params.marker}${params.name}: <strong>${formatTime(params.value[3])}</strong>`,

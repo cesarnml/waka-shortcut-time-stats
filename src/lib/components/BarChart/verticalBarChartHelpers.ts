@@ -1,4 +1,4 @@
-import { MAIN_BRANCH } from '$lib/constants'
+import { BRANCH_ONLY_ID_DELIMITER, MAIN_BRANCH } from '$lib/constants'
 import { getBranchShortName } from '$lib/helpers/chartHelpers'
 import { formatTime, secPerHour } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
@@ -20,7 +20,7 @@ export const createVerticalBarChartDatasetSource = (summaries: SummariesResult) 
   }, {} as Record<string, number>)
 
   return Object.entries(branchToTimeDict).map(([branchFullName, totalSeconds]) => [
-    getBranchShortName(branchFullName),
+    getBranchShortName(branchFullName).split(BRANCH_ONLY_ID_DELIMITER)[1],
     totalSeconds / secPerHour,
   ])
 }
@@ -32,7 +32,7 @@ export const createVerticalBarChartOption = (
   GridComponentOption | TooltipComponentOption | DatasetComponentOption | BarSeriesOption
 > => {
   return {
-    grid: { left: 60, right: 30, top: 30, bottom: 75 },
+    grid: { left: 25, right: 10, top: 20, bottom: 65 },
     tooltip: {
       formatter: (params: any) => {
         return `${params.marker} ${branches.find((branch) =>
@@ -56,10 +56,10 @@ export const createVerticalBarChartOption = (
       type: 'category',
       name: 'Branches',
       nameLocation: 'middle',
-      nameGap: 45,
+      nameGap: 35,
       axisLabel: {
         interval: 0,
-        rotate: 30,
+        rotate: 45,
       },
     },
     yAxis: {

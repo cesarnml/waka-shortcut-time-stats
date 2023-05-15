@@ -40,8 +40,8 @@
 
 <style lang="postcss">
   main {
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: top;
     object-fit: cover;
   }
 </style>

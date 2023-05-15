@@ -47,7 +47,7 @@ export const createScatterPlotOption = (
   branchToTimeDict: Record<string, number>,
   branchesByEstimateDict: Record<string, string[]>,
 ): ComposeOption<GridComponentOption | TooltipComponentOption | ScatterSeriesOption> => ({
-  grid: { left: 60, right: 30, top: 20, bottom: 60 },
+  grid: { left: 40, right: 10, top: 20, bottom: 50 },
   tooltip: {
     formatter: (params: any) => {
       return `${params.marker} ${params.data[2]}: <strong>${formatTime(
@@ -61,7 +61,7 @@ export const createScatterPlotOption = (
     name: 'Story Estimate',
     nameLocation: 'middle',
     boundaryGap: false,
-    nameGap: 30,
+    nameGap: 25,
     splitLine: {
       show: true,
     },
