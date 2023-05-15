@@ -7,7 +7,6 @@
   import { inject } from '@vercel/analytics'
   import Footer from '$lib/components/Footer.svelte'
   import PageTransition from '$lib/components/PageTransition.svelte'
-  import NinjaSpinner from '$lib/components/common/NinjaSpinner.svelte'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })

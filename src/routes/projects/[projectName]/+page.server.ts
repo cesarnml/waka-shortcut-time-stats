@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const shortcutRange = WakaToShortcutApiRange[wakaRange as keyof typeof WakaToShortcutApiRange]
 
   const responses = await Promise.all([
-    fetch(`/api/wakatime/current/summaries?project=${params.projectName}`),
+    fetch(`/api/wakatime/current/summaries?project=${params.projectName}&range=${wakaRange}`),
     fetch(`/api/vercel/projects`),
     fetch(
       `/api/shortcut/search/stories?query=has:branch moved:${dayjs()

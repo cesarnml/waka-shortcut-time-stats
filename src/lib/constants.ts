@@ -20,6 +20,10 @@ export const WakaApiRange = {
   Last_Month: 'Last Month',
 } as const
 
+export type WakaApiRange = typeof WakaApiRange
+export type KeyOf<T> = keyof T
+export type ValueOf<T> = T[KeyOf<T>]
+
 export const WakaToShortcutApiRange = {
   [WakaApiRange.Today]: 0,
   [WakaApiRange.Yesterday]: 1,

@@ -11,15 +11,22 @@
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import axios from 'axios'
   import ActivityChart from '$lib/components/BarChart/ActivityChart.svelte'
+  import { selectedRange } from '$lib/stores/selectedRange'
+  import { page } from '$app/stores'
+  import type { SummariesResult } from '$src/types/wakatime'
+  import { goto } from '$app/navigation'
+  import { beforeUpdate } from 'svelte'
 
   export let data: PageData
 
   $: ({ summaries, durations, durationsByLanguage } = data)
 
-  const onWakaRange = async (e: CustomEvent) => {
-    const { data } = await axios.get(
-      `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}`,
-    )
+  beforeUpdate(() => {
+    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+  })
+  const onWakaRange = async () => {
+    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+    const { data } = await axios.get(`/api/wakatime/current/summaries/?range=${$selectedRange}`)
     summaries = data
   }
 </script>
