@@ -22,8 +22,8 @@
       if (_session?.expires_at !== session?.expires_at) {
         invalidate('supabase:auth')
       }
-      const range = localStorage.getItem('range') as WakaApiRange[KeyOf<WakaApiRange>]
-      if (!range) {
+      const range = localStorage.getItem('range') as WakaApiRange[KeyOf<WakaApiRange>] | 'null'
+      if (range !== 'null') {
         localStorage.setItem('range', $selectedRange ?? WakaApiRange.Last_7_Days_From_Yesterday)
         selectedRange.set(range)
       }
