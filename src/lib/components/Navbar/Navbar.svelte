@@ -29,7 +29,7 @@
       </NavLogo>
     </div>
     <div class="navbar-center relative h-12" transition:fade>
-      {#if true}
+      {#if $navigating || $loading}
         <NinjaSpinner />
       {/if}
     </div>
