@@ -26,7 +26,7 @@
   })
 </script>
 
-<main>
+<main class="bg-[url('/bg.svg')]">
   <Navbar />
   <div class="relative mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
     <PageTransition {pathname}>
@@ -40,7 +40,6 @@
 
 <style lang="postcss">
   main {
-    background-image: url('bg.svg');
     background-size: cover;
     background-position: center;
     object-fit: cover;
