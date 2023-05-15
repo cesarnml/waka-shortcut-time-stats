@@ -17,6 +17,7 @@
   import { goto } from '$app/navigation'
   import { beforeUpdate } from 'svelte'
   import { loading } from '$lib/stores/loading'
+  import { WakaApiRange } from '$lib/constants'
 
   export let data: PageData
 
@@ -27,7 +28,6 @@
   })
   const onWakaRange = async () => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
-
     loading.on()
     const { data } = await axios.get(`/api/wakatime/current/summaries/?range=${$selectedRange}`)
     summaries = data
@@ -47,11 +47,15 @@
   <ActivityChart {durations} itemType="project" />
   <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
     <BreakdownChart {summaries} title="Project Breakdown" />
-    <WeekdaysBarChart {summaries} />
+    {#if $selectedRange !== WakaApiRange.Today && $selectedRange !== WakaApiRange.Yesterday}
+      <WeekdaysBarChart {summaries} />
+    {/if}
     <StackedBarChart {summaries} itemsType="projects" title="Coding Time By Project" />
     <StackedBarChart {summaries} itemsType="categories" title="Coding Time By Category" />
     <PieChart {summaries} title="Languages" />
-    <DailyGauge {summaries} title="Discipline Gauge" />
+    {#if $selectedRange !== WakaApiRange.Today && $selectedRange !== WakaApiRange.Yesterday}
+      <DailyGauge {summaries} title="Discipline Gauge" />
+    {/if}
     <TimelineChart {durations} itemType="project" />
     <TimelineChart durations={durationsByLanguage} itemType="language" />
   </div>
