@@ -1,19 +1,22 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
   import { page } from '$app/stores'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
-  import PieChart from '$lib/components/PieChart/PieChart.svelte'
-  import LineChart from '$lib/components/LineChart/LineChart.svelte'
-  import Treemap from '$lib/components/Treemap/Treemap.svelte'
-  import dayjs from 'dayjs'
-  import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
+  import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
-  import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
-  import { WakaToShortcutApiRange } from '$lib/constants.js'
-  import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import ChartContainer from '$lib/components/ChartContainer.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
+  import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
+  import LineChart from '$lib/components/LineChart/LineChart.svelte'
+  import PieChart from '$lib/components/PieChart/PieChart.svelte'
+  import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
-  import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
+  import Treemap from '$lib/components/Treemap/Treemap.svelte'
+  import { WakaToShortcutApiRange } from '$lib/constants.js'
+  import { DateFormat } from '$lib/helpers/timeHelpers.js'
+  import { selectedRange } from '$lib/stores/selectedRange.js'
+  import dayjs from 'dayjs'
+  import { beforeUpdate } from 'svelte'
 
   export let data
 
@@ -24,13 +27,18 @@
     lazy: { aliases },
   } = data)
 
-  const onWakaRange = async (e: CustomEvent) => {
+  beforeUpdate(() => {
+    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+  })
+  const onWakaRange = async () => {
+    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+
     const shortcutRange =
-      WakaToShortcutApiRange[e.detail.selectedRange as keyof typeof WakaToShortcutApiRange]
+      WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
 
     const responses = await Promise.all([
       fetch(
-        `/api/wakatime/current/summaries/?range=${e.detail.selectedRange}&project=${$page.params.projectName}`,
+        `/api/wakatime/current/summaries?range=${$selectedRange}&project=${$page.params.projectName}`,
       ),
       fetch(
         `/api/shortcut/search/stories?query=has:branch moved:${dayjs()

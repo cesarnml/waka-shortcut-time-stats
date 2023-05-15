@@ -6,14 +6,16 @@ import type { PageServerLoad } from './$types'
 import { DateFormat } from '$lib/helpers/timeHelpers'
 import type { StorySearchResults } from '$lib/generated/openapi/shortcut'
 
-export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, setHeaders, request }) => {
+  console.log(' request.url:', request.url)
+  console.log('url:', url.search)
   setHeaders({ 'Cache-Control': 'public, s-maxage=60,  max-age=60' })
 
   const wakaRange = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days
   const shortcutRange = WakaToShortcutApiRange[wakaRange as keyof typeof WakaToShortcutApiRange]
 
   const responses = await Promise.all([
-    fetch(`/api/wakatime/current/summaries?project=${params.projectName}`),
+    fetch(`/api/wakatime/current/summaries?project=${params.projectName}&range=${wakaRange}`),
     fetch(`/api/vercel/projects`),
     fetch(
       `/api/shortcut/search/stories?query=has:branch moved:${dayjs()
