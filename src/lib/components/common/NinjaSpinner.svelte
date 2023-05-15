@@ -2,8 +2,8 @@
 
 <style lang="postcss">
   :root {
-    --spinner-primary-color: #fff;
-    --spinner-secondary-color: #cb4aa1;
+    --spinner-secondary-color: #fff;
+    --spinner-primary-color: #cb4aa1;
     --spinner-dynamic-size: 32px;
     --spinner-max-size: 1vw;
   }
@@ -17,7 +17,7 @@
     width: var(--spinner-dynamic-size);
     max-height: var(--spinner-max-size);
     height: var(--spinner-dynamic-size);
-    color: var(--spinner-secondary-color);
+    color: var(--spinner-primary-color);
   }
 
   .loader:before,
@@ -34,7 +34,7 @@
     animation: 1s spin cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
   }
   .loader:after {
-    color: var(--spinner-primary-color);
+    color: var(--spinner-secondary-color);
     transform: rotateY(70deg);
     animation-delay: 0.3s;
   }
