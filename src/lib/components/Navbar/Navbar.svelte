@@ -25,8 +25,8 @@
           src="/assets/images/logo.png"
           class="relative h-full scale-[1.5] transition hover:scale-[1.7]"
           alt="logo"
-          width="48"
-          height="48"
+          width="46"
+          height="46"
         />
       </NavLogo>
     </div>
