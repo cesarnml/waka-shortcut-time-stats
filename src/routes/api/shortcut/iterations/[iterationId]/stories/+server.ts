@@ -1,20 +1,19 @@
 import { SHORTCUT_API_TOKEN } from '$env/static/private'
+import { BaseUrl, RestResource } from '$lib/constants'
 import type { StorySlim } from '$lib/generated/openapi/shortcut'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
-const BASE_URL = 'https://api.app.shortcut.com/api'
-const VERSION = '/v3'
-
 export const GET: RequestHandler = async ({ fetch, params }) => {
-  const RESOURCE = `/iterations/${params.iterationId}/stories`
-
-  const response = await fetch(`${BASE_URL}${VERSION}${RESOURCE}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Shortcut-Token': SHORTCUT_API_TOKEN,
+  const response = await fetch(
+    `${BaseUrl.Shortcut}${RestResource.IterationStories(params.iterationId ?? '')}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Shortcut-Token': SHORTCUT_API_TOKEN,
+      },
     },
-  })
+  )
   const stories: StorySlim[] = await response.json()
   return json(stories)
 }

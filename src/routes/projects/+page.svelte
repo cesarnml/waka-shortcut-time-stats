@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ApiEndpoint, Url } from '$lib/constants.js'
   import type { WakaProjectResult } from '$src/types/wakatime.js'
 
   export let data
@@ -6,7 +7,7 @@
   $: ({ projectsResult } = data)
   let value: string
   const handleSearch = async () => {
-    const response = await fetch(`/api/wakatime/current/projects?q=${value}`)
+    const response = await fetch(`${ApiEndpoint.Projects}?q=${value}`)
     const result: WakaProjectResult = await response.json()
     projectsResult = result
   }
@@ -18,9 +19,9 @@
     <button class="btn-primary btn-wide btn flex-shrink">Submit</button>
   </form>
   <ul class="w-full space-y-4 px-4">
-    {#each projectsResult.data as project (project.name)}
+    {#each projectsResult.data as { name } (name)}
       <li class="flex items-center justify-between gap-4">
-        <a class="link-hover link" href={`/projects/${project.name}`}>{project.name}</a>
+        <a class="link-hover link" href={Url.ProjectDetail(name)}>{name}</a>
       </li>
     {/each}
   </ul>

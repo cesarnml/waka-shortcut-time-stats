@@ -2,6 +2,7 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
   import { goto } from '$app/navigation'
+  import { Url } from '$lib/constants'
   import Avatar from './Avatar.svelte'
 
   export let data
@@ -20,7 +21,7 @@
     loading = true
     return async () => {
       loading = false
-      goto('/', { replaceState: true })
+      goto(Url.Home, { replaceState: true })
     }
   }
 </script>

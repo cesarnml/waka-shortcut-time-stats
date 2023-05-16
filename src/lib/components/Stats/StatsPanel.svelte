@@ -4,6 +4,7 @@
   import first from 'lodash/first'
   import StatPanelItem from './StatPanelItem.svelte'
   import { createProjectList, getTopLanguage } from './statHelpers'
+  import { Url } from '$lib/constants'
 
   export let summaries: SummariesResult
   export let showFullPanel = false
@@ -34,7 +35,7 @@
   </StatPanelItem>
   {#if showFullPanel}
     <StatPanelItem title="Top Project" icon="material-symbols:folder-outline-rounded">
-      <a class="link-hover link" href="/projects/{topProject}">{topProject}</a>
+      <a class="link-hover link" href={Url.ProjectDetail(topProject)}>{topProject}</a>
     </StatPanelItem>
     <StatPanelItem title="Top Language" icon="tabler:world">
       {topLanguage}

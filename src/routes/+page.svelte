@@ -13,7 +13,6 @@
   import ActivityChart from '$lib/components/BarChart/ActivityChart.svelte'
   import { selectedRange } from '$lib/stores/selectedRange'
   import { page } from '$app/stores'
-  import type { SummariesResult } from '$src/types/wakatime'
   import { goto } from '$app/navigation'
   import { beforeUpdate } from 'svelte'
   import { loading } from '$lib/stores/loading'

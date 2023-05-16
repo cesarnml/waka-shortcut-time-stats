@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Url } from '$lib/constants'
   import { DateFormat } from '$lib/helpers/timeHelpers'
   import type { PageData } from './$types'
   import dayjs from 'dayjs'
@@ -15,7 +16,7 @@
       <div class="card glass card-body flex h-full min-w-[400px] flex-col overflow-y-auto p-4">
         <div class="mb-6">
           <div class="mb-2">
-            <a class="text-lg font-bold text-primary" href={`/iterations/${iteration.id}`}
+            <a class="text-lg font-bold text-primary" href={Url.IterationDetail(iteration.id)}
               >{iteration.name}</a
             >
           </div>

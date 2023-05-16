@@ -46,7 +46,7 @@ export const SHORTCUT_STORY_IDENTIFIER = 'cesar/sc-'
 export const Url = {
   Home: '/',
   Projects: '/projects',
-  ProjectDetail: (id: string) => `/projects/${id}`,
+  ProjectDetail: (name: string) => `/projects/${name}`,
   Iterations: '/iterations',
   IterationDetail: (id: number) => `/iterations/${id}`,
   Login: '/login',
@@ -114,3 +114,32 @@ export const hours = [
 export const getPercent = (value: number) => `${(value * 100).toFixed(NUMBER_OF_DECIMALS)}%`
 
 export const HOUR_GOAL = 5
+
+export const ApiEndpoint = {
+  Summaries: '/api/wakatime/current/summaries',
+  Durations: '/api/wakatime/current/durations',
+  Projects: '/api/wakatime/current/projects',
+  Iterations: '/api/shortcut/iterations',
+  SearchStories: '/api/shortcut/search/stories',
+  IterationStories: (id: number | string) => `/api/shortcut/iterations/${id}/stories`,
+  VercelProjects: '/api/vercel/projects',
+  Aliases: `api/vercel/aliases`,
+} as const
+
+export const BaseUrl = {
+  WakaTime: 'https://wakatime.com',
+  Shortcut: 'https://api.app.shortcut.com',
+  Vercel: 'https://api.vercel.com',
+} as const
+
+export const RestResource = {
+  Summaries: '/api/v1/users/current/summaries',
+  Projects: '/api/v1/users/current/projects',
+  Durations: '/api/v1/users/current/durations',
+  AllTime: '/api/v1/users/current/all_time_since_today',
+  Stories: '/api/v3/search/stories',
+  Iterations: '/api/v3/iterations',
+  IterationStories: (id: string) => `/api/v3/iterations/${id}/stories`,
+  Aliases: '/v4/aliases',
+  VercelProjects: '/v9/projects',
+} as const

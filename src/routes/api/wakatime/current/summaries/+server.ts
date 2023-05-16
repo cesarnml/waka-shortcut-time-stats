@@ -1,13 +1,9 @@
 import { WAKA_API_KEY } from '$env/static/private'
-import { WakaApiRange } from '$lib/constants'
+import { BaseUrl, RestResource, WakaApiRange } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ fetch, url }) => {
-  // TODO: Extend to match API ref: https://wakatime.com/developers#summaries
-  const baseUrl = 'https://wakatime.com'
-  const resource = '/api/v1/users/current/summaries'
-
   const start = url.searchParams.get('start') ?? ''
   const end = url.searchParams.get('end') ?? ''
   const project = url.searchParams.get('project') ?? ''
@@ -19,7 +15,7 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
   }
 
   const response = await fetch(
-    `${baseUrl}${resource}?api_key=${WAKA_API_KEY}&range=${range}&project=${project}&start=${start}&end=${end}`,
+    `${BaseUrl.WakaTime}${RestResource.Summaries}?api_key=${WAKA_API_KEY}&range=${range}&project=${project}&start=${start}&end=${end}`,
   )
 
   const summaries: SummariesResult = await response.json()

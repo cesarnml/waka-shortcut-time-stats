@@ -12,7 +12,7 @@
   import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import Treemap from '$lib/components/Treemap/Treemap.svelte'
-  import { WakaApiRange, WakaToShortcutApiRange } from '$lib/constants.js'
+  import { ApiEndpoint, WakaApiRange, WakaToShortcutApiRange } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import { loading } from '$lib/stores/loading.js'
   import { selectedRange } from '$lib/stores/selectedRange.js'
@@ -38,11 +38,9 @@
       WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
     loading.on()
     const responses = await Promise.all([
+      fetch(`${ApiEndpoint.Summaries}?range=${$selectedRange}&project=${$page.params.projectName}`),
       fetch(
-        `/api/wakatime/current/summaries?range=${$selectedRange}&project=${$page.params.projectName}`,
-      ),
-      fetch(
-        `/api/shortcut/search/stories?query=has:branch moved:${dayjs()
+        `${ApiEndpoint.SearchStories}?query=has:branch moved:${dayjs()
           .subtract(shortcutRange, 'd')
           .format(DateFormat.Query)}..*`,
       ),

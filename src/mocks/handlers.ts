@@ -1,4 +1,5 @@
 // src/mocks/handlers.ts
+import { ApiEndpoint } from '$lib/constants'
 import { rest } from 'msw'
 
 // Mock Data
@@ -7187,7 +7188,7 @@ export const durationsByLanguage = {
 }
 // Define handlers that catch the corresponding requests and return the mock data.
 export const handlers = [
-  rest.get('/api/wakatime/current/summaries', (req, res, ctx) => {
+  rest.get(ApiEndpoint.Summaries, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(summaries))
   }),
 ]
