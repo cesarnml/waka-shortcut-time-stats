@@ -9,6 +9,7 @@
   import PageTransition from '$lib/components/PageTransition.svelte'
   import { selectedRange } from '$lib/stores/selectedRange'
   import { WakaApiRange, type KeyOf } from '$lib/constants'
+  import { page } from '$app/stores'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
@@ -27,6 +28,11 @@
     return () => data.subscription.unsubscribe()
   })
 </script>
+
+<svelte:head>
+  <meta name="description" content="Visualize your coding metrics!" />
+  <link rel="canonical" href={$page.url.href} />
+</svelte:head>
 
 <main class="bg-[url('/bg4.svg')]">
   <Navbar />
