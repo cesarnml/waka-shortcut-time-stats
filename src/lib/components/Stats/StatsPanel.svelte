@@ -14,8 +14,18 @@
   let topLanguage: string
   let projectList: ReturnType<typeof createProjectList>
 
-  $: averageSeconds = summaries.daily_average.seconds_including_other_language
-  $: totalSeconds = summaries.cumulative_total.seconds
+  $: totalSeconds = summaries.data.reduce(
+    (acc, summary) => acc + summary.grand_total.total_seconds,
+    0,
+  )
+  $: holidayCount = summaries.data.reduce((acc, summary) => {
+    if (summary.grand_total.total_seconds < 60) {
+      return acc + 1
+    } else {
+      return acc
+    }
+  }, 0)
+  $: averageSeconds = totalSeconds / (summaries.data.length - holidayCount)
 
   $: if (showFullPanel) {
     topLanguage = getTopLanguage(summaries)
@@ -35,7 +45,7 @@
       {formatTime(averageSeconds)}
     </StatPanelItem>
     <StatPanelItem title="No Code Days" icon="material-symbols:code-blocks-outline-rounded">
-      {summaries.daily_average.holidays} days
+      {holidayCount} days
     </StatPanelItem>
   {/if}
   {#if showFullPanel}

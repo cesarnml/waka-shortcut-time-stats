@@ -1,11 +1,21 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
-import { formatTime } from '$lib/helpers/timeHelpers'
+import { formatTime, secPerMin } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import type { ComposeOption, GaugeSeriesOption } from 'echarts'
 import zipObject from 'lodash/zipObject'
 
 export const createDisciplineGaugeData = (summaries: SummariesResult, date: string) => {
-  const dailyAverage = summaries.daily_average.seconds_including_other_language
+  const totalSeconds = summaries.data.reduce((acc, summary) => {
+    return acc + summary.grand_total.total_seconds
+  }, 0)
+  const holidayCount = summaries.data.reduce((acc, summary) => {
+    if (summary.grand_total.total_seconds < secPerMin) {
+      return acc + 1
+    } else {
+      return acc
+    }
+  }, 0)
+  const dailyAverage = totalSeconds / (summaries.data.length - holidayCount)
   const dates = summaries.data.map((summary) => summary.range.date).reverse()
   const times = summaries.data.map((summary) => summary.grand_total.total_seconds).reverse()
   const ratios = times.map((time) => time / dailyAverage)
@@ -14,7 +24,7 @@ export const createDisciplineGaugeData = (summaries: SummariesResult, date: stri
   return [
     {
       value: dateToRatioMap[date],
-      name: `AVG: ${formatTime(summaries.daily_average.seconds_including_other_language)}`,
+      name: `AVG: ${formatTime(dailyAverage)}`,
     },
   ]
 }
