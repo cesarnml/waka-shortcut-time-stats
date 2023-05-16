@@ -16,7 +16,7 @@
   import { goto } from '$app/navigation'
   import { beforeUpdate } from 'svelte'
   import { loading } from '$lib/stores/loading'
-  import { WakaApiRange } from '$lib/constants'
+  import { ApiEndpoint, WakaApiRange } from '$lib/constants'
 
   export let data: PageData
 
@@ -28,7 +28,7 @@
   const onWakaRange = async () => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
     loading.on()
-    const { data } = await axios.get(`/api/wakatime/current/summaries/?range=${$selectedRange}`)
+    const { data } = await axios.get(`${ApiEndpoint.SupabaseSummaries}?range=${$selectedRange}`)
     summaries = data
     loading.off()
   }

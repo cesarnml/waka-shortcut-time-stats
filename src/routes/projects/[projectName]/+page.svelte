@@ -28,6 +28,10 @@
     lazy: { aliases },
   } = data)
 
+  $: available_branches = [
+    ...new Set(summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name))),
+  ]
+
   beforeUpdate(() => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
   })
@@ -38,7 +42,9 @@
       WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
     loading.on()
     const responses = await Promise.all([
-      fetch(`${ApiEndpoint.Summaries}?range=${$selectedRange}&project=${$page.params.projectName}`),
+      fetch(
+        `${ApiEndpoint.SupabaseProjectSummaries}?range=${$selectedRange}&project=${$page.params.projectName}`,
+      ),
       fetch(
         `${ApiEndpoint.SearchStories}?query=has:branch moved:${dayjs()
           .subtract(shortcutRange, 'd')
@@ -79,10 +85,10 @@
         <div>Loading ...</div>
       {:then result}
         {#each result.aliases as alias}
-          {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && summaries.available_branches.find( (branch) => branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]), )}
+          {#if alias.alias.includes(`${projectName}-git-cesar-sc`) && available_branches.find( (branch) => branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]), )}
             <div>
               <a class="link-hover link-primary link" href={`https://${alias.alias}`}
-                >{summaries.available_branches
+                >{available_branches
                   .find((branch) => branch.includes((alias.alias.match(/sc-(\d+)/g) ?? [''])[0]))
                   ?.split('cesar/')[1]}</a
               >

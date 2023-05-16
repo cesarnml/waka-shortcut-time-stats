@@ -124,6 +124,8 @@ export const ApiEndpoint = {
   IterationStories: (id: number | string) => `/api/shortcut/iterations/${id}/stories`,
   VercelProjects: '/api/vercel/projects',
   Aliases: `/api/vercel/aliases`,
+  SupabaseSummaries: `/api/supabase/summaries`,
+  SupabaseProjectSummaries: `/api/supabase/project-summaries`,
 } as const
 
 export const BaseUrl = {
