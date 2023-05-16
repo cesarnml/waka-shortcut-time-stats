@@ -5,11 +5,11 @@
 
 <div class="relative">
   {#if $dropdown}
-    <button on:click={dropdown.close}>
+    <button on:click={dropdown.close} aria-label="close nav dropdown">
       <iconify-icon icon="material-symbols:close-rounded" />
     </button>
   {:else}
-    <button on:click={dropdown.open}>
+    <button on:click={dropdown.open} aria-label="open nav dropdown">
       <iconify-icon icon="ci:hamburger-md" />
     </button>
   {/if}

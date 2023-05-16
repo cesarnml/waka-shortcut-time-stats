@@ -43,12 +43,17 @@
     class="btn-outline btn-square btn-sm btn flex items-center"
     on:click={getPrevDate}
     disabled={isPrevDisabled}
+    aria-label="left arrow"
   >
     <iconify-icon class="text-2xl" icon="ic:baseline-chevron-left" />
   </button>
   <div class="w-24 text-center font-mono text-base text-base-content">
     {#if loading}
-      <iconify-icon class="text-2xl" icon="eos-icons:three-dots-loading" />
+      <iconify-icon
+        class="text-2xl"
+        icon="eos-icons:three-dots-loading"
+        aria-label="loading spinner"
+      />
     {:else}
       {totalTime}
     {/if}
@@ -57,6 +62,7 @@
     class="btn-outline btn-square btn-sm btn flex items-center"
     on:click={getNextDate}
     disabled={isNextDisabled}
+    aria-label="right arrow"
   >
     <iconify-icon class="text-2xl" icon="ic:baseline-chevron-right" />
   </button>

@@ -31,18 +31,18 @@
             </div>
             <div class="flex items-center gap-2">
               <div class="flex items-center gap-1">
-                <iconify-icon icon="material-symbols:menu-book-outline-sharp" />
+                <iconify-icon icon="material-symbols:menu-book-outline-sharp" aria-label="book" />
                 {iteration.stats.num_stories_unstarted +
                   iteration.stats.num_stories_started +
                   iteration.stats.num_stories_done +
                   iteration.stats.num_stories_backlog}
               </div>
               <div class="flex items-center gap-1">
-                <iconify-icon icon="material-symbols:bar-chart-rounded" />
+                <iconify-icon icon="material-symbols:bar-chart-rounded" aria-label="stats" />
                 {iteration.stats.num_points}
               </div>
               <div class="flex items-center gap-1">
-                <iconify-icon icon="gg:loadbar-doc" />
+                <iconify-icon icon="gg:loadbar-doc" aria-label="docs" />
                 {iteration.stats.num_related_documents}
               </div>
             </div>
