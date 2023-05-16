@@ -7,6 +7,15 @@ import * as environment from '$app/environment'
 import * as navigation from '$app/navigation'
 import * as stores from '$app/stores'
 
+vi.mock('$lib/stores/media', () => ({
+  media: readable({
+    sm: true,
+    md: true,
+    lg: true,
+    xl: true,
+    '2xl': true,
+  }),
+}))
 // Mock SvelteKit runtime module $app/environment
 vi.mock('$app/environment', (): typeof environment => ({
   browser: false,

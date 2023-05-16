@@ -11,6 +11,7 @@ export const createLineChartData = (summaries: SummariesResult) => {
     value: summary.grand_total.total_seconds / secPerHour,
   }))
 }
+
 export const createLineChartOption = (
   data: ReturnType<typeof createLineChartData>,
   color: string | null,

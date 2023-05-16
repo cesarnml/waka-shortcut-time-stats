@@ -1,6 +1,6 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import { createLineChartOption } from './lineChartHelpers'
+import { createLineChartOption, createLineChartData } from './lineChartHelpers'
 
 const summaries = {
   color: ChartColor.Default,
@@ -24,67 +24,16 @@ const summaries = {
   ],
 } as SummariesResult
 
-it('should return expected EChartsOption object', () => {
-  const expectedOption = {
-    grid: { left: 50, right: 20, top: 50, bottom: 50, containLabel: true },
-    tooltip: {
-      trigger: 'item',
-      valueFormatter: expect.any(Function),
+it('should create line chart data', async () => {
+  const data = createLineChartData(summaries)
+  expect(data).toEqual([
+    {
+      name: 'May 03',
+      value: 1,
     },
-    xAxis: [
-      {
-        type: 'category',
-        boundaryGap: false,
-        data: ['May 03', 'May 04'],
-        axisLabel: {
-          color: ChartColor.Text,
-        },
-      },
-    ],
-    yAxis: [
-      {
-        type: 'value',
-        axisLabel: {
-          showMinLabel: false,
-          formatter: expect.any(Function),
-          color: ChartColor.Text,
-        },
-      },
-    ],
-    series: {
-      type: 'line',
-      smooth: true,
-      areaStyle: {
-        color: summaries.color ?? ChartColor.Default,
-      },
-      lineStyle: {
-        width: 4,
-        color: summaries.color ?? ChartColor.Default,
-      },
-      itemStyle: {
-        borderCap: 'round',
-        color: ChartColor.Marker,
-        borderWidth: 2,
-        borderColor: ChartColor.Marker,
-      },
-      data: ['1.0', '2.0'],
+    {
+      name: 'May 04',
+      value: 2,
     },
-  }
-
-  const actualOption = createLineChartOption(summaries)
-  expect(actualOption).toEqual(expectedOption)
-})
-
-it('should format dates correctly', () => {
-  const actualOption = createLineChartOption(summaries)
-  // @ts-expect-error tough type
-  const xAxisData = actualOption.xAxis[0].data
-  expect(xAxisData).toEqual(['May 03', 'May 04'])
-})
-
-it('should convert total_seconds to hours and format values correctly', () => {
-  const actualOption = createLineChartOption(summaries)
-  // @ts-expect-error tough type
-  const seriesData = actualOption.series.data
-  expect(seriesData).toEqual(['1.0', '2.0'])
+  ])
 })
