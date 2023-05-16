@@ -123,7 +123,7 @@ export const ApiEndpoint = {
   SearchStories: '/api/shortcut/search/stories',
   IterationStories: (id: number | string) => `/api/shortcut/iterations/${id}/stories`,
   VercelProjects: '/api/vercel/projects',
-  Aliases: `api/vercel/aliases`,
+  Aliases: `/api/vercel/aliases`,
 } as const
 
 export const BaseUrl = {
