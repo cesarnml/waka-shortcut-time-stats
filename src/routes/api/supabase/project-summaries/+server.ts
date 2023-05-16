@@ -29,7 +29,6 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
     .eq('name', project)
     .single()
 
-  console.log('projectRecord:', projectRecord)
   if (projectRecord) {
     const { data: summariesData } = await supabase
       .from('project_summaries')
@@ -43,7 +42,6 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
       data: summariesData,
     } as SummariesResult
 
-    console.log('summaries:', summaries.data.length)
     return json(summaries)
   }
   return error(404, 'Project not found')

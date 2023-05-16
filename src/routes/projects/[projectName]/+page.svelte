@@ -42,7 +42,9 @@
       WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
     loading.on()
     const responses = await Promise.all([
-      fetch(`${ApiEndpoint.Summaries}?range=${$selectedRange}&project=${$page.params.projectName}`),
+      fetch(
+        `${ApiEndpoint.SupabaseProjectSummaries}?range=${$selectedRange}&project=${$page.params.projectName}`,
+      ),
       fetch(
         `${ApiEndpoint.SearchStories}?query=has:branch moved:${dayjs()
           .subtract(shortcutRange, 'd')

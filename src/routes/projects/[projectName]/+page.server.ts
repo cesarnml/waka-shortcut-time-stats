@@ -39,6 +39,5 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const response = await fetch(`${ApiEndpoint.Aliases}?projectId=${projectId}`)
   const aliases = (await response.json()) as AliasesResult
 
-  console.log('summaries:', summaries)
   return { summaries, projectName, stories, lazy: { aliases } }
 }
