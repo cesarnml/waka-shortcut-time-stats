@@ -1,4 +1,4 @@
-name: Daily Durations
+name: Daily Crons (~every 10 min)
 
 on:
   schedule:
