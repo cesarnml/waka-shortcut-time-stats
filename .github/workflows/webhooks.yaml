@@ -1,0 +1,12 @@
+name: Today Summary Cron
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github Action for curl
+        uses: wei/curl@v1.1.1
+        with:
+          args: https://codingstats.vercel.app/api/cron/wakatime/durations/
