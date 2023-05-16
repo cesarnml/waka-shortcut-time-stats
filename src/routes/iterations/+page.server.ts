@@ -1,3 +1,4 @@
+import { ApiEndpoint } from '$lib/constants'
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
 import type { PageServerLoad } from './$types'
 import orderBy from 'lodash/orderBy'
@@ -24,12 +25,12 @@ type IterationSlimSnakeCase = Omit<IterationSlim, 'startDate' | 'endDate' | 'sta
 }
 
 export const load: PageServerLoad = async ({ fetch }) => {
-  const response = await fetch('/api/shortcut/iterations')
+  const response = await fetch(ApiEndpoint.Iterations)
   const iterations: IterationSlimSnakeCase[] = await response.json()
   const iterationsOrdered = orderBy(iterations, 'end_date', 'desc')
 
   const iterationStoriesRequests = iterationsOrdered.map((iteration) =>
-    fetch(`/api/shortcut/iterations/${iteration.id}/stories`),
+    fetch(ApiEndpoint.IterationStories(iteration.id)),
   )
 
   const iterationStoriesResponses = await Promise.all(iterationStoriesRequests)

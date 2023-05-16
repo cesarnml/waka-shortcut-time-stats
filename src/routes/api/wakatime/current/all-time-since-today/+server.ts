@@ -1,6 +1,7 @@
 import { WAKA_API_KEY } from '$env/static/private'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
+import { BaseUrl, RestResource } from '$lib/constants'
 
 export type WakaFullRange = {
   end: string
@@ -24,12 +25,7 @@ export type AllTimeSinceTodayData = {
 }
 
 export const GET: RequestHandler = async ({ fetch }) => {
-  const baseUrl = 'https://wakatime.com'
-  const resource = '/api/v1/users/current/all_time_since_today'
-
-  const response = await fetch(`${baseUrl}${resource}?api_key=${WAKA_API_KEY}`, {
-    method: 'GET',
-  })
+  const response = await fetch(`${BaseUrl.WakaTime}${RestResource.AllTime}?api_key=${WAKA_API_KEY}`)
   const { data }: { data: AllTimeSinceTodayData } = await response.json()
 
   return json(data)

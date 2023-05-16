@@ -1,10 +1,10 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { WakaApiRange } from '$lib/constants'
+import { ApiEndpoint, WakaApiRange } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
-  const response = await fetch(`/api/wakatime/current/summaries?&range=${WakaApiRange.Yesterday}`)
+  const response = await fetch(`${ApiEndpoint.Summaries}?&range=${WakaApiRange.Yesterday}`)
   const summariesResult: SummariesResult = await response.json()
   const summaries = summariesResult.data
   const summariesWithDate = summaries.map((summary) => ({ ...summary, date: summary.range.date }))

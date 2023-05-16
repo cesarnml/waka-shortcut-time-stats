@@ -1,13 +1,10 @@
 import { SHORTCUT_API_TOKEN } from '$env/static/private'
+import { BaseUrl, RestResource } from '$lib/constants'
 import type { IterationSlim } from '$lib/generated/openapi/shortcut'
 import { json, type RequestHandler } from '@sveltejs/kit'
 
-const BASE_URL = 'https://api.app.shortcut.com/api'
-const VERSION = '/v3'
-const RESOURCE = '/iterations'
-
 export const GET: RequestHandler = async ({ fetch }) => {
-  const response = await fetch(`${BASE_URL}${VERSION}${RESOURCE}`, {
+  const response = await fetch(`${BaseUrl.Shortcut}${RestResource.Iterations}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

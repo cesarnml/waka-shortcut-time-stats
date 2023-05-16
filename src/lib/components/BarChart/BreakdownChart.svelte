@@ -10,6 +10,7 @@
     createBreakdownChartOption,
     filterBreakdownChartData,
   } from './horizontalBarChartHelpers'
+  import { Url } from '$lib/constants'
 
   export let summaries: SummariesResult
   export let title: string
@@ -27,7 +28,7 @@
     window.addEventListener('resize', handleResize, { passive: true })
 
     chart.on('click', (params) => {
-      goto(`/projects/${params.name}`)
+      goto(Url.ProjectDetail(params.name))
     })
 
     return () => {

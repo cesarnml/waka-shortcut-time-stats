@@ -4,7 +4,7 @@
   import ChartContainer from '../ChartContainer.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import type { SummariesResult } from '$src/types/wakatime'
-  import { SHORTCUT_STORY_IDENTIFIER } from '$lib/constants'
+  import { ApiEndpoint, SHORTCUT_STORY_IDENTIFIER } from '$lib/constants'
   import { getStoryBranches, getStoryId } from '$lib/helpers/chartHelpers'
   import {
     createVerticalBarChartDatasetSource,
@@ -33,7 +33,7 @@
       const branch: string = params.data[0 as keyof echarts.ECElementEvent['data']] ?? ''
       if (branch.includes(SHORTCUT_STORY_IDENTIFIER)) {
         const storyId = getStoryId(branch)
-        const response = await fetch(`/api/shortcut/search/stories?query=id:${storyId}`)
+        const response = await fetch(`${ApiEndpoint.SearchStories}?query=id:${storyId}`)
         const result = await response.json()
         const storyLink: string = (result.data ?? [''])[0]?.app_url
         window.open(storyLink, '_blank')

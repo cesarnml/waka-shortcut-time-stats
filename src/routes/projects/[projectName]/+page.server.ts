@@ -1,4 +1,4 @@
-import { WakaApiRange, WakaToShortcutApiRange } from '$lib/constants'
+import { ApiEndpoint, WakaApiRange, WakaToShortcutApiRange } from '$lib/constants'
 import type { AliasesResult, ProjectsResult } from '$src/types/vercel'
 import type { SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
@@ -13,10 +13,10 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const shortcutRange = WakaToShortcutApiRange[wakaRange as keyof typeof WakaToShortcutApiRange]
 
   const responses = await Promise.all([
-    fetch(`/api/wakatime/current/summaries?project=${params.projectName}&range=${wakaRange}`),
-    fetch(`/api/vercel/projects`),
+    fetch(`${ApiEndpoint.Summaries}?project=${params.projectName}&range=${wakaRange}`),
+    fetch(ApiEndpoint.VercelProjects),
     fetch(
-      `/api/shortcut/search/stories?query=has:branch moved:${dayjs()
+      `${ApiEndpoint.SearchStories}?query=has:branch moved:${dayjs()
         .subtract(shortcutRange, 'd')
         .format(DateFormat.Query)}..*`,
     ),
@@ -34,7 +34,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const projectId = currentProject?.id ?? ''
   const projectName = currentProject?.name ?? ''
 
-  const response = await fetch(`/api/vercel/aliases?projectId=${projectId}`)
+  const response = await fetch(`${ApiEndpoint.Aliases}?projectId=${projectId}`)
 
   const aliases = (await response.json()) as AliasesResult
 

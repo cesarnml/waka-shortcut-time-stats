@@ -1,14 +1,14 @@
 import { json } from '@sveltejs/kit'
 import dayjs from 'dayjs'
 import type { RequestHandler } from './$types'
-import { WakaSliceBy } from '$lib/constants'
+import { ApiEndpoint, WakaSliceBy } from '$lib/constants'
 import type { DurationsResult } from '$src/types/wakatime'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const yesterday = dayjs().subtract(1, 'd').format('YYYY-MM-DD')
 
   const response = await fetch(
-    `/api/wakatime/current/durations?date=${yesterday}&slice_by=${WakaSliceBy.Language}`,
+    `${ApiEndpoint.Durations}?date=${yesterday}&slice_by=${WakaSliceBy.Language}`,
   )
   const durationsResult: DurationsResult = await response.json()
 
