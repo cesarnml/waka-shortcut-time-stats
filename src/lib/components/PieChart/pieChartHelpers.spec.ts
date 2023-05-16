@@ -24,9 +24,9 @@ describe('createPieChartData', () => {
     const result = createPieChartData(summaries)
 
     expect(result).toEqual([
-      { name: 'JavaScript', value: 3 },
-      { name: 'Python', value: 0.5 },
-      { name: 'TypeScript', value: 1.5 },
+      { name: 'JavaScript', value: 10800 },
+      { name: 'Python', value: 1800 },
+      { name: 'TypeScript', value: 5400 },
     ])
   })
 })
@@ -34,17 +34,16 @@ describe('createPieChartData', () => {
 describe('createPieChartOption', () => {
   it('should create a pie chart config with the correct data', () => {
     const data = [
-      { name: 'JavaScript', value: 10 },
-      { name: 'Python', value: 20 },
-      { name: 'TypeScript', value: 15 },
+      { name: 'JavaScript', value: 10800 },
+      { name: 'Python', value: 1800 },
+      { name: 'TypeScript', value: 5400 },
     ]
 
     const expectedConfig: echarts.EChartsOption = {
+      grid: { left: 0, right: 0, bottom: 0, top: 0 },
       tooltip: {
-        trigger: 'item',
         valueFormatter: expect.any(Function),
       },
-      grid: { left: 0, right: 0, bottom: 0, top: 0 },
       legend: {
         type: 'scroll',
         textStyle: {
@@ -58,7 +57,8 @@ describe('createPieChartOption', () => {
       series: [
         {
           type: 'pie',
-          radius: '55%',
+          radius: '60%',
+          center: ['50%', '55%'],
           label: {
             color: ChartColor.Text,
           },
@@ -72,11 +72,11 @@ describe('createPieChartOption', () => {
     expect(config).toEqual(expectedConfig)
   })
   it('should format the tooltip value correctly', () => {
-    const data = [{ name: 'JavaScript', value: 12 }]
+    const data = [{ name: 'JavaScript', value: 10800 }]
     const config = createPieChartOption(data)
     //  @ts-expect-error tough type
     const formatter = config.tooltip?.valueFormatter
 
-    expect(formatter(10)).toBe('10h')
+    expect(formatter(10800)).toBe('3h')
   })
 })

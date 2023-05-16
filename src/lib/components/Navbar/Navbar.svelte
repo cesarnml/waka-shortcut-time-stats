@@ -22,9 +22,9 @@
     <div class="navbar-start">
       <NavLogo>
         <img
-          src="/assets/images/codestatslogo.png"
+          src="/assets/images/logo.png"
           class="relative h-full scale-[1.5] transition hover:scale-[1.7]"
-          alt="cute squirrel"
+          alt="logo"
         />
       </NavLogo>
     </div>

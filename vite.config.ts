@@ -42,6 +42,7 @@ const config = defineConfig(({ mode }) => {
       },
       coverage: {
         all: true,
+        enabled: true,
         provider: 'c8',
         reporter: ['json', 'html', 'text', 'lcov'],
         src: ['./src'],

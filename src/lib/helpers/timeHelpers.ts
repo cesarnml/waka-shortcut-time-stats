@@ -48,4 +48,4 @@ export const isMinimalWork = (value: number) => !hasHours(value) && !hasMinutes(
 export const formatMinimalWork = (value: number) =>
   isMinimalWork(value) ? 'Less than 1 minute' : ''
 
-export const formatTime = (value: number) => `${formatHours(value)} ${formatMinutes(value)}`
+export const formatTime = (value: number) => `${formatHours(value)} ${formatMinutes(value)}`.trim()
