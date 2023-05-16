@@ -20,11 +20,13 @@
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
 
-  $: ({ available_branches } = summaries)
+  $: available_branches = [
+    ...new Set(summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name))),
+  ]
 
   $: storyBranches = getStoryBranches(available_branches)
   $: branchToEstimateDict = createBranchToEstimateDict(stories)
-  $: branchToTimeDict = createBranchToTimeDict(summaries)
+  $: branchToTimeDict = createBranchToTimeDict(summaries, available_branches)
   $: branchesByEstimateDict = createBranchesByEstimateDict(branchToEstimateDict, branchToTimeDict)
 
   $: option = createScatterPlotOption(

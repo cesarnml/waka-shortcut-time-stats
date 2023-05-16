@@ -13,7 +13,9 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const shortcutRange = WakaToShortcutApiRange[wakaRange as keyof typeof WakaToShortcutApiRange]
 
   const responses = await Promise.all([
-    fetch(`${ApiEndpoint.Summaries}?project=${params.projectName}&range=${wakaRange}`),
+    fetch(
+      `${ApiEndpoint.SupabaseProjectSummaries}?project=${params.projectName}&range=${wakaRange}`,
+    ),
     fetch(ApiEndpoint.VercelProjects),
     fetch(
       `${ApiEndpoint.SearchStories}?query=has:branch moved:${dayjs()
@@ -37,5 +39,6 @@ export const load: PageServerLoad = async ({ fetch, params, url, setHeaders }) =
   const response = await fetch(`${ApiEndpoint.Aliases}?projectId=${projectId}`)
   const aliases = (await response.json()) as AliasesResult
 
+  console.log('summaries:', summaries)
   return { summaries, projectName, stories, lazy: { aliases } }
 }
