@@ -1,3 +1,5 @@
+import type { SummariesResult } from '$src/types/wakatime'
+
 export const WakaSliceBy = {
   None: '',
   Entity: 'entity',
@@ -145,3 +147,5 @@ export const RestResource = {
   Aliases: '/v4/aliases',
   VercelProjects: '/v9/projects',
 } as const
+
+export type ToData<T> = { data: T }
