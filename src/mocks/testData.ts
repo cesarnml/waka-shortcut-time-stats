@@ -1,4 +1,4 @@
-import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
+import type { DurationsResult, SummariesResult, WakaProjectResult } from '$src/types/wakatime'
 
 export const summaries = {
   data: [
@@ -15829,3 +15829,986 @@ export const durationsByLanguage = {
   end: '2023-05-04T16:59:59Z',
   timezone: 'Asia/Bangkok',
 } as DurationsResult
+
+export const projects = {
+  data: [
+    {
+      id: '9baa0feb-4577-4145-8aee-35c0f554f351',
+      name: 'waka-shortcut-time-stats',
+      color: '#19e257',
+      last_heartbeat_at: '2023-05-17T18:01:36Z',
+      created_at: '2023-04-17T01:34:00Z',
+      badge: {
+        id: '8573354f-767d-44a8-b290-bf816ec0d7de',
+        project_id: '9baa0feb-4577-4145-8aee-35c0f554f351',
+        created_at: '2023-04-17T11:19:05Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9baa0feb-4577-4145-8aee-35c0f554f351.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'waka-shortcut-time-stats',
+      has_public_url: false,
+      url: '/projects/waka-shortcut-time-stats',
+      human_readable_last_heartbeat_at: 'May 18, 2023, 1:01 AM +07',
+      repository: {
+        id: '02e4251c-9bbc-41ab-a19c-81e989391688',
+        provider: 'github',
+        name: 'waka-shortcut-time-stats',
+        full_name: 'cesarnml/waka-shortcut-time-stats',
+        url: 'https://api.github.com/repos/cesarnml/waka-shortcut-time-stats',
+        html_url: 'https://github.com/cesarnml/waka-shortcut-time-stats',
+        is_fork: false,
+        is_private: false,
+        description: null,
+        star_count: 0,
+        watch_count: 0,
+        fork_count: 0,
+        default_branch: 'main',
+        homepage: 'https://waka-shortcut-time-stats.vercel.app',
+        last_synced_at: null,
+        created_at: '2023-04-17T11:17:55Z',
+        modified_at: '2023-04-17T11:18:08Z',
+        urlencoded_name: 'waka-shortcut-time-stats',
+        wakatime_project_name: 'waka-shortcut-time-stats',
+        badge: {
+          id: '08db0677-e09e-407b-8041-4c34952c17ae',
+          provider: 'github',
+          repository: 'cesarnml/waka-shortcut-time-stats',
+          created_at: '2023-04-17T11:18:26Z',
+          link: 'https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats',
+          color: '#007ec6',
+          url: 'https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg',
+          title: 'wakatime',
+          left_text: 'wakatime',
+          snippets: [
+            {
+              name: 'Image',
+              content: 'https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg',
+            },
+            {
+              name: 'Markdown',
+              content:
+                '[![wakatime](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg)](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats)',
+            },
+            {
+              name: 'HTML',
+              content:
+                '<a href="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats"><img src="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg" alt="wakatime"></a>',
+            },
+            {
+              name: 'Textile',
+              content:
+                '!https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg!:https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats',
+            },
+            {
+              name: 'Rdoc',
+              content:
+                '{<img src="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg" alt="wakatime" />}[https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats]',
+            },
+            {
+              name: 'AsciiDoc',
+              content:
+                'image:https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg["wakatime", link="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats"]',
+            },
+            {
+              name: 'RST',
+              content:
+                '.. image:: https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg\n    :target: https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats',
+            },
+            {
+              name: 'Pod',
+              content:
+                '=for html <a href="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats"><img src="https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg"></a>',
+            },
+          ],
+        },
+        image_icon_url: 'https://wakatime.com/static/img/integrations/github.png',
+      },
+    },
+    {
+      id: 'ff5b716d-7968-4a9a-9fa4-20f92a569ce3',
+      name: 'portfolio-sveltekit',
+      color: '#04c4e8',
+      last_heartbeat_at: '2023-05-17T07:58:31Z',
+      created_at: '2023-04-06T01:55:38Z',
+      badge: {
+        id: '1fe3cf4b-5e04-4c48-ac0c-ff2f2953c90e',
+        project_id: 'ff5b716d-7968-4a9a-9fa4-20f92a569ce3',
+        created_at: '2023-04-10T17:09:56Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/ff5b716d-7968-4a9a-9fa4-20f92a569ce3.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'portfolio-sveltekit',
+      has_public_url: false,
+      url: '/projects/portfolio-sveltekit',
+      human_readable_last_heartbeat_at: 'May 17, 2023, 2:58 PM +07',
+      repository: {
+        id: 'bf88dbb3-6025-4eac-80d6-d9d432d004a5',
+        provider: 'github',
+        name: 'portfolio-sveltekit',
+        full_name: 'cesarnml/portfolio-sveltekit',
+        url: 'https://api.github.com/repos/cesarnml/portfolio-sveltekit',
+        html_url: 'https://github.com/cesarnml/portfolio-sveltekit',
+        is_fork: false,
+        is_private: false,
+        description: null,
+        star_count: 1,
+        watch_count: 1,
+        fork_count: 0,
+        default_branch: 'main',
+        homepage: 'https://cesar-mejia.com',
+        last_synced_at: null,
+        created_at: '2023-04-15T11:47:18Z',
+        modified_at: '2023-04-17T11:16:53Z',
+        urlencoded_name: 'portfolio-sveltekit',
+        wakatime_project_name: 'portfolio-sveltekit',
+        badge: {
+          id: '3b4e9bed-11b1-4a1b-8e27-16a8e09a738b',
+          provider: 'github',
+          repository: 'cesarnml/portfolio-sveltekit',
+          created_at: '2023-04-18T18:54:56Z',
+          link: 'https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit',
+          color: '#007ec6',
+          url: 'https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg',
+          title: 'wakatime',
+          left_text: 'wakatime',
+          snippets: [
+            {
+              name: 'Image',
+              content: 'https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg',
+            },
+            {
+              name: 'Markdown',
+              content:
+                '[![wakatime](https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg)](https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit)',
+            },
+            {
+              name: 'HTML',
+              content:
+                '<a href="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg" alt="wakatime"></a>',
+            },
+            {
+              name: 'Textile',
+              content:
+                '!https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg!:https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit',
+            },
+            {
+              name: 'Rdoc',
+              content:
+                '{<img src="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg" alt="wakatime" />}[https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit]',
+            },
+            {
+              name: 'AsciiDoc',
+              content:
+                'image:https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg["wakatime", link="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit"]',
+            },
+            {
+              name: 'RST',
+              content:
+                '.. image:: https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg\n    :target: https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit',
+            },
+            {
+              name: 'Pod',
+              content:
+                '=for html <a href="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/portfolio-sveltekit.svg"></a>',
+            },
+          ],
+        },
+        image_icon_url: 'https://wakatime.com/static/img/integrations/github.png',
+      },
+    },
+    {
+      id: '1c68d680-e940-4695-9674-09fd8f930275',
+      name: 'Svelte',
+      color: null,
+      last_heartbeat_at: '2023-05-16T09:17:36Z',
+      created_at: '2023-01-13T13:35:49Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'Svelte',
+      has_public_url: false,
+      url: '/projects/Svelte',
+      human_readable_last_heartbeat_at: 'May 16, 2023, 4:17 PM +07',
+      repository: null,
+    },
+    {
+      id: '6e24a882-2a32-47dc-b0b4-a11e000a4437',
+      name: '.nvm',
+      color: null,
+      last_heartbeat_at: '2023-05-10T21:03:06Z',
+      created_at: '2023-05-10T20:34:05Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: '.nvm',
+      has_public_url: false,
+      url: '/projects/.nvm',
+      human_readable_last_heartbeat_at: 'May 11, 2023, 4:03 AM +07',
+      repository: null,
+    },
+    {
+      id: 'e467ba8a-4d37-441d-bbaa-b73de503cda5',
+      name: 'grider-algorithms-and-data-structures',
+      color: null,
+      last_heartbeat_at: '2023-04-29T05:57:34Z',
+      created_at: '2023-04-27T10:49:35Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'grider-algorithms-and-data-structures',
+      has_public_url: false,
+      url: '/projects/grider-algorithms-and-data-structures',
+      human_readable_last_heartbeat_at: 'Apr 29, 2023, 12:57 PM +07',
+      repository: null,
+    },
+    {
+      id: '13e6ec25-e2b9-41f1-b74c-628211245c4c',
+      name: 'steele-algorithms-and-data-structures',
+      color: null,
+      last_heartbeat_at: '2023-04-29T05:56:35Z',
+      created_at: '2023-04-27T15:03:00Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'steele-algorithms-and-data-structures',
+      has_public_url: false,
+      url: '/projects/steele-algorithms-and-data-structures',
+      human_readable_last_heartbeat_at: 'Apr 29, 2023, 12:56 PM +07',
+      repository: null,
+    },
+    {
+      id: 'c3822e3d-8dd9-4763-842e-57cb3114e1fd',
+      name: 'Grider-SQL-PostgreSQL',
+      color: null,
+      last_heartbeat_at: '2023-04-29T05:43:57Z',
+      created_at: '2023-01-13T09:18:40Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'Grider-SQL-PostgreSQL',
+      has_public_url: false,
+      url: '/projects/Grider-SQL-PostgreSQL',
+      human_readable_last_heartbeat_at: 'Apr 29, 2023, 12:43 PM +07',
+      repository: null,
+    },
+    {
+      id: '8acf2ec2-5308-4b34-aad2-c7a115031e50',
+      name: 'daterangepicker',
+      color: null,
+      last_heartbeat_at: '2023-04-23T09:43:35Z',
+      created_at: '2023-04-23T05:22:16Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'daterangepicker',
+      has_public_url: false,
+      url: '/projects/daterangepicker',
+      human_readable_last_heartbeat_at: 'Apr 23, 2023, 4:43 PM +07',
+      repository: null,
+    },
+    {
+      id: '38763724-19d1-481b-b564-1357a52de432',
+      name: 'shortcut-sveltekit',
+      color: null,
+      last_heartbeat_at: '2023-04-19T14:40:03Z',
+      created_at: '2023-04-14T07:09:21Z',
+      badge: {
+        id: 'f522d5fc-0593-4730-be95-5255169ee690',
+        project_id: '38763724-19d1-481b-b564-1357a52de432',
+        created_at: '2023-04-15T11:19:10Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/38763724-19d1-481b-b564-1357a52de432.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'shortcut-sveltekit',
+      has_public_url: false,
+      url: '/projects/shortcut-sveltekit',
+      human_readable_last_heartbeat_at: 'Apr 19, 2023, 9:40 PM +07',
+      repository: {
+        id: '50244e60-f32e-4cdf-a051-486819d1b35e',
+        provider: 'github',
+        name: 'shortcut-sveltekit',
+        full_name: 'cesarnml/shortcut-sveltekit',
+        url: 'https://api.github.com/repos/cesarnml/shortcut-sveltekit',
+        html_url: 'https://github.com/cesarnml/shortcut-sveltekit',
+        is_fork: false,
+        is_private: false,
+        description: null,
+        star_count: 0,
+        watch_count: 0,
+        fork_count: 0,
+        default_branch: 'main',
+        homepage: null,
+        last_synced_at: null,
+        created_at: '2023-04-15T11:47:25Z',
+        modified_at: '2023-04-17T11:16:53Z',
+        urlencoded_name: 'shortcut-sveltekit',
+        wakatime_project_name: 'shortcut-sveltekit',
+        badge: {
+          id: 'f8630009-9d89-4ca5-86de-bedfc7d90962',
+          provider: 'github',
+          repository: 'cesarnml/shortcut-sveltekit',
+          created_at: '2023-04-18T18:54:41Z',
+          link: 'https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit',
+          color: '#007ec6',
+          url: 'https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg',
+          title: 'wakatime',
+          left_text: 'wakatime',
+          snippets: [
+            {
+              name: 'Image',
+              content: 'https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg',
+            },
+            {
+              name: 'Markdown',
+              content:
+                '[![wakatime](https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg)](https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit)',
+            },
+            {
+              name: 'HTML',
+              content:
+                '<a href="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg" alt="wakatime"></a>',
+            },
+            {
+              name: 'Textile',
+              content:
+                '!https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg!:https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit',
+            },
+            {
+              name: 'Rdoc',
+              content:
+                '{<img src="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg" alt="wakatime" />}[https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit]',
+            },
+            {
+              name: 'AsciiDoc',
+              content:
+                'image:https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg["wakatime", link="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit"]',
+            },
+            {
+              name: 'RST',
+              content:
+                '.. image:: https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg\n    :target: https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit',
+            },
+            {
+              name: 'Pod',
+              content:
+                '=for html <a href="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/shortcut-sveltekit.svg"></a>',
+            },
+          ],
+        },
+        image_icon_url: 'https://wakatime.com/static/img/integrations/github.png',
+      },
+    },
+    {
+      id: '6b80548b-95ea-4522-8702-0d85b8a0fa6b',
+      name: 'Prompt',
+      color: null,
+      last_heartbeat_at: '2023-04-17T04:00:40Z',
+      created_at: '2019-12-03T14:26:42Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'Prompt',
+      has_public_url: false,
+      url: '/projects/Prompt',
+      human_readable_last_heartbeat_at: 'Apr 17, 2023, 11:00 AM +07',
+      repository: {
+        id: '69e3d984-9ee5-4267-8e96-c280da46f84f',
+        provider: 'gitlab',
+        name: 'Prompt',
+        full_name: 'promptfeedback/Prompt',
+        url: 'https://gitlab.com/api/v4/projects/11617461',
+        html_url: 'https://gitlab.com/promptfeedback/Prompt',
+        is_fork: false,
+        is_private: true,
+        description: null,
+        star_count: 0,
+        watch_count: null,
+        fork_count: 0,
+        default_branch: 'master',
+        homepage: null,
+        last_synced_at: null,
+        created_at: '2020-02-10T21:07:05Z',
+        modified_at: '2022-02-12T13:55:12Z',
+        urlencoded_name: 'Prompt',
+        wakatime_project_name: 'Prompt',
+        badge: null,
+        image_icon_url: 'https://wakatime.com/static/img/integrations/gitlab.png',
+      },
+    },
+    {
+      id: 'cee90a05-9858-4e44-b787-dbdfc9b7b423',
+      name: 'key-platform',
+      color: null,
+      last_heartbeat_at: '2023-04-17T03:58:10Z',
+      created_at: '2019-12-03T07:41:05Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'key-platform',
+      has_public_url: false,
+      url: '/projects/key-platform',
+      human_readable_last_heartbeat_at: 'Apr 17, 2023, 10:58 AM +07',
+      repository: null,
+    },
+    {
+      id: '8668f438-b377-4560-9902-1b3837d8f2cc',
+      name: 'sentry-sveltekit',
+      color: null,
+      last_heartbeat_at: '2023-04-15T10:40:43Z',
+      created_at: '2023-04-12T08:23:30Z',
+      badge: {
+        id: 'b7040c66-a935-42bf-9f37-0cd96a53063f',
+        project_id: '8668f438-b377-4560-9902-1b3837d8f2cc',
+        created_at: '2023-04-15T11:19:08Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/8668f438-b377-4560-9902-1b3837d8f2cc.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'sentry-sveltekit',
+      has_public_url: false,
+      url: '/projects/sentry-sveltekit',
+      human_readable_last_heartbeat_at: 'Apr 15, 2023, 5:40 PM +07',
+      repository: null,
+    },
+    {
+      id: 'd12c7900-13af-44e5-9244-7af6e597bb14',
+      name: 'gpt-language-flashcards',
+      color: '#f70adf',
+      last_heartbeat_at: '2023-04-13T07:29:05Z',
+      created_at: '2023-03-23T01:57:59Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'gpt-language-flashcards',
+      has_public_url: false,
+      url: '/projects/gpt-language-flashcards',
+      human_readable_last_heartbeat_at: 'Apr 13, 2023, 2:29 PM +07',
+      repository: {
+        id: 'a44138d7-0854-420f-a7bc-8886f41acd34',
+        provider: 'github',
+        name: 'gpt-language-flashcards',
+        full_name: 'cesarnml/gpt-language-flashcards',
+        url: 'https://api.github.com/repos/cesarnml/gpt-language-flashcards',
+        html_url: 'https://github.com/cesarnml/gpt-language-flashcards',
+        is_fork: false,
+        is_private: false,
+        description: null,
+        star_count: 0,
+        watch_count: 0,
+        fork_count: 0,
+        default_branch: 'main',
+        homepage: 'https://gpt-language-flashcards.vercel.app',
+        last_synced_at: null,
+        created_at: '2023-04-15T11:47:07Z',
+        modified_at: '2023-04-17T11:16:53Z',
+        urlencoded_name: 'gpt-language-flashcards',
+        wakatime_project_name: 'gpt-language-flashcards',
+        badge: {
+          id: 'dcdf2847-d6cd-44e0-99af-6c4e1165485a',
+          provider: 'github',
+          repository: 'cesarnml/gpt-language-flashcards',
+          created_at: '2023-04-18T18:55:40Z',
+          link: 'https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards',
+          color: '#007ec6',
+          url: 'https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg',
+          title: 'wakatime',
+          left_text: 'wakatime',
+          snippets: [
+            {
+              name: 'Image',
+              content: 'https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg',
+            },
+            {
+              name: 'Markdown',
+              content:
+                '[![wakatime](https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg)](https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards)',
+            },
+            {
+              name: 'HTML',
+              content:
+                '<a href="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards"><img src="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg" alt="wakatime"></a>',
+            },
+            {
+              name: 'Textile',
+              content:
+                '!https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg!:https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards',
+            },
+            {
+              name: 'Rdoc',
+              content:
+                '{<img src="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg" alt="wakatime" />}[https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards]',
+            },
+            {
+              name: 'AsciiDoc',
+              content:
+                'image:https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg["wakatime", link="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards"]',
+            },
+            {
+              name: 'RST',
+              content:
+                '.. image:: https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg\n    :target: https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards',
+            },
+            {
+              name: 'Pod',
+              content:
+                '=for html <a href="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards"><img src="https://wakatime.com/badge/github/cesarnml/gpt-language-flashcards.svg"></a>',
+            },
+          ],
+        },
+        image_icon_url: 'https://wakatime.com/static/img/integrations/github.png',
+      },
+    },
+    {
+      id: '0dc7f0a9-87c5-411c-bc33-d07fa74e74d6',
+      name: 'codesplain',
+      color: null,
+      last_heartbeat_at: '2023-04-08T10:33:44Z',
+      created_at: '2023-03-07T15:03:35Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'codesplain',
+      has_public_url: false,
+      url: '/projects/codesplain',
+      human_readable_last_heartbeat_at: 'Apr 8, 2023, 5:33 PM +07',
+      repository: null,
+    },
+    {
+      id: '3d0066d3-bd55-4afa-8a6f-5676bfef5eb2',
+      name: 'grider-test-demo01',
+      color: null,
+      last_heartbeat_at: '2023-04-08T10:32:30Z',
+      created_at: '2023-03-06T07:48:26Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'grider-test-demo01',
+      has_public_url: false,
+      url: '/projects/grider-test-demo01',
+      human_readable_last_heartbeat_at: 'Apr 8, 2023, 5:32 PM +07',
+      repository: null,
+    },
+    {
+      id: '7b4a353a-bb55-48aa-bcad-46344ba3f480',
+      name: 'listd',
+      color: null,
+      last_heartbeat_at: '2023-04-08T08:05:38Z',
+      created_at: '2023-02-09T08:02:18Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'listd',
+      has_public_url: false,
+      url: '/projects/listd',
+      human_readable_last_heartbeat_at: 'Apr 8, 2023, 3:05 PM +07',
+      repository: null,
+    },
+    {
+      id: '01b27b3f-13da-4df7-8f39-3308b1a38371',
+      name: 'vitamin2',
+      color: null,
+      last_heartbeat_at: '2023-04-06T07:05:04Z',
+      created_at: '2023-04-05T14:03:33Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'vitamin2',
+      has_public_url: false,
+      url: '/projects/vitamin2',
+      human_readable_last_heartbeat_at: 'Apr 6, 2023, 2:05 PM +07',
+      repository: null,
+    },
+    {
+      id: '2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d',
+      name: 'airbnb-clone',
+      color: null,
+      last_heartbeat_at: '2023-04-06T06:59:51Z',
+      created_at: '2023-03-31T09:00:29Z',
+      badge: {
+        id: '78e29e62-81d1-4d49-8dda-2e92b4e27c74',
+        project_id: '2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d',
+        created_at: '2023-04-15T11:19:37Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/2e331d53-6e0a-4c5f-9f0e-62d95cf73e9d.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'airbnb-clone',
+      has_public_url: false,
+      url: '/projects/airbnb-clone',
+      human_readable_last_heartbeat_at: 'Apr 6, 2023, 1:59 PM +07',
+      repository: null,
+    },
+    {
+      id: '9486845c-83ec-450b-aa24-e6d6532585f8',
+      name: 'airbnb-clone-sveltekit',
+      color: '#f70453',
+      last_heartbeat_at: '2023-04-06T03:51:49Z',
+      created_at: '2023-04-05T18:14:43Z',
+      badge: {
+        id: 'f3742b2f-95d0-4acf-bdcf-2cb3cc31f0d9',
+        project_id: '9486845c-83ec-450b-aa24-e6d6532585f8',
+        created_at: '2023-04-15T11:19:45Z',
+        link: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8',
+        color: '#007ec6',
+        url: 'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg',
+        title: 'wakatime',
+        left_text: 'wakatime',
+        snippets: [
+          {
+            name: 'Image',
+            content:
+              'https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg',
+          },
+          {
+            name: 'Markdown',
+            content:
+              '[![wakatime](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg)](https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8)',
+          },
+          {
+            name: 'HTML',
+            content:
+              '<a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg" alt="wakatime"></a>',
+          },
+          {
+            name: 'Textile',
+            content:
+              '!https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg!:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8',
+          },
+          {
+            name: 'Rdoc',
+            content:
+              '{<img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg" alt="wakatime" />}[https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8]',
+          },
+          {
+            name: 'AsciiDoc',
+            content:
+              'image:https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg["wakatime", link="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8"]',
+          },
+          {
+            name: 'RST',
+            content:
+              '.. image:: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg\n    :target: https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8',
+          },
+          {
+            name: 'Pod',
+            content:
+              '=for html <a href="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8"><img src="https://wakatime.com/badge/user/8cdf5c6c-3f1a-41dc-8fb8-6264a155b0f4/project/9486845c-83ec-450b-aa24-e6d6532585f8.svg"></a>',
+          },
+        ],
+      },
+      clients: [],
+      urlencoded_name: 'airbnb-clone-sveltekit',
+      has_public_url: false,
+      url: '/projects/airbnb-clone-sveltekit',
+      human_readable_last_heartbeat_at: 'Apr 6, 2023, 10:51 AM +07',
+      repository: {
+        id: '70c86416-6dc7-4746-80a8-95b2af69ae66',
+        provider: 'github',
+        name: 'airbnb-clone-sveltekit',
+        full_name: 'cesarnml/airbnb-clone-sveltekit',
+        url: 'https://api.github.com/repos/cesarnml/airbnb-clone-sveltekit',
+        html_url: 'https://github.com/cesarnml/airbnb-clone-sveltekit',
+        is_fork: false,
+        is_private: false,
+        description: null,
+        star_count: 0,
+        watch_count: 0,
+        fork_count: 0,
+        default_branch: 'main',
+        homepage: 'https://airbnb-clone-sveltekit.vercel.app',
+        last_synced_at: null,
+        created_at: '2023-04-15T11:47:01Z',
+        modified_at: '2023-04-17T11:16:53Z',
+        urlencoded_name: 'airbnb-clone-sveltekit',
+        wakatime_project_name: 'airbnb-clone-sveltekit',
+        badge: {
+          id: '5425ad91-998a-4d12-aecf-be4640597e45',
+          provider: 'github',
+          repository: 'cesarnml/airbnb-clone-sveltekit',
+          created_at: '2023-04-18T18:55:15Z',
+          link: 'https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit',
+          color: '#007ec6',
+          url: 'https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg',
+          title: 'wakatime',
+          left_text: 'wakatime',
+          snippets: [
+            {
+              name: 'Image',
+              content: 'https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg',
+            },
+            {
+              name: 'Markdown',
+              content:
+                '[![wakatime](https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg)](https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit)',
+            },
+            {
+              name: 'HTML',
+              content:
+                '<a href="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg" alt="wakatime"></a>',
+            },
+            {
+              name: 'Textile',
+              content:
+                '!https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg!:https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit',
+            },
+            {
+              name: 'Rdoc',
+              content:
+                '{<img src="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg" alt="wakatime" />}[https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit]',
+            },
+            {
+              name: 'AsciiDoc',
+              content:
+                'image:https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg["wakatime", link="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit"]',
+            },
+            {
+              name: 'RST',
+              content:
+                '.. image:: https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg\n    :target: https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit',
+            },
+            {
+              name: 'Pod',
+              content:
+                '=for html <a href="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit"><img src="https://wakatime.com/badge/github/cesarnml/airbnb-clone-sveltekit.svg"></a>',
+            },
+          ],
+        },
+        image_icon_url: 'https://wakatime.com/static/img/integrations/github.png',
+      },
+    },
+    {
+      id: '9d94c784-742d-46bb-8eb6-08001441f77b',
+      name: 'LearnCode',
+      color: null,
+      last_heartbeat_at: '2023-04-06T03:46:40Z',
+      created_at: '2022-11-23T09:43:25Z',
+      badge: null,
+      clients: [],
+      urlencoded_name: 'LearnCode',
+      has_public_url: false,
+      url: '/projects/LearnCode',
+      human_readable_last_heartbeat_at: 'Apr 6, 2023, 10:46 AM +07',
+      repository: null,
+    },
+  ],
+  total: 461,
+  total_pages: 24,
+  page: 1,
+  prev_page: 1,
+  next_page: 2,
+} as WakaProjectResult
