@@ -9,6 +9,7 @@
 {#key pathname}
   <div
     class="page-transition"
+    data-testid="page-transition"
     in:fade={{ duration, delay: duration, easing: cubicInOut }}
     out:fade={{ duration, easing: cubicInOut }}
   >
