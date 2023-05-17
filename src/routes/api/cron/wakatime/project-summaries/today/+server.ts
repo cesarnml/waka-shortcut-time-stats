@@ -2,6 +2,8 @@ import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { ApiEndpoint, WakaApiRange } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
+import dayjs from 'dayjs'
+import { DateFormat } from '$lib/helpers/timeHelpers'
 
 type Project = {
   id: string
@@ -12,13 +14,12 @@ type Project = {
 }
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
+  const today = dayjs().format(DateFormat.Query)
   const { data: projects }: { data: Project[] | null } = await supabase.from('projects').select('*')
 
   if (projects) {
     const projectSummariesRequests = projects.map((project) => {
-      return fetch(
-        `${ApiEndpoint.Summaries}?range=${WakaApiRange.Yesterday}&project=${project.name}`,
-      )
+      return fetch(`${ApiEndpoint.Summaries}?range=${WakaApiRange.Today}&project=${project.name}`)
     })
 
     const responses = await Promise.all(projectSummariesRequests)
@@ -37,13 +38,30 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
       },
     )
 
-    const projectSummariesResultsPayload = projectSummariesResultsWithDate.map(
-      (projectSummaryResult) => {
-        return supabase.from('project_summaries').insert(projectSummaryResult.data)
-      },
-    )
+    const createOrUpdateRequests = []
 
-    const output = await Promise.all(projectSummariesResultsPayload)
+    for (const [idx, project] of projects.entries()) {
+      const { data: existingProjectSummary } = await supabase
+        .from('project_summaries')
+        .select('*')
+        .eq('project_id', project.id)
+        .eq('date', today)
+        .single()
+      if (existingProjectSummary) {
+        createOrUpdateRequests.push(
+          supabase
+            .from('project_summaries')
+            .update(projectSummariesResultsWithDate[idx].data)
+            .eq('id', existingProjectSummary.id),
+        )
+      } else {
+        createOrUpdateRequests.push(
+          supabase.from('project_summaries').insert(projectSummariesResultsWithDate[idx].data),
+        )
+      }
+    }
+
+    const output = await Promise.all(createOrUpdateRequests)
 
     return json(output)
   }
