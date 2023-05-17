@@ -56,6 +56,7 @@ export const SummaryItemType = {
   Entities: 'entities',
 } as const
 
+export type KeyOfSummaryItemType = keyof typeof SummaryItemType
 export type ValueOfSummaryItemType = (typeof SummaryItemType)[keyof typeof SummaryItemType]
 
 export const DurationItemType = {
@@ -80,11 +81,15 @@ export const createItemNameToTimeDict = (items: Item[]) =>
     return acc
   }, {} as Record<string, number>)
 
+export const NO_SHORT_BRANCH_NAME = 'N/A'
 export const getBranchShortName = (name: string) =>
   // eslint-disable-next-line
-  last(first(name.split(BRANCH_NAME_DELIMITER))!.split(BRANCH_FULL_ID_DELIMITER)) ?? ''
+  last(first(name.split(BRANCH_NAME_DELIMITER))?.split(BRANCH_FULL_ID_DELIMITER)) ||
+  NO_SHORT_BRANCH_NAME
 
-export const getStoryId = (branch: string) => last(branch.split(BRANCH_ONLY_ID_DELIMITER))
+export const NO_ID = 'N/A'
+export const getStoryIdFromShortName = (shortBranchName: string) =>
+  last(shortBranchName.split(BRANCH_ONLY_ID_DELIMITER)) || NO_ID
 
 export const getStoryBranches = (branches: string[]) =>
   branches.filter((branch) => branch !== MAIN_BRANCH)

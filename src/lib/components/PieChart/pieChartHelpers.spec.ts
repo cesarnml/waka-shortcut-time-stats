@@ -3,7 +3,7 @@ import type { SummariesResult } from '$src/types/wakatime'
 import { createPieChartOption, createPieChartData } from './pieChartHelpers'
 
 describe('createPieChartData', () => {
-  it('should calculate the total weekly coding time for each language correctly', () => {
+  it('should calculate the total weekly coding time for each language', () => {
     const summaries = {
       data: [
         {
@@ -22,12 +22,12 @@ describe('createPieChartData', () => {
     } as SummariesResult
 
     const result = createPieChartData(summaries)
-
-    expect(result).toEqual([
+    const expected = [
       { name: 'JavaScript', value: 10800 },
       { name: 'Python', value: 1800 },
       { name: 'TypeScript', value: 5400 },
-    ])
+    ]
+    expect(result).toEqual(expected)
   })
 })
 
@@ -39,7 +39,7 @@ describe('createPieChartOption', () => {
       { name: 'TypeScript', value: 5400 },
     ]
 
-    const expectedConfig: echarts.EChartsOption = {
+    const expected: echarts.EChartsOption = {
       grid: { left: 0, right: 0, bottom: 0, top: 0 },
       tooltip: {
         valueFormatter: expect.any(Function),
@@ -69,7 +69,7 @@ describe('createPieChartOption', () => {
 
     const config = createPieChartOption(data)
 
-    expect(config).toEqual(expectedConfig)
+    expect(config).toEqual(expected)
   })
   it('should format the tooltip value correctly', () => {
     const data = [{ name: 'JavaScript', value: 10800 }]

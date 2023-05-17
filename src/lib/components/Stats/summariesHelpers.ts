@@ -17,5 +17,17 @@ export const computeHolidayCount = (summaries: SummariesResult) =>
   }, INITIAL_AMOUNT)
 
 export const computeWorkdayCount = (summaries: SummariesResult) => summaries.data.length
+
 export const computeAverageSeconds = (summaries: SummariesResult) =>
   computeTotalSeconds(summaries) / (computeWorkdayCount(summaries) - computeHolidayCount(summaries))
+
+export const getDates = (summaries: SummariesResult) =>
+  summaries.data.map((summary) => summary.range.date)
+
+export const getTimes = (summaries: SummariesResult) =>
+  summaries.data.map((summary) => summary.grand_total.total_seconds)
+
+export const getRatios = (summaries: SummariesResult) => {
+  const averageSeconds = computeAverageSeconds(summaries)
+  return getTimes(summaries).map((time) => time / averageSeconds)
+}
