@@ -74,7 +74,7 @@ export const getNavDropdownLinks = (url: Url) => {
 
 export const Api = {
   WakaDurations: (date: string, itemType: string) =>
-    `/api/wakatime/current/durations?date=${date}&slice_by=${itemType}`,
+    `${ApiEndpoint.Durations}?date=${date}&slice_by=${itemType}`,
 }
 
 export const Step = {
