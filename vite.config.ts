@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { defineConfig, loadEnv } from 'vite'
@@ -35,11 +36,15 @@ const config = defineConfig(({ mode }) => {
     test: {
       globals: true,
       environment: 'jsdom',
-      include: ['src/**/*.spec.{js,ts}'],
       setupFiles: ['setupTests.ts', 'src/mocks/setup.ts'],
+      alias: {
+        $lib: resolve(__dirname, 'src/lib'),
+        $src: resolve(__dirname, 'src'),
+      },
       deps: {
         inline: ['echarts', /msw/],
       },
+      include: ['src/**/*.spec.{js,ts}'],
       coverage: {
         all: true,
         enabled: true,
