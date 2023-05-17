@@ -56,6 +56,7 @@ export const SummaryItemType = {
   Entities: 'entities',
 } as const
 
+export type KeyOfSummaryItemType = keyof typeof SummaryItemType
 export type ValueOfSummaryItemType = (typeof SummaryItemType)[keyof typeof SummaryItemType]
 
 export const DurationItemType = {

@@ -33,6 +33,8 @@ export const integerDateMap = {
 
 export type KeyOfDateMap = keyof typeof integerDateMap
 
+export const MINIMAL_WORK_DEFAULT_PROMPT = 'Less than 1 minute'
+
 export const getDays = (value: number) => dayjs.duration(value, 's').days()
 export const getHours = (value: number) => dayjs.duration(value, 's').hours()
 export const getMinutes = (value: number) => dayjs.duration(value, 's').minutes()
@@ -46,6 +48,6 @@ export const formatMinutes = (value: number) => (hasMinutes(value) ? `${getMinut
 
 export const isMinimalWork = (value: number) => !hasHours(value) && !hasMinutes(value)
 export const formatMinimalWork = (value: number) =>
-  isMinimalWork(value) ? 'Less than 1 minute' : ''
+  isMinimalWork(value) ? MINIMAL_WORK_DEFAULT_PROMPT : ''
 
 export const formatTime = (value: number) => `${formatHours(value)} ${formatMinutes(value)}`.trim()
