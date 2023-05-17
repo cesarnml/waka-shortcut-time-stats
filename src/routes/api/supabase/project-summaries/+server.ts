@@ -1,7 +1,7 @@
 import { WakaApiRange, WakaToShortcutApiRange } from '$lib/constants'
 import { DateFormat } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import { error, json, type RequestHandler } from '@sveltejs/kit'
+import { json, type RequestHandler } from '@sveltejs/kit'
 import dayjs from 'dayjs'
 
 export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
@@ -44,5 +44,5 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 
     return json(summaries)
   }
-  return error(404, 'Project not found')
+  return json({ message: 'Project summaries not found' }, { status: 404 })
 }
