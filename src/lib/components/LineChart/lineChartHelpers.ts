@@ -17,7 +17,7 @@ export const createLineChartOption = (
   color: string | null,
 ): ComposeOption<GridComponentOption | TooltipComponentOption | LineSeriesOption> => {
   return {
-    grid: { left: 25, right: 10, top: 20, bottom: 50 },
+    grid: { left: 45, right: 10, top: 20, bottom: 50 },
     tooltip: {
       trigger: 'axis',
       valueFormatter: (value) => `${formatTime(Number(value) * secPerHour)}`,

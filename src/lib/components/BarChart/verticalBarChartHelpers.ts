@@ -32,7 +32,7 @@ export const createVerticalBarChartOption = (
   GridComponentOption | TooltipComponentOption | DatasetComponentOption | BarSeriesOption
 > => {
   return {
-    grid: { left: 25, right: 10, top: 20, bottom: 65 },
+    grid: { left: 45, right: 10, top: 20, bottom: 65 },
     tooltip: {
       formatter: (params: any) => {
         return `${params.marker} ${branches.find((branch) =>

@@ -85,7 +85,7 @@ export const createStackedBarChartOption = (
     tooltip: {
       valueFormatter: (value) => formatTime(Number(value) * secPerHour),
     },
-    grid: { left: 25, right: 10, top: 55, bottom: 50 },
+    grid: { left: 45, right: 10, top: 55, bottom: 50 },
     legend: {
       type: 'scroll',
       pageIconColor: ChartColor.Icon,
@@ -141,7 +141,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
   })
 
   return {
-    grid: { left: 25, right: 10, top: 20, bottom: 50 },
+    grid: { left: 45, right: 10, top: 20, bottom: 50 },
     tooltip: {
       valueFormatter: (value) => formatTime(Number(value) * secPerHour),
     },
@@ -257,7 +257,7 @@ export const createActiveHoursOption = (
   const outerMinutes = totalMinutes - innerMinutes
 
   return {
-    grid: { left: 25, right: 10, top: 20, bottom: 50 },
+    grid: { left: 45, right: 10, top: 20, bottom: 50 },
     xAxis: {
       type: 'category',
       name: 'Time',
