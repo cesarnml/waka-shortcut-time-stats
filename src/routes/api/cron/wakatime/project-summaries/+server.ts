@@ -8,6 +8,7 @@ type Project = {
   created_at: string
   updated_at: string
   name: string
+  color: string
 }
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {

@@ -36,24 +36,26 @@
   $: isSingleDay = [WakaApiRange.Today, WakaApiRange.Yesterday].includes($selectedRange)
 </script>
 
-<div class="stats bg-chart-dark shadow-lg">
-  <StatPanelItem title="Total Hours" icon="mdi:clock-outline">
-    {formatTime(totalSeconds)}
-  </StatPanelItem>
-  {#if !isSingleDay}
-    <StatPanelItem title="Daily Average" icon="material-symbols:bar-chart-rounded">
-      {formatTime(averageSeconds)}
+<div class="overflow-x-auto">
+  <div class="stats bg-chart-dark shadow-lg">
+    <StatPanelItem title="Total Hours" icon="mdi:clock-outline">
+      {formatTime(totalSeconds)}
     </StatPanelItem>
-    <StatPanelItem title="No Code Days" icon="material-symbols:code-blocks-outline-rounded">
-      {holidayCount} days
-    </StatPanelItem>
-  {/if}
-  {#if showFullPanel}
-    <StatPanelItem title="Top Project" icon="material-symbols:folder-outline-rounded">
-      <a class="link-hover link" href={Url.ProjectDetail(topProject)}>{topProject}</a>
-    </StatPanelItem>
-    <StatPanelItem title="Top Language" icon="tabler:world">
-      {topLanguage}
-    </StatPanelItem>
-  {/if}
+    {#if !isSingleDay}
+      <StatPanelItem title="Daily Average" icon="material-symbols:bar-chart-rounded">
+        {formatTime(averageSeconds)}
+      </StatPanelItem>
+      <StatPanelItem title="No Code Days" icon="material-symbols:code-blocks-outline-rounded">
+        {holidayCount} days
+      </StatPanelItem>
+    {/if}
+    {#if showFullPanel}
+      <StatPanelItem title="Top Project" icon="material-symbols:folder-outline-rounded">
+        <a class="link-hover link" href={Url.ProjectDetail(topProject)}>{topProject}</a>
+      </StatPanelItem>
+      <StatPanelItem title="Top Language" icon="tabler:world">
+        {topLanguage}
+      </StatPanelItem>
+    {/if}
+  </div>
 </div>
