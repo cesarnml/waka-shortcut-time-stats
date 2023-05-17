@@ -1,4 +1,4 @@
-name: Daily Crons
+name: Today Crons
 
 on:
   schedule:
@@ -18,3 +18,6 @@ jobs:
       - name: Daily Summaries
         run: |
           curl https://codingstats.vercel.app/api/cron/wakatime/summaries/today
+      - name: Daily Project Summaries
+        run: |
+          curl https://codingstats.vercel.app/api/cron/wakatime/project-summaries/today

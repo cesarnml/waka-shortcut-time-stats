@@ -7,6 +7,7 @@
   import DailyTitleContent from '../BarChart/DailyTitleContent.svelte'
   import DailyChartControls from '../BarChart/DailyChartControls.svelte'
   import { createTimelineChartOption } from './timelineChartHelpers'
+
   export let durations: DurationsResult
   export let title = 'Context Switch'
   export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
