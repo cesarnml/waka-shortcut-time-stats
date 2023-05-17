@@ -1,24 +1,14 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
-import { formatTime, secPerMin } from '$lib/helpers/timeHelpers'
+import { formatTime } from '$lib/helpers/timeHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
 import type { ComposeOption, GaugeSeriesOption } from 'echarts'
 import zipObject from 'lodash/zipObject'
+import { computeAverageSeconds, getDates, getRatios } from '../Stats/summariesHelpers'
 
 export const createDisciplineGaugeData = (summaries: SummariesResult, date: string) => {
-  const totalSeconds = summaries.data.reduce((acc, summary) => {
-    return acc + summary.grand_total.total_seconds
-  }, 0)
-  const holidayCount = summaries.data.reduce((acc, summary) => {
-    if (summary.grand_total.total_seconds < secPerMin) {
-      return acc + 1
-    } else {
-      return acc
-    }
-  }, 0)
-  const dailyAverage = totalSeconds / (summaries.data.length - holidayCount)
-  const dates = summaries.data.map((summary) => summary.range.date).reverse()
-  const times = summaries.data.map((summary) => summary.grand_total.total_seconds).reverse()
-  const ratios = times.map((time) => time / dailyAverage)
+  const dailyAverage = computeAverageSeconds(summaries)
+  const dates = getDates(summaries).reverse()
+  const ratios = getRatios(summaries).reverse()
   const dateToRatioMap = zipObject(dates, ratios)
 
   return [
@@ -30,6 +20,7 @@ export const createDisciplineGaugeData = (summaries: SummariesResult, date: stri
 }
 
 type DisciplineGaugeData = { name: string; value: number }[]
+
 export const createDisciplineGaugeOption = (
   data: DisciplineGaugeData,
 ): ComposeOption<GaugeSeriesOption> => {

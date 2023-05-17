@@ -19,11 +19,11 @@ export const createPieChartData = (summaries: SummariesResult) => {
   }))
 }
 
-type ChartDatum = { name: string; value: number }
-type ChartData = ChartDatum[]
+type PieChartDatum = { name: string; value: number }
+type PieChartData = PieChartDatum[]
 
 export const createPieChartOption = (
-  data: ChartData,
+  data: PieChartData,
 ): ComposeOption<
   TooltipComponentOption | GridComponentOption | LegendComponentOption | PieSeriesOption
 > => ({
