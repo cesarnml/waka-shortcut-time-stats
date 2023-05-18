@@ -31,7 +31,7 @@ export const filterBreakdownChartData = (data: Record<string, number>) => {
 export const createBreakdownChartOption = (
   data: Record<string, number>,
 ): ComposeOption<GridComponentOption | TooltipComponentOption | BarSeriesOption> => ({
-  grid: { left: 25, right: 22, top: 20, bottom: 50 },
+  grid: { left: 25, right: 40, top: 20, bottom: 50 },
   tooltip: { valueFormatter: (value) => formatTime(Number(value) * secPerHour) },
   xAxis: {
     type: 'value',
