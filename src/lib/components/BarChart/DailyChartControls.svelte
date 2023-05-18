@@ -53,6 +53,7 @@
         class="text-2xl"
         icon="eos-icons:three-dots-loading"
         aria-label="loading spinner"
+        role="img"
       />
     {:else}
       {totalTime}
