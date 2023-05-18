@@ -25,7 +25,7 @@
       avatarUrl = url
     } catch (error) {
       if (error instanceof Error) {
-        console.log('Error downloading image: ', error.message)
+        throw new Error(error.message)
       }
     }
   }

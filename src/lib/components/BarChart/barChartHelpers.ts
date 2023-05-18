@@ -229,13 +229,6 @@ export const createActiveHoursData = (durations: DurationsResult) =>
       return acc
     }, Array(24).fill(0))
     .map((value: number, index) => {
-      console.log(
-        dayjs().isSame(durations.start, 'day'),
-        dayjs().hour() === index,
-        index,
-        dayjs(durations.start).format(DateFormat.Query),
-      )
-
       return {
         value,
         itemStyle:
@@ -286,7 +279,6 @@ export const createActiveHoursOption = (
           },
         },
         formatter: (value, index) => {
-          console.log('value:', value)
           if (index === dayjs().hour() && dayjs().isSame(durations.start, 'day')) {
             return `{a|${value}}`
           } else {
