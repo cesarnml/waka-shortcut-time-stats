@@ -11,7 +11,8 @@
     filterBreakdownChartData,
   } from './horizontalBarChartHelpers'
   import { Url } from '$lib/constants'
-
+  import 'iconify-icon'
+  import tippy from 'tippy.js'
   export let summaries: SummariesResult
   export let title: string
 
@@ -26,6 +27,7 @@
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+    tippy('[data-tippy-content]')
 
     chart.on('click', (params) => {
       goto(Url.ProjectDetail(params.name))
@@ -43,6 +45,19 @@
 </script>
 
 <ChartContainer>
-  <ChartTitle>{title}</ChartTitle>
+  <ChartTitle>
+    <div class="relative flex items-center justify-center">
+      <span />
+      <span>
+        {title}
+      </span>
+      <div class="absolute right-0 top-0 flex h-full items-center">
+        <iconify-icon
+          icon="solar:info-circle-linear"
+          data-tippy-content="Click the bar chart to view project details"
+        />
+      </div>
+    </div>
+  </ChartTitle>
   <div bind:this={chartRef} class="h-96" />
 </ChartContainer>

@@ -29,8 +29,8 @@ devDependencies:
     specifier: 2.22.0
     version: 2.22.0
   '@sveltejs/adapter-vercel':
-    specifier: 2.4.3
-    version: 2.4.3(@sveltejs/kit@1.18.0)
+    specifier: 3.0.0
+    version: 3.0.0(@sveltejs/kit@1.18.0)
   '@sveltejs/kit':
     specifier: 1.18.0
     version: 1.18.0(svelte@3.59.1)(vite@4.3.7)
@@ -151,6 +151,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2
+  tippy.js:
+    specifier: 6.3.7
+    version: 6.3.7
   tslib:
     specifier: 2.5.1
     version: 2.5.1
@@ -952,6 +955,10 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
+  /@popperjs/core@2.11.7:
+    resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==}
+    dev: true
+
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
@@ -1242,8 +1249,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/adapter-vercel@2.4.3(@sveltejs/kit@1.18.0):
-    resolution: {integrity: sha512-3k/3udwaioFYdKDAgQcWSByB+KCbtjX+ARonYGCtYE0iuxWLStrESxy3SaU+17XD5Frh8w7tfY8ft4TV3ej3Dg==}
+  /@sveltejs/adapter-vercel@3.0.0(@sveltejs/kit@1.18.0):
+    resolution: {integrity: sha512-XHbgdYtEDM70tRAN3AV5mQAis/9yLka7mLEWjzuhMwo377U1jfwxBzq2YYZdL4OF3rQnegR3yf92fTWnkEILPQ==}
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
@@ -5699,6 +5706,12 @@ packages:
   /tinyspy@2.1.0:
     resolution: {integrity: sha512-7eORpyqImoOvkQJCSkL0d0mB4NHHIFAy4b1u8PHdDa7SjGS2njzl6/lyGoZLm+eyYEtlUmFGE0rFj66SWxZgQQ==}
     engines: {node: '>=14.0.0'}
+    dev: true
+
+  /tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+    dependencies:
+      '@popperjs/core': 2.11.7
     dev: true
 
   /tmp@0.0.33:
