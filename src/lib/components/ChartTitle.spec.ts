@@ -4,5 +4,5 @@ import ChartTitle from './ChartTitle.svelte'
 it('render a ChartTitle', async () => {
   render(ChartTitle)
 
-  expect(screen.getByRole('heading')).toBeInTheDocument()
+  expect(screen.getByTestId('chart-title')).toBeInTheDocument()
 })
