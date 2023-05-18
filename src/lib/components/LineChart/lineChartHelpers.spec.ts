@@ -1,6 +1,6 @@
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import { createLineChartOption, createLineChartData } from './lineChartHelpers'
+import { createLineChartData } from './lineChartHelpers'
 
 const summaries = {
   color: ChartColor.Default,

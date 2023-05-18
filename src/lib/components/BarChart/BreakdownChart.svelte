@@ -13,22 +13,33 @@
   import { Url } from '$lib/constants'
   import 'iconify-icon'
   import tippy from 'tippy.js'
+  import { secPerHour } from '$lib/helpers/timeHelpers'
   export let summaries: SummariesResult
   export let title: string
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let isFiltered: boolean
+  let isFiltered = true
 
   $: data = createBreakdownChartData(summaries)
   $: filteredData = filterBreakdownChartData(data)
-  $: option = createBreakdownChartOption(isFiltered ? filteredData : data)
+  $: option = createBreakdownChartOption(
+    isFiltered
+      ? filteredData
+      : Object.entries(data).reduce((acc, [key, value]) => {
+          return { ...acc, [key]: value / secPerHour }
+        }, {} as Record<string, number>),
+  )
 
   onMount(() => {
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
-    tippy(document.querySelectorAll('[data-tippy-content]'))
+    tippy(document.querySelectorAll('[data-tippy-content]'), {
+      theme: 'light',
+      animation: 'scale',
+      duration: [500, 0],
+    })
 
     chart.on('click', (params) => {
       goto(Url.ProjectDetail(params.name))
@@ -41,7 +52,10 @@
   })
 
   afterUpdate(() => {
-    tippy(document.querySelectorAll('[data-tippy-content]'))
+    tippy(document.querySelectorAll('[data-tippy-content]'), {
+      theme: 'light',
+      animation: 'scale',
+    })
     chart.setOption(option)
   })
 </script>
@@ -54,7 +68,7 @@
         {title}
       </span>
 
-      <div class="absolute right-0 top-0 flex h-full h-full items-center gap-4">
+      <div class="absolute right-0 top-0 flex h-full items-center gap-4">
         <button on:click={() => (isFiltered = !isFiltered)} class="flex items-center">
           {#if isFiltered}
             <iconify-icon
