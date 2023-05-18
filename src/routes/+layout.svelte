@@ -7,9 +7,8 @@
   import { inject } from '@vercel/analytics'
   import Footer from '$lib/components/Footer.svelte'
   import PageTransition from '$lib/components/PageTransition.svelte'
-  import { selectedRange } from '$lib/stores/selectedRange'
-  import { WakaApiRange, type KeyOf } from '$lib/constants'
   import { page } from '$app/stores'
+  import 'tippy.js/dist/tippy.css'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
