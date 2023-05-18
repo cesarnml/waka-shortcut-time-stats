@@ -13,22 +13,34 @@
   import { Url } from '$lib/constants'
   import 'iconify-icon'
   import tippy from 'tippy.js'
+  import { secPerHour } from '$lib/helpers/timeHelpers'
+
   export let summaries: SummariesResult
   export let title: string
+  export let isFiltered = true
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
-  let isFiltered: boolean
 
   $: data = createBreakdownChartData(summaries)
   $: filteredData = filterBreakdownChartData(data)
-  $: option = createBreakdownChartOption(isFiltered ? filteredData : data)
+  $: option = createBreakdownChartOption(
+    isFiltered
+      ? filteredData
+      : Object.entries(data).reduce((acc, [key, value]) => {
+          return { ...acc, [key]: value / secPerHour }
+        }, {} as Record<string, number>),
+  )
 
   onMount(() => {
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
-    tippy(document.querySelectorAll('[data-tippy-content]'))
+    tippy(document.querySelectorAll('[data-tippy-content]'), {
+      theme: 'light',
+      animation: 'scale',
+      duration: [500, 0],
+    })
 
     chart.on('click', (params) => {
       goto(Url.ProjectDetail(params.name))
@@ -41,7 +53,10 @@
   })
 
   afterUpdate(() => {
-    tippy(document.querySelectorAll('[data-tippy-content]'))
+    tippy(document.querySelectorAll('[data-tippy-content]'), {
+      theme: 'light',
+      animation: 'scale',
+    })
     chart.setOption(option)
   })
 </script>
@@ -50,29 +65,34 @@
   <ChartTitle>
     <div class="relative flex items-center justify-center">
       <span />
-      <span>
+      <h2>
         {title}
-      </span>
-
-      <div class="absolute right-0 top-0 flex h-full h-full items-center gap-4">
+      </h2>
+      <div class="absolute right-0 top-0 flex h-full items-center gap-6">
         <button on:click={() => (isFiltered = !isFiltered)} class="flex items-center">
           {#if isFiltered}
             <iconify-icon
               class="h-full text-base"
               icon="bi:filter-circle"
               data-tippy-content="Show all projects"
+              role="img"
+              aria-label="filter on"
             />
           {:else}
             <iconify-icon
               class="h-full text-base text-zinc-500"
               icon="bi:filter-circle"
               data-tippy-content="Hide small values"
+              role="img"
+              aria-label="filter off"
             />
           {/if}
         </button>
         <iconify-icon
           icon="solar:info-circle-linear"
           data-tippy-content="Click a bar to view project details"
+          role="img"
+          aria-label="info"
         />
       </div>
     </div>

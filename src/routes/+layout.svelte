@@ -9,6 +9,8 @@
   import PageTransition from '$lib/components/PageTransition.svelte'
   import { page } from '$app/stores'
   import 'tippy.js/dist/tippy.css'
+  import 'tippy.js/themes/light.css'
+  import 'tippy.js/animations/scale.css'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
