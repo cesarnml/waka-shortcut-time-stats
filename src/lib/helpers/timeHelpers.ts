@@ -10,6 +10,7 @@ export const DateFormat = {
   Shortish: 'MMM Do',
   Long: 'MMM DD YYYY',
   Query: 'YYYY-MM-DD',
+  TwelveHour: 'h:mm a',
 } as const
 
 export const secPerMin = 60

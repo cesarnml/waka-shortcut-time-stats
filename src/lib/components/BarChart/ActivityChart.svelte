@@ -17,7 +17,7 @@
   let chart: echarts.ECharts
 
   $: data = createActiveHoursData(durations)
-  $: option = createActiveHoursOption(data)
+  $: option = createActiveHoursOption(data, durations)
 
   onMount(() => {
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
@@ -36,7 +36,7 @@
 </script>
 
 <ChartContainer>
-  <ChartTitle><DailyTitleContent title="Activity" {durations} /></ChartTitle>
+  <ChartTitle><DailyTitleContent showCurrentTime title="Activity" {durations} /></ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
   <div class="h-96 w-full" bind:this={chartRef} />
 </ChartContainer>

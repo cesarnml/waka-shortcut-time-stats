@@ -13,14 +13,14 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const durationsResult: DurationsResult = await response.json()
 
   const { data: existingDuration } = await supabase
-    .from('durations')
+    .from('durations_by_language')
     .select('*')
     .eq('date', yesterday)
     .single()
 
   if (existingDuration) {
     const output = await supabase
-      .from('durations')
+      .from('durations_by_language')
       .update({ data: durationsResult.data })
       .eq('date', yesterday)
     return json(output)
