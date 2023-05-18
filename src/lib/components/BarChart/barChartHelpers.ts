@@ -228,20 +228,32 @@ export const createActiveHoursData = (durations: DurationsResult) =>
       }
       return acc
     }, Array(24).fill(0))
-    .map((value: number) => ({
-      value,
-      itemStyle:
-        value > 45
-          ? { color: ChartColor.Great }
-          : value > 30
-          ? { color: ChartColor.Good }
-          : value > 15
-          ? { color: ChartColor.Fair }
-          : { color: ChartColor.Poor },
-    }))
+    .map((value: number, index) => {
+      console.log(
+        dayjs().isSame(durations.start, 'day'),
+        dayjs().hour() === index,
+        index,
+        dayjs(durations.start).format(DateFormat.Query),
+      )
+
+      return {
+        value,
+        itemStyle:
+          dayjs().isSame(durations.start, 'day') && dayjs().hour() === index
+            ? { color: ChartColor.Time }
+            : value > 45
+            ? { color: ChartColor.Great }
+            : value > 30
+            ? { color: ChartColor.Good }
+            : value > 15
+            ? { color: ChartColor.Fair }
+            : { color: ChartColor.Poor },
+      }
+    })
 
 export const createActiveHoursOption = (
   data: ReturnType<typeof createActiveHoursData>,
+  durations: DurationsResult,
 ): echarts.ComposeOption<
   echarts.GridComponentOption | echarts.ToolboxComponentOption | echarts.BarSeriesOption
 > => {
@@ -256,6 +268,7 @@ export const createActiveHoursOption = (
   const totalMinutes = sum(data.map((datum) => datum.value))
   const outerMinutes = totalMinutes - innerMinutes
 
+  /** @type EChartsOption */
   return {
     grid: { left: 45, right: 10, top: 20, bottom: 50 },
     xAxis: {
@@ -264,9 +277,22 @@ export const createActiveHoursOption = (
       nameLocation: 'middle',
       nameGap: 30,
       data: hours,
-
       axisLabel: {
         showMaxLabel: true,
+        show: true,
+        rich: {
+          a: {
+            color: ChartColor.Time,
+          },
+        },
+        formatter: (value, index) => {
+          console.log('value:', value)
+          if (index === dayjs().hour() && dayjs().isSame(durations.start, 'day')) {
+            return `{a|${value}}`
+          } else {
+            return value
+          }
+        },
       },
     },
     yAxis: {

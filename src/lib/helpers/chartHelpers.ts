@@ -46,6 +46,8 @@ export const ChartColor = {
   Good: '#62BAF3',
   Fair: '#ffff00',
   Poor: '#ff0000',
+  Purple: '#9581F7',
+  Time: '#F97316',
 } as const
 
 export const SummaryItemType = {
