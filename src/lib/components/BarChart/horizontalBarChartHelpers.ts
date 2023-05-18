@@ -69,11 +69,11 @@ export const createBreakdownChartOption = (
       colorBy: 'data',
       label: {
         show: true,
-        position: 'right',
+        position: 'insideTopRight',
         color: ChartColor.Text,
         fontWeight: 'bold',
         fontSize: 10,
-        offset: [5, -50],
+        offset: [55, 0],
         formatter: (params) => formatTime(Number(params.value) * secPerHour),
       },
     },
