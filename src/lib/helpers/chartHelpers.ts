@@ -83,6 +83,12 @@ export const createItemNameToTimeDict = (items: Item[]) =>
     return acc
   }, {} as Record<string, number>)
 
+export const convertDataDictToChartData = (dataDict: Record<string, number>) =>
+  Object.entries(dataDict).map(([name, value]) => ({
+    name,
+    value,
+  }))
+
 export const NO_SHORT_BRANCH_NAME = 'N/A'
 export const getBranchShortName = (name: string) =>
   // eslint-disable-next-line
