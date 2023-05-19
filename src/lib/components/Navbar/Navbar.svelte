@@ -8,7 +8,7 @@
   import { navigating } from '$app/stores'
   import { fade } from 'svelte/transition'
   import { loading } from '$lib/stores/loading'
-
+  import logo from '$lib/assets/images/logo.webp'
   $: if ($media.sm) {
     dropdown.close()
   }
@@ -22,8 +22,8 @@
     <div class="navbar-start">
       <NavLogo>
         <img
-          src="/assets/images/logo.png"
-          class="relative h-full scale-[1.5] transition hover:scale-[1.7]"
+          src={logo}
+          class="relative scale-125 transition-transform hover:scale-150"
           alt="logo"
           width="46"
           height="46"

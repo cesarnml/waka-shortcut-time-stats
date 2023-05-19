@@ -35,7 +35,7 @@
   <link rel="canonical" href={$page.url.href} />
 </svelte:head>
 
-<main class="bg-[url('/bg4.svg')]">
+<main class="bg-[url('/assets/images/bg4.svg')]">
   <Navbar />
   <div class="relative mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
     <PageTransition {pathname}>
