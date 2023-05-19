@@ -143,7 +143,7 @@ export const RestResource = {
   AllTime: '/api/v1/users/current/all_time_since_today',
   Stories: '/api/v3/search/stories',
   Iterations: '/api/v3/iterations',
-  IterationStories: (id: string) => `/api/v3/iterations/${id}/stories`,
+  IterationStories: (id: string | number) => `/api/v3/iterations/${id}/stories`,
   Aliases: '/v4/aliases',
   VercelProjects: '/v9/projects',
 } as const
