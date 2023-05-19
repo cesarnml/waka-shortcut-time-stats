@@ -5,10 +5,11 @@
   import advanceFormat from 'dayjs/plugin/advancedFormat.js'
   import type { SummariesResult } from '$src/types/wakatime'
   import { afterUpdate } from 'svelte'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createDisciplineGaugeData, createDisciplineGaugeOption } from './gaugeChartHelpers'
   import DailyGaugeControls from './DailyGaugeControls.svelte'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   dayjs.extend(advanceFormat)
 
@@ -40,8 +41,10 @@
   const onUpdate = (e: CustomEvent<string>) => (selectedDate = e.detail)
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>{title}</ChartTitle>
   <DailyGaugeControls {summaries} {selectedDate} on:update={onUpdate} />
-  <div bind:this={chartRef} class="h-96" />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} />
+  </ChartContainer>
+</Container>

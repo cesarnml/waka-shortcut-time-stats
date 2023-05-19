@@ -148,4 +148,4 @@ export const RestResource = {
   VercelProjects: '/v9/projects',
 } as const
 
-export type ToData<T> = { data: T }
+export type DataContainer<T> = { data: T }

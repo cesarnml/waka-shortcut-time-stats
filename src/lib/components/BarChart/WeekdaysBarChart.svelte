@@ -1,11 +1,12 @@
 <script lang="ts">
   import * as echarts from 'echarts'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createSimpleBarChartOption, type SimpleBarChartOption } from './barChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
   import { onMount } from 'svelte'
   import { afterUpdate } from 'svelte'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title = 'Weekly Breakdown'
@@ -32,7 +33,9 @@
   })
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>{title}</ChartTitle>
-  <div class="h-96" bind:this={chartRef} />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} />
+  </ChartContainer>
+</Container>

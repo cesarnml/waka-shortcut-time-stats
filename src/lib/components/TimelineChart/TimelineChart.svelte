@@ -2,11 +2,12 @@
   import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import DailyTitleContent from '../BarChart/DailyTitleContent.svelte'
   import DailyChartControls from '../BarChart/DailyChartControls.svelte'
   import { createTimelineChartOption } from './timelineChartHelpers'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let durations: DurationsResult
   export let title = 'Context Switch'
@@ -33,10 +34,12 @@
   const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>
     <DailyTitleContent {title} {durations} />
   </ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
-  <div bind:this={chartRef} class="h-96" />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} />
+  </ChartContainer>
+</Container>
