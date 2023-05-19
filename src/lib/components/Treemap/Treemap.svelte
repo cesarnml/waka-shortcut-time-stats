@@ -3,13 +3,14 @@
   import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import {
     createProjectFileToTimeDict,
     createTreemapData,
     createTreemapOption,
   } from './treemapHelpers'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title: string
@@ -38,9 +39,11 @@
   })
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>{title}</ChartTitle>
   <div class="p-6">
-    <div class="h-[600px]" bind:this={chartRef} />
+    <ChartContainer>
+      <div class="h-full w-full" bind:this={chartRef} />
+    </ChartContainer>
   </div>
-</ChartContainer>
+</Container>

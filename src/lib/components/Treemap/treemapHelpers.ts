@@ -85,10 +85,14 @@ export const createTreemapOption = (
     {
       type: 'treemap',
       name: projectName,
-      visibleMin: 400,
+      width: '95%',
+      height: '95%',
+      leafDepth: 1,
+      drillDownIcon: '▶',
       label: {
         show: true,
-        formatter: '{b}',
+        verticalAlign: 'middle',
+        formatter: (params) => `${params.name}\n\n${formatTime(Number(params.value) * secPerHour)}`,
       },
       upperLabel: {
         show: true,

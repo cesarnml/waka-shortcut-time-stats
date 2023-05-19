@@ -4,7 +4,7 @@
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
   import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
   import WeekdaysBarChart from '$lib/components/BarChart/WeekdaysBarChart.svelte'
-  import ChartContainer from '$lib/components/ChartContainer.svelte'
+  import Container from '$lib/components/Container.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
   import DateRangeSelect from '$lib/components/DateRangeSelect.svelte'
   import LineChart from '$lib/components/LineChart/LineChart.svelte'
@@ -78,7 +78,7 @@
     <StackedBarChart {summaries} itemsType="categories" title="Coding Activity by Category" />
   </div>
   <VerticalBarChart {summaries} title="Branch Completion" />
-  <ChartContainer>
+  <Container>
     <ChartTitle>Preview Branch Deploy</ChartTitle>
     <div class="grid grid-cols-1 gap-2 px-6 pb-6 lg:grid-cols-2">
       {#await aliases}
@@ -97,7 +97,7 @@
         {/each}
       {/await}
     </div>
-  </ChartContainer>
+  </Container>
   <ScatterPlot {summaries} {stories} />
   <Treemap {summaries} title="Files In Focus" />
 </div>

@@ -9,17 +9,16 @@ export default {
       colors: {
         'chart-dark': '#0F0C28',
       },
+      aspectRatio: {
+        chart: '2/1',
+        '4/3': '4 / 3',
+        '35mm': '3 / 2',
+        photo: '5/4',
+        tiktok: '9/16',
+      },
     },
   },
-  corePlugins: {
-    aspectRatio: false,
-  },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
-    require('daisyui'),
-  ],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms'), require('daisyui')],
   daisyui: {
     styled: true,
     themes: ['synthwave', 'night'],

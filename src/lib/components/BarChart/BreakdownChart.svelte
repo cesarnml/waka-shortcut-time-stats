@@ -3,7 +3,7 @@
   import type { SummariesResult } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import {
     createBreakdownChartData,
@@ -14,6 +14,7 @@
   import 'iconify-icon'
   import tippy from 'tippy.js'
   import { secPerHour } from '$lib/helpers/timeHelpers'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title: string
@@ -61,7 +62,7 @@
   })
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>
     <div class="relative flex items-center justify-center">
       <span />
@@ -97,5 +98,7 @@
       </div>
     </div>
   </ChartTitle>
-  <div bind:this={chartRef} class="h-96" />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} />
+  </ChartContainer>
+</Container>

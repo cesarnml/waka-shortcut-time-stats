@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import type { SummariesResult } from '$src/types/wakatime'
   import { ApiEndpoint, SHORTCUT_STORY_IDENTIFIER } from '$lib/constants'
@@ -10,6 +10,7 @@
     createVerticalBarChartDatasetSource,
     createVerticalBarChartOption,
   } from './verticalBarChartHelpers'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title = 'Branches vs Time'
@@ -53,7 +54,9 @@
   })
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>{title}</ChartTitle>
-  <div class="h-96" bind:this={chartRef} />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} />
+  </ChartContainer>
+</Container>

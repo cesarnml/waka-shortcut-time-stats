@@ -1,10 +1,11 @@
 <script lang="ts">
   import { afterUpdate, onMount } from 'svelte'
   import * as echarts from 'echarts'
-  import ChartContainer from '../ChartContainer.svelte'
+  import Container from '../Container.svelte'
   import ChartTitle from '../ChartTitle.svelte'
   import { createPieChartOption, createPieChartData } from './pieChartHelpers'
   import type { SummariesResult } from '$src/types/wakatime'
+  import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title: string
@@ -31,7 +32,9 @@
   })
 </script>
 
-<ChartContainer>
+<Container>
   <ChartTitle>{title}</ChartTitle>
-  <div class="h-96" bind:this={chartRef} data-testid="chart" />
-</ChartContainer>
+  <ChartContainer>
+    <div class="h-full w-full" bind:this={chartRef} data-testid="chart" />
+  </ChartContainer>
+</Container>

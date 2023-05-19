@@ -33,10 +33,7 @@ devDependencies:
     version: 3.0.0(@sveltejs/kit@1.18.0)
   '@sveltejs/kit':
     specifier: 1.18.0
-    version: 1.18.0(svelte@3.59.1)(vite@4.3.7)
-  '@tailwindcss/aspect-ratio':
-    specifier: 0.4.2
-    version: 0.4.2(tailwindcss@3.3.2)
+    version: 1.18.0(svelte@3.59.1)(vite@4.3.8)
   '@tailwindcss/forms':
     specifier: 0.5.3
     version: 0.5.3(tailwindcss@3.3.2)
@@ -155,17 +152,17 @@ devDependencies:
     specifier: 6.3.7
     version: 6.3.7
   tslib:
-    specifier: 2.5.1
-    version: 2.5.1
+    specifier: 2.5.2
+    version: 2.5.2
   typescript:
     specifier: 5.0.4
     version: 5.0.4
   vite:
-    specifier: 4.3.7
-    version: 4.3.7(@types/node@18.15.11)
+    specifier: 4.3.8
+    version: 4.3.8(@types/node@18.15.11)
   vite-plugin-inspect:
     specifier: 0.7.26
-    version: 0.7.26(vite@4.3.7)
+    version: 0.7.26(vite@4.3.8)
   vitest:
     specifier: 0.31.1
     version: 0.31.1(@vitest/ui@0.31.1)(jsdom@22.0.0)
@@ -1171,7 +1168,7 @@ packages:
     dependencies:
       '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.22.0)
       '@supabase/supabase-js': 2.22.0
-      '@sveltejs/kit': 1.18.0(svelte@3.59.1)(vite@4.3.7)
+      '@sveltejs/kit': 1.18.0(svelte@3.59.1)(vite@4.3.8)
     dev: true
 
   /@supabase/auth-ui-shared@0.1.6(@supabase/supabase-js@2.22.0):
@@ -1254,7 +1251,7 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
-      '@sveltejs/kit': 1.18.0(svelte@3.59.1)(vite@4.3.7)
+      '@sveltejs/kit': 1.18.0(svelte@3.59.1)(vite@4.3.8)
       '@vercel/nft': 0.22.6
       esbuild: 0.17.18
     transitivePeerDependencies:
@@ -1262,7 +1259,7 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit@1.18.0(svelte@3.59.1)(vite@4.3.7):
+  /@sveltejs/kit@1.18.0(svelte@3.59.1)(vite@4.3.8):
     resolution: {integrity: sha512-QE5X9gCG34khrO6j01ZbRXtVx+yyUNe8PmVPeG0M+I8eyFejqYMEhD1JtjCrLzpd4KukvuO8bL35M1VWmPM7hQ==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
@@ -1271,7 +1268,7 @@ packages:
       svelte: ^3.54.0
       vite: ^4.0.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.1.1(svelte@3.59.1)(vite@4.3.7)
+      '@sveltejs/vite-plugin-svelte': 2.1.1(svelte@3.59.1)(vite@4.3.8)
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.1
@@ -1285,12 +1282,12 @@ packages:
       svelte: 3.59.1
       tiny-glob: 0.2.9
       undici: 5.22.0
-      vite: 4.3.7(@types/node@18.15.11)
+      vite: 4.3.8(@types/node@18.15.11)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@sveltejs/vite-plugin-svelte@2.1.1(svelte@3.59.1)(vite@4.3.7):
+  /@sveltejs/vite-plugin-svelte@2.1.1(svelte@3.59.1)(vite@4.3.8):
     resolution: {integrity: sha512-7YeBDt4us0FiIMNsVXxyaP4Hwyn2/v9x3oqStkHU3ZdIc5O22pGwUwH33wUqYo+7Itdmo8zxJ45Qvfm3H7UUjQ==}
     engines: {node: ^14.18.0 || >= 16}
     peerDependencies:
@@ -1303,18 +1300,10 @@ packages:
       magic-string: 0.30.0
       svelte: 3.59.1
       svelte-hmr: 0.15.1(svelte@3.59.1)
-      vite: 4.3.7(@types/node@18.15.11)
-      vitefu: 0.2.4(vite@4.3.7)
+      vite: 4.3.8(@types/node@18.15.11)
+      vitefu: 0.2.4(vite@4.3.8)
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.3.2):
-    resolution: {integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==}
-    peerDependencies:
-      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
-    dependencies:
-      tailwindcss: 3.3.2
     dev: true
 
   /@tailwindcss/forms@0.5.3(tailwindcss@3.3.2):
@@ -5111,7 +5100,7 @@ packages:
   /rxjs@7.8.0:
     resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
-      tslib: 2.5.1
+      tslib: 2.5.2
     dev: true
 
   /sade@1.8.1:
@@ -5784,8 +5773,8 @@ packages:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
     dev: true
 
-  /tslib@2.5.1:
-    resolution: {integrity: sha512-KaI6gPil5m9vF7DKaoXxx1ia9fxS4qG5YveErRRVknPDXXriu5M8h48YRjB6h5ZUOKuAKlSJYb0GaDe8I39fRw==}
+  /tslib@2.5.2:
+    resolution: {integrity: sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==}
     dev: true
 
   /tsutils@3.21.0(typescript@5.0.4):
@@ -5963,7 +5952,7 @@ packages:
       mlly: 1.2.0
       pathe: 1.1.0
       picocolors: 1.0.0
-      vite: 4.3.7(@types/node@18.15.11)
+      vite: 4.3.8(@types/node@18.15.11)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -5974,7 +5963,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-inspect@0.7.26(vite@4.3.7):
+  /vite-plugin-inspect@0.7.26(vite@4.3.8):
     resolution: {integrity: sha512-gRjBay+OxLr/Dr+HXlfJVXZH0cqhE5hkkBvo2du2cA1LGUBnV8Aym89AdPrURkSpTk3Rvw9dNWM2VLIuw6RKJg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -5986,14 +5975,14 @@ packages:
       fs-extra: 11.1.1
       picocolors: 1.0.0
       sirv: 2.0.3
-      vite: 4.3.7(@types/node@18.15.11)
+      vite: 4.3.8(@types/node@18.15.11)
     transitivePeerDependencies:
       - rollup
       - supports-color
     dev: true
 
-  /vite@4.3.7(@types/node@18.15.11):
-    resolution: {integrity: sha512-MTIFpbIm9v7Hh5b0wSBgkcWzSBz7SAa6K/cBTwS4kUiQJfQLFlZZRJRQgqunCVzhTPCk674tW+0Qaqh3Q00dBg==}
+  /vite@4.3.8(@types/node@18.15.11):
+    resolution: {integrity: sha512-uYB8PwN7hbMrf4j1xzGDk/lqjsZvCDbt/JC5dyfxc19Pg8kRm14LinK/uq+HSLNswZEoKmweGdtpbnxRtrAXiQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -6025,7 +6014,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitefu@0.2.4(vite@4.3.7):
+  /vitefu@0.2.4(vite@4.3.8):
     resolution: {integrity: sha512-fanAXjSaf9xXtOOeno8wZXIhgia+CZury481LsDaV++lSvcU2R9Ch2bPh3PYFyoHW+w9LqAeYRISVQjUIew14g==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0
@@ -6033,7 +6022,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.3.7(@types/node@18.15.11)
+      vite: 4.3.8(@types/node@18.15.11)
     dev: true
 
   /vitest@0.31.1(@vitest/ui@0.31.1)(jsdom@22.0.0):
@@ -6091,7 +6080,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.7(@types/node@18.15.11)
+      vite: 4.3.8(@types/node@18.15.11)
       vite-node: 0.31.1(@types/node@18.15.11)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
