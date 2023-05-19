@@ -23,7 +23,7 @@
 </script>
 
 <select
-  class="select-accent select w-full text-accent sm:w-fit sm:bg-neutral-focus"
+  class="select-accent select w-full bg-neutral-focus text-accent sm:w-fit"
   bind:value={$selectedRange}
   on:change={handleChange}
 >
