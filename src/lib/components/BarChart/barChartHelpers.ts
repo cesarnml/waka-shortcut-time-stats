@@ -56,12 +56,13 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
 
   const yDataByItem = zipObject(
     itemNames,
-    JSON.parse(JSON.stringify(Array(itemNames.length).fill(Array(xValues.length).fill(0)))),
+    Array(itemNames.length)
+      .fill(null)
+      .map(() => Array(xValues.length).fill(0)),
   )
 
   itemsByXValues.forEach((items, index) => {
     items.forEach((item) => {
-      // @ts-expect-error tough type
       yDataByItem[item.name][index] = item.total_seconds / secPerHour
     })
   })
