@@ -28,7 +28,7 @@
 <div class="space-y-8">
   <form class="flex items-center gap-4 px-4 pt-4" on:submit={handleSearch}>
     <input class="input-primary input flex-shrink text-base" bind:value placeholder="Search" />
-    <button class="btn-primary btn-wide btn flex-shrink">Submit</button>
+    <button class="btn-primary btn-wide btn flex-shrink" type="submit">Submit</button>
   </form>
   <ul class="w-full space-y-4 px-4">
     {#each projectsResult.data as { name, color } (name)}
@@ -41,10 +41,14 @@
           href={Url.ProjectDetail(name)}>{name}</a
         >
         {#if (trackedProjects ?? []).map((p) => p.name).includes(name)}
-          <button class="btn-sm btn" on:click={() => onUnTrackProject(name)}>Tracking</button>
+          <button class="btn-sm btn" type="button" on:click={() => onUnTrackProject(name)}
+            >Tracking</button
+          >
         {:else}
-          <button class="btn-secondary btn-sm btn" on:click={() => onTrackProject(name)}
-            >Track</button
+          <button
+            class="btn-secondary btn-sm btn"
+            type="button"
+            on:click={() => onTrackProject(name)}>Track</button
           >
         {/if}
       </li>

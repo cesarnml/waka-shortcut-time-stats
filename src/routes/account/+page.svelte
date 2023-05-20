@@ -74,7 +74,7 @@
 
   <form method="post" action="?/signout" use:enhance={handleSubmit}>
     <div>
-      <button class="button block" disabled={loading}>Sign Out</button>
+      <button class="button block" type="submit" disabled={loading}>Sign Out</button>
     </div>
   </form>
 </div>

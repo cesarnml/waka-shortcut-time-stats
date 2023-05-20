@@ -13,6 +13,7 @@
   class:active={$page.url.pathname === url}
   class:text-lg={isLarge}
   class:text-base={!isLarge}
+  type="button"
   on:click={() => {
     dropdown.close()
     goto(url)

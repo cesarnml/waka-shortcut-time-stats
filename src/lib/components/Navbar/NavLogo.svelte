@@ -5,6 +5,7 @@
 </script>
 
 <button
+  type="button"
   on:click={() => {
     dropdown.close()
     goto(Url.Home)

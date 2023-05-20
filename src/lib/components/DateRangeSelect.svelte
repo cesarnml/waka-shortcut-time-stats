@@ -26,6 +26,7 @@
   class="select-accent select w-full bg-neutral-focus text-accent sm:w-fit"
   bind:value={$selectedRange}
   on:change={handleChange}
+  title="Select data range"
 >
   <option disabled selected>Pick a range</option>
   {#each Object.values(WakaApiRange) as range (range)}

@@ -41,6 +41,7 @@
 <div class="flex items-center justify-center gap-4">
   <button
     class="btn-outline btn-square btn-sm btn flex items-center"
+    type="button"
     on:click={getPrevDate}
     disabled={isPrevDisabled}
     aria-label="left arrow"
@@ -61,6 +62,7 @@
   </div>
   <button
     class="btn-outline btn-square btn-sm btn flex items-center"
+    type="button"
     on:click={getNextDate}
     disabled={isNextDisabled}
     aria-label="right arrow"
