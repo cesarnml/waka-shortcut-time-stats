@@ -22,9 +22,6 @@
 
   $: xValues = createXAxisValues(summaries)
   $: series = createBarChartSeries({ summaries, itemsType })
-  $: {
-    console.log('series:', series)
-  }
   $: option = createStackedBarChartOption(xValues, series)
 
   onMount(() => {
@@ -40,6 +37,8 @@
   })
 
   afterUpdate(() => {
+    chart.dispose()
+    chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     chart.setOption(option)
   })
 </script>
