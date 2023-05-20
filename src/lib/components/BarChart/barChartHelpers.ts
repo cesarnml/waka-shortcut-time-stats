@@ -45,7 +45,7 @@ const _createItemsByXValues = ({ summaries, itemsType }: Params) =>
 
 const _getItemNames = ({ summaries, itemsType }: Params) => [
   ...new Set(
-    summaries.data.map((summary) => summary[itemsType].map((project) => project.name)).flat(),
+    summaries.data.flatMap((summary) => summary[itemsType].map((project) => project.name)),
   ),
 ]
 
@@ -68,8 +68,8 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
 
   return itemNames.map((itemName) => {
     return {
-      data: yDataByItem[itemName],
       type: 'bar',
+      data: yDataByItem[itemName],
       stack: 'total',
       name: itemName,
     }
