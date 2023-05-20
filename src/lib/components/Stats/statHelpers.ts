@@ -4,7 +4,7 @@ import {
   getSummaryItems,
 } from '$lib/helpers/chartHelpers'
 import type { SummariesResult } from '$src/types/wakatime'
-import { isEmpty } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import orderBy from 'lodash/orderBy'
 
 export const DEFAULT_EMPTY_MESSAGE = 'N/A'
