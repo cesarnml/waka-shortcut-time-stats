@@ -30,6 +30,7 @@
     chart = echarts.init(chartRef, 'dark', { renderer: 'svg' })
     const handleResize = () => chart.resize()
     window.addEventListener('resize', handleResize, { passive: true })
+    chart.setOption(option)
 
     // @ts-expect-error tough type
     chart.on('click', async (params) => {
