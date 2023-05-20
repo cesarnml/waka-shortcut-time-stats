@@ -10,6 +10,7 @@ export default {
         'chart-dark': '#0F0C28',
       },
       aspectRatio: {
+        panoramic: '3/1',
         chart: '2/1',
         '4/3': '4 / 3',
         '35mm': '3 / 2',

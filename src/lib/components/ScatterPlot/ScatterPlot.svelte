@@ -12,7 +12,7 @@
     createBranchesByEstimateDict,
     createScatterPlotOption,
   } from './scatterPlotHelpers'
-  import ChartContainer from '../common/ChartContainer.svelte'
+  import BigChartContainer from '../common/BigChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let stories: StorySearchResults
@@ -56,7 +56,7 @@
 
 <Container>
   <ChartTitle>{title}</ChartTitle>
-  <ChartContainer>
+  <BigChartContainer>
     <div class="h-full w-full" bind:this={chartRef} />
-  </ChartContainer>
+  </BigChartContainer>
 </Container>

@@ -10,7 +10,7 @@
     createVerticalBarChartDatasetSource,
     createVerticalBarChartOption,
   } from './verticalBarChartHelpers'
-  import ChartContainer from '../common/ChartContainer.svelte'
+  import BigChartContainer from '../common/BigChartContainer.svelte'
 
   export let summaries: SummariesResult
   export let title = 'Branches vs Time'
@@ -57,7 +57,7 @@
 
 <Container>
   <ChartTitle>{title}</ChartTitle>
-  <ChartContainer>
+  <BigChartContainer>
     <div class="h-full w-full" bind:this={chartRef} />
-  </ChartContainer>
+  </BigChartContainer>
 </Container>
