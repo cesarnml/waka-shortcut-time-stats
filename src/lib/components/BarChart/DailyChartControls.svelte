@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
+  import { ApiEndpoint, Step } from '$lib/constants'
+  import { DurationItemType, type ValueOfDurationItemType } from '$lib/helpers/chartHelpers'
   import { DateFormat, formatTime } from '$lib/helpers/timeHelpers'
-  import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
+  import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
   import dayjs from 'dayjs'
   import isToday from 'dayjs/plugin/isToday'
-  import { Api, Step } from '$lib/constants'
   import 'iconify-icon'
+  import { createEventDispatcher } from 'svelte'
 
   dayjs.extend(isToday)
 
-  export let durations: DurationsResult
-  export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
+  export let durations: SupabaseDuration
+  export let itemType: ValueOfDurationItemType
   let loading = false
 
   const PREV_DAYS_LIMIT = 13
@@ -20,15 +21,18 @@
 
   $: totalDuration = durations.data.reduce((acc, cur) => cur.duration + acc, 0)
   $: totalTime = formatTime(totalDuration).trim() || EMPTY_COPY
-  $: isNextDisabled = dayjs(durations.start).isToday() || loading
+  $: isNextDisabled = dayjs(durations.date).isToday() || loading
   $: isPrevDisabled =
-    dayjs(durations.start).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT), 'day') ||
+    dayjs(durations.date).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT), 'day') ||
     loading
 
   const onClick = async (step: Step) => {
     loading = true
-    const date = dayjs(durations.start).add(step, INCREMENT_UNIT).format(DateFormat.Query)
-    const response = await fetch(Api.WakaDurations(date, itemType))
+    const date = dayjs(durations.date).add(step, INCREMENT_UNIT).format(DateFormat.Query)
+    const response =
+      itemType === DurationItemType.Project
+        ? await fetch(`${ApiEndpoint.SupabaseDurations}?date=${date}`)
+        : await fetch(`${ApiEndpoint.SupabaseDurationsByLanguage}?date=${date}`)
     durations = await response.json()
     dispatch('update', durations)
     loading = false

@@ -1,5 +1,3 @@
-import type { SummariesResult } from '$src/types/wakatime'
-
 export const WakaSliceBy = {
   None: '',
   Entity: 'entity',
@@ -128,6 +126,8 @@ export const ApiEndpoint = {
   Aliases: `/api/vercel/aliases`,
   SupabaseSummaries: `/api/supabase/summaries`,
   SupabaseProjectSummaries: `/api/supabase/project-summaries`,
+  SupabaseDurations: `/api/supabase/durations`,
+  SupabaseDurationsByLanguage: `/api/supabase/durations-by-language`,
 } as const
 
 export const BaseUrl = {

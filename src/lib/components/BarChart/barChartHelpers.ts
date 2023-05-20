@@ -9,7 +9,8 @@ import {
   weekdays,
   type KeyOfDateMap,
 } from '$lib/helpers/timeHelpers'
-import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
+import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
+import type { SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import type {
@@ -18,6 +19,7 @@ import type {
   GridComponentOption,
   LegendComponentOption,
   LineSeriesOption,
+  MarkAreaComponentOption,
   TooltipComponentOption,
 } from 'echarts/types/dist/echarts'
 import sum from 'lodash/sum'
@@ -201,7 +203,7 @@ export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBa
   }
 }
 
-export const createActiveHoursData = (durations: DurationsResult) =>
+export const createActiveHoursData = (durations: SupabaseDuration) =>
   durations.data
     .reduce((acc, duration) => {
       const start = duration.time
@@ -234,7 +236,7 @@ export const createActiveHoursData = (durations: DurationsResult) =>
       return {
         value,
         itemStyle:
-          dayjs().isSame(durations.start, 'day') && dayjs().hour() === index
+          dayjs().isSame(durations.date, 'day') && dayjs().hour() === index
             ? { color: ChartColor.Time }
             : value > 45
             ? { color: ChartColor.Great }
@@ -248,8 +250,10 @@ export const createActiveHoursData = (durations: DurationsResult) =>
 
 export const createActiveHoursOption = (
   data: ReturnType<typeof createActiveHoursData>,
-  durations: DurationsResult,
-): ComposeOption<GridComponentOption | TooltipComponentOption | BarSeriesOption> => {
+  durations: SupabaseDuration,
+): ComposeOption<
+  GridComponentOption | TooltipComponentOption | BarSeriesOption | MarkAreaComponentOption
+> => {
   const startHour = '8a'
   const endHour = '5p'
   const goalMinutes = 300
@@ -279,7 +283,7 @@ export const createActiveHoursOption = (
           },
         },
         formatter: (value, index) => {
-          if (index === dayjs().hour() && dayjs().isSame(durations.start, 'day')) {
+          if (index === dayjs().hour() && dayjs().isSame(durations.date, 'day')) {
             return `{a|${value}}`
           } else {
             return value
@@ -298,7 +302,7 @@ export const createActiveHoursOption = (
       },
     },
     tooltip: {
-      valueFormatter: (value: number) => `${value}m`,
+      valueFormatter: (value) => `${value}m`,
     },
     series: [
       {
@@ -309,6 +313,7 @@ export const createActiveHoursOption = (
           itemStyle: {
             color: 'rgba(15,117,224,0.2)',
           },
+          // echarts-disable-next-line
           tooltip: {
             show: true,
             formatter: () => {
@@ -333,6 +338,7 @@ export const createActiveHoursOption = (
                 xAxis: startHour,
               },
               {
+                // echarts-disable-next-line
                 xAxis: hours[endIndex - 1],
               },
             ],

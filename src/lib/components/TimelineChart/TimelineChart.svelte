@@ -1,17 +1,19 @@
 <script lang="ts">
+  import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
   import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
-  import Container from '../Container.svelte'
-  import ChartTitle from '../ChartTitle.svelte'
-  import DailyTitleContent from '../BarChart/DailyTitleContent.svelte'
   import DailyChartControls from '../BarChart/DailyChartControls.svelte'
-  import { createTimelineChartOption } from './timelineChartHelpers'
+  import DailyTitleContent from '../BarChart/DailyTitleContent.svelte'
+  import ChartTitle from '../ChartTitle.svelte'
+  import Container from '../Container.svelte'
   import ChartContainer from '../common/ChartContainer.svelte'
+  import { createTimelineChartOption } from './timelineChartHelpers'
+  import type { ValueOfDurationItemType } from '$lib/helpers/chartHelpers'
 
-  export let durations: DurationsResult
+  export let durations: SupabaseDuration
   export let title = 'Context Switch'
-  export let itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>
+  export let itemType: ValueOfDurationItemType
 
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
@@ -32,7 +34,7 @@
 
   afterUpdate(() => chart.setOption(option))
 
-  const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
+  const onUpdate = (e: CustomEvent<SupabaseDuration>) => (durations = e.detail)
 </script>
 
 <Container>

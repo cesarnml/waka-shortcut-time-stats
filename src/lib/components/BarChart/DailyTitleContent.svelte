@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DateFormat } from '$lib/helpers/timeHelpers'
-  import type { DurationsResult } from '$src/types/wakatime'
+  import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
   import dayjs from 'dayjs'
   import advancedFormat from 'dayjs/plugin/advancedFormat'
   import { fade } from 'svelte/transition'
@@ -8,11 +8,11 @@
   dayjs.extend(advancedFormat)
 
   export let title: string
-  export let durations: DurationsResult
+  export let durations: SupabaseDuration
   export let showCurrentTime = false
 
-  $: date = dayjs(durations.start).format(DateFormat.Shortish)
-  $: isToday = dayjs().isSame(durations.start, 'day')
+  $: date = dayjs(durations.date).format(DateFormat.Shortish)
+  $: isToday = dayjs().isSame(durations.date, 'day')
 </script>
 
 <div class="flex px-2">

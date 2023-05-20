@@ -1,11 +1,12 @@
 import {
   ChartColor,
+  DurationItemType,
   LanguageColor,
   type KeyOfLanguageColor,
-  DurationItemType,
+  type ValueOfDurationItemType,
 } from '$lib/helpers/chartHelpers'
 import { formatTime, secPerHour, secPerMin } from '$lib/helpers/timeHelpers'
-import type { DurationsResult, WakaDuration } from '$src/types/wakatime'
+import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
 import dayjs from 'dayjs'
 import type { CustomSeriesOption, GridComponentOption, TooltipComponentOption } from 'echarts'
 import * as echarts from 'echarts'
@@ -15,10 +16,10 @@ import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 
 export const createTimelineChartOption = (
-  durations: DurationsResult,
-  itemType: keyof Omit<WakaDuration, 'color' | 'duration' | 'time'>,
+  durations: SupabaseDuration,
+  itemType: ValueOfDurationItemType,
 ): ComposeOption<TooltipComponentOption | GridComponentOption | CustomSeriesOption> => {
-  const startTime = dayjs(durations.start).unix() // coupling here prevents deconstruction of option/data creation
+  const startTime = dayjs(durations.date).unix() // coupling here prevents deconstruction of option/data creation
   const itemTypes = [...new Set(durations.data.map((duration) => duration[itemType]))]
   const itemTypeToDurationsDict = groupBy(durations.data, itemType)
   const itemTypesSortedByDuration = orderBy(itemTypes, (name) =>

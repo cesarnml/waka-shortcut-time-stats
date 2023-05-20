@@ -1,17 +1,15 @@
 <script lang="ts">
-  import * as echarts from 'echarts'
   import DailyChartControls from '$lib/components/BarChart/DailyChartControls.svelte'
-  import Container from '$lib/components/Container.svelte'
   import ChartTitle from '$lib/components/ChartTitle.svelte'
-  import type { DurationsResult } from '$src/types/wakatime'
-  import { onMount } from 'svelte'
-  import { afterUpdate } from 'svelte'
-  import DailyTitleContent from './DailyTitleContent.svelte'
-
-  import { createActiveHoursData, createActiveHoursOption } from './barChartHelpers'
+  import Container from '$lib/components/Container.svelte'
+  import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
+  import * as echarts from 'echarts'
+  import { afterUpdate, onMount } from 'svelte'
   import ChartContainer from '../common/ChartContainer.svelte'
+  import DailyTitleContent from './DailyTitleContent.svelte'
+  import { createActiveHoursData, createActiveHoursOption } from './barChartHelpers'
 
-  export let durations: DurationsResult
+  export let durations: SupabaseDuration
   export let itemType: 'project' | 'language'
 
   let chartRef: HTMLDivElement
@@ -34,7 +32,7 @@
 
   afterUpdate(() => chart.setOption(option))
 
-  const onUpdate = (e: CustomEvent<DurationsResult>) => (durations = e.detail)
+  const onUpdate = (e: CustomEvent<SupabaseDuration>) => (durations = e.detail)
 </script>
 
 <Container>
