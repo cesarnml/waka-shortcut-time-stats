@@ -12,9 +12,9 @@ export default {
       aspectRatio: {
         panoramic: '3/1',
         chart: '2/1',
-        '4/3': '4 / 3',
-        '35mm': '3 / 2',
-        photo: '5/4',
+        photo: '3/2',
+        tv: '4/3',
+        portrait: '4/5',
         tiktok: '9/16',
       },
     },
