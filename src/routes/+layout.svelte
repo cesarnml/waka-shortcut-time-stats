@@ -49,8 +49,6 @@
 
 <style lang="postcss">
   main {
-    background-size: contain;
-    background-position: top;
-    object-fit: cover;
+    background-size: cover;
   }
 </style>

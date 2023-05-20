@@ -1,4 +1,5 @@
 import type { IterationSlim, StorySlim } from '$lib/generated/openapi/shortcut'
+import type { SupabaseDuration } from '$src/routes/api/supabase/durations/+server'
 import type { DurationsResult, SummariesResult, WakaProjectResult } from '$src/types/wakatime'
 
 export const summaries = {
@@ -18029,3 +18030,36 @@ export const iterationStories = [
     moved_at: '2023-04-06T12:39:26Z',
   },
 ] as StorySlim[]
+
+export const supabaseDuration = {
+  id: '74ad7feb-c570-448f-b583-5f5d7d61f921',
+  created_at: '2023-05-19T00:50:24.931259+00:00',
+  updated_at: '2023-05-19T00:50:24.931259+00:00',
+  data: [
+    {
+      time: 1684429278.640741,
+      project: 'waka-shortcut-time-stats',
+      duration: 1406.022932,
+      color: '#19e257',
+    },
+    {
+      time: 1684480928.843174,
+      project: 'waka-shortcut-time-stats',
+      duration: 10615.670269,
+      color: '#19e257',
+    },
+    {
+      time: 1684493665.059615,
+      project: 'waka-shortcut-time-stats',
+      duration: 2813.076866,
+      color: '#19e257',
+    },
+    {
+      time: 1684498141.356062,
+      project: 'waka-shortcut-time-stats',
+      duration: 5954.390828,
+      color: '#19e257',
+    },
+  ],
+  date: '2023-05-19',
+} as SupabaseDuration
