@@ -16,3 +16,4 @@ html
 *.icloud
 .vercel
 .vite-inspect
+hint-report

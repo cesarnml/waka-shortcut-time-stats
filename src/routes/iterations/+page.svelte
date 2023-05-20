@@ -63,7 +63,9 @@
                 <div class="btn-outline btn-secondary btn h-32 p-2">EMPTY</div>
               {:else}
                 {#each stories as story}
-                  <button class="btn-outline btn-accent btn h-32 p-2">{story.name}</button>
+                  <button class="btn-outline btn-accent btn h-32 p-2" type="button"
+                    >{story.name}</button
+                  >
                 {/each}
               {/if}
             {/await}

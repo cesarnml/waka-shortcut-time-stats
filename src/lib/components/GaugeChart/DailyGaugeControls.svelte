@@ -23,6 +23,7 @@
         class:!btn-outline={date === selectedDate}
         class:btn-accent={date === selectedDate}
         class="btn-outline btn-primary btn-sm btn normal-case"
+        type="button"
         on:click={() => handleClick(date)}
       >
         {dayjs(date).format(DateFormat.Short)}

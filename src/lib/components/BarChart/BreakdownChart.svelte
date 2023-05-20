@@ -70,7 +70,7 @@
         {title}
       </h2>
       <div class="absolute right-0 top-0 flex h-full items-center gap-6">
-        <button on:click={() => (isFiltered = !isFiltered)} class="flex items-center">
+        <button class="flex items-center" type="button" on:click={() => (isFiltered = !isFiltered)}>
           {#if isFiltered}
             <iconify-icon
               class="h-full text-base"
