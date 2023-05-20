@@ -12,23 +12,24 @@ import {
 import type { DurationsResult, SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
-import type * as echarts from 'echarts'
-import type { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import type {
+  BarSeriesOption,
+  ComposeOption,
   GridComponentOption,
   LegendComponentOption,
+  LineSeriesOption,
   TooltipComponentOption,
-} from 'echarts/components'
+} from 'echarts/types/dist/echarts'
 import sum from 'lodash/sum'
 import zipObject from 'lodash/zipObject'
 
 dayjs.extend(localeData)
 
-export type StackedBarChartOption = echarts.ComposeOption<
+export type StackedBarChartOption = ComposeOption<
   TooltipComponentOption | GridComponentOption | LegendComponentOption | BarSeriesOption
 >
 
-export type SimpleBarChartOption = echarts.ComposeOption<
+export type SimpleBarChartOption = ComposeOption<
   TooltipComponentOption | GridComponentOption | BarSeriesOption | LineSeriesOption
 >
 
@@ -56,12 +57,13 @@ export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
 
   const yDataByItem = zipObject(
     itemNames,
-    JSON.parse(JSON.stringify(Array(itemNames.length).fill(Array(xValues.length).fill(0)))),
+    Array(itemNames.length)
+      .fill(null)
+      .map(() => Array(xValues.length).fill(0)),
   )
 
   itemsByXValues.forEach((items, index) => {
     items.forEach((item) => {
-      // @ts-expect-error tough type
       yDataByItem[item.name][index] = item.total_seconds / secPerHour
     })
   })
@@ -247,9 +249,7 @@ export const createActiveHoursData = (durations: DurationsResult) =>
 export const createActiveHoursOption = (
   data: ReturnType<typeof createActiveHoursData>,
   durations: DurationsResult,
-): echarts.ComposeOption<
-  echarts.GridComponentOption | echarts.ToolboxComponentOption | echarts.BarSeriesOption
-> => {
+): ComposeOption<GridComponentOption | TooltipComponentOption | BarSeriesOption> => {
   const startHour = '8a'
   const endHour = '5p'
   const goalMinutes = 300

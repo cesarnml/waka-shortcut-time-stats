@@ -29,13 +29,13 @@ export type ValueOf<T> = T[KeyOf<T>]
 export const WakaToShortcutApiRange = {
   [WakaApiRange.Today]: 0,
   [WakaApiRange.Yesterday]: 1,
-  [WakaApiRange.Last_7_Days]: 7,
-  [WakaApiRange.Last_7_Days_From_Yesterday]: 8,
-  [WakaApiRange.Last_14_Days]: 14,
-  [WakaApiRange.Last_30_Days]: 30,
-  [WakaApiRange.This_Week]: 7,
-  [WakaApiRange.This_Month]: 31,
-  [WakaApiRange.Last_Month]: 62,
+  [WakaApiRange.Last_7_Days]: 6,
+  [WakaApiRange.Last_7_Days_From_Yesterday]: 7,
+  [WakaApiRange.Last_14_Days]: 13,
+  [WakaApiRange.Last_30_Days]: 29,
+  [WakaApiRange.This_Week]: 6,
+  [WakaApiRange.This_Month]: 30,
+  [WakaApiRange.Last_Month]: 61,
 } as const
 
 export const BRANCH_NAME_DELIMITER = '_'
