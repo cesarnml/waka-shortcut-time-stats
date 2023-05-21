@@ -25,6 +25,7 @@
   beforeUpdate(() => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
   })
+
   const onWakaRange = async () => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
     loading.on()

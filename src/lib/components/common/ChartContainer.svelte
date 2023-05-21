@@ -1,3 +1,3 @@
-<div class="aspect-square sm:aspect-chart">
+<div class="aspect-square sm:aspect-video">
   <slot />
 </div>

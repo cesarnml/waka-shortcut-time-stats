@@ -6,7 +6,7 @@
   import dayjs from 'dayjs'
   import isToday from 'dayjs/plugin/isToday'
   import 'iconify-icon'
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, onMount } from 'svelte'
 
   dayjs.extend(isToday)
 
@@ -25,6 +25,27 @@
   $: isPrevDisabled =
     dayjs(durations.date).isSame(dayjs().subtract(PREV_DAYS_LIMIT, INCREMENT_UNIT), 'day') ||
     loading
+
+  onMount(() => {
+    const interval = setInterval(async () => {
+      loading = true
+
+      if (itemType === DurationItemType.Project) {
+        const response = await fetch(`${ApiEndpoint.SupabaseDurations}?date=${durations.date}`)
+        durations = await response.json()
+        dispatch('update', durations)
+      } else {
+        const response = await fetch(
+          `${ApiEndpoint.SupabaseDurationsByLanguage}?date=${durations.date}`,
+        )
+        durations = await response.json()
+        dispatch('update', durations)
+      }
+      loading = false
+    }, 1000 * 60)
+
+    return () => clearInterval(interval)
+  })
 
   const onClick = async (step: Step) => {
     loading = true
