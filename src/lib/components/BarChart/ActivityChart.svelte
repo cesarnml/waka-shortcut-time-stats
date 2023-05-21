@@ -6,7 +6,6 @@
   import * as echarts from 'echarts'
   import { afterUpdate, onMount } from 'svelte'
   import BigChartContainer from '../common/BigChartContainer.svelte'
-  import ChartContainer from '../common/ChartContainer.svelte'
   import DailyTitleContent from './DailyTitleContent.svelte'
   import { createActiveHoursData, createActiveHoursOption } from './barChartHelpers'
 
@@ -37,7 +36,9 @@
 </script>
 
 <Container>
-  <ChartTitle><DailyTitleContent showCurrentTime title="Activity" {durations} /></ChartTitle>
+  <ChartTitle>
+    <DailyTitleContent showCurrentTime title="Activity" {durations} />
+  </ChartTitle>
   <DailyChartControls {durations} {itemType} on:update={onUpdate} />
   <BigChartContainer>
     <div class="h-full w-full" bind:this={chartRef} />
