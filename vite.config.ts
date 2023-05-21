@@ -15,6 +15,7 @@ const config = defineConfig(({ mode }) => {
       target: 'esnext', // minimize transpilation
       sourcemap: true, // Tell vite to emit source maps
       chunkSizeWarningLimit: 1200,
+      reportCompressedSize: false,
       // rollupOptions: {
       //   output: {
       //     manualChunks: function manualChunks(id) {
@@ -55,7 +56,6 @@ const config = defineConfig(({ mode }) => {
         ['**/*.spec.ts', 'jsdom'],
         // ...
       ],
-      environment: 'jsdom',
       setupFiles: ['setupTests.ts', 'src/mocks/setup.ts'],
       alias: {
         $lib: resolve(__dirname, 'src/lib'),
