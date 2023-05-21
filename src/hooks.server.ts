@@ -6,7 +6,7 @@ import {
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
-import type { Handle } from '@sveltejs/kit'
+import type { Handle, HandleServerError } from '@sveltejs/kit'
 
 // Only emit errors in production
 if (import.meta.env.PROD) {
@@ -45,7 +45,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   })
 }
 
-export const handleError = ({ error, event }) => {
+export const handleError: HandleServerError = ({ error, event }) => {
   const errorId = crypto.randomUUID()
 
   // Only emit errors in production
@@ -55,8 +55,17 @@ export const handleError = ({ error, event }) => {
     })
   }
 
+  if (error instanceof Error && import.meta.env.DEV) {
+    return {
+      errorId,
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    }
+  }
+
   return {
-    message: 'An error occurred. I have spoken.',
+    message: 'A server error occurred. I have spoken.',
     errorId,
   }
 }

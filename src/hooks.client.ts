@@ -29,8 +29,17 @@ export const handleError = ({ error, event }) => {
     })
   }
 
+  if (import.meta.env.DEV && error instanceof Error) {
+    return {
+      errorId,
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    }
+  }
+
   return {
-    message: 'An error occurred. I have spoken.',
     errorId,
+    message: 'A client error has occurred. I have spoken',
   }
 }

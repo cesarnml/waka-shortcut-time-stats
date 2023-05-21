@@ -8,28 +8,30 @@
 
   dayjs.extend(advancedFormat)
 
-  const wait = 1000 * 60
   export let title: string
   export let durations: SupabaseDuration
   export let showCurrentTime = false
 
   $: date = dayjs(durations.date).format(DateFormat.Shortish)
   $: isToday = dayjs().isSame(durations.date, 'day')
-  $: time = dayjs().format(DateFormat.TwelveHour)
+  $: currentTime = dayjs().format(DateFormat.TwelveHour)
 
   onMount(() => {
-    const interval = setInterval(() => {
-      time = dayjs().format(DateFormat.TwelveHour)
-    }, wait)
+    const animationFrame = requestAnimationFrame(updateTime)
 
-    return () => clearInterval(interval)
+    return () => cancelAnimationFrame(animationFrame)
   })
+
+  function updateTime() {
+    currentTime = dayjs().format(DateFormat.TwelveHour)
+    requestAnimationFrame(updateTime)
+  }
 </script>
 
 <div class="flex px-2">
   <div class="flex-1 text-left text-orange-500" transition:fade>
     {#if showCurrentTime && isToday}
-      <span class="font-mono text-sm">{time}</span>
+      <span class="font-mono text-sm">{currentTime}</span>
     {/if}
   </div>
   <div>

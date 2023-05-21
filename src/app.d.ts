@@ -5,6 +5,8 @@ import { SupabaseClient, Session } from '@supabase/supabase-js'
 declare global {
   namespace App {
     interface Error {
+      name?: string
+      stack?: string
       errorId?: string
     }
     interface Locals {
