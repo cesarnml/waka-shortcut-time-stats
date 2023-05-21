@@ -6,16 +6,16 @@ if (import.meta.env.PROD) {
     dsn: PUBLIC_SENTRY_DSN, // can be hardcoded
     integrations: [
       new Sentry.BrowserTracing(), // Detail trace stack
-      new Sentry.Replay({
-        // Visual replay of errors (cool!)
-        maskAllInputs: true, // respect user privacy on replays
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
+      // new Sentry.Replay({
+      //   // Visual replay of errors (cool!)
+      //   maskAllInputs: true, // respect user privacy on replays
+      //   maskAllText: true,
+      //   blockAllMedia: true,
+      // }),
     ],
     tracesSampleRate: 1.0, // lower settings if swamped with errors
-    replaysSessionSampleRate: 1.0,
-    replaysOnErrorSampleRate: 1.0,
+    // replaysSessionSampleRate: 1.0,
+    // replaysOnErrorSampleRate: 1.0,
   })
 }
 

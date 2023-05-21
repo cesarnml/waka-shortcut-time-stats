@@ -6,6 +6,7 @@ import {
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
+import type { Handle } from '@sveltejs/kit'
 
 // Only emit errors in production
 if (import.meta.env.PROD) {
@@ -15,7 +16,7 @@ if (import.meta.env.PROD) {
   })
 }
 
-export const handle = async ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
   event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -38,7 +39,7 @@ export const handle = async ({ event, resolve }) => {
      *
      * https://github.com/sveltejs/kit/issues/8061
      */
-    filterSerializedResponseHeaders(name) {
+    filterSerializedResponseHeaders(name: any) {
       return name === 'content-range'
     },
   })
