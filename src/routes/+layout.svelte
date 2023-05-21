@@ -1,7 +1,5 @@
 <script lang="ts">
   import '../app.postcss'
-  import { invalidate } from '$app/navigation'
-  import { onMount } from 'svelte'
   import Navbar from '$lib/components/Navbar/Navbar.svelte'
   import { dev } from '$app/environment'
   import { inject } from '@vercel/analytics'
@@ -17,17 +15,7 @@
 
   export let data
 
-  $: ({ supabase, session, pathname } = data)
-
-  onMount(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, _session) => {
-      if (_session?.expires_at !== session?.expires_at) {
-        invalidate('supabase:auth')
-      }
-    })
-
-    return () => data.subscription.unsubscribe()
-  })
+  $: ({ pathname } = data)
 </script>
 
 <svelte:head>

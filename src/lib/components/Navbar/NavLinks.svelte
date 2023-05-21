@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex gap-8">
-  {#each Object.entries(getTopLevelLinks(Url)) as [route, url] (route)}
-    <NavLink {url} {route} />
+  {#each Object.entries(getTopLevelLinks(Url)) as [label, url] (label)}
+    <NavLink {url} {label} />
   {/each}
 </div>

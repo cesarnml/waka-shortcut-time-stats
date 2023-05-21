@@ -14,7 +14,8 @@
 
   $: date = dayjs(durations.date).format(DateFormat.Shortish)
   $: isToday = dayjs().isSame(durations.date, 'day')
-  $: currentTime = dayjs().format(DateFormat.TwelveHour)
+
+  let currentTime = dayjs().format(DateFormat.TwelveHour)
 
   onMount(() => {
     const animationFrame = requestAnimationFrame(updateTime)

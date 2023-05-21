@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/svelte'
 import { PUBLIC_SENTRY_DSN } from '$env/static/public'
+import type { HandleClientError } from '@sveltejs/kit'
 
 if (import.meta.env.PROD) {
   Sentry.init({
@@ -19,7 +20,7 @@ if (import.meta.env.PROD) {
   })
 }
 
-export const handleError = ({ error, event }) => {
+export const handleError: HandleClientError = ({ error, event }) => {
   const errorId = crypto.randomUUID() // add unique errorId for easy reference
 
   // Only emit errors in production

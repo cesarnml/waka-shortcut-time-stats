@@ -55,9 +55,9 @@ export const Url = {
 type Url = typeof Url
 
 export const getTopLevelLinks = (url: Url) => {
-  return Object.entries(url).reduce((acc, [route, url]) => {
-    if (typeof url === 'string' && route !== 'Home') {
-      return { ...acc, [route]: url }
+  return Object.entries(url).reduce((acc, [key, value]) => {
+    if (typeof value === 'string' && key !== 'Home') {
+      return { ...acc, [key]: value }
     }
     return acc
   }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)

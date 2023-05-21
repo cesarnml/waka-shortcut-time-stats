@@ -3,7 +3,7 @@
   import { page } from '$app/stores'
   import { dropdown } from '$lib/stores/dropdown'
 
-  export let route: string
+  export let label: string
   export let url: string
   export let isLarge = false
 </script>
@@ -18,7 +18,7 @@
     dropdown.close()
     goto(url)
   }}
-  >{route}
+  >{label}
 </button>
 
 <style lang="postcss">
