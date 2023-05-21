@@ -57,7 +57,6 @@
     "jsdom": "22.0.0",
     "lodash": "4.17.21",
     "msw": "1.2.1",
-    "nyc": "15.1.0",
     "postcss": "8.4.23",
     "prettier": "2.8.8",
     "prettier-plugin-svelte": "2.10.0",
@@ -74,6 +73,7 @@
     "tslib": "2.5.2",
     "typescript": "5.0.4",
     "vite": "4.3.8",
+    "vite-plugin-compression": "0.5.1",
     "vite-plugin-inspect": "0.7.26",
     "vitest": "0.31.1"
   },
