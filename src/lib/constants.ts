@@ -45,6 +45,7 @@ export const SHORTCUT_STORY_IDENTIFIER = 'cesar/sc-'
 
 export const Url = {
   Home: '/',
+  Account: '/account',
   Projects: '/projects',
   ProjectDetail: (name: string) => `/projects/${name}`,
   Iterations: '/iterations',
@@ -54,14 +55,7 @@ export const Url = {
 
 type Url = typeof Url
 
-export const getTopLevelLinks = (url: Url) => {
-  return Object.entries(url).reduce((acc, [key, value]) => {
-    if (typeof value === 'string' && key !== 'Home') {
-      return { ...acc, [key]: value }
-    }
-    return acc
-  }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
-}
+export const TOP_LEVEL_NAV_URLS = [Url.Projects, Url.Iterations, Url.Login] as const
 
 export const getNavDropdownLinks = (url: Url) => {
   return Object.entries(url).reduce((acc, [route, url]) => {

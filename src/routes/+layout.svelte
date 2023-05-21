@@ -1,5 +1,6 @@
 <script lang="ts">
   import '../app.postcss'
+
   import Navbar from '$lib/components/Navbar/Navbar.svelte'
   import { dev } from '$app/environment'
   import { inject } from '@vercel/analytics'
@@ -9,13 +10,19 @@
   import 'tippy.js/dist/tippy.css'
   import 'tippy.js/themes/light.css'
   import 'tippy.js/animations/scale.css'
+  import { setContext } from 'svelte'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
-  $: ({ pathname } = data)
+  $: ({ pathname, session, supabase } = data)
+
+  $: {
+    setContext('user', session?.user)
+    setContext('supabase', supabase.auth)
+  }
 </script>
 
 <svelte:head>

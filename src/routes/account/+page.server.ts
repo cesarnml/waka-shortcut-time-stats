@@ -53,10 +53,12 @@ export const actions: Actions = {
     }
   },
   signout: async ({ locals: { supabase, getSession } }) => {
+    console.log('SIGINOUT')
     const session = await getSession()
+    console.log('session:', session)
     if (session) {
       await supabase.auth.signOut()
-      throw redirect(303, '/')
+      throw redirect(303, '/login')
     }
   },
 }

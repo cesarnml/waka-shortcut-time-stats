@@ -9,6 +9,7 @@
   import { fade } from 'svelte/transition'
   import { loading } from '$lib/stores/loading'
   import logo from '$lib/assets/images/logo.webp'
+
   $: if ($media.sm) {
     dropdown.close()
   }
