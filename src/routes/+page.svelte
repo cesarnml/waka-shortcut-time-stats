@@ -22,9 +22,6 @@
 
   $: ({ summaries, durations, durationsByLanguage, session } = data)
 
-  $: {
-    console.log('in page', session)
-  }
   beforeUpdate(() => {
     goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
   })
