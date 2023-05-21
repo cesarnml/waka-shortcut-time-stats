@@ -35,6 +35,13 @@ const config = defineConfig(({ mode }) => {
     },
     test: {
       globals: true,
+      environmentMatchGlobs: [
+        // all tests in tests/dom will run in jsdom
+        ['**/*.edge.spec.ts', 'edge-runtime'],
+        ['**/*.node.spec.ts', 'node'],
+        ['**/*.spec.ts', 'jsdom'],
+        // ...
+      ],
       environment: 'jsdom',
       setupFiles: ['setupTests.ts', 'src/mocks/setup.ts'],
       alias: {
