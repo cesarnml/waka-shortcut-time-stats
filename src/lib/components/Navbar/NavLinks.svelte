@@ -7,11 +7,9 @@
 <div class="flex gap-8">
   {#each TOP_LEVEL_NAV_URLS as url}
     {#if $profile && url === Url.Login}
-      <form method="POST" action="/account?/signout">
-        <button>
-          <img src={$profile.avatar_url} alt="avatar" width="46" height="46" class="rounded-full" />
-        </button>
-      </form>
+      <a href={Url.Account}>
+        <img src={$profile.avatar_url} alt="avatar" width="46" height="46" class="rounded-full" />
+      </a>
     {:else}
       <NavLink {url} label={url.split('/')[1]} />
     {/if}

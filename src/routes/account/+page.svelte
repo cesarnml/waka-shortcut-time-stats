@@ -10,11 +10,10 @@
 
   let { session, profile, supabase } = data
 
-  let profileForm: any
+  let profileForm: HTMLFormElement
   let loading = false
-  let fullName: string | null = profile?.full_name
-  let username: string | null = profile?.username
-  let website: string | null = profile?.website
+  let name: string | null = profile?.name
+  let email: string | null = profile?.email
   let avatarUrl: string | null = profile?.avatar_url
 
   function handleSubmit() {
@@ -43,23 +42,18 @@
       }}
     />
     <div>
+      <label for="name">Name</label>
+      <input class="input" id="name" name="name" type="text" value={name} />
+    </div>
+
+    <div>
       <label for="email">Email</label>
-      <input id="email" type="text" value={session.user.email} disabled />
+      <input class="input" id="email" type="email" value={email} />
     </div>
 
     <div>
-      <label for="fullName">Full Name</label>
-      <input id="fullName" name="fullName" type="text" value={form?.fullName ?? fullName} />
-    </div>
-
-    <div>
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" value={form?.username ?? username} />
-    </div>
-
-    <div>
-      <label for="website">Website</label>
-      <input id="website" name="website" type="url" value={form?.website ?? website} />
+      <label for="avatarUrl">avatarUrl</label>
+      <input class="input" id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
     </div>
 
     <div>

@@ -6,13 +6,13 @@ export const load: PageServerLoad = async ({ locals: { supabase, getSession } })
   const session = await getSession()
 
   if (!session) {
-    throw redirect(303, '/')
+    throw redirect(303, Url.Home)
   }
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select(`username, full_name, website, avatar_url`)
-    .eq('id', session.user.id)
+    .select(`name, date_range, avatar_url, email`)
+    .eq('user_id', session.user.id)
     .single()
 
   return { session, profile }
@@ -21,35 +21,31 @@ export const load: PageServerLoad = async ({ locals: { supabase, getSession } })
 export const actions: Actions = {
   update: async ({ request, locals: { supabase, getSession } }) => {
     const formData = await request.formData()
-    const fullName = formData.get('fullName') as string
-    const username = formData.get('username') as string
-    const website = formData.get('website') as string
-    const avatarUrl = formData.get('avatarUrl') as string
+    const name = formData.get('name') as string
+    const email = formData.get('email') as string
+    const avatarUrl = formData.get('avatar_url') as string
 
     const session = await getSession()
 
     const { error } = await supabase.from('profiles').upsert({
       id: session?.user.id,
-      full_name: fullName,
-      username,
-      website,
+      name: name,
+      email: email,
       avatar_url: avatarUrl,
       updated_at: new Date(),
     })
 
     if (error) {
       return fail(500, {
-        fullName,
-        username,
-        website,
+        name,
+        email,
         avatarUrl,
       })
     }
 
     return {
-      fullName,
-      username,
-      website,
+      name,
+      email,
       avatarUrl,
     }
   },
