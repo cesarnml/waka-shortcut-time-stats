@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
   import { page } from '$app/stores'
   import StackedBarChart from '$lib/components/BarChart/StackedBarChart.svelte'
   import VerticalBarChart from '$lib/components/BarChart/VerticalBarChart.svelte'
@@ -17,7 +16,7 @@
   import { loading } from '$lib/stores/loading.js'
   import { selectedRange } from '$lib/stores/selectedRange.js'
   import dayjs from 'dayjs'
-  import { beforeUpdate } from 'svelte'
+  import { onMount } from 'svelte'
 
   export let data
 
@@ -26,18 +25,22 @@
     projectName,
     stories,
     lazy: { aliases },
+    profile,
   } = data)
 
   $: available_branches = [
     ...new Set(summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name))),
   ]
 
-  beforeUpdate(() => {
-    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+  onMount(() => {
+    if (profile) {
+      selectedRange.set(profile.date_range)
+    } else if ($selectedRange === 'Pick a range') {
+      selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
+    }
   })
-  const onWakaRange = async () => {
-    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
 
+  const onWakaRange = async () => {
     const shortcutRange =
       WakaToShortcutApiRange[$selectedRange as keyof typeof WakaToShortcutApiRange]
     loading.on()
@@ -64,7 +67,7 @@
     >
       {$page.params.projectName}
     </h1>
-    <DateRangeSelect on:wakarange={onWakaRange} />
+    <DateRangeSelect on:wakarange={onWakaRange} {profile} />
   </div>
   <StatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">

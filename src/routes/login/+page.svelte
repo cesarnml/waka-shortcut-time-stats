@@ -2,10 +2,14 @@
   export let data
   const { supabase } = data
   async function signInWithGitHub() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
       provider: 'github',
+      options: {
+        redirectTo: import.meta.env.PROD
+          ? 'https://codingstats.vercel.app'
+          : 'http://localhost:5173',
+      },
     })
-    console.log('data:', data)
   }
 </script>
 

@@ -1,33 +1,45 @@
 <script lang="ts">
-  import '../app.postcss'
-  import { invalidate } from '$app/navigation'
-  import { onMount } from 'svelte'
-  import Navbar from '$lib/components/Navbar/Navbar.svelte'
   import { dev } from '$app/environment'
-  import { inject } from '@vercel/analytics'
-  import Footer from '$lib/components/Footer.svelte'
-  import PageTransition from '$lib/components/PageTransition.svelte'
+  import { goto, invalidate } from '$app/navigation'
   import { page } from '$app/stores'
+  import Footer from '$lib/components/Footer.svelte'
+  import Navbar from '$lib/components/Navbar/Navbar.svelte'
+  import PageTransition from '$lib/components/PageTransition.svelte'
+  import { selectedRange } from '$lib/stores/selectedRange'
+  import { inject } from '@vercel/analytics'
+  import { onMount, setContext } from 'svelte'
+  import 'tippy.js/animations/scale.css'
   import 'tippy.js/dist/tippy.css'
   import 'tippy.js/themes/light.css'
-  import 'tippy.js/animations/scale.css'
+  import '../app.postcss'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
-  $: ({ supabase, session, pathname } = data)
+  $: ({ pathname, session, supabase, profile } = data)
+
+  $: {
+    setContext('user', session?.user)
+  }
 
   onMount(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, _session) => {
       if (_session?.expires_at !== session?.expires_at) {
         invalidate('supabase:auth')
       }
     })
-
-    return () => data.subscription.unsubscribe()
+    return () => subscription.unsubscribe()
   })
+
+  $: if ($selectedRange && !profile) {
+    const url = new URL(location)
+    url.searchParams.set('range', $selectedRange)
+    goto(url, { replaceState: true, keepFocus: true })
+  }
 </script>
 
 <svelte:head>

@@ -12,21 +12,23 @@
   import axios from 'axios'
   import ActivityChart from '$lib/components/BarChart/ActivityChart.svelte'
   import { selectedRange } from '$lib/stores/selectedRange'
-  import { page } from '$app/stores'
-  import { goto } from '$app/navigation'
-  import { beforeUpdate } from 'svelte'
   import { loading } from '$lib/stores/loading'
   import { ApiEndpoint, WakaApiRange } from '$lib/constants'
+  import { onMount } from 'svelte'
 
   export let data: PageData
 
-  $: ({ summaries, durations, durationsByLanguage } = data)
+  $: ({ summaries, durations, durationsByLanguage, profile } = data)
 
-  beforeUpdate(() => {
-    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
+  onMount(() => {
+    if (profile) {
+      selectedRange.set(profile.date_range)
+    } else if ($selectedRange === 'Pick a range') {
+      selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
+    }
   })
+
   const onWakaRange = async () => {
-    goto(`${$page.url.origin}${$page.url.pathname}?range=${$selectedRange}`)
     loading.on()
     const { data } = await axios.get(`${ApiEndpoint.SupabaseSummaries}?range=${$selectedRange}`)
     summaries = data
@@ -40,7 +42,7 @@
 
 <div class="space-y-4 px-2 md:px-4">
   <div class="flex justify-end">
-    <DateRangeSelect on:wakarange={onWakaRange} />
+    <DateRangeSelect on:wakarange={onWakaRange} {profile} />
   </div>
   <StatsPanel {summaries} showFullPanel />
   <ActivityChart {durations} itemType="project" />

@@ -6,7 +6,7 @@ import {
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
-import type { Handle } from '@sveltejs/kit'
+import type { Handle, HandleServerError } from '@sveltejs/kit'
 
 // Only emit errors in production
 if (import.meta.env.PROD) {
@@ -33,6 +33,16 @@ export const handle: Handle = async ({ event, resolve }) => {
     return session
   }
 
+  event.locals.getProfile = async () => {
+    const session = await event.locals.getSession()
+    const { data: profile } = await event.locals.supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', session?.user.id)
+      .single()
+    return profile
+  }
+
   return resolve(event, {
     /**
      * There´s an issue with `filterSerializedResponseHeaders` not working when using `sequence`
@@ -45,7 +55,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   })
 }
 
-export const handleError = ({ error, event }) => {
+export const handleError: HandleServerError = ({ error, event }) => {
   const errorId = crypto.randomUUID()
 
   // Only emit errors in production
@@ -55,8 +65,17 @@ export const handleError = ({ error, event }) => {
     })
   }
 
+  if (error instanceof Error && import.meta.env.DEV) {
+    return {
+      errorId,
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    }
+  }
+
   return {
-    message: 'An error occurred. I have spoken.',
+    message: 'A server error occurred. I have spoken.',
     errorId,
   }
 }

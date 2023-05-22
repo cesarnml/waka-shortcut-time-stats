@@ -3,13 +3,13 @@
   import { page } from '$app/stores'
   import { dropdown } from '$lib/stores/dropdown'
 
-  export let route: string
+  export let label: string
   export let url: string
   export let isLarge = false
 </script>
 
 <button
-  class="btn-link btn px-0 text-lg normal-case no-underline"
+  class="btn-link btn px-0 text-lg lowercase no-underline"
   class:active={$page.url.pathname === url}
   class:text-lg={isLarge}
   class:text-base={!isLarge}
@@ -18,7 +18,7 @@
     dropdown.close()
     goto(url)
   }}
-  >{route}
+  >{label}
 </button>
 
 <style lang="postcss">

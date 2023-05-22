@@ -4,7 +4,6 @@ import type { LayoutLoad } from './$types'
 
 export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
   depends('supabase:auth')
-
   const supabase = createSupabaseLoadClient({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -16,5 +15,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
     data: { session },
   } = await supabase.auth.getSession()
 
-  return { supabase, session, pathname: url.pathname }
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('user_id', session?.user.id)
+    .single()
+
+  return { supabase, session, pathname: url.pathname, profile }
 }

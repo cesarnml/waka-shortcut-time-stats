@@ -1,32 +1,30 @@
 <script lang="ts">
-  import { browser } from '$app/environment'
-  import { WakaApiRange, type KeyOf } from '$lib/constants'
+  import { WakaApiRange } from '$lib/constants'
   import { selectedRange } from '$lib/stores/selectedRange'
-  import { createEventDispatcher } from 'svelte'
+  import { afterUpdate, createEventDispatcher } from 'svelte'
+
+  export let profile: Record<string, any> | null
 
   const dispatch = createEventDispatcher()
-  const handleChange = () => {
-    localStorage.setItem('range', $selectedRange)
-    dispatch('wakarange')
-  }
 
-  $: if (browser) {
-    const range = localStorage.getItem('range')
-    if (range !== null && range !== 'null') {
-      selectedRange.set(range as WakaApiRange[KeyOf<WakaApiRange>])
+  afterUpdate(async () => {
+    if (profile?.date_range !== $selectedRange && $selectedRange !== 'Pick a range') {
+      await fetch('/api/supabase/profiles', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: profile?.id,
+          date_range: $selectedRange,
+        }),
+      })
+      dispatch('wakarange')
     }
-
-    if (range === null) {
-      selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
-    }
-  }
+  })
 </script>
 
 <select
   class="select-accent select w-full bg-neutral-focus text-accent sm:w-fit"
   bind:value={$selectedRange}
-  on:change={handleChange}
-  title="Select data range"
+  title="Select date range"
 >
   <option disabled selected>Pick a range</option>
   {#each Object.values(WakaApiRange) as range (range)}
