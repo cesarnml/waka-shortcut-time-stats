@@ -6,8 +6,9 @@
   import Navbar from '$lib/components/Navbar/Navbar.svelte'
   import PageTransition from '$lib/components/PageTransition.svelte'
   import { selectedRange } from '$lib/stores/selectedRange'
+  import { profile } from '$lib/stores/profile'
   import { inject } from '@vercel/analytics'
-  import { onMount, setContext } from 'svelte'
+  import { onMount } from 'svelte'
   import 'tippy.js/animations/scale.css'
   import 'tippy.js/dist/tippy.css'
   import 'tippy.js/themes/light.css'
@@ -18,10 +19,10 @@
 
   export let data
 
-  $: ({ pathname, session, supabase, profile } = data)
+  $: ({ pathname, session, supabase, profile: currentProfile } = data)
 
   $: {
-    setContext('user', session?.user)
+    profile.set(currentProfile)
   }
 
   onMount(() => {
@@ -37,7 +38,6 @@
 
   $: if ($selectedRange && !profile) {
     const url = new URL(window.location.href)
-
     url.searchParams.set('range', $selectedRange)
     goto(url, { replaceState: true, keepFocus: true })
   }

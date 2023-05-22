@@ -1,7 +1,7 @@
 <script lang="ts">
   export let data
   const { supabase } = data
-  async function signInWithGitHub() {
+  const signInWithGitHub = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
@@ -18,5 +18,7 @@
 </svelte:head>
 
 <div class="grid h-screen place-items-center">
-  <button class="btn-primary btn" on:click={signInWithGitHub}>Sign in with GitHub</button>
+  <button class="btn-primary btn" type="button" on:click={signInWithGitHub}
+    >Sign in with GitHub</button
+  >
 </div>

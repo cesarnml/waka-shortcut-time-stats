@@ -3,10 +3,20 @@ import type { SummariesResult } from '$src/types/wakatime'
 import type { PageServerLoad } from './$types'
 import type { SupabaseDuration } from './api/supabase/durations/+server'
 
-export const load: PageServerLoad = async ({ fetch, url, locals: { getProfile } }) => {
+export const load: PageServerLoad = async ({
+  fetch,
+  url,
+  locals: { getProfile, getSession, supabase },
+  depends,
+}) => {
+  depends('supabase:signin')
   const wakaRange = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days_From_Yesterday
   const profile = await getProfile()
   const range = profile?.date_range ?? wakaRange
+  console.log('supabase', (await supabase.auth.getSession())?.data?.session?.user?.email)
+  console.log('profile:', profile?.date_range)
+  console.log('session:', (await getSession())?.token_type)
+  console.log('INPageServerLoad:', url.href, range)
 
   const [summariesResponse, durationsResponse, durationsByLanguageResponse] = await Promise.all([
     fetch(`${ApiEndpoint.SupabaseSummaries}?range=${range}`),
