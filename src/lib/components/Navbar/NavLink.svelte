@@ -15,9 +15,9 @@
   class:!capitalize={isLarge}
   class:text-base={!isLarge}
   type="button"
-  on:click={() => {
+  on:click={async () => {
+    await goto(url)
     dropdown.close()
-    goto(url)
   }}
   >{label}
 </button>
