@@ -1,5 +1,6 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
+import { Url } from '$lib/constants'
 
 export const load: PageServerLoad = async ({ locals: { supabase, getSession } }) => {
   const session = await getSession()
@@ -53,12 +54,10 @@ export const actions: Actions = {
     }
   },
   signout: async ({ locals: { supabase, getSession } }) => {
-    console.log('SIGINOUT')
     const session = await getSession()
-    console.log('session:', session)
     if (session) {
       await supabase.auth.signOut()
-      throw redirect(303, '/login')
+      throw redirect(303, Url.Home)
     }
   },
 }

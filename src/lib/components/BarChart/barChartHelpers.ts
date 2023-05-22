@@ -36,7 +36,7 @@ export type SimpleBarChartOption = ComposeOption<
 >
 
 export const createXAxisValues = (summaries: SummariesResult) =>
-  summaries.data.map((item) => dayjs(item.range.date).format(DateFormat.Short))
+  summaries.data?.map((item) => dayjs(item.range.date).format(DateFormat.Short))
 
 type Params = {
   summaries: SummariesResult
@@ -44,7 +44,7 @@ type Params = {
 }
 
 const _createItemsByXValues = ({ summaries, itemsType }: Params) =>
-  summaries.data.map((summary) => summary[itemsType])
+  summaries.data?.map((summary) => summary[itemsType])
 
 const _getItemNames = ({ summaries, itemsType }: Params) => [
   ...new Set(

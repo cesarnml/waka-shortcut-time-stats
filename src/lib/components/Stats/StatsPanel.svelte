@@ -57,7 +57,9 @@
         icon="material-symbols:folder-outline-rounded"
         label="folder"
       >
-        <a class="link-hover link" href={Url.ProjectDetail(topProject)}>{topProject}</a>
+        <a class="link-hover link" href="{Url.ProjectDetail(topProject)}?range={$selectedRange}"
+          >{topProject}</a
+        >
       </StatPanelItem>
       <StatPanelItem title="Top Language" icon="tabler:world" label="world">
         {topLanguage}

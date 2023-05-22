@@ -12,6 +12,7 @@ declare global {
     interface Locals {
       supabase: SupabaseClient
       getSession(): Promise<Session | null>
+      getProfile(): Promise<Record<string, any> | null>
     }
     interface PageData {
       session: Session | null

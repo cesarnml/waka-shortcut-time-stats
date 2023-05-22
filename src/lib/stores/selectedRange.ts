@@ -1,10 +1,8 @@
 import { writable } from 'svelte/store'
-import { WakaApiRange, type KeyOf } from '$lib/constants'
+import type { WakaApiRange, KeyOf } from '$lib/constants'
 
 const createSelectedRangeStore = () => {
-  const { subscribe, set } = writable<WakaApiRange[KeyOf<WakaApiRange>]>(
-    WakaApiRange.Last_7_Days_From_Yesterday,
-  )
+  const { subscribe, set } = writable<WakaApiRange[KeyOf<WakaApiRange>] | 'Pick a range'>()
 
   return {
     subscribe,
