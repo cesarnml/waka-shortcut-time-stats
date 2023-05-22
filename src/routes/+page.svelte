@@ -15,14 +15,16 @@
   import { loading } from '$lib/stores/loading'
   import { ApiEndpoint, WakaApiRange } from '$lib/constants'
   import { onMount } from 'svelte'
+  import { invalidate } from '$app/navigation'
 
   export let data: PageData
 
   $: ({ summaries, durations, durationsByLanguage, profile } = data)
 
   onMount(() => {
-    if (profile) {
+    if (profile && profile.date_range !== $selectedRange) {
       selectedRange.set(profile.date_range)
+      invalidate('supabase:signin')
     } else if ($selectedRange === 'Pick a range') {
       selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
     }
