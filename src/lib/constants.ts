@@ -56,15 +56,7 @@ export const Url = {
 type Url = typeof Url
 
 export const TOP_LEVEL_NAV_URLS = [Url.Projects, Url.Iterations, Url.Login] as const
-
-export const getNavDropdownLinks = (url: Url) => {
-  return Object.entries(url).reduce((acc, [route, url]) => {
-    if (typeof url === 'string') {
-      return { ...acc, [route]: url }
-    }
-    return acc
-  }, {} as Omit<Url, 'ProjectDetail' | 'IterationDetail'>)
-}
+export const DROPDOWN_NAV_URLS = [Url.Home, Url.Projects, Url.Iterations, Url.Login]
 
 export const Api = {
   WakaDurations: (date: string, itemType: string) =>

@@ -36,7 +36,8 @@
   })
 
   $: if ($selectedRange && !profile) {
-    const url = new URL(location)
+    const url = new URL(window.location.href)
+
     url.searchParams.set('range', $selectedRange)
     goto(url, { replaceState: true, keepFocus: true })
   }

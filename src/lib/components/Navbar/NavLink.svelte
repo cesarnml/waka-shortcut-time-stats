@@ -11,7 +11,8 @@
 <button
   class="btn-link btn px-0 text-lg lowercase no-underline"
   class:active={$page.url.pathname === url}
-  class:text-lg={isLarge}
+  class:!text-2xl={isLarge}
+  class:!capitalize={isLarge}
   class:text-base={!isLarge}
   type="button"
   on:click={() => {
