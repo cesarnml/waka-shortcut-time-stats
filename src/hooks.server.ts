@@ -9,6 +9,7 @@ import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import type { Handle, HandleServerError } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
+  console.log('🚀 Request: ', event.request.url, event.cookies.get('sb-auth-token')?.slice(0, 9))
   // Only emit sentry errors in production
   if (import.meta.env.PROD) {
     Sentry.init({
@@ -24,7 +25,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     event,
   })
 
-  event.locals.supabase.auth.refreshSession()
   event.locals.getSession = async () => {
     const {
       data: { session },

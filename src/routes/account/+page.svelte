@@ -3,11 +3,10 @@
   import { enhance } from '$app/forms'
   import { goto } from '$app/navigation'
   import { Url } from '$lib/constants'
-  import Avatar from './Avatar.svelte'
 
   export let data
 
-  let { profile, supabase } = data
+  let { profile } = data
 
   let profileForm: HTMLFormElement
   let loading = false
@@ -32,14 +31,6 @@
     use:enhance={handleSubmit}
     bind:this={profileForm}
   >
-    <Avatar
-      {supabase}
-      bind:url={avatarUrl}
-      size={10}
-      on:upload={() => {
-        profileForm.requestSubmit()
-      }}
-    />
     <div>
       <label for="name">Name</label>
       <input class="input" id="name" name="name" type="text" value={name} />
