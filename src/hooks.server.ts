@@ -8,21 +8,23 @@ import {
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import type { Handle, HandleServerError } from '@sveltejs/kit'
 
-// Only emit errors in production
-if (import.meta.env.PROD) {
-  Sentry.init({
-    dsn: PUBLIC_SENTRY_DSN,
-    tracesSampleRate: 1.0,
-  })
-}
-
 export const handle: Handle = async ({ event, resolve }) => {
+  // Only emit sentry errors in production
+  if (import.meta.env.PROD) {
+    Sentry.init({
+      dsn: PUBLIC_SENTRY_DSN,
+      tracesSampleRate: 1.0,
+    })
+  }
+
+  // Create supabase server client (consider making more powerful once we have row level security up)
   event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
     event,
   })
 
+  event.locals.supabase.auth.refreshSession()
   event.locals.getSession = async () => {
     const {
       data: { session },
@@ -40,7 +42,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     return profile
   }
 
-  return resolve(event, {
+  const response = await resolve(event, {
     /**
      * There´s an issue with `filterSerializedResponseHeaders` not working when using `sequence`
      *
@@ -50,6 +52,8 @@ export const handle: Handle = async ({ event, resolve }) => {
       return name === 'content-range'
     },
   })
+
+  return response
 }
 
 export const handleError: HandleServerError = ({ error, event }) => {
