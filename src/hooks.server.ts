@@ -6,10 +6,9 @@ import {
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
-import type { Handle, HandleServerError } from '@sveltejs/kit'
+import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
-  console.log('🚀 Request: ', event.request.url, event.cookies.get('sb-auth-token')?.slice(0, 9))
   // Only emit sentry errors in production
   if (import.meta.env.PROD) {
     Sentry.init({
@@ -40,6 +39,19 @@ export const handle: Handle = async ({ event, resolve }) => {
       .eq('user_id', session?.user.id)
       .single()
     return profile
+  }
+
+  const profile = await event.locals.getProfile()
+
+  console.log(
+    '🚀 Request: ',
+    event.url.pathname,
+    event.cookies.get('sb-auth-token')?.slice(0, 9) ? '✅' : '⚠️',
+    profile?.email ? '👍' : '🛑',
+  )
+
+  if (!profile && event.url.pathname === '/account') {
+    throw redirect(303, '/login')
   }
 
   const response = await resolve(event, {

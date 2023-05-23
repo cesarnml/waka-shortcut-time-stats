@@ -4,7 +4,6 @@
   export let data
   const { supabase } = data
   const signInWithGitHub = async () => {
-    console.log('signInWithGitHub', $page.url.origin)
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {

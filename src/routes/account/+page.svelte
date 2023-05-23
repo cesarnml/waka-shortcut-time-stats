@@ -8,7 +8,6 @@
 
   let { profile } = data
 
-  let profileForm: HTMLFormElement
   let loading = false
   let name: string | null = profile?.name
   let email: string | null = profile?.email
@@ -23,42 +22,44 @@
   }
 </script>
 
-<div class="form-widget">
-  <form
-    class="form-widget"
-    method="post"
-    action="?/update"
-    use:enhance={handleSubmit}
-    bind:this={profileForm}
-  >
+<div class="space-y-6">
+  <form method="post" action="?/update" use:enhance={handleSubmit}>
     <div>
       <label for="name">Name</label>
-      <input class="input" id="name" name="name" type="text" value={name} />
+      <input id="name" name="name" type="text" value={name} />
     </div>
 
     <div>
       <label for="email">Email</label>
-      <input class="input" id="email" type="email" value={email} />
+      <input id="email" type="email" value={email} />
     </div>
 
     <div>
       <label for="avatarUrl">avatarUrl</label>
-      <input class="input" id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
+      <input id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
     </div>
 
     <div>
-      <input
-        type="submit"
-        class="button primary block"
-        value={loading ? 'Loading...' : 'Update'}
-        disabled={loading}
-      />
+      <input type="submit" value={loading ? 'Loading...' : 'Update'} disabled={loading} />
     </div>
   </form>
 
   <form method="post" action="?/signout">
-    <div>
-      <button class="button block" type="submit" disabled={loading}>Sign Out</button>
-    </div>
+    <button type="submit" disabled={loading}>Sign Out</button>
   </form>
 </div>
+
+<style lang="postcss">
+  form {
+    @apply flex flex-col gap-4;
+  }
+  label {
+    @apply label-text label lowercase;
+  }
+  input {
+    @apply input-primary input input-md;
+  }
+  button {
+    @apply btn-primary btn-wide btn;
+  }
+</style>
