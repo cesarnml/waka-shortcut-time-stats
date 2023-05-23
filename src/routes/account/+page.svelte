@@ -3,14 +3,11 @@
   import { enhance } from '$app/forms'
   import { goto } from '$app/navigation'
   import { Url } from '$lib/constants'
-  import Avatar from './Avatar.svelte'
 
   export let data
-  export let form
 
-  let { session, profile, supabase } = data
+  let { profile } = data
 
-  let profileForm: HTMLFormElement
   let loading = false
   let name: string | null = profile?.name
   let email: string | null = profile?.email
@@ -25,50 +22,44 @@
   }
 </script>
 
-<div class="form-widget">
-  <form
-    class="form-widget"
-    method="post"
-    action="?/update"
-    use:enhance={handleSubmit}
-    bind:this={profileForm}
-  >
-    <Avatar
-      {supabase}
-      bind:url={avatarUrl}
-      size={10}
-      on:upload={() => {
-        profileForm.requestSubmit()
-      }}
-    />
+<div class="space-y-6">
+  <form method="post" action="?/update" use:enhance={handleSubmit}>
     <div>
       <label for="name">Name</label>
-      <input class="input" id="name" name="name" type="text" value={name} />
+      <input id="name" name="name" type="text" value={name} />
     </div>
 
     <div>
       <label for="email">Email</label>
-      <input class="input" id="email" type="email" value={email} />
+      <input id="email" type="email" value={email} />
     </div>
 
     <div>
       <label for="avatarUrl">avatarUrl</label>
-      <input class="input" id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
+      <input id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
     </div>
 
     <div>
-      <input
-        type="submit"
-        class="button primary block"
-        value={loading ? 'Loading...' : 'Update'}
-        disabled={loading}
-      />
+      <input type="submit" value={loading ? 'Loading...' : 'Update'} disabled={loading} />
     </div>
   </form>
 
-  <form method="post" action="?/signout" use:enhance={handleSubmit}>
-    <div>
-      <button class="button block" type="submit" disabled={loading}>Sign Out</button>
-    </div>
+  <form method="post" action="?/signout">
+    <button type="submit" disabled={loading}>Sign Out</button>
   </form>
 </div>
+
+<style lang="postcss">
+  form {
+    @apply flex flex-col gap-4;
+  }
+  label {
+    @apply label-text label lowercase;
+  }
+  input {
+    @apply input-primary input input-md;
+  }
+  button {
+    @apply btn-primary btn-wide btn;
+  }
+</style>

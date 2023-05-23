@@ -6,17 +6,18 @@ import {
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
-import type { Handle, HandleServerError } from '@sveltejs/kit'
-
-// Only emit errors in production
-if (import.meta.env.PROD) {
-  Sentry.init({
-    dsn: PUBLIC_SENTRY_DSN,
-    tracesSampleRate: 1.0,
-  })
-}
+import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
+  // Only emit sentry errors in production
+  if (import.meta.env.PROD) {
+    Sentry.init({
+      dsn: PUBLIC_SENTRY_DSN,
+      tracesSampleRate: 1.0,
+    })
+  }
+
+  // Create supabase server client (consider making more powerful once we have row level security up)
   event.locals.supabase = createSupabaseServerClient({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -40,7 +41,20 @@ export const handle: Handle = async ({ event, resolve }) => {
     return profile
   }
 
-  return resolve(event, {
+  const profile = await event.locals.getProfile()
+
+  console.log(
+    '🚀 Request: ',
+    event.url.pathname,
+    event.cookies.get('sb-auth-token')?.slice(0, 9) ? '✅' : '⚠️',
+    profile?.email ? '👍' : '🛑',
+  )
+
+  if (!profile && event.url.pathname === '/account') {
+    throw redirect(303, '/login')
+  }
+
+  const response = await resolve(event, {
     /**
      * There´s an issue with `filterSerializedResponseHeaders` not working when using `sequence`
      *
@@ -50,6 +64,8 @@ export const handle: Handle = async ({ event, resolve }) => {
       return name === 'content-range'
     },
   })
+
+  return response
 }
 
 export const handleError: HandleServerError = ({ error, event }) => {

@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { page } from '$app/stores'
+
   export let data
   const { supabase } = data
   const signInWithGitHub = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: import.meta.env.PROD
-          ? 'https://codingstats.vercel.app'
-          : 'http://localhost:5173',
+        redirectTo: `${$page.url.origin}/login-redirect`,
       },
     })
   }
