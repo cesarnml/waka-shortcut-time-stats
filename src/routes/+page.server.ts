@@ -9,9 +9,9 @@ export const load: PageServerLoad = async ({
   locals: { getSession, supabase },
   depends,
 }) => {
-  const session = await getSession()
-
   depends('supabase:signin')
+
+  const session = await getSession()
   const { data: profile } = await supabase
     .from('profiles')
     .select(`name, date_range, avatar_url, email`)

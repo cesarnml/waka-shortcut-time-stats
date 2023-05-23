@@ -6,9 +6,8 @@
   import Avatar from './Avatar.svelte'
 
   export let data
-  export let form
 
-  let { session, profile, supabase } = data
+  let { profile, supabase } = data
 
   let profileForm: HTMLFormElement
   let loading = false

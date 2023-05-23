@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { invalidate } from '$app/navigation'
+
   export let data
   const { supabase } = data
   const signInWithGitHub = async () => {
+    invalidate('supabase:signin')
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
