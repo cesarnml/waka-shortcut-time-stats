@@ -10,8 +10,6 @@
 
   let loading = false
   let name: string | null = profile?.name
-  let email: string | null = profile?.email
-  let avatarUrl: string | null = profile?.avatar_url
 
   function handleSubmit() {
     loading = true
@@ -27,16 +25,6 @@
     <div>
       <label for="name">Name</label>
       <input id="name" name="name" type="text" value={name} />
-    </div>
-
-    <div>
-      <label for="email">Email</label>
-      <input id="email" type="email" value={email} />
-    </div>
-
-    <div>
-      <label for="avatarUrl">avatarUrl</label>
-      <input id="avatarUrl" name="avatarUrl" type="text" value={avatarUrl} />
     </div>
 
     <div>
