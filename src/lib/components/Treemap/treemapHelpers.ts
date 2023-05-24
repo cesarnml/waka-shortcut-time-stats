@@ -67,22 +67,22 @@ export const createTreemapOption = (
   projectName: string,
 ): ComposeOption<GridComponentOption | TooltipComponentOption | TreemapSeriesOption> => ({
   grid: { left: 0, right: 0, top: 0, bottom: 0 },
-  tooltip: {
-    formatter: function (info: any) {
-      const value = info.value
-      const treePathInfo = info.treePathInfo
-      const treePath = []
+  // tooltip: {
+  //   formatter: function (info: any) {
+  //     const value = info.value
+  //     const treePathInfo = info.treePathInfo
+  //     const treePath = []
 
-      for (let i = 1; i < treePathInfo.length; i++) {
-        treePath.push(treePathInfo[i].name)
-      }
+  //     for (let i = 1; i < treePathInfo.length; i++) {
+  //       treePath.push(treePathInfo[i].name)
+  //     }
 
-      return [
-        '<div class="tooltip-title">' + echarts.format.encodeHTML(treePath.join('/')) + '</div>',
-        'Time Spent: ' + `<strong>` + formatTime(value * secPerHour) + '</strong>',
-      ].join('')
-    },
-  },
+  //     return [
+  //       '<div class="tooltip-title">' + echarts.format.encodeHTML(treePath.join('/')) + '</div>',
+  //       'Time Spent: ' + `<strong>` + formatTime(value * secPerHour) + '</strong>',
+  //     ].join('')
+  //   },
+  // },
 
   series: [
     {
