@@ -13,16 +13,18 @@
   import 'tippy.js/dist/tippy.css'
   import 'tippy.js/themes/light.css'
   import '../app.postcss'
+  import { project } from '$lib/stores/project'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
-  $: ({ pathname, session, supabase, profile: currentProfile } = data)
+  $: ({ pathname, session, supabase, projects: initialProjects, profile: initialProfile } = data)
 
   $: {
-    profile.set(currentProfile)
+    profile.set(initialProfile)
+    project.set(initialProjects)
   }
 
   onMount(() => {
