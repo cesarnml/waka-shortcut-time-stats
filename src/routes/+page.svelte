@@ -9,7 +9,7 @@
   import ProjectList from '$lib/components/ProjectList.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import TimelineChart from '$lib/components/TimelineChart/TimelineChart.svelte'
-  import { ApiEndpoint, WakaApiRange } from '$lib/constants'
+  import { ApiEndpoint, WakaApiRange, type ValueOf } from '$lib/constants'
   import { loading } from '$lib/stores/loading'
   import { selectedRange } from '$lib/stores/selectedRange'
   import axios from 'axios'
@@ -23,7 +23,7 @@
 
   onMount(() => {
     if (profile && profile.range !== $selectedRange) {
-      selectedRange.set(profile.range)
+      selectedRange.set(profile.range as ValueOf<WakaApiRange>)
       invalidate('supabase:signin')
     } else if ($selectedRange === 'Pick a range') {
       selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)

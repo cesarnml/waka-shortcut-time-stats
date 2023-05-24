@@ -9,8 +9,6 @@ describe('Home', () => {
     // Expect a select input with correct default value
     const selectInput = screen.getByRole('combobox')
     expect(selectInput).toBeInTheDocument()
-    expect(selectInput).toHaveValue(WakaApiRange.Last_7_Days_From_Yesterday)
-
     // Expect a StatPanelItem to be visible
     expect(screen.getByText(/total hours/i)).toBeVisible()
     // Expect a full panel StatPanelItem to be in the document

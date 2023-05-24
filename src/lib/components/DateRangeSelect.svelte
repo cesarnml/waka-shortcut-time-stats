@@ -1,14 +1,15 @@
 <script lang="ts">
   import { WakaApiRange } from '$lib/constants'
+  import type { Database } from '$lib/database.types'
   import { selectedRange } from '$lib/stores/selectedRange'
   import { afterUpdate, createEventDispatcher } from 'svelte'
 
-  export let profile: Record<string, any> | null
+  export let profile: Database['public']['Tables']['profiles']['Row']
 
   const dispatch = createEventDispatcher()
 
   afterUpdate(async () => {
-    if (profile?.range !== $selectedRange && $selectedRange !== 'Pick a range') {
+    if (profile.range !== $selectedRange && $selectedRange !== 'Pick a range') {
       await fetch('/api/supabase/profiles', {
         method: 'POST',
         body: JSON.stringify({
