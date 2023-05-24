@@ -30,13 +30,13 @@ export const filterBreakdownChartData = (data: Record<string, number>) => {
 export const createBreakdownChartOption = (
   data: Record<string, number>,
 ): ComposeOption<GridComponentOption | TooltipComponentOption | BarSeriesOption> => ({
-  grid: { left: 25, right: 45, top: 20, bottom: 50 },
+  grid: { left: 28, right: 45, top: 20, bottom: 50 },
   tooltip: { valueFormatter: (value) => formatTime(Number(value)) },
   xAxis: {
     type: 'value',
     name: 'Total Hours',
     nameLocation: 'middle',
-    nameGap: 35,
+    nameGap: 30,
     axisLabel: {
       showMinLabel: true,
     },
