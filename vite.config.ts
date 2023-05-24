@@ -39,7 +39,6 @@ const config = defineConfig(({ mode }) => {
             org: env.PUBLIC_SENTRY_ORG, // can be hardcode
             project: env.PUBLIC_SENTRY_PROJECT, // can be hardcode
             authToken: env.SENTRY_AUTH_TOKEN, // must be secret
-            include: './svelte-kit/output', // default build output for source maps. Uploaded to Sentry on deploy
           })
         : '',
     ],
@@ -86,6 +85,7 @@ const config = defineConfig(({ mode }) => {
           'src/lib/constants.ts',
           'src/mocks',
           'src/**/*.d.ts',
+          'src/**/*.types.ts',
         ],
       },
     },

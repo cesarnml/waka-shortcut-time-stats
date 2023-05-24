@@ -1,7 +1,10 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { ApiEndpoint, WakaApiRange } from '$lib/constants'
+import { ApiEndpoint, WakaApiRange, type DataContainer } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
+import type { Database } from '$lib/database.types'
+
+type Summary = Database['public']['Tables']['summaries']['Row']
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const response = await fetch(`${ApiEndpoint.Summaries}?&range=${WakaApiRange.Yesterday}`)
@@ -9,7 +12,7 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const summaries = summariesResult.data
   const summariesWithDate = summaries.map((summary) => ({ ...summary, date: summary.range.date }))
 
-  const { data: existingSummary } = await supabase
+  const { data: existingSummary }: DataContainer<Summary | null> = await supabase
     .from('summaries')
     .select('*')
     .eq('date', summariesWithDate[0].date)

@@ -10,7 +10,7 @@ describe('DateRangeSelect', () => {
 
     const select = screen.getByRole('combobox')
     // Select element has the correct default value
-    expect(select).toHaveValue(WakaApiRange.Last_7_Days_From_Yesterday)
+    expect(select).toHaveValue('Pick a range')
 
     // User can change the select element's value
     await user.selectOptions(select, WakaApiRange.Last_30_Days)
