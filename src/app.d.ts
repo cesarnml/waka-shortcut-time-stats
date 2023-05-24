@@ -10,7 +10,7 @@ declare global {
       errorId?: string
     }
     interface Locals {
-      supabase: SupabaseClient
+      supabase: SupabaseClient<Database>
       getSession(): Promise<Session | null>
       getProfile(): Promise<Record<string, any> | null>
     }

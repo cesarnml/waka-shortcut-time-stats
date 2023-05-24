@@ -1,21 +1,21 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { ApiEndpoint, WakaApiRange } from '$lib/constants'
+import { ApiEndpoint, WakaApiRange, type DataContainer } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import { DateFormat } from '$lib/helpers/timeHelpers'
+import type { Database } from '$lib/database.types'
 
-type Project = {
-  id: string
-  created_at: string
-  updated_at: string
-  name: string
-  color: string
-}
+type Project = Database['public']['Tables']['projects']['Row']
+type ProjectSummaries = Database['public']['Tables']['project_summaries']['Row']
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const today = dayjs().format(DateFormat.Query)
-  const { data: projects }: { data: Project[] | null } = await supabase.from('projects').select('*')
+  // @ts-expect-error tough type
+  const { data: projects }: DataContainer<Project[] | null> = await supabase
+    .from('projects')
+    .select('*')
+    .eq('is_tracked', true)
 
   if (projects) {
     const projectSummariesRequests = projects.map((project) => {
@@ -41,12 +41,13 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
     const createOrUpdateRequests = []
 
     for (const [idx, project] of projects.entries()) {
-      const { data: existingProjectSummary } = await supabase
-        .from('project_summaries')
-        .select('*')
-        .eq('project_id', project.id)
-        .eq('date', today)
-        .single()
+      const { data: existingProjectSummary }: DataContainer<ProjectSummaries | null> =
+        await supabase
+          .from('project_summaries')
+          .select('*')
+          .eq('project_id', project.id)
+          .eq('date', today)
+          .single()
       if (existingProjectSummary) {
         createOrUpdateRequests.push(
           supabase

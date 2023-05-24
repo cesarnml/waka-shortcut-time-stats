@@ -7,6 +7,7 @@ import {
 } from '$env/static/public'
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
 import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit'
+import type { Database } from '$lib/database.types'
 
 export const handle: Handle = async ({ event, resolve }) => {
   // Only emit sentry errors in production
@@ -18,7 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   // Create supabase server client (consider making more powerful once we have row level security up)
-  event.locals.supabase = createSupabaseServerClient({
+  event.locals.supabase = createSupabaseServerClient<Database>({
     supabaseUrl: PUBLIC_SUPABASE_URL,
     supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
     event,
