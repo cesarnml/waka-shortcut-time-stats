@@ -8,12 +8,12 @@
   const dispatch = createEventDispatcher()
 
   afterUpdate(async () => {
-    if (profile?.date_range !== $selectedRange && $selectedRange !== 'Pick a range') {
+    if (profile?.range !== $selectedRange && $selectedRange !== 'Pick a range') {
       await fetch('/api/supabase/profiles', {
         method: 'POST',
         body: JSON.stringify({
           id: profile?.id,
-          date_range: $selectedRange,
+          range: $selectedRange,
         }),
       })
       dispatch('wakarange')

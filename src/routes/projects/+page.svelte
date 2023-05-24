@@ -1,5 +1,6 @@
 <script lang="ts">
   import { ApiEndpoint, Url } from '$lib/constants.js'
+  import { ChartColor } from '$lib/helpers/chartHelpers.js'
   import type { WakaProjectResult } from '$src/types/wakatime.js'
 
   export let data
@@ -34,7 +35,7 @@
     {#each projectsResult.data as { name, color } (name)}
       <li class="flex items-center gap-4">
         <div class="inline-flex flex-col">
-          <input type="color" value={color ?? '#fafafa'} id="style1" />
+          <input type="color" value={color ?? ChartColor.Icon} class="project-color" />
         </div>
         <a
           class="link-hover link line-clamp-1 flex-1 text-ellipsis font-semibold text-neutral-content"
@@ -56,21 +57,21 @@
   </ul>
 </div>
 
-<style>
-  /*------ Style 1 ------*/
-  #style1 {
+<style lang="postcss">
+  .project-color {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 32px;
+    width: 28px;
     height: 32px;
     background-color: transparent;
     cursor: pointer;
+    border-radius: 50%;
   }
-  #style1::-webkit-color-swatch {
-    border-radius: 15px;
+  .project-color::-webkit-color-swatch {
+    border-radius: 50%;
   }
-  #style1::-moz-color-swatch {
-    border-radius: 15px;
+  .project-color::-moz-color-swatch {
+    border-radius: 50%;
   }
 </style>

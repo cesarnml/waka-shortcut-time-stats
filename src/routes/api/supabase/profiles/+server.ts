@@ -5,7 +5,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 
   const { data: profile } = await supabase
     .from('profiles')
-    .update({ date_range: payload.date_range })
+    .update({ range: payload.range })
     .eq('id', payload?.id)
     .select('*')
     .single()

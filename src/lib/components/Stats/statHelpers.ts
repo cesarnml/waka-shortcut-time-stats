@@ -24,6 +24,8 @@ export const createProjectList = (summaries: SummariesResult) => {
 }
 
 export const getTopLanguage = (summaries: SummariesResult) => {
+  if (!summaries.data) return DEFAULT_EMPTY_MESSAGE
+
   const languages = summaries.data.flatMap((summary) => summary.languages)
 
   if (isEmpty(languages)) return DEFAULT_EMPTY_MESSAGE

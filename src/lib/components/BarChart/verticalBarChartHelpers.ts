@@ -10,6 +10,7 @@ import type {
 import type { BarSeriesOption, ComposeOption } from 'echarts/types/dist/shared'
 
 export const createVerticalBarChartDatasetSource = (summaries: SummariesResult) => {
+  if (!summaries.data) return []
   const branchToTimeDict = summaries.data.reduce((result, summary) => {
     summary.branches
       .filter((branch) => branch.name !== MAIN_BRANCH)

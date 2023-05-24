@@ -9,7 +9,7 @@
 
   const dispatch = createEventDispatcher()
 
-  $: dates = summaries.data.map((summary) => summary.range.date).reverse()
+  $: dates = summaries.data ? summaries.data.map((summary) => summary.range.date).reverse() : []
 
   const handleClick = (date: string) => {
     dispatch('update', date)

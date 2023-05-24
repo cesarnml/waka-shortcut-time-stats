@@ -32,7 +32,6 @@ export const handleError: HandleClientError = ({ error, event }) => {
 
   if (import.meta.env.DEV && error instanceof Error) {
     return {
-      errorId,
       name: error.name,
       message: error.message,
       stack: error.stack,

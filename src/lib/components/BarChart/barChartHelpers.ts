@@ -46,13 +46,19 @@ type Params = {
 const _createItemsByXValues = ({ summaries, itemsType }: Params) =>
   summaries.data?.map((summary) => summary[itemsType])
 
-const _getItemNames = ({ summaries, itemsType }: Params) => [
-  ...new Set(
-    summaries.data.flatMap((summary) => summary[itemsType].map((project) => project.name)),
-  ),
-]
+const _getItemNames = ({ summaries, itemsType }: Params) => {
+  if (!summaries.data) return []
+
+  return [
+    ...new Set(
+      summaries.data.flatMap((summary) => summary[itemsType].map((project) => project.name)),
+    ),
+  ]
+}
 
 export const createBarChartSeries = ({ summaries, itemsType }: Params) => {
+  if (!summaries.data) return []
+
   const xValues = createXAxisValues(summaries)
   const itemsByXValues = _createItemsByXValues({ summaries, itemsType })
   const itemNames = _getItemNames({ summaries, itemsType })
@@ -122,6 +128,8 @@ export const createStackedBarChartOption = (
 }
 
 export const createSimpleBarChartOption = (summaries: SummariesResult): SimpleBarChartOption => {
+  if (!summaries.data) return {}
+
   const dateCount = {
     0: 0,
     1: 0,

@@ -18,9 +18,13 @@
   let chartRef: HTMLDivElement
   let chart: echarts.ECharts
 
-  $: available_branches = [
-    ...new Set(summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name))),
-  ]
+  $: available_branches = summaries.data
+    ? [
+        ...new Set(
+          summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name)),
+        ),
+      ]
+    : []
 
   $: storyBranches = getStoryBranches(available_branches)
   $: source = createVerticalBarChartDatasetSource(summaries)

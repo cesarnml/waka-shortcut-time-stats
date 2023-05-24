@@ -6,6 +6,8 @@ import type { ComposeOption, LineSeriesOption } from 'echarts/types/dist/shared'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
 
 export const createLineChartData = (summaries: SummariesResult) => {
+  if (!summaries.data) return []
+
   return summaries.data.map((summary) => ({
     name: dayjs(summary.range.date).format(DateFormat.Short),
     value: summary.grand_total.total_seconds / secPerHour,

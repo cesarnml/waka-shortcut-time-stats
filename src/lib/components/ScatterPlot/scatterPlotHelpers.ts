@@ -6,8 +6,12 @@ import type { GridComponentOption, TooltipComponentOption } from 'echarts/compon
 import type { ComposeOption, ScatterSeriesOption } from 'echarts/types/dist/shared'
 import zipObject from 'lodash/zipObject'
 
-export const createBranchToTimeDict = (summaries: SummariesResult, available_branches: string[]) =>
-  summaries.data.reduce((result, summary) => {
+export const createBranchToTimeDict = (
+  summaries: SummariesResult,
+  available_branches: string[],
+) => {
+  if (!summaries.data) return {}
+  return summaries.data.reduce((result, summary) => {
     summary.branches.forEach((branch) => {
       if (!getStoryBranches(available_branches).includes(branch.name)) {
         return
@@ -16,6 +20,7 @@ export const createBranchToTimeDict = (summaries: SummariesResult, available_bra
     })
     return result
   }, {} as Record<string, number>)
+}
 
 export const createBranchToEstimateDict = (stories: StorySearchResults) =>
   zipObject(

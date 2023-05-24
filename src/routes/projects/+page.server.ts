@@ -10,9 +10,7 @@ type SupabaseProject = {
   color: string | null
 }
 
-export const load: PageServerLoad = async ({ fetch, setHeaders, locals: { supabase } }) => {
-  setHeaders({ 'Cache-Control': 'public, s-maxage=60,  max-age=60' })
-
+export const load: PageServerLoad = async ({ fetch, locals: { supabase } }) => {
   const response = await fetch(ApiEndpoint.Projects)
   const result: WakaProjectResult = await response.json()
   const { data: trackedProjects }: DataContainer<SupabaseProject[] | null> = await supabase

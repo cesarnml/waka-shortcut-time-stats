@@ -28,9 +28,13 @@
     profile,
   } = data)
 
-  $: available_branches = [
-    ...new Set(summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name))),
-  ]
+  $: available_branches = summaries.data
+    ? [
+        ...new Set(
+          summaries.data.flatMap((summary) => summary.branches.map((branch) => branch.name)),
+        ),
+      ]
+    : []
 
   onMount(() => {
     if (profile) {

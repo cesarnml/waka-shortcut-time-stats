@@ -12,9 +12,8 @@ export const actions: Actions = {
       .from('profiles')
       .update({
         name: name,
-        updated_at: new Date(),
       })
-      .eq('user_id', session?.user.id)
+      .eq('id', session?.user.id)
 
     if (error) {
       return fail(500, {

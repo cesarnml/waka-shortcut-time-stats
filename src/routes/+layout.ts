@@ -19,7 +19,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
   const { data: profile } = await supabase
     .from('profiles')
     .select('*')
-    .eq('user_id', session?.user.id)
+    .eq('id', session?.user.id)
     .single()
 
   return { supabase, session, pathname: url.pathname, profile }

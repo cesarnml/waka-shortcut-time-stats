@@ -72,16 +72,20 @@ export const DurationItemType = {
 export type KeyOfDurationItemType = keyof typeof DurationItemType
 export type ValueOfDurationItemType = (typeof DurationItemType)[keyof typeof DurationItemType]
 
-export const getSummaryItems = (summaries: SummariesResult, itemType: ValueOfSummaryItemType) =>
+export const getSummaryItems = (summaries: SummariesResult, itemType: ValueOfSummaryItemType) => {
+  if (!summaries?.data) return []
   summaries.data.flatMap((summary) => summary[itemType])
+}
 
 type Item = { name: string; total_seconds: number }
 
-export const createItemNameToTimeDict = (items: Item[]) =>
-  items.reduce((acc, { name, total_seconds }) => {
+export const createItemNameToTimeDict = (items: Item[]) => {
+  if (!items) return {}
+  return items.reduce((acc, { name, total_seconds }) => {
     acc[name] = (acc[name] ?? 0) + total_seconds
     return acc
   }, {} as Record<string, number>)
+}
 
 export const convertDataDictToChartData = (dataDict: Record<string, number>) =>
   Object.entries(dataDict).map(([name, value]) => ({

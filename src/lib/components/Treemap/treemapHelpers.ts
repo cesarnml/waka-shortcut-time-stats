@@ -4,12 +4,15 @@ import type { SummariesResult } from '$src/types/wakatime'
 import { ChartColor } from '$lib/helpers/chartHelpers'
 import type { ComposeOption, TreemapSeriesOption } from 'echarts/types/dist/shared'
 import type { GridComponentOption, TooltipComponentOption } from 'echarts/components'
-export const getProjectFiles = (summaries: SummariesResult) =>
-  [
+export const getProjectFiles = (summaries: SummariesResult) => {
+  if (!summaries.data) return []
+  return [
     ...new Set(summaries.data.flatMap((summary) => summary.entities.map((entity) => entity.name))),
   ].filter((file) => !file.includes('node_modules') && !file.includes('generated'))
+}
 
 export const createProjectFileToTimeDict = (summaries: SummariesResult, projectName: string) => {
+  if (!summaries.data) return {}
   const projectFiles = getProjectFiles(summaries)
   const filesToTimeDict: Record<string, number> = {}
   summaries.data.forEach((summary) => {

@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
   import { page } from '$app/stores'
   import { Url } from '$lib/constants'
   $: {
     const redirectTo = $page.url.searchParams.get('redirect')
-    console.log('redirectTo:', redirectTo)
 
     if ($page.data.session) {
       location.href = redirectTo ?? Url.Home
