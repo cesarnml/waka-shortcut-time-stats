@@ -23,5 +23,7 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
     .eq('id', session?.user.id)
     .single()
 
-  return { supabase, session, pathname: url.pathname, profile }
+  const { data: projects } = await supabase.from('projects').select('*')
+
+  return { supabase, session, profile, projects, pathname: url.pathname }
 }

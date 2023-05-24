@@ -1,11 +1,12 @@
+import type { SupaProfile } from '$src/app'
 import { writable } from 'svelte/store'
 
 const createProfileStore = () => {
-  const { subscribe, set } = writable<Record<string, any> | null>(null)
+  const { subscribe, set } = writable<SupaProfile | null>(null)
 
   return {
     subscribe,
-    set: (profile: Record<string, any> | null) => set(profile),
+    set: (profile: SupaProfile | null) => set(profile),
     clear: () => set(null),
   }
 }
