@@ -17,6 +17,7 @@
   import ChartContainer from '../common/ChartContainer.svelte'
 
   export let summaries: SummariesResult
+  console.log('summaries:', summaries)
   export let title: string
   export let isFiltered = true
 

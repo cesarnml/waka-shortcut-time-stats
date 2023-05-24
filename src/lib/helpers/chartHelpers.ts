@@ -74,7 +74,8 @@ export type ValueOfDurationItemType = (typeof DurationItemType)[keyof typeof Dur
 
 export const getSummaryItems = (summaries: SummariesResult, itemType: ValueOfSummaryItemType) => {
   if (!summaries?.data) return []
-  summaries.data.flatMap((summary) => summary[itemType])
+
+  return summaries.data.flatMap((summary) => summary[itemType])
 }
 
 type Item = { name: string; total_seconds: number }

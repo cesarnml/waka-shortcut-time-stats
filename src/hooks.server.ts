@@ -48,6 +48,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.url.pathname,
     event.cookies.get('sb-auth-token')?.slice(0, 9) ? '✅' : '⚠️',
     profile?.email ? '👍' : '🛑',
+    profile?.range,
   )
 
   if (!profile && event.url.pathname === '/account') {

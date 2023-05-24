@@ -38,7 +38,7 @@
 
   onMount(() => {
     if (profile) {
-      selectedRange.set(profile.date_range)
+      selectedRange.set(profile.range)
     } else if ($selectedRange === 'Pick a range') {
       selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
     }

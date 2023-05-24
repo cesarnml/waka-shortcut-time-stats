@@ -6,7 +6,8 @@ import type { SupabaseDuration } from './api/supabase/durations/+server'
 export const load: PageServerLoad = async ({ fetch, url, locals: { getProfile } }) => {
   const profile = await getProfile()
   const wakaRange = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days_From_Yesterday
-  const range = profile?.date_range ?? wakaRange
+  const range = profile?.range ?? wakaRange
+  console.log('range:', range)
 
   const [summariesResponse, durationsResponse, durationsByLanguageResponse] = await Promise.all([
     fetch(`${ApiEndpoint.SupabaseSummaries}?range=${range}`),

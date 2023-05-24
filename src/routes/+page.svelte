@@ -22,8 +22,8 @@
   $: ({ summaries, durations, durationsByLanguage, profile } = data)
 
   onMount(() => {
-    if (profile && profile.date_range !== $selectedRange) {
-      selectedRange.set(profile.date_range)
+    if (profile && profile.range !== $selectedRange) {
+      selectedRange.set(profile.range)
       invalidate('supabase:signin')
     } else if ($selectedRange === 'Pick a range') {
       selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
