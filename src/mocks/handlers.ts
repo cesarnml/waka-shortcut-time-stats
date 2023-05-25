@@ -1,7 +1,16 @@
 // src/mocks/handlers.ts
 import { ApiEndpoint, BaseUrl, RestResource } from '$lib/constants'
 import { rest } from 'msw'
-import { durations, iterationStories, iterations, projects, summaries } from './testData'
+import {
+  allTimeSinceToday,
+  durations,
+  iterationStories,
+  iterations,
+  projects,
+  summaries,
+  vercelAliases,
+  vercelProjects,
+} from './testData'
 
 export const TEST_ITERATION_ID = 15
 
@@ -31,4 +40,13 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(iterationStories))
     },
   ),
+  rest.get(`${BaseUrl.Vercel}${RestResource.Aliases}`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(vercelAliases))
+  }),
+  rest.get(`${BaseUrl.Vercel}${RestResource.VercelProjects}`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(vercelProjects))
+  }),
+  rest.get(`${BaseUrl.WakaTime}${RestResource.AllTime}`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(allTimeSinceToday))
+  }),
 ]
