@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation'
   import { ApiEndpoint, Url } from '$lib/constants.js'
   import { ChartColor } from '$lib/helpers/chartHelpers.js'
   import { project } from '$lib/stores/project.js'
@@ -127,16 +126,26 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 28px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     cursor: pointer;
     border-radius: 50%;
   }
   .project-color::-webkit-color-swatch {
     border-radius: 50%;
+    border: none;
   }
-  .project-color::-moz-color-swatch {
+
+  .project-color::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  .project-color::-moz-color-swatch,
+  .project-color::-moz-focus-inner {
     border-radius: 50%;
+    border: none;
+  }
+  .project-color::-moz-focus-inner {
+    padding: 0;
   }
 </style>

@@ -37,7 +37,7 @@
 <div class="overflow-x-auto">
   <div class="stats bg-chart-dark shadow-lg">
     <StatPanelItem title="Total Hours" icon="mdi:clock-outline" label="clock">
-      {formatTime(totalSeconds)}
+      {formatTime(totalSeconds) || 'N/A'}
     </StatPanelItem>
     {#if !isSingleDay}
       <StatPanelItem title="Daily Average" icon="material-symbols:bar-chart-rounded" label="chart">
