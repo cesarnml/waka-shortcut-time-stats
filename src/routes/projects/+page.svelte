@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { ApiEndpoint, Url } from '$lib/constants.js'
+  import SearchInput from '$lib/components/common/SearchInput.svelte'
+  import { Url } from '$lib/constants.js'
   import { ChartColor } from '$lib/helpers/chartHelpers.js'
   import { project } from '$lib/stores/project.js'
   import type { WakaProjectResult } from '$src/types/wakatime.js'
@@ -8,12 +9,8 @@
 
   $: ({ wakaProjects, supabase } = data)
 
-  let search: string
-
-  const handleSearch = async () => {
-    const response = await fetch(`${ApiEndpoint.Projects}?q=${search}`)
-    const result: WakaProjectResult = await response.json()
-    wakaProjects = result
+  const onSearch = (e: CustomEvent<WakaProjectResult>) => {
+    wakaProjects = e.detail
   }
 
   const onTrackProject = async (projectName: string) => {
@@ -82,16 +79,9 @@
 </script>
 
 <div class="space-y-8">
-  <form class="flex items-center gap-4 px-4 pt-4" on:submit={handleSearch}>
-    <input
-      class="input-primary input flex-shrink text-base"
-      bind:value={search}
-      placeholder="Search"
-    />
-    <button class="btn-primary btn-wide btn flex-shrink" type="submit">Submit</button>
-  </form>
+  <SearchInput on:search={onSearch} />
   <ul class="w-full space-y-4 px-4">
-    {#each wakaProjects.data as { name, color } (name)}
+    {#each wakaProjects.data as { name } (name)}
       <li class="flex items-center gap-4">
         <div class="inline-flex flex-col">
           <input
