@@ -2,9 +2,7 @@ import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { ApiEndpoint, WakaApiRange, type DataContainer } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
-import type { Database } from '$lib/database.types'
-
-type Summary = Database['public']['Tables']['summaries']['Row']
+import type { SupaSummary } from '$src/app'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const response = await fetch(`${ApiEndpoint.Summaries}?&range=${WakaApiRange.Yesterday}`)
@@ -12,7 +10,7 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const summaries = summariesResult.data
   const summariesWithDate = summaries.map((summary) => ({ ...summary, date: summary.range.date }))
 
-  const { data: existingSummary }: DataContainer<Summary | null> = await supabase
+  const { data: existingSummary }: DataContainer<SupaSummary | null> = await supabase
     .from('summaries')
     .select('*')
     .eq('date', summariesWithDate[0].date)
@@ -21,7 +19,7 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   if (existingSummary) {
     const output = await supabase
       .from('summaries')
-      .update(summariesWithDate)
+      .update(summariesWithDate as unknown as SupaSummary)
       .eq('date', summariesWithDate[0].date)
     return json(output)
   } else {

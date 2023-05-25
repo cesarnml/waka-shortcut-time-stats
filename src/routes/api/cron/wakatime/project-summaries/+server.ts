@@ -4,15 +4,12 @@ import { ApiEndpoint, WakaApiRange, type DataContainer } from '$lib/constants'
 import type { SummariesResult } from '$src/types/wakatime'
 import dayjs from 'dayjs'
 import { DateFormat } from '$lib/helpers/timeHelpers'
-import type { Database } from '$lib/database.types'
-
-type Project = Database['public']['Tables']['projects']['Row']
-type ProjectSummaries = Database['public']['Tables']['project_summaries']['Row']
+import type { SupaProject, SupaProjectSummary } from '$src/app'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
   const yesterday = dayjs().subtract(1, 'd').format(DateFormat.Query)
-  // @ts-expect-error tough type
-  const { data: projects }: DataContainer<Project[] | null> = await supabase
+
+  const { data: projects }: DataContainer<SupaProject[] | null> = await supabase
     .from('projects')
     .select('*')
     .eq('is_tracked', true)
@@ -43,23 +40,26 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
     const createOrUpdateRequests = []
 
     for (const [idx, project] of projects.entries()) {
-      const { data: existingProjectSummary }: DataContainer<ProjectSummaries | null> =
+      const { data: existingProjectSummary }: DataContainer<SupaProjectSummary | null> =
         await supabase
           .from('project_summaries')
           .select('*')
           .eq('project_id', project.id)
           .eq('date', yesterday)
           .single()
+
       if (existingProjectSummary) {
         createOrUpdateRequests.push(
           supabase
             .from('project_summaries')
-            .update(projectSummariesResultsWithDate[idx].data)
+            .update(projectSummariesResultsWithDate[idx].data as unknown as SupaProjectSummary)
             .eq('id', existingProjectSummary.id),
         )
       } else {
         createOrUpdateRequests.push(
-          supabase.from('project_summaries').insert(projectSummariesResultsWithDate[idx].data),
+          supabase
+            .from('project_summaries')
+            .insert(projectSummariesResultsWithDate[idx].data as unknown as SupaProjectSummary),
         )
       }
     }
