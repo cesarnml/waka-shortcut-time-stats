@@ -8,6 +8,9 @@ export const WakaSliceBy = {
   Machine: 'machine',
 } as const
 
+export const WakaApiRangePrompt = 'Pick a range'
+export type WakaApiRangePrompt = typeof WakaApiRangePrompt
+
 export const WakaApiRange = {
   Today: 'Today',
   Yesterday: 'Yesterday',
@@ -110,6 +113,8 @@ export const ApiEndpoint = {
   IterationStories: (id: number | string) => `/api/shortcut/iterations/${id}/stories`,
   VercelProjects: '/api/vercel/projects',
   Aliases: `/api/vercel/aliases`,
+  SupabaseProfiles: `/api/supabase/profiles`,
+  SupabaseProjects: `/api/supabase/projects`,
   SupabaseSummaries: `/api/supabase/summaries`,
   SupabaseProjectSummaries: `/api/supabase/project-summaries`,
   SupabaseDurations: `/api/supabase/durations`,

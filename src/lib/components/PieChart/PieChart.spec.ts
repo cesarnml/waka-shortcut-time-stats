@@ -20,6 +20,10 @@ it('renders a PieChart', async () => {
     ],
   } as SummariesResult
 
-  render(PieChart, { props: { summaries } })
+  const props = { summaries, title: 'test title' }
+
+  render(PieChart, props)
+
+  expect(screen.getByText(props.title)).toBeInTheDocument()
   expect(screen.getByTestId('chart')).toBeInTheDocument()
 })

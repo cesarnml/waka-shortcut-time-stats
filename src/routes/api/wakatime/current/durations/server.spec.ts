@@ -2,6 +2,7 @@ import { vi } from 'vitest'
 import type { RequestEvent } from './$types'
 import { GET } from './+server'
 import { durations } from '$src/mocks/testData'
+import type { HttpError } from '@sveltejs/kit'
 
 describe('/api/wakatime/current/durations', () => {
   it('works', async () => {
@@ -18,18 +19,24 @@ describe('/api/wakatime/current/durations', () => {
     expect(event.url.searchParams.get).toBeCalledTimes(2)
     expect(response.status).toBe(200)
     expect(result).toEqual(durations)
+  })
 
-    // How to test error case? Failed approach below, but questionable value since we don't do anything with error.
-    // const errorEvent = {
-    //   url: {
-    //     searchParams: {
-    //       get: () => {
-    //         throw new Error('boom')
-    //       },
-    //     },
-    //   },
-    // }
-    // const errorResponse = await GET(errorEvent as unknown as RequestEvent)
-    // expect(response).toThrowError()
+  it('errors', async () => {
+    const event = {
+      url: {
+        searchParams: {
+          get: vi.fn(() => {
+            throw new Error('boom')
+          }),
+        },
+      },
+    }
+
+    try {
+      await GET(event as unknown as RequestEvent)
+    } catch (error) {
+      expect((error as HttpError).status).toEqual(400)
+      expect((error as HttpError).body.message).toEqual('This is not the way.')
+    }
   })
 })

@@ -3,7 +3,10 @@ import PageTransition from './PageTransition.svelte'
 
 describe('PageTransition', () => {
   it('renders', async () => {
-    render(PageTransition)
+    const props = {
+      pathname: '/',
+    }
+    render(PageTransition, props)
     expect(screen.getByTestId('page-transition')).toBeInTheDocument()
   })
 })

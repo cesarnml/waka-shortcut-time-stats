@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ url }) => {
   }
 
   const response = await fetch(
-    `${BaseUrl.Vercel}${RestResource.Aliases}?projectId${projectId}&limit=100`,
+    `${BaseUrl.Vercel}${RestResource.Aliases}?projectId=${projectId}&limit=100`,
     { headers },
   )
   const aliasesResult: AliasesResult = await response.json()

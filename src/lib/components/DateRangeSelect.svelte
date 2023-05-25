@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { WakaApiRange } from '$lib/constants'
-  import type { Database } from '$lib/database.types'
+  import { ApiEndpoint, WakaApiRange, WakaApiRangePrompt } from '$lib/constants'
   import { selectedRange } from '$lib/stores/selectedRange'
+  import type { SupaProfile } from '$src/app'
   import { afterUpdate, createEventDispatcher } from 'svelte'
 
-  export let profile: Database['public']['Tables']['profiles']['Row']
+  export let profile: SupaProfile
 
   const dispatch = createEventDispatcher()
 
   afterUpdate(async () => {
-    if (profile.range !== $selectedRange && $selectedRange !== 'Pick a range') {
-      await fetch('/api/supabase/profiles', {
+    if (profile.range !== $selectedRange && $selectedRange !== WakaApiRangePrompt) {
+      await fetch(ApiEndpoint.SupabaseProfiles, {
         method: 'POST',
         body: JSON.stringify({
-          id: profile?.id,
+          id: profile.id,
           range: $selectedRange,
         }),
       })

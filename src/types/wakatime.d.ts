@@ -165,4 +165,25 @@ export type DurationsResult = {
   timezone: string
 }
 
+export type WakaFullRange = {
+  end: string
+  end_date: string
+  end_text: string
+  start: string
+  start_date: string
+  start_text: string
+  timezone: string
+}
+
+export type AllTimeSinceTodayData = {
+  decimal: string
+  digital: string
+  is_up_to_date: boolean
+  percent_calculated: number
+  range: WakaFullRange
+  text: string
+  timeout: number
+  total_seconds: number
+}
+
 export {}
