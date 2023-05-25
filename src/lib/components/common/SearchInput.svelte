@@ -16,8 +16,8 @@
       loading = true
       const response = await fetch(`${ApiEndpoint.Projects}?q=${search}`)
       const result: WakaProjectResult = await response.json()
-      loading = false
       dispatch('search', result)
+      loading = false
     },
     DELAY,
     { trailing: true },
@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="relative flex items-center gap-4 px-4 pt-4">
+<div class="relative flex items-center gap-4 px-4 pt-4 md:max-w-xs">
   <input
     class="input-primary input w-full flex-shrink text-base md:max-w-xs"
     bind:value={search}
