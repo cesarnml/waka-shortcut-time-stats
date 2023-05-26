@@ -14,15 +14,23 @@
   import 'tippy.js/themes/light.css'
   import '../app.postcss'
   import { project } from '$lib/stores/project'
+  import { session } from '$lib/stores/session'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
 
   export let data
 
-  $: ({ pathname, session, supabase, projects: initialProjects, profile: initialProfile } = data)
+  $: ({
+    pathname,
+    session: initialSession,
+    supabase,
+    projects: initialProjects,
+    profile: initialProfile,
+  } = data)
 
   $: {
+    session.set(initialSession)
     profile.set(initialProfile)
     project.set(initialProjects)
   }
@@ -31,7 +39,7 @@
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, _session) => {
-      if (_session?.expires_at !== session?.expires_at) {
+      if (_session?.expires_at !== $session?.expires_at) {
         invalidate('supabase:auth')
       }
     })

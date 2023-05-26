@@ -31,11 +31,11 @@
         />
       </NavLogo>
     </div>
-    <div class="navbar-center relative h-12" transition:fade>
-      {#if $navigating || $loading}
+    {#if $navigating || $loading}
+      <div class="navbar-center relative h-12" transition:fade>
         <NinjaSpinner />
-      {/if}
-    </div>
+      </div>
+    {/if}
     <div class="navbar-end relative flex gap-4">
       <NavEnd />
     </div>
