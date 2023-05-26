@@ -95,7 +95,7 @@ export const createStackedBarChartOption = (
     tooltip: {
       valueFormatter: (value) => formatTime(Number(value) * secPerHour),
     },
-    grid: { left: 45, right: 10, top: 55, bottom: 50 },
+    grid: { left: 55, right: 10, top: 55, bottom: 50 },
     legend: {
       type: 'scroll',
       pageIconColor: ChartColor.Icon,
@@ -118,7 +118,7 @@ export const createStackedBarChartOption = (
       type: 'value',
       name: 'Hours',
       nameLocation: 'middle',
-      nameGap: 30,
+      nameGap: 40,
       axisLabel: {
         showMinLabel: false,
       },
