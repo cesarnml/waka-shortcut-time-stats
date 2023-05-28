@@ -39,6 +39,8 @@ export const WakaToShortcutApiRange = {
   [WakaApiRange.Last_Month]: 61,
 } as const
 
+export type WakaToShortcutApiRange = typeof WakaToShortcutApiRange
+
 export const BRANCH_NAME_DELIMITER = '_'
 export const BRANCH_FULL_ID_DELIMITER = '/'
 export const BRANCH_ONLY_ID_DELIMITER = '-'
