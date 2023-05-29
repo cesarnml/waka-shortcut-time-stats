@@ -20,7 +20,7 @@
   <title>Login</title>
 </svelte:head>
 
-<div class="grid h-screen place-items-center">
+<div class="flex justify-center pt-8">
   <button class="btn-primary btn" type="button" on:click={signInWithGitHub}>
     Sign in with GitHub
   </button>
