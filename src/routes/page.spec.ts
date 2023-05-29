@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/svelte'
 import Home from './+page.svelte'
 import { durations, durationsByLanguage, summaries } from '$src/mocks/testData'
-import { WakaApiRange } from '$lib/constants'
 
 describe('Home', () => {
   it('it...', async () => {

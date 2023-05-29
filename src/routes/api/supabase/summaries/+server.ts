@@ -7,7 +7,6 @@ import dayjs from 'dayjs'
 export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
   const start = url.searchParams.get('start') ?? ''
   const end = url.searchParams.get('end') ?? ''
-  const project = url.searchParams.get('project') ?? ''
   let range = url.searchParams.get('range') ?? WakaApiRange.Last_7_Days_From_Yesterday
 
   // start and end take precedence over range
@@ -32,7 +31,7 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 
   const summaries = {
     data: summariesData,
-  } as SummariesResult
+  } as unknown as SummariesResult
 
   return json(summaries)
 }

@@ -11,7 +11,12 @@
   import ScatterPlot from '$lib/components/ScatterPlot/ScatterPlot.svelte'
   import StatsPanel from '$lib/components/Stats/StatsPanel.svelte'
   import Treemap from '$lib/components/Treemap/Treemap.svelte'
-  import { ApiEndpoint, WakaApiRange, WakaToShortcutApiRange } from '$lib/constants.js'
+  import {
+    ApiEndpoint,
+    WakaApiRange,
+    WakaToShortcutApiRange,
+    type ValueOf,
+  } from '$lib/constants.js'
   import { DateFormat } from '$lib/helpers/timeHelpers.js'
   import { loading } from '$lib/stores/loading.js'
   import { selectedRange } from '$lib/stores/selectedRange.js'
@@ -38,7 +43,7 @@
 
   onMount(() => {
     if (profile) {
-      selectedRange.set(profile.range)
+      selectedRange.set(profile.range as ValueOf<WakaApiRange>)
     } else if ($selectedRange === 'Pick a range') {
       selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
     }
@@ -71,7 +76,7 @@
     >
       {$page.params.projectName}
     </h1>
-    <DateRangeSelect on:wakarange={onWakaRange} {profile} />
+    <DateRangeSelect on:wakarange={onWakaRange} />
   </div>
   <StatsPanel {summaries} />
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">

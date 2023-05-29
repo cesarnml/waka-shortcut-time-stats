@@ -1,5 +1,5 @@
 import { TEST_ITERATION_ID } from '$src/mocks/handlers'
-import { iterationStories, iterations } from '$src/mocks/testData'
+import { iterationStories } from '$src/mocks/testData'
 import type { RequestEvent } from './$types'
 import { GET } from './+server'
 

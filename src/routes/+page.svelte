@@ -44,7 +44,7 @@
 
 <div class="space-y-4 px-2 md:px-4">
   <div class="flex justify-end">
-    <DateRangeSelect on:wakarange={onWakaRange} {profile} />
+    <DateRangeSelect on:wakarange={onWakaRange} />
   </div>
   <StatsPanel {summaries} showFullPanel />
   <ActivityChart {durations} itemType="project" />
