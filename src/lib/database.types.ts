@@ -31,6 +31,7 @@ export interface Database {
           id?: string
           updated_at?: string | null
         }
+        Relationships: []
       }
       durations_by_language: {
         Row: {
@@ -54,6 +55,7 @@ export interface Database {
           id?: string
           updated_at?: string | null
         }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -86,6 +88,14 @@ export interface Database {
           range?: string | null
           updated_at?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       project_summaries: {
         Row: {
@@ -139,6 +149,14 @@ export interface Database {
           range?: Json | null
           updated_at?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "project_summaries_project_id_fkey"
+            columns: ["project_id"]
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       projects: {
         Row: {
@@ -165,6 +183,7 @@ export interface Database {
           name?: string | null
           updated_at?: string | null
         }
+        Relationships: []
       }
       summaries: {
         Row: {
@@ -212,6 +231,7 @@ export interface Database {
           range?: Json | null
           updated_at?: string | null
         }
+        Relationships: []
       }
     }
     Views: {
@@ -263,6 +283,14 @@ export interface Database {
           public?: boolean | null
           updated_at?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "buckets_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       migrations: {
         Row: {
@@ -283,6 +311,7 @@ export interface Database {
           id?: number
           name?: string
         }
+        Relationships: []
       }
       objects: {
         Row: {
@@ -321,6 +350,20 @@ export interface Database {
           updated_at?: string | null
           version?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "objects_bucketId_fkey"
+            columns: ["bucket_id"]
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "objects_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {
@@ -352,7 +395,7 @@ export interface Database {
         Args: {
           name: string
         }
-        Returns: string[]
+        Returns: unknown
       }
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>
