@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  if (import.meta.env.DEV) {
-    console.error('page:', $page.error?.stack)
-  }
 </script>
 
-<h1>Second error page</h1>
-<pre>{JSON.stringify($page.error?.stack, null, 2)}</pre>
+<h1>Oh snap!</h1>
+{#if import.meta.env.DEV}
+  <p class="prose">{JSON.stringify($page.error?.stack, null, 2)}</p>
+{:else}
+  <p>An error has occurred. I have spoken.</p>
+{/if}

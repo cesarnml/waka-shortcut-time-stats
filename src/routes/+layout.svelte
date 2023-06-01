@@ -58,20 +58,16 @@
   <link rel="canonical" href={$page.url.href} />
 </svelte:head>
 
-<main class="bg-[url('/assets/images/bg4.svg')]">
+<main>
   <Navbar />
-  <div class="relative mx-auto min-h-screen max-w-screen-xl overflow-x-hidden pt-20">
-    <PageTransition {pathname}>
-      <slot />
-    </PageTransition>
-  </div>
-  <div class="py-8">
-    <Footer />
+  <div class="flex min-h-screen w-full flex-col">
+    <div class="relative mx-auto w-full max-w-screen-xl flex-1 pt-20">
+      <PageTransition {pathname}>
+        <slot />
+      </PageTransition>
+    </div>
+    <div class="py-8">
+      <Footer />
+    </div>
   </div>
 </main>
-
-<style lang="postcss">
-  main {
-    background-size: cover;
-  }
-</style>
