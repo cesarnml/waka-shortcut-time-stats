@@ -67,7 +67,7 @@
     "prettier-plugin-svelte": "2.10.1",
     "prettier-plugin-tailwindcss": "0.3.0",
     "sharp": "0.28.0",
-    "svelte": "3.59.1",
+    "svelte": "4.0.0-next.0",
     "svelte-check": "3.4.3",
     "svelte-fragment-component": "1.2.0",
     "svelte-htm": "1.2.0",
