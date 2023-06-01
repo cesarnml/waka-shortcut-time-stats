@@ -16,13 +16,13 @@
   }
 </script>
 
-<div class="carousel mx-4 space-x-4">
+<div class="carousel w-full space-x-4 px-4">
   {#each dates as date (date)}
     <div class="carousel-item">
       <button
         class:!btn-outline={date === selectedDate}
         class:btn-accent={date === selectedDate}
-        class="btn-outline btn-primary btn-sm btn normal-case"
+        class="btn-primary btn-outline btn-sm btn normal-case"
         type="button"
         on:click={() => handleClick(date)}
       >
