@@ -45,7 +45,7 @@
     if (profile) {
       selectedRange.set(profile.range as ValueOf<WakaApiRange>)
     } else if ($selectedRange === 'Pick a range') {
-      selectedRange.set(WakaApiRange.Last_7_Days_From_Yesterday)
+      selectedRange.set(WakaApiRange.Last_30_Days)
     }
   })
 
