@@ -1,5 +1,5 @@
-import crypto from 'crypto'
-import * as Sentry from '@sentry/node'
+import * as Sentry from '@sentry/sveltekit'
+import { handleErrorWithSentry } from '@sentry/sveltekit'
 import {
   PUBLIC_SENTRY_DSN,
   PUBLIC_SUPABASE_ANON_KEY,
@@ -12,15 +12,14 @@ import type { Session } from '@supabase/supabase-js'
 import type { DataContainer } from '$lib/constants'
 import type { SupaProject } from './app'
 
-export const handle: Handle = async ({ event, resolve }) => {
-  // Only emit sentry errors in production
-  if (import.meta.env.PROD) {
-    Sentry.init({
-      dsn: PUBLIC_SENTRY_DSN,
-      tracesSampleRate: 1.0,
-    })
-  }
+if (import.meta.env.PROD) {
+  Sentry.init({
+    dsn: PUBLIC_SENTRY_DSN,
+    tracesSampleRate: 1.0,
+  })
+}
 
+export const handle: Handle = async ({ event, resolve }) => {
   // Create supabase server client (consider making more powerful once we have row level security up)
   event.locals.supabase = createSupabaseServerClient<Database>({
     supabaseUrl: PUBLIC_SUPABASE_URL,
@@ -91,27 +90,15 @@ export const handle: Handle = async ({ event, resolve }) => {
   return response
 }
 
-export const handleError: HandleServerError = ({ error, event }) => {
-  const errorId = crypto.randomUUID()
-
-  // Only emit errors in production
+export const handleError: HandleServerError = (input) => {
   if (import.meta.env.PROD) {
-    Sentry.captureException(error, {
-      contexts: { sveltekit: { event, errorId } },
-    })
+    handleErrorWithSentry()
   }
-
-  if (error instanceof Error && import.meta.env.DEV) {
-    return {
-      errorId,
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-    }
+  if (import.meta.env.DEV) {
+    console.error(input.error)
   }
 
   return {
-    message: 'A server error occurred. I have spoken.',
-    errorId,
+    message: 'A client error has occurred. I have spoken.',
   }
 }

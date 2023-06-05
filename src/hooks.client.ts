@@ -1,45 +1,36 @@
-import * as Sentry from '@sentry/svelte'
-import { PUBLIC_SENTRY_DSN } from '$env/static/public'
 import type { HandleClientError } from '@sveltejs/kit'
+import * as Sentry from '@sentry/sveltekit'
+import { handleErrorWithSentry } from '@sentry/sveltekit'
+import { PUBLIC_SENTRY_DSN } from '$env/static/public'
 
 if (import.meta.env.PROD) {
   Sentry.init({
-    dsn: PUBLIC_SENTRY_DSN, // can be hardcoded
+    dsn: PUBLIC_SENTRY_DSN,
+    tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 1.0,
+    replaysOnErrorSampleRate: 1.0,
     integrations: [
-      new Sentry.BrowserTracing(), // Detail trace stack
-      // new Sentry.Replay({
-      //   // Visual replay of errors (cool!)
-      //   maskAllInputs: true, // respect user privacy on replays
-      //   maskAllText: true,
-      //   blockAllMedia: true,
-      // }),
+      new Sentry.BrowserTracing(),
+      new Sentry.Replay({
+        maskAllInputs: false,
+        maskAllText: false,
+        blockAllMedia: false,
+      }),
     ],
-    tracesSampleRate: 1.0, // lower settings if swamped with errors
-    // replaysSessionSampleRate: 1.0,
-    // replaysOnErrorSampleRate: 1.0,
   })
 }
 
-export const handleError: HandleClientError = ({ error, event }) => {
-  const errorId = crypto.randomUUID() // add unique errorId for easy reference
-
+export const handleError: HandleClientError = (input) => {
   // Only emit errors in production
   if (import.meta.env.PROD) {
-    Sentry.captureException(error, {
-      contexts: { sveltekit: { event, errorId } },
-    })
+    handleErrorWithSentry()
   }
 
-  if (import.meta.env.DEV && error instanceof Error) {
-    return {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-    }
+  if (import.meta.env.DEV) {
+    console.error(input.error)
   }
 
   return {
-    errorId,
-    message: 'A client error has occurred. I have spoken',
+    message: 'A client error has occurred. I have spoken.',
   }
 }

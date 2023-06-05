@@ -1,10 +1,11 @@
 import { resolve } from 'node:path'
 import { sveltekit } from '@sveltejs/kit/vite'
-import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { sentrySvelteKit } from '@sentry/sveltekit'
 import { defineConfig, loadEnv } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import viteCompression from 'vite-plugin-compression'
 
+// @ts-expect-error tough type
 const config = defineConfig(({ mode }) => {
   // Only setup Sentry in production
   const isProduction = mode === 'production'
@@ -34,11 +35,18 @@ const config = defineConfig(({ mode }) => {
         outputDir: '.vite-inspect',
       }),
       isProduction
-        ? sentryVitePlugin({
-            telemetry: false, // Privacy :-)
-            org: env.PUBLIC_SENTRY_ORG, // can be hardcode
-            project: env.PUBLIC_SENTRY_PROJECT, // can be hardcode
-            authToken: env.SENTRY_AUTH_TOKEN, // must be secret
+        ? sentrySvelteKit({
+            adapter: 'vercel',
+            sourceMapsUploadOptions: {
+              org: env.PUBLIC_SENTRY_ORG,
+              project: env.PUBLIC_SENTRY_PROJECT,
+              authToken: env.SENTRY_AUTH_TOKEN,
+              telemetry: false,
+              cleanArtifacts: true,
+              setCommits: {
+                auto: true,
+              },
+            },
           })
         : '',
     ],
