@@ -18,5 +18,4 @@ html
 .vite-inspect
 hint-report
 reports
-supabase
 playwright-report
