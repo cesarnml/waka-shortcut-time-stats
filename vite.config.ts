@@ -1,9 +1,9 @@
-import { resolve } from 'node:path'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { sentrySvelteKit } from '@sentry/sveltekit'
 import { defineConfig, loadEnv } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import viteCompression from 'vite-plugin-compression'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // @ts-expect-error tough type
 const config = defineConfig(({ mode }) => {
@@ -29,6 +29,7 @@ const config = defineConfig(({ mode }) => {
     },
     plugins: [
       sveltekit(), // Add the sentry-vite-plugin last
+      tsconfigPaths(),
       viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
       Inspect({
         build: true,
@@ -64,10 +65,6 @@ const config = defineConfig(({ mode }) => {
         // ...
       ],
       setupFiles: ['setupTests.ts', 'src/mocks/setup.ts'],
-      alias: {
-        $lib: resolve(__dirname, 'src/lib'),
-        $src: resolve(__dirname, 'src'),
-      },
       deps: {
         inline: ['echarts', /msw/],
       },
