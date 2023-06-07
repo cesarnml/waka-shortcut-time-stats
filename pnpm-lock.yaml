@@ -42,7 +42,7 @@ devDependencies:
     version: 5.16.5
   '@testing-library/svelte':
     specifier: github:yanick/svelte-testing-library#without-babel
-    version: 3.2.2(svelte@4.0.0-next.0)
+    version: github.com/yanick/svelte-testing-library/7af8d36bf88fe9d665138a0efbb8b8b6d79b9db3(svelte@4.0.0-next.0)
   '@testing-library/user-event':
     specifier: 14.4.3
     version: 14.4.3(@testing-library/dom@9.3.0)
@@ -2525,16 +2525,6 @@ packages:
       dom-accessibility-api: 0.5.16
       lodash: 4.17.21
       redent: 3.0.0
-    dev: true
-
-  /@testing-library/svelte@3.2.2(svelte@4.0.0-next.0):
-    resolution: {integrity: sha512-IKwZgqbekC3LpoRhSwhd0JswRGxKdAGkf39UiDXTywK61YyLXbCYoR831e/UUC6EeNW4hiHPY+2WuovxOgI5sw==}
-    engines: {node: '>= 10'}
-    peerDependencies:
-      svelte: 3.x
-    dependencies:
-      '@testing-library/dom': 8.20.0
-      svelte: 4.0.0-next.0
     dev: true
 
   /@testing-library/user-event@14.4.3(@testing-library/dom@9.3.0):
@@ -9242,4 +9232,17 @@ packages:
     resolution: {integrity: sha512-DRUM4ZLnoaT0PBVvGBDO9oWIDBKFdAVieNWxWwK0niYzJCMwGchRk21/hsE+RKkIveH3XHCyvXcJDkgLVvfizQ==}
     dependencies:
       tslib: 2.3.0
+    dev: true
+
+  github.com/yanick/svelte-testing-library/7af8d36bf88fe9d665138a0efbb8b8b6d79b9db3(svelte@4.0.0-next.0):
+    resolution: {tarball: https://codeload.github.com/yanick/svelte-testing-library/tar.gz/7af8d36bf88fe9d665138a0efbb8b8b6d79b9db3}
+    id: github.com/yanick/svelte-testing-library/7af8d36bf88fe9d665138a0efbb8b8b6d79b9db3
+    name: '@testing-library/svelte'
+    version: 0.0.0-semantically-released
+    engines: {node: '>= 10'}
+    peerDependencies:
+      svelte: 3.x
+    dependencies:
+      '@testing-library/dom': 8.20.0
+      svelte: 4.0.0-next.0
     dev: true
