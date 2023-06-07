@@ -44,9 +44,10 @@
     "@typescript-eslint/eslint-plugin": "5.59.8",
     "@typescript-eslint/parser": "5.59.8",
     "@vercel/analytics": "1.0.1",
-    "@vitest/coverage-c8": "0.31.4",
-    "@vitest/coverage-istanbul": "0.31.4",
-    "@vitest/ui": "0.31.4",
+    "@vitest/coverage-c8": "0.32.0",
+    "@vitest/coverage-istanbul": "0.32.0",
+    "@vitest/coverage-v8": "0.32.0",
+    "@vitest/ui": "0.32.0",
     "autoprefixer": "10.4.14",
     "axios": "1.4.0",
     "daisyui": "3.0.3",
@@ -79,7 +80,7 @@
     "vite-plugin-compression": "0.5.1",
     "vite-plugin-inspect": "0.7.28",
     "vite-tsconfig-paths": "4.2.0",
-    "vitest": "0.31.4"
+    "vitest": "0.32.0"
   },
   "engines": {
     "node": "^18.12.1",
