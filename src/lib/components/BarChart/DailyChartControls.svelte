@@ -31,15 +31,23 @@
       loading = true
 
       if (itemType === DurationItemType.Project) {
-        const response = await fetch(`${ApiEndpoint.SupabaseDurations}?date=${durations.date}`)
-        durations = await response.json()
-        dispatch('update', durations)
+        try {
+          const response = await fetch(`${ApiEndpoint.SupabaseDurations}?date=${durations.date}`)
+          durations = await response.json()
+          dispatch('update', durations)
+        } catch (error) {
+          console.log('error:', error)
+        }
       } else {
-        const response = await fetch(
-          `${ApiEndpoint.SupabaseDurationsByLanguage}?date=${durations.date}`,
-        )
-        durations = await response.json()
-        dispatch('update', durations)
+        try {
+          const response = await fetch(
+            `${ApiEndpoint.SupabaseDurationsByLanguage}?date=${durations.date}`,
+          )
+          durations = await response.json()
+          dispatch('update', durations)
+        } catch (error) {
+          console.log('error:', error)
+        }
       }
       loading = false
     }, 1000 * 60)
