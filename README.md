@@ -6,5 +6,6 @@ Built with SvelteKit.
 ## Coverage
 
 [![codecov](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats/branch/main/graph/badge.svg?token=wyQL5kG765)](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats)
+[![CodeFactor](https://www.codefactor.io/repository/github/cesarnml/waka-shortcut-time-stats/badge)](https://www.codefactor.io/repository/github/cesarnml/waka-shortcut-time-stats)
 
 ![wakastats coverage](https://codecov.io/gh/cesarnml/waka-shortcut-time-stats/branch/main/graphs/sunburst.svg?token=wyQL5kG765)
