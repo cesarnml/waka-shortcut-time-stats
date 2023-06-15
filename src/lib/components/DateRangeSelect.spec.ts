@@ -6,12 +6,7 @@ import userEvent from '@testing-library/user-event'
 describe('DateRangeSelect', () => {
   const user = userEvent.setup()
   it('renders', async () => {
-    const props = {
-      profile: {
-        range: WakaApiRange.Today,
-      },
-    }
-    render(DateRangeSelect, props)
+    render(DateRangeSelect)
     const select = screen.getByRole('combobox')
     // Select element has the correct default value
     expect(select).toHaveValue(WakaApiRangePrompt)

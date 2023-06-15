@@ -8,9 +8,9 @@ test('index page has a logo button', async ({ page }) => {
 
   await expect(logo).toBeVisible()
   await projects.click()
-  await expect(page).toHaveURL(/projects/)
+  await expect.soft(page).toHaveURL(/projects/)
   await iterations.click()
-  await expect(page).toHaveURL(/iterations/)
+  await expect.soft(page).toHaveURL(/iterations/)
   await logo.click()
-  await expect(page).toHaveURL('/')
+  await expect.soft(page).toHaveURL('/')
 })

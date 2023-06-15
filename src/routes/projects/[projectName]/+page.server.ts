@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, locals: { getPr
     ProjectsResult,
     StorySearchResults,
   ]
-  const currentProject = projects.projects.find(
+  const currentProject = projects.projects?.find(
     (project) => project.link.repo === params.projectName,
   )
 
