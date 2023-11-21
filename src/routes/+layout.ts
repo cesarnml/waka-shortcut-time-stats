@@ -17,11 +17,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
     data: { session },
   } = await supabase.auth.getSession()
 
-  const { data: profile } = await supabase
+  const { data: profile } = (await supabase
     .from('profiles')
     .select('*')
     .eq('id', session?.user.id)
-    .single()
+    .single()) as { data: Database['profile'][0] }
 
   const { data: projects } = await supabase.from('projects').select('*')
 
