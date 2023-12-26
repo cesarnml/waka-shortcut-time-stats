@@ -25,6 +25,6 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
     }
     return json({ data: [] })
   } catch (err) {
-    throw error(400, 'This is not the way.')
+    error(400, 'This is not the way.');
   }
 }

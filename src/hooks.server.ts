@@ -73,7 +73,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   if (!profile && event.url.pathname === '/account') {
-    throw redirect(303, '/login')
+    redirect(303, '/login');
   }
 
   const response = await resolve(event, {

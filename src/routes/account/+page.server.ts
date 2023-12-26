@@ -29,7 +29,7 @@ export const actions: Actions = {
     const session = await getSession()
     if (session) {
       await supabase.auth.signOut()
-      throw redirect(303, Url.Home)
+      redirect(303, Url.Home);
     }
   },
 }

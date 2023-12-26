@@ -18,6 +18,6 @@ export const GET: RequestHandler = async ({ url }) => {
     )
     return json(durationsResult)
   } catch (err) {
-    throw error(400, 'This is not the way.')
+    error(400, 'This is not the way.');
   }
 }
