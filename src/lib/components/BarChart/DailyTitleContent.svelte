@@ -30,7 +30,7 @@
 </script>
 
 <div class="flex px-2">
-  <div class="flex-1 text-left text-orange-500" transition:fade>
+  <div class="flex-1 text-left text-orange-500" transition:fade|global>
     {#if showCurrentTime && isToday}
       <span class="font-mono text-sm">{currentTime}</span>
     {/if}

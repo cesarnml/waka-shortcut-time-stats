@@ -10,8 +10,8 @@
   <div
     class="page-transition"
     data-testid="page-transition"
-    in:fade={{ duration, delay: duration, easing: cubicInOut }}
-    out:fade={{ duration, easing: cubicInOut }}
+    in:fade|global={{ duration, delay: duration, easing: cubicInOut }}
+    out:fade|global={{ duration, easing: cubicInOut }}
   >
     <slot />
   </div>
