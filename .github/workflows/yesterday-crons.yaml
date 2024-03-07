@@ -14,10 +14,10 @@ jobs:
           curl https://codingstats.vercel.app/api/cron/wakatime/durations
       - name: Yesterday Durations By Language
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/durations-by-language
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/durations-by-language
       - name: Yesterday Summaries
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/summaries
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/summaries
       - name: Yesterday Project Summaries
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/project-summaries
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/project-summaries

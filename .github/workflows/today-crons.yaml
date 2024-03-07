@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Daily Durations
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/durations/today
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/durations/today
       - name: Daily Durations By Language
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/durations-by-language/today
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/durations-by-language/today
       - name: Daily Summaries
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/summaries/today
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/summaries/today
       - name: Daily Project Summaries
         run: |
-          curl https://codingstats.vercel.app/api/cron/wakatime/project-summaries/today
+          curl https://codingstats.cesarmejia.com/api/cron/wakatime/project-summaries/today

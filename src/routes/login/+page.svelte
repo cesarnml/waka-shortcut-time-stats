@@ -5,7 +5,7 @@
   const { supabase } = data
   const signInWithGitHub = async () => {
     const redirect = import.meta.env.PROD
-      ? 'https://codingstats.vercel.app'
+      ? 'https://codingstats.cesarmejia.com'
       : 'http://localhost:5173'
     await supabase.auth.signInWithOAuth({
       provider: 'github',
