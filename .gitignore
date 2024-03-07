@@ -20,3 +20,4 @@ hint-report
 reports
 playwright-report
 config.toml
+settings.json
