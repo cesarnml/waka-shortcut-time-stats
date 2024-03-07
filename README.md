@@ -1,7 +1,7 @@
 # WakaStats
 [![wakatime](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats.svg)](https://wakatime.com/badge/github/cesarnml/waka-shortcut-time-stats)
 
-Built with SvelteKit.
+Built with SvelteKit. Live site [here](https://codingstats.vercel.app)
 
 ## Coverage
 
