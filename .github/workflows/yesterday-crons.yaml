@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Yesterday Duration
+      - name: Yesterday Durations
         run: |
           curl https://codingstats.vercel.app/api/cron/wakatime/durations
       - name: Yesterday Durations By Language
