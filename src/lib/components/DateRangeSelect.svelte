@@ -7,15 +7,21 @@
   const dispatch = createEventDispatcher()
 
   afterUpdate(async () => {
+    if ($profile === undefined) return
+
     if ($profile?.range !== $selectedRange && $selectedRange !== WakaApiRangePrompt) {
-      await fetch(ApiEndpoint.SupabaseProfiles, {
-        method: 'POST',
-        body: JSON.stringify({
-          id: $profile?.id,
-          range: $selectedRange,
-        }),
-      })
-      dispatch('wakarange')
+      try {
+        await fetch(ApiEndpoint.SupabaseProfiles, {
+          method: 'POST',
+          body: JSON.stringify({
+            id: $profile?.id,
+            range: $selectedRange,
+          }),
+        })
+        dispatch('wakarange')
+      } catch (error) {
+        throw new Error('failed to fetch profile')
+      }
     }
   })
 </script>
