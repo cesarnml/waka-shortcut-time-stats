@@ -97,6 +97,7 @@ export const handleError: HandleServerError = (input) => {
   if (import.meta.env.DEV) {
     console.error(input.error)
   }
+  console.log('input.error:', input.error, input.event)
 
   return {
     message: 'A client error has occurred. I have spoken.',
