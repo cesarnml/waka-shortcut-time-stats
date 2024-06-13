@@ -60,8 +60,8 @@ export const Url = {
 
 type Url = typeof Url
 
-export const TOP_LEVEL_NAV_URLS = [Url.Projects, Url.Iterations, Url.Login] as const
-export const DROPDOWN_NAV_URLS = [Url.Home, Url.Projects, Url.Iterations, Url.Login]
+export const TOP_LEVEL_NAV_URLS = [Url.Projects, Url.Login] as const
+export const DROPDOWN_NAV_URLS = [Url.Home, Url.Projects, Url.Login]
 
 export const Api = {
   WakaDurations: (date: string, itemType: string) =>
