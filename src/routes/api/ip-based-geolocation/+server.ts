@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ url, fetch }) => {
       'Content-Type': 'application/json',
     },
   })
-  const data = response.json()
+  const data = await response.json()
   console.log('data:', data)
   return json(data)
 }
