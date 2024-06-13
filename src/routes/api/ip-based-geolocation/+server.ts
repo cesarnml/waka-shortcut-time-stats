@@ -23,3 +23,14 @@ export const POST: RequestHandler = async ({  url, fetch  }) => {
   });
   return json({message: 'something went wrong with ip lookup'})
 }
+
+export const OPTIONS: RequestHandler = async () => {
+  return json({
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Allow all origins
+      'Access-Control-Allow-Methods': 'POST, OPTIONS', // Allow POST and OPTIONS methods
+      'Access-Control-Allow-Headers': 'Content-Type' // Allow only Content-Type header
+    },
+    body: ''
+  })
+};
