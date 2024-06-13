@@ -21,7 +21,6 @@ export const POST: RequestHandler = async ({  url, fetch  }) => {
     console.log('err:', err)
     return error(err);
   });
-  return json({message: 'something went wrong with ip lookup'})
 }
 
 export const OPTIONS: RequestHandler = async () => {
