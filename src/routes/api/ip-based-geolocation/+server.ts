@@ -7,7 +7,11 @@ export const GET: RequestHandler = async ({  url, fetch  }) => {
   console.log('userIp:', userIp)
   const URL = `https://ipinfo.io/${userIp}?token=${IP_INFO_TOKEN}`;
   console.log('URL:', URL)
-  fetch(URL)
+  fetch(URL, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
   .then((response) => response.json())
   .then((data) => {
     console.log('data:', data)
