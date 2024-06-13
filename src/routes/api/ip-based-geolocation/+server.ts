@@ -2,7 +2,7 @@ import { json, error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { IP_INFO_TOKEN } from '$env/static/private'
 
-export const GET: RequestHandler = async ({  url, fetch  }) => {
+export const POST: RequestHandler = async ({  url, fetch  }) => {
   const userIp = url.searchParams.get('ip')
   console.log('userIp:', userIp)
   const URL = `https://ipinfo.io/${userIp}?token=${IP_INFO_TOKEN}`;
