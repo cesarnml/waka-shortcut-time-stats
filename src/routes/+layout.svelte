@@ -15,6 +15,7 @@
   import '../app.postcss'
   import { project } from '$lib/stores/project'
   import { session } from '$lib/stores/session'
+  import { ModeWatcher } from 'mode-watcher'
 
   // Initiate Vercel analytics
   inject({ mode: dev ? 'development' : 'production', debug: false })
@@ -58,6 +59,7 @@
   <link rel="canonical" href={$page.url.href} />
 </svelte:head>
 
+<ModeWatcher />
 <main>
   <Navbar />
   <div class="flex min-h-screen w-full flex-col">
