@@ -35,7 +35,7 @@
 </script>
 
 <div class="overflow-x-auto">
-  <div class="stats bg-chart-dark shadow-lg">
+  <div class="bg-chart-dark stats shadow-lg">
     <StatPanelItem title="Total Hours" icon="mdi:clock-outline" label="clock">
       {formatTime(totalSeconds) || 'N/A'}
     </StatPanelItem>

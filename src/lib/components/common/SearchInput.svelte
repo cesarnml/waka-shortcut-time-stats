@@ -36,6 +36,6 @@
     on:input={onChange}
   />
   {#if loading}
-    <button class="loading btn-link btn absolute right-1" />
+    <button class="btn-link loading btn absolute right-1" />
   {/if}
 </div>

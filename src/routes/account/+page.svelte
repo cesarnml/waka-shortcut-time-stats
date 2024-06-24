@@ -42,7 +42,7 @@
     @apply flex flex-col gap-4;
   }
   label {
-    @apply label-text label lowercase;
+    @apply label label-text lowercase;
   }
   input {
     @apply input-primary input input-md;

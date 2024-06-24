@@ -10,7 +10,7 @@
   $: ({ iterations, lazy } = data)
 </script>
 
-<div class="iterations-container w-full overflow-x-auto rounded-lg bg-chart-dark px-2 md:px-4">
+<div class="iterations-container bg-chart-dark w-full overflow-x-auto rounded-lg px-2 md:px-4">
   <div class="iterations-inner flex w-fit gap-4">
     {#each iterations as iteration (iteration.id)}
       <div class="card glass card-body flex h-full min-w-[400px] flex-col overflow-y-auto p-4">
@@ -60,10 +60,10 @@
           <div class="flex flex-col gap-4">
             {#await lazy.iterationStoriesDict[iteration.id] then stories}
               {#if !stories.length}
-                <div class="btn-outline btn-secondary btn h-32 p-2">EMPTY</div>
+                <div class="btn-secondary btn-outline btn h-32 p-2">EMPTY</div>
               {:else}
                 {#each stories as story}
-                  <button class="btn-outline btn-accent btn h-32 p-2" type="button"
+                  <button class="btn-accent btn-outline btn h-32 p-2" type="button"
                     >{story.name}</button
                   >
                 {/each}
