@@ -262,8 +262,8 @@ export const createActiveHoursOption = (
 ): ComposeOption<
   GridComponentOption | TooltipComponentOption | BarSeriesOption | MarkAreaComponentOption
 > => {
-  const startHour = '8a'
-  const endHour = '5p'
+  const startHour = '10a'
+  const endHour = '6p'
   const goalMinutes = 300
 
   const startIndex = hours.findIndex((hour) => hour === startHour)
