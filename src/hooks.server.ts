@@ -5,7 +5,7 @@ import {
   PUBLIC_SUPABASE_ANON_KEY,
   PUBLIC_SUPABASE_URL,
 } from '$env/static/public'
-import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit'
+import { createServerClient } from '@supabase/ssr'
 import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit'
 import type { Database } from '$lib/database.types'
 import type { Session } from '@supabase/supabase-js'
@@ -20,11 +20,16 @@ if (import.meta.env.PROD) {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-  // Create supabase server client (consider making more powerful once we have row level security up)
-  event.locals.supabase = createSupabaseServerClient<Database>({
-    supabaseUrl: PUBLIC_SUPABASE_URL,
-    supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
-    event,
+  // Create supabase server client
+  event.locals.supabase = createServerClient<Database>(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+    cookies: {
+      getAll: () => event.cookies.getAll(),
+      setAll: (cookiesToSet) => {
+        cookiesToSet.forEach(({ name, value, options }) => {
+          event.cookies.set(name, value, { ...options, path: '/' })
+        })
+      },
+    },
   })
 
   event.locals.getSession = async () => {
