@@ -5,7 +5,7 @@ import type { DurationsResult } from '$src/types/wakatime'
 import { ApiEndpoint } from '$lib/constants'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
-  const yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+  const yesterday = dayjs().utc().subtract(1, 'day').format('YYYY-MM-DD')
 
   const response = await fetch(`${ApiEndpoint.Durations}?date=${yesterday}`)
   const durationsResult: DurationsResult = await response.json()

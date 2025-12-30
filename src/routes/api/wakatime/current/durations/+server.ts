@@ -9,7 +9,7 @@ import axios from 'axios'
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
-    const today = dayjs().format(DateFormat.Query)
+    const today = dayjs().utc().format(DateFormat.Query)
     const date = url.searchParams.get('date') ?? today
     const slice_by = url.searchParams.get('slice_by') ?? WakaSliceBy.None
 

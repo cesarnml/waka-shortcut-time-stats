@@ -12,7 +12,7 @@ export type SupabaseDuration = {
 }
 
 export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
-  const today = dayjs().format(DateFormat.Query)
+  const today = dayjs().utc().format(DateFormat.Query)
   const date = url.searchParams.get('date') ?? today
   try {
     const { data: durations } = await supabase

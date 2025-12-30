@@ -15,12 +15,13 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
   }
 
   const rangeStart = dayjs()
+    .utc()
     .subtract(WakaToShortcutApiRange[range as keyof typeof WakaToShortcutApiRange], 'd')
     .format(DateFormat.Query)
   const rangeEnd =
     range === WakaApiRange.Yesterday || range === WakaApiRange.Last_7_Days_From_Yesterday
-      ? dayjs().subtract(1, 'd').format(DateFormat.Query)
-      : dayjs().format(DateFormat.Query)
+      ? dayjs().utc().subtract(1, 'd').format(DateFormat.Query)
+      : dayjs().utc().format(DateFormat.Query)
 
   const { data: summariesData } = await supabase
     .from('summaries')

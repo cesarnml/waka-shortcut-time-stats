@@ -7,7 +7,7 @@ import { DateFormat } from '$lib/helpers/timeHelpers'
 import type { SupaProject, SupaProjectSummary } from '$src/app'
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
-  const today = dayjs().format(DateFormat.Query)
+  const today = dayjs().utc().format(DateFormat.Query)
   const { data: projects }: DataContainer<SupaProject[] | null> = await supabase
     .from('projects')
     .select('*')
